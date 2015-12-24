@@ -36,3 +36,6 @@ RELATIVE_URLS = True
 
 THEME = "themes/pelican-bootstrap3"
 DISQUS_SITENAME = 'linuxlearner'
+
+STATIC_PATHS = ['images', 'extra/CNAME']
+EXTRA_PATH_METADATA = {'extra/CNAME': {'path': 'CNAME'},}
