@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="{{ DEFAULT_LANG }}">
+  <head>
+  {% block headers %}
+    <meta charset="utf-8" />
+    <title>{% block title %}{{ SITENAME }}{%endblock%}</title>
+    <link rel="stylesheet" type="text/css" href="{{ SITEURL }}/theme/css/skeleton.css" />
+    <link rel="stylesheet" type="text/css" href="{{ SITEURL }}/theme/css/main.css" />
+    <link rel="shortcut icon" type="text/css" href="{{ SITEURL }}/favicon.ico" />
+    <link rel="alternate" type="application/atom+xml"
+                           title="{{ SITENAME }} — Flux Atom"
+                           href="{{ SITEURL }}/{{ FEED }}" /> 
+    {% if FEED_RSS %}
+    <link rel ="alternate" type="application/rss+xml"
+                           title="{{ SITENAME }} — Flux RSS"
+                           href="{{ SITEURL }}/{{ FEED_RSS }}" /> 
+    {% endif %}
+    <!--[if lte IE 8]><script src="{{ SITEURL }}/theme/js/html5shiv.js"></script><![endif]-->
+    <meta name="viewport" content="initial-scale=1.0, width=device-width, user-scalable=no" />
+    {% if GOOGLE_ANALYTICS %}
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', '{{ GOOGLE_ANALYTICS }}']);
+          _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script'); 
+        ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+    {% endif %}
+  {% endblock headers %}
+  </head>
+  <body>
+    <div class="page">
+      <header class="page-head">
+        <h1>
+          <a href="{{ SITEURL }}/index.html">{{ SITENAME }}</a>
+        </h1>
+      </header>
+
+      <div class="page-content">
+        {% block content %}
+        {% endblock content %}
+      </div>
+      {% include "includes/sidebar.html" %} 
+
+      <footer class="page-footer">
+        <p> {{ FOOTER_TEXT or 'Powered by <a href="http://pelican.readthedocs.org">Pelican</a>' }}</p>
+        {% if GITHUB_URL %}<p><a id="github-link" href="{{ GITHUB_URL}}">Fork me on Github</a></p>{% endif %}
+      </footer>
+    </div>
+  </body>
+</html>

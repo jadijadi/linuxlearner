@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+        <meta charset="utf-8" />
+    <title>How to restart KDE window manager on the fly — Linux Learner</title>
+    <link rel="stylesheet" type="text/css" href="./theme/css/skeleton.css" />
+    <link rel="stylesheet" type="text/css" href="./theme/css/main.css" />
+    <link rel="shortcut icon" type="text/css" href="./favicon.ico" />
+    <link rel="alternate" type="application/atom+xml"
+                           title="Linux Learner — Flux Atom"
+                           href="./" /> 
+    <!--[if lte IE 8]><script src="./theme/js/html5shiv.js"></script><![endif]-->
+    <meta name="viewport" content="initial-scale=1.0, width=device-width, user-scalable=no" />
+
+    <meta name="author"   content="jadi" />
+    <meta name="keywords" content="command line, trick, kde, desktop, ubuntu" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="page-head">
+        <h1>
+          <a href="./index.html">Linux Learner</a>
+        </h1>
+      </header>
+
+      <div class="page-content">
+     <article class="post content">
+      <header class="post-header">
+        <time datetime="2015-12-18T15:47:00+00:00" pubdate="pubdate">
+          Fri 18 December 2015
+        </time>
+        <h1>
+          <a rel="bookmark"
+             href="./how-to-restart-kde-window-manager-on-the-fly.html"
+             title="Lien permanent vers «How to restart KDE window manager on the fly»">
+             How to restart KDE window manager on the fly
+          </a>
+        </h1>
+        <div class="meta">
+            Dans «<a href="./category/linux.html">Linux</a>»
+            par <a href="./author/jadi.html">jadi</a>
+        </div>
+      </header>
+      <div class="post-content">
+        <p>So you are inside your Kubuntu with a lot of windows open and you have changed some configurations and KDE needs to be restarted? Or you have done something and KDE is malfunctioning and you need to restart it? No need to exit your desktop and loose your windows. Just open an terminal (Alt-F2 -&gt; Konsole) and run this:</p>
+<div class="highlight"><pre>nohup kwin-x11 --replace &amp;
+</pre></div>
+
+
+<ul>
+<li><strong>nohup</strong> tells the new window manager to continue running even if you close the konsole</li>
+<li><strong>kwin-x11</strong> is the name of kde winodw manager in newer Ubuntu machines</li>
+<li>as you can guess <strong>--replace</strong> replaces the current running window manager with the new one
+-- The <strong>&amp;</strong> at the end, will give you back the command line while running this command</li>
+</ul>
+      </div>
+      <footer class="post-footer">
+        <div class="meta">
+            Posté dans «<a href="./category/linux.html">Linux</a>»
+            par <a href="./author/jadi.html">jadi</a><br />
+            Mots-clés:  #<a href="./tag/command-line.html">command line</a> #<a href="./tag/trick.html">trick</a> #<a href="./tag/kde.html">kde</a> #<a href="./tag/desktop.html">desktop</a> #<a href="./tag/ubuntu.html">ubuntu</a>        </div>
+      </footer>
+    </article>
+
+
+      </div>
+    <aside class="page-sidebar">
+      <nav class="widget">
+      <h3>Site</h3>
+        <ul>
+          <li><a href=".">Accueil</a></li>
+          <li><a href="./archives.html">Archives</a></li>
+          <li><a href="./tags.html">Mots-clés</a></li>
+        </ul>
+      </nav>
+
+      <nav class="widget">
+        <h3>Catégories</h3>
+        <ul>
+          <li><a href="./category/fun.html">fun</a></li>
+          <li><a href="./category/linux.html">Linux</a></li>
+          <li><a href="./category/tip.html">tip</a></li>
+        </ul>
+      </nav>
+
+      <nav class="widget">
+        <h3>Social</h3>
+        <ul>
+          <li><a href="You can add links in your config file">#</a></li>
+          <li><a href="Another social link">#</a></li>
+          <li><a href="./" rel="alternate">Flux Atom</a></li>
+        </ul>
+      </nav>
+    </aside> 
+
+      <footer class="page-footer">
+        <p> Powered by <a href="http://pelican.readthedocs.org">Pelican</a></p>
+      </footer>
+    </div>
+  </body>
+</html>

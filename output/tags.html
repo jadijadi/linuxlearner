@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Linux Learner — Mots-clés</title>
+    <link rel="stylesheet" type="text/css" href="./theme/css/skeleton.css" />
+    <link rel="stylesheet" type="text/css" href="./theme/css/main.css" />
+    <link rel="shortcut icon" type="text/css" href="./favicon.ico" />
+    <link rel="alternate" type="application/atom+xml"
+                           title="Linux Learner — Flux Atom"
+                           href="./" /> 
+    <!--[if lte IE 8]><script src="./theme/js/html5shiv.js"></script><![endif]-->
+    <meta name="viewport" content="initial-scale=1.0, width=device-width, user-scalable=no" />
+
+    <script type="text/javascript" src="./theme/js/microTags.js"></script>
+    <script>
+      function tag_cloud_init() {
+        var el = document.getElementById("tagslist");
+        window._tagcloud = new µTags(el);
+      }
+      if (window.addEventListener) window.addEventListener("load", tag_cloud_init, false);
+      else if (window.attachEvent) window.attachEvent("onload", tag_cloud_init);
+      else window.onload = tag_cloud_init;
+    </script>
+  </head>
+  <body>
+    <div class="page">
+      <header class="page-head">
+        <h1>
+          <a href="./index.html">Linux Learner</a>
+        </h1>
+      </header>
+
+      <div class="page-content">
+    <section class="content">
+      <h1>Mots-clés</h1>
+      <ul id="tagslist">
+      <li data-count="1"><a href="./tag/sysadmin.html">sysadmin</a></li>
+      <li data-count="1"><a href="./tag/easter-egg.html">easter egg</a></li>
+      <li data-count="3"><a href="./tag/command-line.html">command line</a></li>
+      <li data-count="1"><a href="./tag/kde.html">kde</a></li>
+      <li data-count="1"><a href="./tag/desktop.html">desktop</a></li>
+      <li data-count="1"><a href="./tag/trick.html">trick</a></li>
+      <li data-count="1"><a href="./tag/ubuntu.html">ubuntu</a></li>
+      <li data-count="1"><a href="./tag/fun.html">fun</a></li>
+      <li data-count="1"><a href="./tag/kernal.html">kernal</a></li>
+      </ul>
+    </section>
+      </div>
+    <aside class="page-sidebar">
+      <nav class="widget">
+      <h3>Site</h3>
+        <ul>
+          <li><a href=".">Accueil</a></li>
+          <li><a href="./archives.html">Archives</a></li>
+          <li><a href="./tags.html">Mots-clés</a></li>
+        </ul>
+      </nav>
+
+      <nav class="widget">
+        <h3>Catégories</h3>
+        <ul>
+          <li><a href="./category/fun.html">fun</a></li>
+          <li><a href="./category/linux.html">Linux</a></li>
+          <li><a href="./category/tip.html">tip</a></li>
+        </ul>
+      </nav>
+
+      <nav class="widget">
+        <h3>Social</h3>
+        <ul>
+          <li><a href="You can add links in your config file">#</a></li>
+          <li><a href="Another social link">#</a></li>
+          <li><a href="./" rel="alternate">Flux Atom</a></li>
+        </ul>
+      </nav>
+    </aside> 
+
+      <footer class="page-footer">
+        <p> Powered by <a href="http://pelican.readthedocs.org">Pelican</a></p>
+      </footer>
+    </div>
+  </body>
+</html>

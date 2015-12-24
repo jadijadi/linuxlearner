@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+        <meta charset="utf-8" />
+    <title>Apply sysctl.conf without rebooting — Linux Learner</title>
+    <link rel="stylesheet" type="text/css" href="./theme/css/skeleton.css" />
+    <link rel="stylesheet" type="text/css" href="./theme/css/main.css" />
+    <link rel="shortcut icon" type="text/css" href="./favicon.ico" />
+    <link rel="alternate" type="application/atom+xml"
+                           title="Linux Learner — Flux Atom"
+                           href="./" /> 
+    <!--[if lte IE 8]><script src="./theme/js/html5shiv.js"></script><![endif]-->
+    <meta name="viewport" content="initial-scale=1.0, width=device-width, user-scalable=no" />
+
+    <meta name="author"   content="jadi" />
+    <meta name="keywords" content="kernal, sysadmin, command line" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="page-head">
+        <h1>
+          <a href="./index.html">Linux Learner</a>
+        </h1>
+      </header>
+
+      <div class="page-content">
+     <article class="post content">
+      <header class="post-header">
+        <time datetime="2015-12-16T10:20:00+00:00" pubdate="pubdate">
+          Wed 16 December 2015
+        </time>
+        <h1>
+          <a rel="bookmark"
+             href="./apply-sysctlconf-without-rebooting.html"
+             title="Lien permanent vers «Apply sysctl.conf without rebooting»">
+             Apply sysctl.conf without rebooting
+          </a>
+        </h1>
+        <div class="meta">
+            Dans «<a href="./category/tip.html">tip</a>»
+            par <a href="./author/jadi.html">jadi</a>
+        </div>
+      </header>
+      <div class="post-content">
+        <p>There are a lot of important configs in <code>/etc/sysctl.conf</code>; say configs related to hardening. Most people reboot the system after they change these valued. But not you! It is enouth to use the <code>sysctl</code> command with the <code>-p</code> switch to aplly the changes you've just done as follow:</p>
+<div class="highlight"><pre><span class="nv">$ </span>sudo sysctl -p /etc/sysctl.conf
+</pre></div>
+
+
+<p>As always it is good to have a look at the related part of the man page:</p>
+<div class="highlight"><pre> -p[FILE], --load[=FILE]
+     Load   in   sysctl   settings   from   the   file  specified  or
+     /etc/sysctl.conf if none given.  Specifying - as filename  means
+     reading  data  from standard input.  Using this option will mean
+     arguments to sysctl are files, which are read in order they  are
+     specified.   The  file  argument can may be specified as reqular
+     expression.
+</pre></div>
+      </div>
+      <footer class="post-footer">
+        <div class="meta">
+            Posté dans «<a href="./category/tip.html">tip</a>»
+            par <a href="./author/jadi.html">jadi</a><br />
+            Mots-clés:  #<a href="./tag/kernal.html">kernal</a> #<a href="./tag/sysadmin.html">sysadmin</a> #<a href="./tag/command-line.html">command line</a>        </div>
+      </footer>
+    </article>
+
+
+      </div>
+    <aside class="page-sidebar">
+      <nav class="widget">
+      <h3>Site</h3>
+        <ul>
+          <li><a href=".">Accueil</a></li>
+          <li><a href="./archives.html">Archives</a></li>
+          <li><a href="./tags.html">Mots-clés</a></li>
+        </ul>
+      </nav>
+
+      <nav class="widget">
+        <h3>Catégories</h3>
+        <ul>
+          <li><a href="./category/fun.html">fun</a></li>
+          <li><a href="./category/linux.html">Linux</a></li>
+          <li><a href="./category/tip.html">tip</a></li>
+        </ul>
+      </nav>
+
+      <nav class="widget">
+        <h3>Social</h3>
+        <ul>
+          <li><a href="You can add links in your config file">#</a></li>
+          <li><a href="Another social link">#</a></li>
+          <li><a href="./" rel="alternate">Flux Atom</a></li>
+        </ul>
+      </nav>
+    </aside> 
+
+      <footer class="page-footer">
+        <p> Powered by <a href="http://pelican.readthedocs.org">Pelican</a></p>
+      </footer>
+    </div>
+  </body>
+</html>
