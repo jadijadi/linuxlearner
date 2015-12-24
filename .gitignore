@@ -1,4 +1,4 @@
 all-themes/*
-output/*
+output
 *~
 *.pyc

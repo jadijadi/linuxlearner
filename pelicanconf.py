@@ -34,4 +34,5 @@ DEFAULT_PAGINATION = 10
 # Uncomment following line if you want document-relative URLs when developing
 RELATIVE_URLS = True
 
-THEME = "themes/dev-random"
+THEME = "themes/pelican-bootstrap3"
+DISQUS_SITENAME = 'linuxlearner'
