@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 AUTHOR = u'jadi'
 SITENAME = u'Linux Learner'
-SITEURL = ''
+SITEURL = u'http://linuxlearner.net'
 
 PATH = 'content'
 
@@ -35,7 +35,16 @@ DEFAULT_PAGINATION = 10
 RELATIVE_URLS = True
 
 THEME = "themes/pelican-bootstrap3"
-DISQUS_SITENAME = 'linuxlearner'
+#DISQUS_SITENAME = 'LinuxLearner'
 
 STATIC_PATHS = ['images', 'extra/CNAME']
 EXTRA_PATH_METADATA = {'extra/CNAME': {'path': 'CNAME'},}
+DISPLAY_TAGS_INLINE = True
+#FEED_ALL_RSS = True
+#FEED_ALL_ATOM = True
+
+FEED_ALL_RSS = 'feeds/all.rss.xml'
+FEED_ALL_ATOM = 'feeds/all.atom.xml'
+
+PLUGIN_PATHS = ["plugins"]
+PLUGINS = ["tag_cloud"]

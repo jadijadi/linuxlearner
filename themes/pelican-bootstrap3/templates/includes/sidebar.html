@@ -48,11 +48,10 @@
                     </li>
                 {% endfor %}
                 </ul>
-            </li>
+            </li> 
         {% endif %}
-
         {% if DISPLAY_TAGS_ON_SIDEBAR %}
-            {% if DISPLAY_TAGS_INLINE %}
+            {% if DISPLAY_TAGS_INLINE %}  
                 {% set tags = tag_cloud | sort(attribute='0') %}
             {% else %}
                 {% set tags = tag_cloud | sort(attribute='1') %}

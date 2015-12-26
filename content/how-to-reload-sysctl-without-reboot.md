@@ -1,6 +1,6 @@
 Title: Apply sysctl.conf without rebooting
 Date: 2015-12-16 10:20
-Category: tip
+Category: linux
 Tags: kernal, sysadmin, command line
 
 There are a lot of important configs in `/etc/sysctl.conf`; say configs related to hardening. Most people reboot the system after they change these valued. But not you! It is enouth to use the `sysctl` command with the `-p` switch to aplly the changes you've just done as follow:

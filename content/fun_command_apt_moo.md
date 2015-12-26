@@ -1,6 +1,6 @@
 Title: Command line fun: apt moo
 Date: 2015-12-17 18:53
-Category: fun
+Category: linux
 Tags: fun, command line, easter egg
 
 Today I stumbled upon a nice easter egg in the `apt-get` family: `moo` *command*.

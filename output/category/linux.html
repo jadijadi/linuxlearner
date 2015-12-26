@@ -2,7 +2,7 @@
 <html lang="en"
 >
 <head>
-    <title>Linux - Linux Learner</title>
+    <title>linux - Linux Learner</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -12,7 +12,7 @@
 
 
     <meta name="author" content="jadi" />
-    <meta name="keywords" content="Linux" />
+    <meta name="keywords" content="linux" />
 
     <!-- Open Graph tags -->
         <meta property="og:site_name" content="Linux Learner" />
@@ -29,6 +29,10 @@
     <link href="../theme/css/pygments/native.css" rel="stylesheet">
     <link rel="stylesheet" href="../theme/css/style.css" type="text/css"/>
 
+        <link href="../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Linux Learner ATOM Feed"/>
+        <link href="../feeds/all.rss.xml" type="application/rss+xml" rel="alternate"
+              title="Linux Learner RSS Feed"/>
 
 </head>
 <body>
@@ -47,14 +51,8 @@ Linux Learner            </a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                        <li >
-                            <a href="../category/fun.html">Fun</a>
-                        </li>
                         <li class="active">
                             <a href="../category/linux.html">Linux</a>
-                        </li>
-                        <li >
-                            <a href="../category/tip.html">Tip</a>
                         </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -71,9 +69,46 @@ Linux Learner            </a>
         <div class="col-sm-9">
 
             <article>
+                <h2><a href="../fix-the-drupal-pagination-problem-with-nginx.html">Fix the Drupal pagination problem with nginx</a></h2>
+                <div class="summary"><h3>Problem</h3>
+<p>You have configured your drupal site and everything works fine except the pagination. Many other pages can misfunction too, technically the ones that pass a parametere to your page via GET like variables.</p>
+<h3>Reason</h3>
+<p>The problem comes from the <code>try_files</code> config suggested in many websites as:</p>
+<div class="highlight"><pre><span class="x">try_files </span><span class="p">$</span><span class="nv">uri</span><span class="x"> </span><span class="p">$</span><span class="nv">uri ...</span></pre></div>
+                    <a class="btn btn-default btn-xs" href="../fix-the-drupal-pagination-problem-with-nginx.html">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
                 <h2><a href="../how-to-restart-kde-window-manager-on-the-fly.html">How to restart KDE window manager on the fly</a></h2>
                 <div class="summary"><p>So you are inside your Kubuntu with a lot of windows open and you have changed some configurations and KDE needs to be restarted? Or you have done something and KDE is malfunctioning and you need to restart it? No need to exit your desktop and loose your windows. Just ...</p>
                     <a class="btn btn-default btn-xs" href="../how-to-restart-kde-window-manager-on-the-fly.html">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2><a href="../command-line-fun-apt-moo.html">Command line fun: apt moo</a></h2>
+                <div class="summary"><p>Today I stumbled upon a nice easter egg in the <code>apt-get</code> family: <code>moo</code> <em>command</em>.</p>
+<div class="highlight"><pre><span class="nv">$ </span>apt-get moo
+                 <span class="o">(</span>__<span class="o">)</span> 
+                 <span class="o">(</span>oo<span class="o">)</span> 
+           /------<span class="se">\/</span> 
+          / <span class="p">|</span>    <span class="o">||</span>   
+         *  /<span class="se">\-</span>--/<span class="se">\ </span>
+            ~~   ~~   
+...<span class="s2">&quot;Have you mooed today?&quot;</span>...
+</pre></div>
+
+
+<p>But the fun does not finished here. You can add <code>-v</code> switch for verbosity and then <code>-vv</code> for <em>more</em> verbosity and then just add <code>v</code>s and enjoy.</p>
+                    <a class="btn btn-default btn-xs" href="../command-line-fun-apt-moo.html">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2><a href="../apply-sysctlconf-without-rebooting.html">Apply sysctl.conf without rebooting</a></h2>
+                <div class="summary"><p>There are a lot of important configs in <code>/etc/sysctl.conf</code>; say configs related to hardening. Most people reboot the system after they change these valued. But not you! It is enouth to use the <code>sysctl</code> command with the <code>-p</code> switch to aplly the changes you've just done as ...</p>
+                    <a class="btn btn-default btn-xs" href="../apply-sysctlconf-without-rebooting.html">more ...</a>
                 </div>
             </article>
             <hr/>
@@ -92,9 +127,64 @@ Linux Learner            </a>
             </li>
 
 
-
+  
             <li class="list-group-item"><a href="../"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
-                <ul class="list-group " id="tags">
+                <ul class="list-group list-inline tagcloud" id="tags">
+                    <li class="list-group-item tag-1">
+                        <a href="../tag/command-line.html">
+                            command line
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="../tag/desktop.html">
+                            desktop
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="../tag/easter-egg.html">
+                            easter egg
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="../tag/fun.html">
+                            fun
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="../tag/kde.html">
+                            kde
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="../tag/kernal.html">
+                            kernal
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="../tag/nginx.html">
+                            nginx
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="../tag/sysadmin.html">
+                            sysadmin
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="../tag/tip.html">
+                            tip
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="../tag/trick.html">
+                            trick
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="../tag/ubuntu.html">
+                            ubuntu
+                        </a>
+                    </li>
                 </ul>
             </li>
     <li class="list-group-item"><h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
@@ -147,21 +237,6 @@ Linux Learner            </a>
 <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
 <script src="../theme/js/respond.min.js"></script>
 
-    <!-- Disqus -->
-    <script type="text/javascript">
-        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-        var disqus_shortname = 'linuxlearner'; // required: replace example with your forum shortname
-
-        /* * * DON'T EDIT BELOW THIS LINE * * */
-        (function () {
-            var s = document.createElement('script');
-            s.async = true;
-            s.type = 'text/javascript';
-            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
-            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
-        }());
-    </script>
-    <!-- End Disqus Code -->
 
 </body>
 </html>
