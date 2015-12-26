@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Linux Learner</title><link>/</link><description></description><atom:link href="/feed.rss" rel="self"></atom:link><lastBuildDate>Fri, 25 Dec 2015 12:20:00 +0000</lastBuildDate><item><title>Fix the Drupal pagination problem with nginx</title><link>/fix-the-drupal-pagination-problem-with-nginx.html</link><description>&lt;h3&gt;Problem&lt;/h3&gt;
+&lt;p&gt;You have configured your drupal site and everything works fine except the pagination. Many other pages can misfunction too, technically the ones that pass a parametere to your page via GET like variables.&lt;/p&gt;
+&lt;h3&gt;Reason&lt;/h3&gt;
+&lt;p&gt;The problem comes from the &lt;code&gt;try_files&lt;/code&gt; config suggested in many websites as:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="x"&gt;try_files &lt;/span&gt;&lt;span class="p"&gt;$&lt;/span&gt;&lt;span class="nv"&gt;uri&lt;/span&gt;&lt;span class="x"&gt; &lt;/span&gt;&lt;span class="p"&gt;$&lt;/span&gt;&lt;span class="nv"&gt;uri&lt;/span&gt;&lt;span class="x"&gt;/ /index.php;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This line does not pass the quesry_string variable to drupal so drupal can not see that the users is clicking to go to the 2nd page.&lt;/p&gt;
+&lt;h3&gt;Solution&lt;/h3&gt;
+&lt;p&gt;What you need is passing the &lt;code&gt;query_string&lt;/code&gt; to the index.php in Druapl. It is enough to chagne this line in your configurations (at &lt;code&gt;/etc/nginx/&lt;/code&gt;) from&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="x"&gt;try_files &lt;/span&gt;&lt;span class="p"&gt;$&lt;/span&gt;&lt;span class="nv"&gt;uri&lt;/span&gt;&lt;span class="x"&gt; &lt;/span&gt;&lt;span class="p"&gt;$&lt;/span&gt;&lt;span class="nv"&gt;uri&lt;/span&gt;&lt;span class="x"&gt;/ /index.php;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;to&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="x"&gt;try_files &lt;/span&gt;&lt;span class="p"&gt;$&lt;/span&gt;&lt;span class="nv"&gt;uri&lt;/span&gt;&lt;span class="x"&gt; &lt;/span&gt;&lt;span class="p"&gt;$&lt;/span&gt;&lt;span class="nv"&gt;uri&lt;/span&gt;&lt;span class="x"&gt;/ /index.php?q=&lt;/span&gt;&lt;span class="p"&gt;$&lt;/span&gt;&lt;span class="nv"&gt;uri&lt;/span&gt;&lt;span class="x"&gt;&amp;amp;&lt;/span&gt;&lt;span class="p"&gt;$&lt;/span&gt;&lt;span class="nv"&gt;query_string&lt;/span&gt;&lt;span class="x"&gt;;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid>tag:,2015-12-25:fix-the-drupal-pagination-problem-with-nginx.html</guid><category>nginx</category><category>tip</category></item><item><title>How to restart KDE window manager on the fly</title><link>/how-to-restart-kde-window-manager-on-the-fly.html</link><description>&lt;p&gt;So you are inside your Kubuntu with a lot of windows open and you have changed some configurations and KDE needs to be restarted? Or you have done something and KDE is malfunctioning and you need to restart it? No need to exit your desktop and loose your windows. Just open an terminal (Alt-F2 -&amp;gt; Konsole) and run this:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;nohup kwin-x11 --replace &amp;amp;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;nohup&lt;/strong&gt; tells the new window manager to continue running even if you close the konsole&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;kwin-x11&lt;/strong&gt; is the name of kde winodw manager in newer Ubuntu machines&lt;/li&gt;
+&lt;li&gt;as you can guess &lt;strong&gt;--replace&lt;/strong&gt; replaces the current running window manager with the new one
+-- The &lt;strong&gt;&amp;amp;&lt;/strong&gt; at the end, will give you back the command line while running this command&lt;/li&gt;
+&lt;/ul&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 18 Dec 2015 15:47:00 +0000</pubDate><guid>tag:,2015-12-18:how-to-restart-kde-window-manager-on-the-fly.html</guid><category>command line</category><category>trick</category><category>kde</category><category>desktop</category><category>ubuntu</category></item><item><title>Command line fun: apt moo</title><link>/command-line-fun-apt-moo.html</link><description>&lt;p&gt;Today I stumbled upon a nice easter egg in the &lt;code&gt;apt-get&lt;/code&gt; family: &lt;code&gt;moo&lt;/code&gt; &lt;em&gt;command&lt;/em&gt;.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;apt-get moo
+                 &lt;span class="o"&gt;(&lt;/span&gt;__&lt;span class="o"&gt;)&lt;/span&gt; 
+                 &lt;span class="o"&gt;(&lt;/span&gt;oo&lt;span class="o"&gt;)&lt;/span&gt; 
+           /------&lt;span class="se"&gt;\/&lt;/span&gt; 
+          / &lt;span class="p"&gt;|&lt;/span&gt;    &lt;span class="o"&gt;||&lt;/span&gt;   
+         *  /&lt;span class="se"&gt;\-&lt;/span&gt;--/&lt;span class="se"&gt;\ &lt;/span&gt;
+            ~~   ~~   
+...&lt;span class="s2"&gt;&amp;quot;Have you mooed today?&amp;quot;&lt;/span&gt;...
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;But the fun does not finished here. You can add &lt;code&gt;-v&lt;/code&gt; switch for verbosity and then &lt;code&gt;-vv&lt;/code&gt; for &lt;em&gt;more&lt;/em&gt; verbosity and then just add &lt;code&gt;v&lt;/code&gt;s and enjoy.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Thu, 17 Dec 2015 18:53:00 +0000</pubDate><guid>tag:,2015-12-17:command-line-fun-apt-moo.html</guid><category>fun</category><category>command line</category><category>easter egg</category></item><item><title>Apply sysctl.conf without rebooting</title><link>/apply-sysctlconf-without-rebooting.html</link><description>&lt;p&gt;There are a lot of important configs in &lt;code&gt;/etc/sysctl.conf&lt;/code&gt;; say configs related to hardening. Most people reboot the system after they change these valued. But not you! It is enouth to use the &lt;code&gt;sysctl&lt;/code&gt; command with the &lt;code&gt;-p&lt;/code&gt; switch to aplly the changes you've just done as follow:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;sudo sysctl -p /etc/sysctl.conf
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;As always it is good to have a look at the related part of the man page:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt; -p[FILE], --load[=FILE]
+     Load   in   sysctl   settings   from   the   file  specified  or
+     /etc/sysctl.conf if none given.  Specifying - as filename  means
+     reading  data  from standard input.  Using this option will mean
+     arguments to sysctl are files, which are read in order they  are
+     specified.   The  file  argument can may be specified as reqular
+     expression.
+&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Wed, 16 Dec 2015 10:20:00 +0000</pubDate><guid>tag:,2015-12-16:apply-sysctlconf-without-rebooting.html</guid><category>kernal</category><category>sysadmin</category><category>command line</category></item></channel></rss>
