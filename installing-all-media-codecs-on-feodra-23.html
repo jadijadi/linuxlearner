@@ -2,7 +2,7 @@
 <html lang="en"
 >
 <head>
-    <title>Authors - Linux Learner</title>
+    <title>Installing all media codecs on Feodra 23 - Linux Learner</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -10,15 +10,23 @@
 
 
 
+<link rel="canonical" href="./installing-all-media-codecs-on-feodra-23.html">
 
         <meta name="author" content="jadi" />
+        <meta name="keywords" content="fedora,command line,codec" />
+        <meta name="description" content="The problem started as soon as I installed the Kazam. Kazam is a great desktop / mic recorder for linux systems but unfortunately it is not part the Fedoras repository. I obtained the rpm from the net and installed it but it lacked MP4 encoding. The solution relies in installing more ..." />
 
-    <!-- Open Graph tags -->
         <meta property="og:site_name" content="Linux Learner" />
-        <meta property="og:type" content="website"/>
-        <meta property="og:title" content="Linux Learner"/>
-        <meta property="og:url" content="."/>
-        <meta property="og:description" content="Linux Learner"/>
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Installing all media codecs on Feodra 23"/>
+        <meta property="og:url" content="./installing-all-media-codecs-on-feodra-23.html"/>
+        <meta property="og:description" content="The problem started as soon as I installed the Kazam. Kazam is a great desktop / mic recorder for linux systems but unfortunately it is not part the Fedoras repository. I obtained the rpm from the net and installed it but it lacked MP4 encoding. The solution relies in installing more ..."/>
+        <meta property="article:published_time" content="2016-02-28" />
+            <meta property="article:section" content="linux" />
+            <meta property="article:tag" content="fedora" />
+            <meta property="article:tag" content="command line" />
+            <meta property="article:tag" content="codec" />
+            <meta property="article:author" content="jadi" />
 
 
     <!-- Bootstrap -->
@@ -50,7 +58,7 @@ Linux Learner            </a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                        <li >
+                        <li class="active">
                             <a href="./category/linux.html">Linux</a>
                         </li>
             </ul>
@@ -67,8 +75,87 @@ Linux Learner            </a>
     <div class="row">
         <div class="col-sm-9">
 
-    <h1>Authors on Linux Learner</h1>
-        <li><a href="./author/jadi.html">jadi</a> (5)</li>
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="./installing-all-media-codecs-on-feodra-23.html"
+                       rel="bookmark"
+                       title="Permalink to Installing all media codecs on Feodra 23">
+                        Installing all media codecs on Feodra 23
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2016-02-28T08:53:00+00:00"> Sun 28 February 2016</time>
+    </span>
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="./tag/fedora.html">fedora</a>
+        /
+	<a href="./tag/command-line.html">command line</a>
+        /
+	<a href="./tag/codec.html">codec</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>The problem started as soon as I installed the <strong>Kazam</strong>. Kazam is a great desktop / mic recorder for linux systems but unfortunately it is not part the Fedoras repository. I obtained the <code>rpm</code> from the net and installed it but it lacked MP4 encoding. </p>
+<p>The solution relies in installing more codec libraries on the system. At first you have to add the <a href="http://rpmfusion.org/">rpmfusion</a> repositories using this line of code:</p>
+<div class="highlight"><pre>su -c &#39;dnf install http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm&#39;
+</pre></div>
+
+
+<p>And then install the <em>full</em> pack of vide codecs using this command:</p>
+<div class="highlight"><pre>dnf -y install gstreamer-plugins-bad gstreamer-plugins-bad-free-extras gstreamer-plugins-bad-nonfree gstreamer-plugins-ugly gstreamer-ffmpeg  gstreamer1-libav gstreamer1-plugins-bad-free-extras gstreamer1-plugins-bad-freeworld gstreamer1-plugins-base-tools gstreamer1-plugins-good-extras gstreamer1-plugins-ugly gstreamer1-plugins-bad-free gstreamer1-plugins-good gstreamer1-plugins-base gstreamer1
+</pre></div>
+
+
+<p>Annnd.... Done! Now Kazam can export files to mp4!</p>
+<blockquote>
+<p>If you are just looking for a vide player, vlc is a great option. Just install it after the rpm fusion is enabled:</p>
+</blockquote>
+<div class="highlight"><pre>dnf -y install vlc
+</pre></div>
+            </div>
+            <!-- /.entry-content -->
+    <hr/>
+    <section class="comments" id="comments">
+        <h2>Comments</h2>
+		<div id="disqus_thread"></div>
+		<script>
+		/**
+		* RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+		* LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+		*/
+		/*
+		var disqus_config = function () {
+		this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+		this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+		};
+		*/
+		(function() { // DON'T EDIT BELOW THIS LINE
+		var d = document, s = d.createElement('script');
+
+		s.src = '//linuxlearner.disqus.com/embed.js';
+
+		s.setAttribute('data-timestamp', +new Date());
+		(d.head || d.body).appendChild(s);
+		})();
+		</script>
+		<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+    </section>
+
+        </article>
+    </section>
+
         </div>
         <div class="col-sm-3" id="sidebar">
             <aside>
