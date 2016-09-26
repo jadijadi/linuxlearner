@@ -1,215 +1,206 @@
+
 <!DOCTYPE html>
-<html lang="en"
->
+<html lang="en">
 <head>
-    <title>sysadmin - Linux Learner</title>
-    <!-- Using the latest rendering mode for IE -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
-
-
-    <meta name="author" content="jadi" />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="keywords" content="sysadmin" />
 
-    <!-- Open Graph tags -->
-        <meta property="og:site_name" content="Linux Learner" />
-        <meta property="og:type" content="website"/>
-        <meta property="og:title" content="Linux Learner"/>
-        <meta property="og:url" content=".."/>
-        <meta property="og:description" content="Linux Learner"/>
 
+    <title>sysadmin - Linux Learner</title>
 
-    <!-- Bootstrap -->
-        <link rel="stylesheet" href="../theme/css/bootstrap.min.css" type="text/css"/>
-    <link href="../theme/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="../theme/css/bootstrap.min.css" type="text/css" />
 
-    <link href="../theme/css/pygments/native.css" rel="stylesheet">
-    <link rel="stylesheet" href="../theme/css/style.css" type="text/css"/>
+    <link href="../theme/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../theme/css/pygments/native.css" rel="stylesheet" />
+    
+    <link href="../theme/css/pelican-twitchy.min.css" rel="stylesheet" />
 
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <!-- Feeds -->
         <link href="../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
-              title="Linux Learner ATOM Feed"/>
+              title="Linux Learner ATOM Feed" />
         <link href="../feeds/all.rss.xml" type="application/rss+xml" rel="alternate"
-              title="Linux Learner RSS Feed"/>
-
+              title="Linux Learner RSS Feed" />
 </head>
-<body>
-
-<div class="navbar navbar-default navbar-fixed-top" role="navigation">
-	<div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a href="../" class="navbar-brand">
-Linux Learner            </a>
-        </div>
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-            <ul class="nav navbar-nav">
-                        <li >
-                            <a href="../category/linux.html">Linux</a>
-                        </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-              <li><a href="../archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
-            </ul>
-        </div>
-        <!-- /.navbar-collapse -->
-    </div>
-</div> <!-- /.navbar -->
-<!-- Banner -->
-<!-- End Banner -->
-<div class="container">
-    <div class="row">
-        <div class="col-sm-9">
-
-            <article>
-                <h2><a href="../apply-sysctlconf-without-rebooting.html">Apply sysctl.conf without rebooting</a></h2>
-                <div class="summary"><p>There are a lot of important configs in <code>/etc/sysctl.conf</code>; say configs related to hardening. Most people reboot the system after they change these valued. But not you! It is enouth to use the <code>sysctl</code> command with the <code>-p</code> switch to aplly the changes you've just done as ...</p>
-                    <a class="btn btn-default btn-xs" href="../apply-sysctlconf-without-rebooting.html">more ...</a>
-                </div>
-            </article>
-            <hr/>
-
-        </div>
-        <div class="col-sm-3" id="sidebar">
-            <aside>
-
-<section class="well well-sm">
-    <ul class="list-group list-group-flush">
-            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
-              <ul class="list-group" id="social">
-                <li class="list-group-item"><a href="#"><i class="fa fa-you-can-add-links-in-your-config-file-square fa-lg"></i> You can add links in your config file</a></li>
-                <li class="list-group-item"><a href="#"><i class="fa fa-another-social-link-square fa-lg"></i> Another social link</a></li>
-              </ul>
-            </li>
-
-
-  
-            <li class="list-group-item"><a href="../"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
-                <ul class="list-group list-inline tagcloud" id="tags">
-                    <li class="list-group-item tag-4">
-                        <a href="../tag/codec.html">
-                            codec
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-1">
-                        <a href="../tag/command-line.html">
-                            command line
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="../tag/desktop.html">
-                            desktop
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="../tag/easter-egg.html">
-                            easter egg
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="../tag/fedora.html">
-                            fedora
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="../tag/fun.html">
-                            fun
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="../tag/kde.html">
-                            kde
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="../tag/kernal.html">
-                            kernal
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="../tag/nginx.html">
-                            nginx
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="../tag/sysadmin.html">
-                            sysadmin
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="../tag/tip.html">
-                            tip
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="../tag/trick.html">
-                            trick
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="../tag/ubuntu.html">
-                            ubuntu
-                        </a>
-                    </li>
-                </ul>
-            </li>
-    <li class="list-group-item"><h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
-      <ul class="list-group" id="links">
-        <li class="list-group-item">
-            <a href="http://getpelican.com/" target="_blank">
-                Pelican
-            </a>
-        </li>
-        <li class="list-group-item">
-            <a href="http://python.org/" target="_blank">
-                Python.org
-            </a>
-        </li>
-        <li class="list-group-item">
-            <a href="http://jinja.pocoo.org/" target="_blank">
-                Jinja2
-            </a>
-        </li>
-        <li class="list-group-item">
-            <a href="#" target="_blank">
-                You can modify those links in your config file
-            </a>
-        </li>
-      </ul>
+<body data-spy="scroll" data-target="#scrollspy">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper-small" class="twitchy-background">
+            <ul id="accordion-small" class="sidebar-nav sidebar-nav-small">
+                <li>
+        <a href=".." title="Linux Learner" class="collapsed">
+            <span class="glyphicon glyphicon-home"></span>
+        </a>
     </li>
-    </ul>
-</section>
-            </aside>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="../archives.html" title="Recent Articles" class="collapsed">
+            <span class="glyphicon glyphicon-th-list"></span>
+        </a>
+    </li>
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-social-small" title="Social" class="collapsed">
+                        <i class="fa fa-users padding-small"></i>
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-social-small" class="collapse ">
+                    <li>
+                        <a href="#" title="Another social link"><i class="fa fa-another-social-link-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="#" title="You can add links in your config file"><i class="fa fa-you-can-add-links-in-your-config-file-square fa-lg padding-small"></i></a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="#" title="Back to top" class="collapsed">
+            <span class="fa fa-arrow-up"></span>
+        </a>
+    </li>
+            </ul>
         </div>
+        <div id="sidebar-wrapper" class="twitchy-background">
+            <ul id="accordion" class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="../">
+                            <span class="glyphicon glyphicon-home padding-small"></span>
+                            Linux Learner
+                    </a>
+                </li>
+                    <li>
+                        <a href="../archives.html">
+                            <span class="glyphicon glyphicon-th-list padding-small"></span>
+                            Recent Articles
+                        </a>
+                    </li>
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-social">
+                        <i class="fa fa-users padding-small"></i>
+                        Contact
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-social" class="sidebar_submenu collapse ">
+                    <li>
+                        <a href="#" title="Another social link">
+                            <i class="fa fa-another-social-link-square fa-lg padding-small"></i>
+                            Another social link
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" title="You can add links in your config file">
+                            <i class="fa fa-you-can-add-links-in-your-config-file-square fa-lg padding-small"></i>
+                            You can add links in your config file
+                        </a>
+                    </li>
+                </ul></li>
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-pages">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Pages
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-pages" class="sidebar_submenu collapse ">
+                </ul></li>
+                
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Categories
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
+                    <li >
+                        <a href="../category/linux.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            linux
+                            <span class="badge pull-right categorybadge">5</span>
+                        </a>
+                    </li>
+                </ul></li>
+                
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- open/close sidebar -->
+        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+            <span id="right-arrow" class="glyphicon glyphicon-chevron-right"  title="expand sidebar"></span>
+            <span id="left-arrow" class="glyphicon glyphicon-chevron-left" title="minimize sidebar"></span>
+        </a>
+       <!-- /open/close sidebar -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+<div class="row">
+    <div class="col-lg-9">
+        <header class="page-header">
+            <h1>Articles featuring sysadmin</h1>
+        </header>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-9">
+            <article>
+                <h4>
+                    <time datetime="2015-12-16T10:20:00+00:00"> Wed 16 December 2015</time>
+                    <a href="../apply-sysctlconf-without-rebooting.html">Apply sysctl.conf without rebooting</a>
+                </h4>
+            </article>
     </div>
 </div>
 <footer>
-   <div class="container">
-      <hr>
-      <div class="row">
-         <div class="col-xs-10">&copy; 2015 jadi
-            &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
-            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
-            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
-         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
-      </div>
-   </div>
-</footer>
-<script src="../theme/js/jquery.min.js"></script>
+    <hr>
+    <div class="row">
+        <div class="col-lg-9 text-center">
+            <p><small>
+                Built by <a href="http://docs.getpelican.com/en/latest">Pelican</a> / <a href="https://github.com/ingwinlu/pelican-twitchy">pelican-twitchy</a>
+                &middot;                    &copy; 2016 jadi
+            </small></p>
+        </div>
+    </div>
+</footer>            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery Version 1.11.2 -->
+    <script src="../theme/js/jquery-1.11.2.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../theme/js/bootstrap.min.js"></script>
+    <!-- twitchy Script -->
+    <script src="../theme/js/pelican_twitchy.min.js"></script>
+<script>
+    function FadeInOnScroll(ObjectList){
+        ObjectList.each(function(i) {
+            var bottom_of_object = $(this).position().top + $(this).outerHeight();
+            var bottom_of_window = $(window).scrollTop() + $(window).height();
 
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="../theme/js/bootstrap.min.js"></script>
+            if( bottom_of_window > bottom_of_object ){
+                $(this).fadeTo(750,1);
+            }
+        });
+    }
 
-<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
-<script src="../theme/js/respond.min.js"></script>
+    articles = $("article").fadeTo(0, 0.05);
+    FadeInOnScroll(articles)
 
-
+    $(window).scroll(function() {
+        FadeInOnScroll(articles)
+    });
+</script>
 </body>
 </html>
