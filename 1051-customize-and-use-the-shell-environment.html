@@ -6,10 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="author" content="jadi" />
-        <meta name="description" content="Free LPIC 1 book, lessons and videos" />
+        <meta name="keywords" content="test" />
+        <meta name="description" content="105.1. Customize and use the shell environment Weight: 4 Candidates should be able to customize shell environments to meet users’ needs. Candidates should be able to modify global and user profiles. Key Knowledge Areas Set environment variables (e.g. PATH) at login or when spawning a new shell Write ..." />
 
 
-    <title>Linux Learner - Tags</title>
+    <title>105.1. Customize and use the shell environment - Linux Learner</title>
 
         <link rel="stylesheet" href="./theme/css/bootstrap.min.css" type="text/css" />
 
@@ -93,7 +94,7 @@
                             LPIC1 Chapters
                         </a>
                     </li>
-                    <li class="panel anti-panel"><ul id="collapse-latest" class="sidebar_submenu collapse ">
+                    <li class="panel anti-panel"><ul id="collapse-latest" class="sidebar_submenu collapse in">
                         <li class="">
                             <a class="hide-overflow" href="./1011-determine-and-configure-hardware-settings.html" title="101.1 Determine and configure hardware settings">
                                 <i class="fa fa-file-text padding-small"></i>
@@ -208,7 +209,7 @@
                                 104.7 Find system files and place files in the correct location
                             </a>
                         </li>
-                        <li class="">
+                        <li class="active">
                             <a class="hide-overflow" href="./1051-customize-and-use-the-shell-environment.html" title="105.1. Customize and use the shell environment">
                                 <i class="fa fa-file-text padding-small"></i>
                                 105.1. Customize and use the shell environment
@@ -395,7 +396,7 @@
                             <span class="badge pull-right categorybadge">17</span>
                         </a>
                     </li>
-                    <li >
+                    <li class="active">
                         <a href="./category/lpic102.html">
                             <i class="fa fa-folder-open padding-small"></i>
                             lpic102
@@ -424,7 +425,214 @@
         <!-- Page Content -->
         <div id="page-content-wrapper">
             <div class="container-fluid">
-    <h1>Tags for Linux Learner</h1>        <li><a href="./tag/test.html">test</a> (46)</li>
+<section id="content">
+    <article>
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="entry-content">
+                    <h1>105.1. Customize and use the shell environment</h1>
+<p><em>Weight: 4</em></p>
+<p>Candidates should be able to customize shell environments to meet users’ needs. Candidates should be able to modify global and user profiles.</p>
+<h3>Key Knowledge Areas</h3>
+<ul>
+<li>Set environment variables (e.g. PATH) at login or when spawning a new shell</li>
+<li>Write Bash functions for frequently used sequences of commands</li>
+<li>Maintain skeleton directories for new user accounts
+Set command search path with the proper directory</li>
+</ul>
+<h3>Terms</h3>
+<ul>
+<li>.</li>
+<li>source</li>
+<li>/etc/bash.bashrc</li>
+<li>/etc/profile</li>
+<li>env</li>
+<li>export</li>
+<li>set</li>
+<li>unset</li>
+<li>~/.bash_profile</li>
+<li>~/.bash_login</li>
+<li>~/.profile</li>
+<li>~/.bashrc</li>
+<li>~/.bash_logout</li>
+<li>function</li>
+<li>alias</li>
+<li>lists</li>
+</ul>
+<h3>Environment variables</h3>
+<p>This is discussed in the past. But how we should set them when we login or change shell. Oh! And what happen when we are not logged in? ;)</p>
+<h3>login vs non-login shell</h3>
+<p>Sometimes you <em>login</em> into the shell, say after a ssh but sometimes you just <em>open</em> a shell; say in GUI.</p>
+<h4>login shell</h4>
+<p>This happens when you give your user and pass to enter a shell. Many steps are involved to setup your variables and settings. These are the steps:</p>
+<p>1- /etc/profile is run</p>
+<p>2- A line in /etc/profile runs whatever is in /etc/profile.d/*</p>
+<p>Now the global profile is loaded and system will go for user specific profiles:</p>
+<p>3- /home/USERNAME/.bash_profile</p>
+<p>4- /home/USERNAME/.bash_login</p>
+<p>5- /home/USERNAME/.profile</p>
+<blockquote>
+<p>Note that only one of the 3, 4 &amp; 5 will be run. The system will go for .bash_profile and IF IT IS NOT THERE will try for .bash_login and IF IT IS NOT THERE will try to run .profile. If any of these exists, the system wont look any furthur. So if you have only 4 &amp; 5, only the 4 will be run.</p>
+</blockquote>
+<p>At the end, the system loads:</p>
+<ol>
+<li>/home/USERNAME/.bashrc</li>
+</ol>
+<p>which is users information (like aliases).</p>
+<blockquote>
+<p>Note: /etc/profile also loads /etc/bashrc or /etc/bash.bashrc</p>
+</blockquote>
+<h4>Interactive (non-login) shell</h4>
+<p>if you run a shell in an interactive mode (non-login) shell say from a GUI, only two things will be run:</p>
+<ol>
+<li>/etc/bash.bashrc (or in some systems /etc/bashrc)</li>
+<li>/home/USERNAME/.bashrc</li>
+</ol>
+<h3>adding global configs for login shell</h3>
+<p>you can add your global new config files int /etc/profile.d/ (with .sh at the end). It is cleaner and better than editing the /etc/profile because an update can overwrite your changes if you do so.</p>
+<h3>adding global configs for interactive/non-login shell</h3>
+<p>you can use /etc/bash.bashrc file (some systems /etc/bashrc). This is good for <em>aliases</em> and other global configs.</p>
+<h3>user specific configs</h3>
+<p>Most of the time PATH and env vars go into the in ~/.bash_profile and aliases go into the ~/.bashrc. Have a look at them!</p>
+<h3>Aliases</h3>
+<p>Most of the time they are defined in <code>~/.bashrc</code> and look like this:</p>
+<div class="highlight"><pre><span></span>alias ll=&#39;ls -alF&#39;
+alias la=&#39;ls -A&#39;
+alias l=&#39;ls -CF&#39;
+</pre></div>
+
+
+<p>It is kind of a shortcut.</p>
+<h3>/etc/skel</h3>
+<p>This directory contains files which will be used as a starting template for each new user.</p>
+<h3>.bash_logout</h3>
+<p>runs when you logout from a login shell. In many distros it only clears the screen so the next person will not be able to watch what you were doing before you logout.</p>
+<h3>. (and source)</h3>
+<p>Yes only a dot! This is a shortcut for the bash source command. You can find it in files like /etc/profile. It runs the executable in front of it as part of the current environment.</p>
+<blockquote>
+<p>Note: If you just execute a file (without source or dot) bash creates a child, runs the executable there and then closes it.</p>
+</blockquote>
+<h3>functions</h3>
+<p>Like "real" programming languages, Bash has functions, though in a somewhat limited implementation. A function is a subroutine, a code block that implements a set of operations, a "black box" that performs a specified task. Wherever there is repetitive code, when a task repeats with only slight variations in procedure, then consider using a function.</p>
+<div class="highlight"><pre><span></span>funnyls () {
+    ls -ltrh
+    echo &quot;This is a funny ls&quot;
+}
+</pre></div>
+
+
+<h3>set</h3>
+<p><code>set</code> allows you to change the values of shell options and set the positional parameters, or to display the names and values of shell variables.</p>
+<p>Using <code>set</code> we can configure how bash works. These are some samples:</p>
+<table>
+<thead>
+<tr>
+<th>switch</th>
+<th>result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-b</td>
+<td>Cause the status of terminated background jobs to be reported immediately, rather than before printing the next primary prompt.</td>
+</tr>
+<tr>
+<td>-e</td>
+<td>return in case a pipline, command, ... return non-zero</td>
+</tr>
+<tr>
+<td>-n</td>
+<td>Read commands but do not execute them; this may be used to check a script for syntax errors. This option is ignored by interactive shells.</td>
+</tr>
+<tr>
+<td>-t</td>
+<td>Exit after reading and executing one command.</td>
+</tr>
+<tr>
+<td>-C</td>
+<td>Prevent output redirection using ‘&gt;’, ‘&gt;&amp;’, and ‘&lt;&gt;’ from overwriting existing files.</td>
+</tr>
+</tbody>
+</table>
+<h3>export</h3>
+<p>Set an environment variable. Mark each name to be passed to child processes in the environment.</p>
+<div class="highlight"><pre><span></span>$ <span class="nb">export</span> <span class="nv">name</span><span class="o">=</span>jadi
+$ <span class="nb">echo</span> <span class="nv">$name</span>
+jadi
+</pre></div>
+
+
+<blockquote>
+<p>Note: when exporting, the variable will exists in child processes (commands you run from the current shell). If you only say <code>name=jadi</code> and run a new command in your shell, the name <strong>wont be</strong> jadi in <strong>that</strong> shell.</p>
+</blockquote>
+<div class="highlight"><pre><span></span>$ <span class="nv">name</span><span class="o">=</span>jadi
+$ <span class="nb">echo</span> <span class="nv">$name</span>
+jadi
+$ bash
+$ <span class="nb">echo</span> <span class="nv">$name</span>
+
+$ <span class="nb">exit</span>
+<span class="nb">exit</span>
+$ <span class="nb">echo</span> <span class="nv">$name</span>
+jadi
+$ <span class="nb">export</span> <span class="nv">name</span><span class="o">=</span>jadi
+$ bash
+$ <span class="nb">echo</span> <span class="nv">$name</span>
+jadi
+</pre></div>
+
+
+<h3>unset</h3>
+<p>This command <em>has nothing to do</em> with <code>set</code> command! This can unset the defined variables or functions.</p>
+<div class="highlight"><pre><span></span>$ <span class="nv">name</span><span class="o">=</span>jadi
+$ <span class="nb">echo</span> <span class="nv">$name</span>
+jadi
+$ <span class="nb">unset</span> name
+$ <span class="nb">echo</span> <span class="nv">$name</span>
+</pre></div>
+
+
+<p>You can also unset functions.</p>
+<h3>env</h3>
+<p>can set, remove or display variables or even run a command in a modified environment.</p>
+<div class="highlight"><pre><span></span>Syntax
+     env [OPTION]... [NAME=VALUE]... [COMMAND [ARGS]...]
+
+Options
+
+  -u NAME
+  --unset=NAME
+       Remove variable NAME from the environment, if it was in the
+       environment.
+
+  -
+  -i
+  --ignore-environment
+       Start with an empty environment, ignoring the inherited
+       environment.
+</pre></div>
+
+
+<h3>lists</h3>
+<p>Bash even has arrays! We will see them later when scripting but you can do things like:</p>
+<div class="highlight"><pre><span></span>$ <span class="nv">list</span><span class="o">=(</span>salam donya man injam<span class="o">)</span>
+$ <span class="nb">echo</span> <span class="si">${</span><span class="nv">list</span><span class="p">[1]</span><span class="si">}</span>
+donya
+$ <span class="nv">list</span><span class="o">=(</span><span class="s2">&quot;salam donya&quot;</span> <span class="s2">&quot;man injam&quot;</span><span class="o">)</span>
+$ <span class="nb">echo</span> <span class="si">${</span><span class="nv">list</span><span class="p">[1]</span><span class="si">}</span>
+man injam
+</pre></div>
+
+
+<p>Please pay attention to the syntax.</p>
+                </div>
+                <footer class="text-right">
+                    <p></p>
+                </footer>
+            </div>
+        </div>
+    </article>
+</section>
 <footer>
     <hr>
     <div class="row">
@@ -446,5 +654,6 @@
     <script src="./theme/js/bootstrap.min.js"></script>
     <!-- twitchy Script -->
     <script src="./theme/js/pelican_twitchy.min.js"></script>
+
 </body>
 </html>

@@ -6,10 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="author" content="jadi" />
-        <meta name="description" content="Free LPIC 1 book, lessons and videos" />
+        <meta name="keywords" content="test" />
+        <meta name="description" content="104.3. Control mounting and unmounting of filesystems weight: 3 http://j.mp/jadilpic1 Configure the mounting of a filesystem. Tasks include manually mounting and unmounting filesystems, configuring filesystem mounting on bootup, and configuring user-mountable removable filesystems. Mount and unmount filesystems manually Configure filesystem mounting on bootup Configure user-mountable, removable ..." />
 
 
-    <title>Linux Learner - Tags</title>
+    <title>104.3. Control mounting and unmounting of filesystems - Linux Learner</title>
 
         <link rel="stylesheet" href="./theme/css/bootstrap.min.css" type="text/css" />
 
@@ -93,7 +94,7 @@
                             LPIC1 Chapters
                         </a>
                     </li>
-                    <li class="panel anti-panel"><ul id="collapse-latest" class="sidebar_submenu collapse ">
+                    <li class="panel anti-panel"><ul id="collapse-latest" class="sidebar_submenu collapse in">
                         <li class="">
                             <a class="hide-overflow" href="./1011-determine-and-configure-hardware-settings.html" title="101.1 Determine and configure hardware settings">
                                 <i class="fa fa-file-text padding-small"></i>
@@ -178,7 +179,7 @@
                                 104.2 Maintain the integrity of filesystems
                             </a>
                         </li>
-                        <li class="">
+                        <li class="active">
                             <a class="hide-overflow" href="./1043-control-mounting-and-unmounting-of-filesystems.html" title="104.3. Control mounting and unmounting of filesystems">
                                 <i class="fa fa-file-text padding-small"></i>
                                 104.3. Control mounting and unmounting of filesystems
@@ -395,7 +396,7 @@
                             <span class="badge pull-right categorybadge">17</span>
                         </a>
                     </li>
-                    <li >
+                    <li class="active">
                         <a href="./category/lpic102.html">
                             <i class="fa fa-folder-open padding-small"></i>
                             lpic102
@@ -424,7 +425,70 @@
         <!-- Page Content -->
         <div id="page-content-wrapper">
             <div class="container-fluid">
-    <h1>Tags for Linux Learner</h1>        <li><a href="./tag/test.html">test</a> (46)</li>
+<section id="content">
+    <article>
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="entry-content">
+                    <h1>104.3. Control mounting and unmounting of filesystems</h1>
+<p>weight: 3</p>
+<p><strong>http://j.mp/jadilpic1</strong></p>
+<p>Configure the mounting of a filesystem. Tasks include manually mounting and unmounting filesystems, configuring filesystem mounting on bootup, and configuring user-mountable removable filesystems.</p>
+<ul>
+<li>Mount and unmount filesystems manually</li>
+<li>Configure filesystem mounting on bootup</li>
+<li>Configure user-mountable, removable filesystems</li>
+</ul>
+<h3>Mounting and Unmounting</h3>
+<ul>
+<li>Describe the linux filesystem concept. A huge tree.</li>
+<li>There are other kinds of mountings: tmpfs, NFS, ..</li>
+<li>It is better to mount on empty directories</li>
+</ul>
+<h4>Basic commands</h4>
+<div class="highlight"><pre><span></span>cat /et/fstab
+mount /dev/sda1 /media
+umount /media
+</pre></div>
+
+
+<h4>Some switches</h4>
+<div class="highlight"><pre><span></span>mount -t ext4 /dev/sda1 /media
+mount -o remount,ro /dev/sda1
+</pre></div>
+
+
+<h4>Get info on UUID and Label and Format</h4>
+<div class="highlight"><pre><span></span>blkid /dev/sda2
+</pre></div>
+
+
+<h3>Bootup</h3>
+<p>/etc/fstab</p>
+<ul>
+<li>file system: Label, UUID, device</li>
+<li>mount point: swap or none for swap</li>
+<li>type: can be auto</li>
+<li>options:  defaults, rw / ro, noauto, user, exec / noexec, noatime</li>
+<li>dump: do dump command backup this? mostly 0</li>
+<li>pass: Non-zero values of pass specify the order of checking filesystems at boot time (seen in Integrity of file systems)</li>
+</ul>
+<p><strong>note:</strong>
+- User-mounted filesystems default to noexec unless exec is specified after user.
+- noatime will disable recording of access times. Not using access times may improve performance.</p>
+<h3>swap</h3>
+<div class="highlight"><pre><span></span>swapon
+swapoff
+swapon -s
+</pre></div>
+                </div>
+                <footer class="text-right">
+                    <p></p>
+                </footer>
+            </div>
+        </div>
+    </article>
+</section>
 <footer>
     <hr>
     <div class="row">
@@ -446,5 +510,6 @@
     <script src="./theme/js/bootstrap.min.js"></script>
     <!-- twitchy Script -->
     <script src="./theme/js/pelican_twitchy.min.js"></script>
+
 </body>
 </html>

@@ -6,10 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="author" content="jadi" />
-        <meta name="description" content="Free LPIC 1 book, lessons and videos" />
+        <meta name="keywords" content="test" />
+        <meta name="description" content="106.2 Setup a display manager Weight: 1 Candidates should be able to describe the basic features and configuration of the LightDM display manager. This objective covers awareness of the display managers XDM (X Display Manger), GDM (Gnome Display Manager) and KDM (KDE Display Manager). Key Knowledge Areas Basic configuration ..." />
 
 
-    <title>Linux Learner - Tags</title>
+    <title>106.2 Setup a display manager - Linux Learner</title>
 
         <link rel="stylesheet" href="./theme/css/bootstrap.min.css" type="text/css" />
 
@@ -93,7 +94,7 @@
                             LPIC1 Chapters
                         </a>
                     </li>
-                    <li class="panel anti-panel"><ul id="collapse-latest" class="sidebar_submenu collapse ">
+                    <li class="panel anti-panel"><ul id="collapse-latest" class="sidebar_submenu collapse in">
                         <li class="">
                             <a class="hide-overflow" href="./1011-determine-and-configure-hardware-settings.html" title="101.1 Determine and configure hardware settings">
                                 <i class="fa fa-file-text padding-small"></i>
@@ -232,7 +233,7 @@
                                 106.1 Install and configure X11
                             </a>
                         </li>
-                        <li class="">
+                        <li class="active">
                             <a class="hide-overflow" href="./1062-setup-a-display-manager.html" title="106.2 Setup a display manager">
                                 <i class="fa fa-file-text padding-small"></i>
                                 106.2 Setup a display manager
@@ -395,7 +396,7 @@
                             <span class="badge pull-right categorybadge">17</span>
                         </a>
                     </li>
-                    <li >
+                    <li class="active">
                         <a href="./category/lpic102.html">
                             <i class="fa fa-folder-open padding-small"></i>
                             lpic102
@@ -424,7 +425,69 @@
         <!-- Page Content -->
         <div id="page-content-wrapper">
             <div class="container-fluid">
-    <h1>Tags for Linux Learner</h1>        <li><a href="./tag/test.html">test</a> (46)</li>
+<section id="content">
+    <article>
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="entry-content">
+                    <h1>106.2 Setup a display manager</h1>
+<p><em>Weight: 1</em></p>
+<p>Candidates should be able to describe the basic features and configuration of the LightDM display manager. This objective covers awareness of the display managers XDM (X Display Manger), GDM (Gnome Display Manager) and KDM (KDE Display Manager).</p>
+<h2>Key Knowledge Areas</h2>
+<ul>
+<li>Basic configuration of LightDM</li>
+<li>Turn the display manager on or off</li>
+<li>Change the display manager greeting</li>
+<li>Awareness of XDM, KDM and GDM</li>
+</ul>
+<h2>Terms and Utilities</h2>
+<ul>
+<li>lightdm</li>
+<li>/etc/lightdm/</li>
+</ul>
+<h2>Display Manager</h2>
+<p>A <strong>Display Manager</strong> is a graphical interface which lets you login into your system when you turn your computer on. There are many different display managers (say XDM, SDDM, KDM, GDM, ...) but their general functionality is same: show a login form and let the user the enter (or choose) its name, password and the Desktop she needs to use. Also many of the DMs let the user to choose Accessibility Tools (covered in 106.3), connect to the network, change the keyboard layout or change the system volume.</p>
+<h2>lightdm</h2>
+<p>Many of the distros use <strong>LightDM</strong> as their display/login manager. It shows the default user (last logged in user) and asks for password. If you have more than one desktop installed (say XFCE, KDE and Gnome) it also lets you choose the one you need.</p>
+<p><em>lightdm</em> can accept <em>themes</em> and calls them <em>greeters</em>.</p>
+<h2>/etc/lightdm</h2>
+<p>All of the lightdm configs are in <code>/etc/lightdm</code>.</p>
+<div class="highlight"><pre><span></span>$ ls -ltrh /etc/lightdm/
+total 24K
+-rw-r--r-- <span class="m">1</span> root root   <span class="m">40</span> Sep <span class="m">23</span> 12:56 keys.conf
+-rw-r--r-- <span class="m">1</span> root root  <span class="m">801</span> Sep <span class="m">27</span> 13:03 lightdm-webkit2-greeter.conf
+-rw-r--r-- <span class="m">1</span> root root  <span class="m">452</span> Sep <span class="m">27</span> 13:08 users.conf
+-rwxr-xr-x <span class="m">1</span> root root 1.5K Sep <span class="m">27</span> 13:08 Xsession
+-rw-r--r-- <span class="m">1</span> root root 6.5K Sep <span class="m">27</span> 13:08 lightdm.conf
+</pre></div>
+
+
+<p>Some distributions like Ubuntu are using a <code>lightdm.conf.d</code> directory instead of a straight forward <code>lightdm.conf</code> and put their configs there.</p>
+<div class="highlight"><pre><span></span><span class="k">[SeatDefaults]</span>
+<span class="err">...</span>
+<span class="na">user-session</span><span class="o">=</span><span class="s">gnome</span>
+<span class="c1">#autologin-user=jadi</span>
+<span class="c1">#allow-user-switching=true</span>
+<span class="na">allow-guest</span><span class="o">=</span><span class="s">true</span>
+<span class="na">greeter-session</span><span class="o">=</span><span class="s">lightdm-webkit2-greeter</span>
+<span class="err">...</span>
+</pre></div>
+
+
+<p>The <code>greeter-session</code> tells which greeter (theme) should be used. You can install more greeters using your package manager. Another important config is <code>user-session</code> which tells the lightdm what desktop is the default one.</p>
+<h2>controlling DMs</h2>
+<p>The <code>lightdm</code> works as a service. You can start, stop &amp; restart it or even use <code>systemctl disable lightdm</code> to disable it on next boots.</p>
+<blockquote>
+<p>You already know how to reboot your computer in text mode from previous lessons (using grub, kernel parameters during the boot or using <code>init</code> command).</p>
+</blockquote>
+                </div>
+                <footer class="text-right">
+                    <p></p>
+                </footer>
+            </div>
+        </div>
+    </article>
+</section>
 <footer>
     <hr>
     <div class="row">
@@ -446,5 +509,6 @@
     <script src="./theme/js/bootstrap.min.js"></script>
     <!-- twitchy Script -->
     <script src="./theme/js/pelican_twitchy.min.js"></script>
+
 </body>
 </html>

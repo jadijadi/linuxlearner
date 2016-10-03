@@ -6,10 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="author" content="jadi" />
-        <meta name="description" content="Free LPIC 1 book, lessons and videos" />
+        <meta name="keywords" content="test" />
+        <meta name="description" content="110.2 Setup host security Weight: 3 Candidates should know how to set up a basic level of host security. Key Knowledge Areas Awareness of shadow passwords and how they work. Turn off network services not in use. Understand the role of TCP wrappers. Terms and Utilities /etc/nologin /etc ..." />
 
 
-    <title>Linux Learner - Tags</title>
+    <title>110.2 Setup host security - Linux Learner</title>
 
         <link rel="stylesheet" href="./theme/css/bootstrap.min.css" type="text/css" />
 
@@ -93,7 +94,7 @@
                             LPIC1 Chapters
                         </a>
                     </li>
-                    <li class="panel anti-panel"><ul id="collapse-latest" class="sidebar_submenu collapse ">
+                    <li class="panel anti-panel"><ul id="collapse-latest" class="sidebar_submenu collapse in">
                         <li class="">
                             <a class="hide-overflow" href="./1011-determine-and-configure-hardware-settings.html" title="101.1 Determine and configure hardware settings">
                                 <i class="fa fa-file-text padding-small"></i>
@@ -316,7 +317,7 @@
                                 110.1 Perform security administration tasks
                             </a>
                         </li>
-                        <li class="">
+                        <li class="active">
                             <a class="hide-overflow" href="./1102-setup-host-security.html" title="110.2 Setup host security">
                                 <i class="fa fa-file-text padding-small"></i>
                                 110.2 Setup host security
@@ -395,7 +396,7 @@
                             <span class="badge pull-right categorybadge">17</span>
                         </a>
                     </li>
-                    <li >
+                    <li class="active">
                         <a href="./category/lpic102.html">
                             <i class="fa fa-folder-open padding-small"></i>
                             lpic102
@@ -424,7 +425,139 @@
         <!-- Page Content -->
         <div id="page-content-wrapper">
             <div class="container-fluid">
-    <h1>Tags for Linux Learner</h1>        <li><a href="./tag/test.html">test</a> (46)</li>
+<section id="content">
+    <article>
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="entry-content">
+                    <h1>110.2 Setup host security</h1>
+<p><em>Weight: 3</em></p>
+<p>Candidates should know how to set up a basic level of host security.</p>
+<h2>Key Knowledge Areas</h2>
+<ul>
+<li>Awareness of shadow passwords and how they work.</li>
+<li>Turn off network services not in use.</li>
+<li>Understand the role of TCP wrappers.</li>
+</ul>
+<h2>Terms and Utilities</h2>
+<ul>
+<li>/etc/nologin</li>
+<li>/etc/passwd</li>
+<li>/etc/shadow</li>
+<li>/etc/xinetd.d/</li>
+<li>/etc/xinetd.conf</li>
+<li>/etc/inetd.d/</li>
+<li>/etc/inetd.conf</li>
+<li>/etc/inittab</li>
+<li>/etc/init.d/</li>
+<li>/etc/hosts.allow</li>
+<li>/etc/hosts.deny</li>
+</ul>
+<h3>shadow passwords</h3>
+<p>The <code>/dev/passwd</code> is already discussed. It contains the passwords of the users but there is a logical problem: if a user should be able to change her own password, he should have access to this file and if this is the case, he can see other peoples passwords. This is not interesting even when the passwords are hashed (shown as a more complex form using a one way function).</p>
+<div class="highlight"><pre><span></span>$ ls -ltrh /etc/passwd
+-rw-r--r-- <span class="m">1</span> root root 2.5K Jun  <span class="m">5</span> 19:14 /etc/passwd
+</pre></div>
+
+
+<p>To prevent this the <code>/etc/shadow</code> file is introduces. In modern systems, we only show a <code>*</code> at the location of the password in /etc/passwd and store the real password in <code>/etc/shadow</code> which has a very limited file access:</p>
+<div class="highlight"><pre><span></span><span class="x">jadi@funlife ~</span><span class="p">$</span><span class="x"> grep jadi /etc/passwd</span>
+<span class="x">jadi:x:1000:1000:jadi,,,:/home/jadi:/bin/bash</span>
+<span class="x">jadi@funlife ~</span><span class="p">$</span><span class="x"> grep jadi /etc/shadow</span>
+<span class="x">grep: /etc/shadow: Permission denied</span>
+<span class="x">jadi@funlife ~</span><span class="p">$</span><span class="x"> sudo grep jadi /etc/shadow</span>
+<span class="x">[sudo] password for jadi:</span>
+<span class="x">jadi:</span><span class="p">$</span><span class="x">6</span><span class="p">$</span><span class="nv">bp01DBX</span><span class="x">.</span><span class="p">$</span><span class="nv">I6dt4pz8GeXJl6asgPeKhSdepf40bgepTz8zwB3HFmN56SdcsxjTETdZAmRt17biwMYOI7SoGFOXssHqeNFgw</span><span class="x">/:16963:0:99999:7:::</span>
+<span class="x">jadi@funlife ~</span><span class="p">$</span><span class="x"> sudo ls -ltrh /etc/shadow</span>
+<span class="x">-rw-r----- 1 root shadow 1.5K Jun 11 17:36 /etc/shadow</span>
+</pre></div>
+
+
+<h3>/etc/nologin</h3>
+<p>This is a cool file! If you create and write something in it, the content will be shown to any person who tries to login into the system and the login attempt will fail. It is useful for maintenance time. Delete this file and the users will be able to login again.</p>
+<blockquote>
+<p>admin users will be able to login even in the presence of /etc/nologin</p>
+</blockquote>
+<h3>turn off network services</h3>
+<p>In the previous module, we learned how to find the running services on the server. Turning them off is easy but a bit different on different systems. In case you want to turn the <code>httpd</code> service off, you can do:</p>
+<table>
+<thead>
+<tr>
+<th>system</th>
+<th>service manager</th>
+<th>command</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>older linux systems</td>
+<td>SysV</td>
+<td>chkconfig httpd off<br>ssyv-rc-conf httpd off</td>
+</tr>
+<tr>
+<td>Ubuntu</td>
+<td>Upstart</td>
+<td>update-rc.d httpd remove</td>
+</tr>
+<tr>
+<td>newer linux distros</td>
+<td>systemd</td>
+<td>systemctl disable httpd</td>
+</tr>
+</tbody>
+</table>
+<p>Please note that these commands prevent the service from starting on system boot. The <code>http</code> is still installed on the machine and you can run it if you need.</p>
+<h3>super-servers</h3>
+<p>A super-server or sometimes called a service dispatcher is a type of daemon run generally on Unix-like systems for security reasons. It starts other servers when needed, normally with access to them checked by a TCP wrapper.</p>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Super-server.png/420px-Super-server.png"></p>
+<p>Practically no new linux is using a super server anymore but some traces of <code>xinetd</code> is still there in some systems in <code>/etc/xinet.d/</code>. This is a sample xinetd configuration:</p>
+<div class="highlight"><pre><span></span>service telnet
+{
+        disable         = no
+        flags           = REUSE
+        socket_type     = stream
+        wait            = no
+        user            = root
+        server          = /usr/sbin/in.telnetd
+        log_on_failure  += USERID
+        no_access       = 10.0.1.0/24
+        log_on_success  += PID HOST EXIT
+        access_times    = 09:45-16:15
+}
+</pre></div>
+
+
+<p>If we change the <code>disable</code> to <code>yes</code> and restart the xinetd, the telnet daemon will start running. There are a few files to control to xinetd related files.</p>
+<h4>/etc/hosts.allow &amp; /etc/hosts.deny</h4>
+<p>These two files will allow or deny access from specific hosts. Its logic is like cron.deny and cron.allow. If something is allowd, everything else is denied but if you add something to the /etc/hosts.deny, only that specific thing is denied (and every other thing is allowed).</p>
+<div class="highlight"><pre><span></span>jadi@funlife ~$ cat /etc/hosts.allow
+# /etc/hosts.allow: list of hosts that are allowed to access the system.
+#                   See the manual pages hosts_access(5) and hosts_options(5).
+#
+# Example:    ALL: LOCAL @some_netgroup
+#             ALL: .foobar.edu EXCEPT terminalserver.foobar.edu
+#
+# If you&#39;re going to protect the portmapper use the name &quot;rpcbind&quot; for the
+# daemon name. See rpcbind(8) and rpc.mountd(8) for further information.
+#
+
+telnet: 10.10.100.
+</pre></div>
+
+
+<p>Here the <code>telnet</code> service is only allowed from 10.10.100.* . It is possible to use <code>ALL</code> as the service name to allow or deny ALL services.</p>
+<blockquote>
+<p>after changing this file, xinetd should be restarted</p>
+</blockquote>
+<p>As mentioned, super servers are not being used anymore and most distributions use standalone services running on them.  This is also called tcp wrapping since the tcp connections are being passwd from xinetd and xinetd decides what to do with them.</p>
+                </div>
+                <footer class="text-right">
+                    <p></p>
+                </footer>
+            </div>
+        </div>
+    </article>
+</section>
 <footer>
     <hr>
     <div class="row">
@@ -446,5 +579,6 @@
     <script src="./theme/js/bootstrap.min.js"></script>
     <!-- twitchy Script -->
     <script src="./theme/js/pelican_twitchy.min.js"></script>
+
 </body>
 </html>

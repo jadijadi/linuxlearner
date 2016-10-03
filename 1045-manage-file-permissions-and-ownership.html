@@ -6,10 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="author" content="jadi" />
-        <meta name="description" content="Free LPIC 1 book, lessons and videos" />
+        <meta name="keywords" content="test" />
+        <meta name="description" content="104.5 Manage file permissions and ownership Weight: 3 Candidates should be able to control file access through the proper use of permissions and ownerships. Objectives Manage access permissions on regular and special files as well as directories. Use access modes such as suid, sgid and the sticky bit to ..." />
 
 
-    <title>Linux Learner - Tags</title>
+    <title>104.5 Manage file permissions and ownership - Linux Learner</title>
 
         <link rel="stylesheet" href="./theme/css/bootstrap.min.css" type="text/css" />
 
@@ -93,7 +94,7 @@
                             LPIC1 Chapters
                         </a>
                     </li>
-                    <li class="panel anti-panel"><ul id="collapse-latest" class="sidebar_submenu collapse ">
+                    <li class="panel anti-panel"><ul id="collapse-latest" class="sidebar_submenu collapse in">
                         <li class="">
                             <a class="hide-overflow" href="./1011-determine-and-configure-hardware-settings.html" title="101.1 Determine and configure hardware settings">
                                 <i class="fa fa-file-text padding-small"></i>
@@ -190,7 +191,7 @@
                                 104.4 Manage disk quotas
                             </a>
                         </li>
-                        <li class="">
+                        <li class="active">
                             <a class="hide-overflow" href="./1045-manage-file-permissions-and-ownership.html" title="104.5 Manage file permissions and ownership">
                                 <i class="fa fa-file-text padding-small"></i>
                                 104.5 Manage file permissions and ownership
@@ -395,7 +396,7 @@
                             <span class="badge pull-right categorybadge">17</span>
                         </a>
                     </li>
-                    <li >
+                    <li class="active">
                         <a href="./category/lpic102.html">
                             <i class="fa fa-folder-open padding-small"></i>
                             lpic102
@@ -424,7 +425,320 @@
         <!-- Page Content -->
         <div id="page-content-wrapper">
             <div class="container-fluid">
-    <h1>Tags for Linux Learner</h1>        <li><a href="./tag/test.html">test</a> (46)</li>
+<section id="content">
+    <article>
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="entry-content">
+                    <h1>104.5 Manage file permissions and ownership</h1>
+<p><em>Weight: 3</em></p>
+<p>Candidates should be able to control file access through the proper use of permissions and ownerships.</p>
+<h2>Objectives</h2>
+<ul>
+<li>Manage access permissions on regular and special files as well as directories.</li>
+<li>Use access modes such as suid, sgid and the sticky bit to maintain security.</li>
+<li>Know how to change the file creation mask.</li>
+<li>
+<p>Use the group field to grant file access to group members.</p>
+</li>
+<li>
+<p>chmod</p>
+</li>
+<li>umask</li>
+<li>chown</li>
+<li>chgrp</li>
+</ul>
+<h2>Users and Groups</h2>
+<p>A linux system can have many users and many groups. You can login with one user and use <code>su</code> command to change to another group. Each user belongs to one primary group and can be a member of other groups too.</p>
+<p>There commands like <code>whoami</code>, <code>groups</code> and <code>id</code> to determine who you are.</p>
+<div class="highlight"><pre><span></span>- $ whoami
+jadi
+- $ groups
+jadi adm cdrom sudo dip plugdev netdev lpadmin sambashare debian-tor
+- $ id
+uid=1000(jadi) gid=1000(jadi) groups=1000(jadi),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),102(netdev),108(lpadmin),124(sambashare),125(debian-tor)
+- $ su root -
+Password:
+bash: cannot set terminal process group (-1): Inappropriate ioctl for device
+bash: no job control in this shell
+- # id
+uid=0(root) gid=0(root) groups=0(root)
+- # exit
+exit
+- $ whoami
+jadi
+</pre></div>
+
+
+<blockquote>
+<p><code>id</code> shows both user and group information</p>
+</blockquote>
+<p>There info are stored in <code>/etc/passwd</code> and <code>/etc/group</code></p>
+<div class="highlight"><pre><span></span>$ cat /etc/group <span class="p">|</span> grep adm
+adm:x:4:syslog,jadi
+lpadmin:x:108:jadi
+</pre></div>
+
+
+<h2>File ownership &amp; permissions</h2>
+<p>Files are also belong to one user and one group.</p>
+<div class="highlight"><pre><span></span>$ ls -l /sbin/fdisk ~/w/lpic/notes.txt
+-rw-rw-r-- <span class="m">1</span> jadi users    <span class="m">576</span> Dec  <span class="m">7</span> 22:30 /home/jadi/w/lpic/notes.txt
+-rwxr-xr-x <span class="m">1</span> root root <span class="m">267176</span> Oct <span class="m">15</span> 18:58 /sbin/fdisk
+</pre></div>
+
+
+<p>As you can see, the notes.txt belongs to jadi and a group called <em>users</em>.</p>
+<blockquote>
+<p>In many distros, when you create a user, system creates a group with same name and assign that users files to that group</p>
+</blockquote>
+<p>Another part of the <code>ls -l</code> command shows the permissions on that file. Linux system users a 3 layer permission: permissions for the owner, for the group member and for <em>others</em>. Each layer also has 3 different parts: <strong>r</strong>ead, <strong>w</strong>rite (including deletion and edit) &amp; <strong>e</strong>xecute (reading directory content). These are shown at the first column of <code>ls -</code> command as <code>-rw-rw-r--</code>. The character meanings are as follow:</p>
+<table>
+<thead>
+<tr>
+<th>bit</th>
+<th>meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>What this entry is. Dash (-) is for ordinary files, 'l' is for links &amp; 'd' is for directory</td>
+</tr>
+<tr>
+<td>2,3,4</td>
+<td>read, write and execute access for the owner</td>
+</tr>
+<tr>
+<td>5,6,7</td>
+<td>read, write and execute access for the group members</td>
+</tr>
+<tr>
+<td>8,9,10</td>
+<td>read, write and execute access for other users</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Indicated if any other access methos (such as SELinux) applies to this file - not part of the 101 exam</td>
+</tr>
+</tbody>
+</table>
+<p>As you can see in our example, characters 2 to 10 show the accesses. A <code>-</code> there means "no access on this part" and read, write and execute are shown by r, w &amp; x.</p>
+<p>In the following line:</p>
+<div class="highlight"><pre><span></span>$ ls -l /sbin/fdisk
+-rwxr-xr-x <span class="m">1</span> root root <span class="m">267176</span> Oct <span class="m">15</span> 18:58 /sbin/fdisk
+</pre></div>
+
+
+<p>We can see that the fdisk can be read, written and and be executed by its owner (root), only be read and executed by whoever is part of group root and be read and executed by all other users.</p>
+<blockquote>
+<p>although non-root users can execute the fdisk, this program wont do much if it sees that a non root user is running it.</p>
+</blockquote>
+<p>Lets look at another example:</p>
+<div class="highlight"><pre><span></span>$ ls -l /home/
+total 12
+drwxr-xr-x <span class="m">160</span> jadi jadi <span class="m">12288</span> Feb  <span class="m">7</span> 11:44 jadi
+</pre></div>
+
+
+<p>The first character is a <code>d</code> so this is a directory! The owner (jadi) has read, write and execute access but other members of the <strong>group</strong> jadi and <strong>others</strong> only have read and execute access on this directory (execute means that they can see the files inside it).</p>
+<h2>Chanhging permissions</h2>
+<p>It is possible to change the permissions on files &amp; directories using the <code>chmod</code> command. There are to ways to tell this command what you want to do:</p>
+<ol>
+<li>using octal codes</li>
+<li>using short coeds</li>
+</ol>
+<p>When using octal codes, you have to to create an octal string to tell chmod what you want to do. This way, 0 means no access,  means execute, 2 means write and 4 means read. So if you want to give read+execute, you have to give 4+1 which is 5. This table shows every possible combination:</p>
+<table>
+<thead>
+<tr>
+<th>Symbolic</th>
+<th>Octal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>rwx</td>
+<td>7</td>
+</tr>
+<tr>
+<td>rw-</td>
+<td>6</td>
+</tr>
+<tr>
+<td>r-x</td>
+<td>5</td>
+</tr>
+<tr>
+<td>r--</td>
+<td>4</td>
+</tr>
+<tr>
+<td>-wx</td>
+<td>3</td>
+</tr>
+<tr>
+<td>-w-</td>
+<td>2</td>
+</tr>
+<tr>
+<td>--x</td>
+<td>1</td>
+</tr>
+<tr>
+<td>---</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>So if you want to give rwx to owner, rx to group and only x to others, you have to use 751:</p>
+<div class="highlight"><pre><span></span>$ ls -ltrh myfile
+-rw-rw-r-- <span class="m">1</span> jadi jadi <span class="m">0</span> Feb  <span class="m">8</span> 21:01 myfile
+$ chmod <span class="m">751</span> myfile
+$ ls -ltrh myfile
+-rwxr-x--x <span class="m">1</span> jadi jadi <span class="m">0</span> Feb  <span class="m">8</span> 21:01 myfile
+</pre></div>
+
+
+<p>But there is also an <em>easier</em> method. You can use <code>+x</code> to give execute permission, <code>+r</code> to give read permission and <code>+w</code> to give read permission. Removing these permissions will be like <code>-r</code>.</p>
+<div class="highlight"><pre><span></span>$ ls -ltrh myfile
+-rwxr-x--x <span class="m">1</span> jadi jadi <span class="m">0</span> Feb  <span class="m">8</span> 21:01 myfile
+$ chmod u-x myfile
+$ ls -ltrh myfile
+-rw-r-x--x <span class="m">1</span> jadi jadi <span class="m">0</span> Feb  <span class="m">8</span> 21:01 myfile
+$ chmod +x myfile
+$ chmod uo+xr myfile
+$ ls -ltrh myfile
+-rwxr-xr-x <span class="m">1</span> jadi jadi <span class="m">0</span> Feb  <span class="m">8</span> 21:01 myfile
+</pre></div>
+
+
+<blockquote>
+<p>you can tell <code>chmod</code> whos permission should be granted or removed by doing things like <code>u+r</code> (give read to user), <code>og-w</code> (remove write for other and group).</p>
+</blockquote>
+<p>One very common switch on <code>chmod</code> is <code>-R</code> for recursive chmoding on files. This will give read permission of all files inside /tmp/ to any user:</p>
+<div class="highlight"><pre><span></span># chmod -R o+r /tmp
+</pre></div>
+
+
+<h2>Access modes</h2>
+<p>So you have access only to your files. But how you should change your password? or use programs which needs access to system files? You should be able to access /etc/passwd or /etc/shadow to change your password but you should not be able to access other people files!</p>
+<p>Normally when you run a program, it runs with <em>your</em> access levels but linux has two special bits on each file; <strong>suid</strong> (set user id) and <strong>guid</strong> (set group id). If these are set on a file, that file be will be executed with the access of the <strong>owner</strong> of the file and not the user who is running it.</p>
+<div class="highlight"><pre><span></span>$ ls -ltrh /usr/bin/passwd
+-rwsr-xr-x <span class="m">1</span> root root 50K Jul <span class="m">18</span>  <span class="m">2014</span> /usr/bin/passwd
+</pre></div>
+
+
+<p>Did you note the <code>s</code> in the place of <em>executable bit</em> for the user and for the group? That means when any user runs this program, it will be run be the access of the owner of the file (which is root) instead of that users id.</p>
+<p>It is possible to set / unser the suid and sgid using <code>chmod</code> and <code>+s</code> or <code>-s</code> instead of <code>x</code>.</p>
+<p>The last special option is <code>chmod</code> is the <strong>sticky bit</strong> which lets only the owner of the file to delete it, even if other users have write (delete) access on that directory. This is good for places like /tmp.</p>
+<p>Sticky bit is identified by <code>t</code> and will be shown on the last bit of a directory:</p>
+<div class="highlight"><pre><span></span>$ ls -dl /tmp
+drwxrwxrwt <span class="m">13</span> root root <span class="m">77824</span> Feb  <span class="m">8</span> 21:27 /tmp
+</pre></div>
+
+
+<p>As you can see the sticky bit is set and although all users have write access in this directory, they wont be able to delete each others files.</p>
+<p>Lets review how you can set these access modes:</p>
+<table>
+<thead>
+<tr>
+<th>access mode</th>
+<th>octal</th>
+<th>symbolic</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>suid</td>
+<td>4000</td>
+<td>u+s</td>
+</tr>
+<tr>
+<td>guid</td>
+<td>2000</td>
+<td>g+s</td>
+</tr>
+<tr>
+<td>sticky</td>
+<td>1000</td>
+<td>t</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>guid on a directory will force any new file in that directory to have the guid of the directory itself.</p>
+</blockquote>
+<h2>umask</h2>
+<p>But what will be the access of the new files? What happens when you <code>touch</code> a new file? This is set with <code>umask</code>. This command tells the system what permissions <strong>should not be given to</strong> new files:</p>
+<div class="highlight"><pre><span></span>$ <span class="nb">umask</span>
+0002
+</pre></div>
+
+
+<p>Which removes write (2) permissions from files.</p>
+<p>If we need to change umask, it can be done with the same command:</p>
+<div class="highlight"><pre><span></span>$ <span class="nb">umask</span>
+0002
+$ touch newfile
+$ ls -ltrh newfile
+-rw-rw-r-- <span class="m">1</span> jadi jadi <span class="m">0</span> Feb  <span class="m">8</span> 21:38 newfile
+$ mkdir newdir
+$ ls -ltrhd newdir
+drwxrwxr-x <span class="m">2</span> jadi jadi 4.0K Feb  <span class="m">8</span> 21:38 newdir
+$ <span class="nb">umask</span> <span class="nv">u</span><span class="o">=</span>rw,g<span class="o">=</span>,o<span class="o">=</span>
+$ touch newerfile
+$ ls -l newerfile
+-rw------- <span class="m">1</span> jadi jadi <span class="m">0</span> Feb  <span class="m">8</span> 21:41 newerfile
+$ <span class="nb">umask</span>
+0177
+</pre></div>
+
+
+<blockquote>
+<p>Note how we use <code>u=rw,g=,o=</code> to tell umask or chomd what we exactly need.</p>
+</blockquote>
+<h2>Changing owner and groups</h2>
+<p>If you need to change the ownership or group belonging of a file or directory, use the <code>chown</code> command:</p>
+<div class="highlight"><pre><span></span>$ ls -ltrh newfile
+-rw-rw-r-- <span class="m">1</span> jadi jadi <span class="m">0</span> Feb  <span class="m">8</span> 21:38 newfile
+$ chown root:root newfile
+chown: changing ownership of ‘newfile’: Operation not permitted
+$ sudo chown root:root newfile
+<span class="o">[</span>sudo<span class="o">]</span> password <span class="k">for</span> jadi:
+$ ls -ltrh newfile
+-rw-rw-r-- <span class="m">1</span> root root <span class="m">0</span> Feb  <span class="m">8</span> 21:38 newfile
+</pre></div>
+
+
+<p>A common switch is <code>-R</code> to do the chown recursively and the general style is <code>chown newuser:newgroup file</code>.</p>
+<p>There is also a command specially for changing the group:</p>
+<div class="highlight"><pre><span></span>$ sudo chgrp postgres newfile
+$ ls -ltrh newfile
+-rw-rw-r-- <span class="m">1</span> root postgres <span class="m">0</span> Feb  <span class="m">8</span> 21:38 newfile
+</pre></div>
+
+
+<p>If a user is member of different groups, she can change her <strong>default group</strong> using the <code>newggrp</code> command:</p>
+<div class="highlight"><pre><span></span>$ touch newfile
+$ ls -ltrh newfile
+-rw------- <span class="m">1</span> jadi jadi <span class="m">0</span> Feb  <span class="m">8</span> 21:53 newfile
+$ groups
+jadi adm cdrom sudo dip plugdev netdev lpadmin sambashare debian-tor
+$ newgrp adm
+$ touch newerfile
+$ ls -ltrh new*
+-rw------- <span class="m">1</span> jadi jadi <span class="m">0</span> Feb  <span class="m">8</span> 21:53 newfile
+-rw------- <span class="m">1</span> jadi adm  <span class="m">0</span> Feb  <span class="m">8</span> 21:54 newerfile
+</pre></div>
+                </div>
+                <footer class="text-right">
+                    <p></p>
+                </footer>
+            </div>
+        </div>
+    </article>
+</section>
 <footer>
     <hr>
     <div class="row">
@@ -446,5 +760,6 @@
     <script src="./theme/js/bootstrap.min.js"></script>
     <!-- twitchy Script -->
     <script src="./theme/js/pelican_twitchy.min.js"></script>
+
 </body>
 </html>

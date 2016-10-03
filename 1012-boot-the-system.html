@@ -6,10 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="author" content="jadi" />
-        <meta name="description" content="Free LPIC 1 book, lessons and videos" />
+        <meta name="keywords" content="test" />
+        <meta name="description" content="101.2. Boot the system weight: 3 Candidates should be able to guide the system through the booting process. Key Knowledge Areas Provide common commands to the boot loader and options to the kernel at boot time. Demonstrate knowledge of the boot sequence from BIOS to boot completion. Check boot ..." />
 
 
-    <title>Linux Learner - Tags</title>
+    <title>101.2. Boot the system - Linux Learner</title>
 
         <link rel="stylesheet" href="./theme/css/bootstrap.min.css" type="text/css" />
 
@@ -93,14 +94,14 @@
                             LPIC1 Chapters
                         </a>
                     </li>
-                    <li class="panel anti-panel"><ul id="collapse-latest" class="sidebar_submenu collapse ">
+                    <li class="panel anti-panel"><ul id="collapse-latest" class="sidebar_submenu collapse in">
                         <li class="">
                             <a class="hide-overflow" href="./1011-determine-and-configure-hardware-settings.html" title="101.1 Determine and configure hardware settings">
                                 <i class="fa fa-file-text padding-small"></i>
                                 101.1 Determine and configure hardware settings
                             </a>
                         </li>
-                        <li class="">
+                        <li class="active">
                             <a class="hide-overflow" href="./1012-boot-the-system.html" title="101.2. Boot the system">
                                 <i class="fa fa-file-text padding-small"></i>
                                 101.2. Boot the system
@@ -388,7 +389,7 @@
                     </a>
                 </li>
                 <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
-                    <li >
+                    <li class="active">
                         <a href="./category/lpic101.html">
                             <i class="fa fa-folder-open padding-small"></i>
                             lpic101
@@ -424,7 +425,72 @@
         <!-- Page Content -->
         <div id="page-content-wrapper">
             <div class="container-fluid">
-    <h1>Tags for Linux Learner</h1>        <li><a href="./tag/test.html">test</a> (46)</li>
+<section id="content">
+    <article>
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="entry-content">
+                    <h1>101.2. Boot the system</h1>
+<p>weight: 3</p>
+<p>Candidates should be able to guide the system through the booting process.</p>
+<h2>Key Knowledge Areas</h2>
+<ul>
+<li>Provide common commands to the boot loader and options to the kernel at boot time.</li>
+<li>Demonstrate knowledge of the boot sequence from BIOS to boot completion.</li>
+<li>Check boot events in the log files.</li>
+</ul>
+<h2>Terms</h2>
+<ul>
+<li>BIOS</li>
+<li>bootloader</li>
+<li>kernel</li>
+<li>init</li>
+<li>/var/log/messages</li>
+<li>dmesg</li>
+</ul>
+<h3>BIOS</h3>
+<p>BIOS is Basic Input Output System and does the first steps of the PC bootup. For example is does a POST (Power On Self Test) and decides which hardware should boot the system.</p>
+<h3>bootloader</h3>
+<p>Bootloader can be GRUB (1&amp;2) or LILO which are great for disks less than 2TB.</p>
+<div class="highlight"><pre><span></span>/etc/lilo.conf
+/boot/grub/grub.cfg
+/boot/grub/menu.lst
+</pre></div>
+
+
+<h3>Kernel</h3>
+<p>Kernel parameters (sometimes called boot parameters) supply the kernel with information about hardware parameters that it might not determine on its own - say single user mod boot (S)</p>
+<h3>init</h3>
+<p>When the kernel finishes loading, it usually starts /sbin/init. This program remains running until the system is shut down. It is always assigned process ID 1.</p>
+<p>first process, process in charge, a big family tree of commands:</p>
+<div class="highlight"><pre><span></span>pstree
+</pre></div>
+
+
+<p>init is being replaced in many distros (say ubuntu with upstart) but still is in exam and has its own section.</p>
+<h3>dmesg</h3>
+<p><strong>Funny fact:</strong> During the bootup, only The Kernel is running so it should record and keep its own logs!</p>
+<p>dmesg command will show the full data from  <strong>kernel ring buffer</strong> up to now. But</p>
+<div class="highlight"><pre><span></span>cat /var/log/dmesg
+</pre></div>
+
+
+<p>will show <strong>only</strong> the data during the boot</p>
+<h3>/var/log/messages</h3>
+<p>After the init process comes up, syslog daemon will log messages. It has timestamps and will persist during restarts.</p>
+<ul>
+<li>Kernel is still logging its own messages in dmesg</li>
+<li>in some systems it might be called /var/log/syslog</li>
+<li>there are many other logs at /var/log</li>
+</ul>
+                </div>
+                <footer class="text-right">
+                    <p></p>
+                </footer>
+            </div>
+        </div>
+    </article>
+</section>
 <footer>
     <hr>
     <div class="row">
@@ -446,5 +512,6 @@
     <script src="./theme/js/bootstrap.min.js"></script>
     <!-- twitchy Script -->
     <script src="./theme/js/pelican_twitchy.min.js"></script>
+
 </body>
 </html>

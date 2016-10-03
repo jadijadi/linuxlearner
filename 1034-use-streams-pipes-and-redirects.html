@@ -6,10 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="author" content="jadi" />
-        <meta name="description" content="Free LPIC 1 book, lessons and videos" />
+        <meta name="keywords" content="test" />
+        <meta name="description" content="103.4. Use streams, pipes and redirects Candidates should be able to redirect streams and connect them in order to efficiently process textual data. Tasks include redirecting standard input, standard output and standard error, piping the output of one command to the input of another command, using the output of ..." />
 
 
-    <title>Linux Learner - Tags</title>
+    <title>103.4. Use streams, pipes and redirects - Linux Learner</title>
 
         <link rel="stylesheet" href="./theme/css/bootstrap.min.css" type="text/css" />
 
@@ -93,7 +94,7 @@
                             LPIC1 Chapters
                         </a>
                     </li>
-                    <li class="panel anti-panel"><ul id="collapse-latest" class="sidebar_submenu collapse ">
+                    <li class="panel anti-panel"><ul id="collapse-latest" class="sidebar_submenu collapse in">
                         <li class="">
                             <a class="hide-overflow" href="./1011-determine-and-configure-hardware-settings.html" title="101.1 Determine and configure hardware settings">
                                 <i class="fa fa-file-text padding-small"></i>
@@ -136,7 +137,7 @@
                                 103.3 Perform basic file management
                             </a>
                         </li>
-                        <li class="">
+                        <li class="active">
                             <a class="hide-overflow" href="./1034-use-streams-pipes-and-redirects.html" title="103.4. Use streams, pipes and redirects">
                                 <i class="fa fa-file-text padding-small"></i>
                                 103.4. Use streams, pipes and redirects
@@ -388,7 +389,7 @@
                     </a>
                 </li>
                 <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
-                    <li >
+                    <li class="active">
                         <a href="./category/lpic101.html">
                             <i class="fa fa-folder-open padding-small"></i>
                             lpic101
@@ -424,7 +425,214 @@
         <!-- Page Content -->
         <div id="page-content-wrapper">
             <div class="container-fluid">
-    <h1>Tags for Linux Learner</h1>        <li><a href="./tag/test.html">test</a> (46)</li>
+<section id="content">
+    <article>
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="entry-content">
+                    <h1>103.4. Use streams, pipes and redirects</h1>
+<ul>
+<li>Candidates should be able to redirect streams and connect them in order to efficiently process textual data. Tasks include redirecting standard input, standard output and standard error, piping the output of one command to the input of another command, using the output of one command as arguments to another command and sending output to both stdout and a file.</li>
+</ul>
+<h2>Objectives</h2>
+<ul>
+<li>Redirecting standard input, standard output and standard error.</li>
+<li>Pipe the output of one command to the input of another command.</li>
+<li>Use the output of one command as arguments to another command.</li>
+<li>
+<p>Send output to both stdout and a file.</p>
+</li>
+<li>
+<p>tee</p>
+</li>
+<li>xargs</li>
+</ul>
+<p>We've already talked about basics of piping and redirects in previous sections. Here you will get a deeper understanding of these concepts.</p>
+<h2>Redirecting standard IO</h2>
+<p>On a linux system most shells use streams for input and output (a list of characters).
+.
+These streams can be from (and toward) various things including keyboard, block devices (hards, usb stick, ..), window of a program, fiels, ...</p>
+<ol>
+<li><em>stdout</em> is the standard output stream, which displays output from commands (file descriptor 1)</li>
+<li><em>stderr</em> is the standard error stream, which displays error output from commands (file descriptor 2)</li>
+<li><em>stdin</em> is the standard input stream, which provides input to commands (file descriptor 0)</li>
+</ol>
+<p>What are these <strong>file descriptions</strong>? There are used to control the output. If you need to control where your output goes, you can add <code>n&gt;</code> or <code>n&gt;&gt;</code>.
+<em> <strong>n&gt;</strong> redirects <strong>file description n</strong> to a file or device. If the file already exists it is <strong>overwritten</strong> and if it does not exists, it will be created.
+</em> <strong>n&gt;&gt;</strong> redirects file description n to a file or device. If the file already exists the stream will be appended to the end of it and if it does not exists, it will be created.</p>
+<blockquote>
+<p>if the <strong>n</strong> is not given, the  default is <em>standard output</em></p>
+<p>The user who runs the command should have write access to the file.</p>
+</blockquote>
+<div class="highlight"><pre><span></span>$ ls
+fiona  habib  mahmoodrm  minoo  mojtaba  sina
+$ ls j*
+ls: cannot access j*: No such file or directory
+$ ls m*
+mahmoodrm  minoo  mojtaba
+$ ls j* m*
+ls: cannot access j*: No such file or directory
+mahmoodrm  minoo  mojtaba
+$ ls j* m* &gt; output 2&gt; errors
+$ cat output
+mahmoodrm
+minoo
+mojtaba
+$ cat errors
+ls: cannot access j*: No such file or directory
+$
+</pre></div>
+
+
+<h4>Redirecting both stdout and stderr to one location</h4>
+<p>Sometimes (say during automated tasks) we prefer to send both standard output and standard error to same place, Use <code>&amp;&gt;</code> and <code>&amp;&gt;&gt;</code> to say <em>both stderr and stdout</em>.</p>
+<p>It is also possible to use <code>&amp;1</code> and <code>&amp;2</code> and <code>&amp;0</code> to refer to <strong>current place</strong> of stdout, stderr &amp; stdin.  In this case <code>ls &gt; file1 2&gt;&amp;1</code> means <em>redirect output to file1 and output stderr to same place as stdout (file1)</em></p>
+<blockquote>
+<p>Be careful! <code>ls 2&gt;&amp;1 &gt; file1</code> means <em>print stderr to current location of stdout (screen) and then change the stdout to file1</em></p>
+</blockquote>
+<h4>sending to null</h4>
+<p>In linux, <strong>/dev/null</strong> is like a trash-can. You can send anything there and it disappears. So it is normal to say:</p>
+<div class="highlight"><pre><span></span>$ ls j* m* &gt; file1
+ls: cannot access j*: No such file or directory
+$ ls j* m* &gt; file1 2&gt;/dev/null
+$ cat file1
+mahmoodrm
+minoo
+mojtaba
+$
+</pre></div>
+
+
+<h2>redirecting input</h2>
+<p>The <strong>&lt;</strong> operand redirects the input.</p>
+<div class="highlight"><pre><span></span>$ cat uses
+you fedora
+jadi ubuntu
+rubic windows
+neda mac
+narsin arch
+$ tr <span class="s1">&#39; &#39;</span> <span class="s1">&#39;,&#39;</span> &lt; uses
+you,fedora
+jadi,ubuntu
+rubic,windows
+neda,mac
+narsin,arch
+</pre></div>
+
+
+<h3>here-documents</h3>
+<p>Many shells, have here-documents (also called here-docs) as a way of input. You use <code>&lt;&lt;</code> and a <code>WORD</code> and then whatever you input is considered stdin till you give only the WORD in one line.</p>
+<div class="highlight"><pre><span></span>$ tr <span class="s1">&#39; &#39;</span> <span class="s1">&#39;.&#39;</span> <span class="s">&lt;&lt; END_OF_DATA</span>
+<span class="s">&gt; this is a line</span>
+<span class="s">&gt; and then this</span>
+<span class="s">&gt;</span>
+<span class="s">&gt; we&#39;ll still type</span>
+<span class="s">&gt; and,</span>
+<span class="s">&gt; done!</span>
+<span class="s">&gt; END_OF_DATA</span>
+this.is.a.line
+and.then.this
+
+we<span class="err">&#39;</span>ll.still.type
+and,
+<span class="k">done</span>!
+</pre></div>
+
+
+<blockquote>
+<p>Here-Documnts are very useful if you are writing scripts and automated tasks.</p>
+</blockquote>
+<h2>Pipes</h2>
+<p>Piping is sending one commands output to another commands input (Piping the stdout to stdin). You use <code>|</code> for this task.</p>
+<blockquote>
+<p>As previously seen, many commands use a hyphen <code>-</code> in place of a filename as an argument to indicate when the input should come from stdin rather than a file.</p>
+</blockquote>
+<div class="highlight"><pre><span></span>$ cat what_i_have.txt
+laptop
+socks
+tshirt
+ball
+socks
+glasses
+$ cut -f1 -d<span class="s1">&#39; &#39;</span> what_i_have.txt <span class="p">|</span> sort <span class="p">|</span> uniq -c <span class="p">|</span> sort -nr
+      <span class="m">2</span> socks
+      <span class="m">1</span> tshirt
+      <span class="m">1</span> laptop
+      <span class="m">1</span> glasses
+      <span class="m">1</span> ball
+</pre></div>
+
+
+<blockquote>
+<p>If you need to start your pipeline with the contents of a file, start with <code>cat filename | ...</code> or use a <code>&lt;</code> stdin redirect.</p>
+</blockquote>
+<h2>xargs</h2>
+<p>This command reads input from <em>stdin</em> and uses them as arguments.</p>
+<div class="highlight"><pre><span></span>$ ls <span class="p">|</span> xargs <span class="nb">echo</span> these are files:
+these are files: errors f file1 fiona habib mahmoodrm minoo mojtaba output output.txt sina uses what_i_have.txt
+</pre></div>
+
+
+<blockquote>
+<p>if you do not give any command to the <code>xargs</code> , the echo will be the default command (it will show the stdin).</p>
+</blockquote>
+<p>Have in mind that xargs breaks input based on blanks and use any part as an argument. You can limit the number of arguments with <code>--max-args</code> (same as <code>-n</code>) switch and escape blanks or quote them to prevent them from breaking.</p>
+<p>One important switch is -I. This is useful if you need to pass stdin arguments in the middle (or even start) of your commands. use the form <code>xargs -I SOMETHING echo here is SOMETHING end</code>:</p>
+<div class="highlight"><pre><span></span>$ cat what_i_have.txt
+laptop
+socks
+tshirt
+ball
+socks
+glasses
+$ cat what_i_have.txt <span class="p">|</span> xargs -I DATA <span class="nb">echo</span> I have DATA and I love it.
+I have laptop and I love it.
+I have socks and I love it.
+I have tshirt and I love it.
+I have ball and I love it.
+I have socks and I love it.
+I have glasses and I love it.
+</pre></div>
+
+
+<blockquote>
+<p>If you use -L, the input will break by line and not by blanks.</p>
+</blockquote>
+<h2>tee</h2>
+<p>What if you need to see the output on screen and also save it to a file? Ugly way is redirecting to the file and using <code>tail -f file</code> in another window. Nice way is using <code>tee</code> and giving it one or more filenames for standard output (if you need to save <em>stderr</em>, first redirect it to <em>stdout</em>). This will write the output to those files and also writes them to the screen:</p>
+<div class="highlight"><pre><span></span>$ ls -1 <span class="p">|</span> tee allfiles myfiles
+allfiles
+f
+fiona
+habib
+mahmoodrm
+minoo
+mojtaba
+myfiles
+sina
+</pre></div>
+
+
+<blockquote>
+<p>if you want to prevent overwriting files, use the <code>-a</code> switch to append to files if exists.</p>
+</blockquote>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+                </div>
+                <footer class="text-right">
+                    <p></p>
+                </footer>
+            </div>
+        </div>
+    </article>
+</section>
 <footer>
     <hr>
     <div class="row">
@@ -446,5 +654,6 @@
     <script src="./theme/js/bootstrap.min.js"></script>
     <!-- twitchy Script -->
     <script src="./theme/js/pelican_twitchy.min.js"></script>
+
 </body>
 </html>
