@@ -7,7 +7,7 @@
             <span class="category">
                 <i class="fa fa-folder-open padding-small"></i><a href="{{ SITEURL }}/{{ article.category.url }}">{{ article.category }}</a>
             </span>
-            {% if article.tags %}
+            {% if article.tags  %}
             <span class="tags">
                 <i class="fa fa-tags padding-small"></i>
             {% for tag in article.tags %}

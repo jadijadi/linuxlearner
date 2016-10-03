@@ -1,5 +1,5 @@
 {% if RECENT_POST_COUNT is not defined %}
-    {% set RECENT_POST_COUNT = 5 %}
+    {% set RECENT_POST_COUNT = 500 %}
 {% endif %}
 
 {% macro nav_small_li(href, title, content) -%}
@@ -56,7 +56,7 @@
 
     <link href="{{ SITEURL }}/theme/css/font-awesome.min.css" rel="stylesheet" />
     <link href="{{ SITEURL }}/theme/css/pygments/{{ PYGMENTS_STYLE|default('native') }}.css" rel="stylesheet" />
-    
+
     {% if TYPOGRIFY %}
         <link href="{{ SITEURL }}/theme/css/typogrify.css" rel="stylesheet" />
     {% endif %}
@@ -68,7 +68,7 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    
+
     <!-- Feeds -->
     {% if FEED_ALL_ATOM %}
         <link href="{{ SITEURL }}/{{ FEED_ALL_ATOM }}" type="application/atom+xml" rel="alternate"
@@ -90,7 +90,7 @@
                 {{ nav_small_li(SITEURL, SITENAME, '<span class="glyphicon glyphicon-home"></span>') }}
                 <li class="nav-divider"></li>
                 {{ nav_small_li(SITEURL + '/' + ARCHIVES_URL | default('archives.html'), 'Recent Articles', '<span class="glyphicon glyphicon-th-list"></span>') }}
-                
+
                 {% if SHARE %}
                 <li class="nav-divider"></li>
                 <li id="share-small">
@@ -147,11 +147,19 @@
                     </a>
                 </li>
                 {% if DISPLAY_RECENT_POSTS_ON_MENU %}
+                <li class="nav-divider"></li>
+                <li>
+                    <a  data-parent="#accordion" href="/pages/donate.html">
+                        <span class="glyphicon glyphicon-heart padding-small"></span>
+                        Support
+                    </a>
+                </li>
+
                     <li class="nav-divider"></li>
                     <li>
                         <a data-toggle="collapse" data-parent="#accordion" href="#collapse-latest">
                             <span class="glyphicon glyphicon-th-list padding-small"></span>
-                            Recent Articles
+                            LPIC1 Chapters
                         </a>
                     </li>
                     <li class="panel anti-panel"><ul id="collapse-latest" class="sidebar_submenu collapse {% block collapse_latest %}{% endblock %}">
@@ -163,12 +171,6 @@
                             </a>
                         </li>
                     {% endfor %}
-                    <li>
-                        <a href="{{ SITEURL }}/{{ ARCHIVES_URL | default('archives.html') }}">
-                            <i class="fa fa-arrow-right padding-small"></i>
-                            More
-                        </a>
-                    </li>
                     </ul></li>
                 {% else %}
                     <li>
@@ -210,21 +212,11 @@
                 {% if SOCIAL %}
                 <li class="nav-divider"></li>
                 <li>
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-social">
+                    <a  href="/pages/about.html">
                         <i class="fa fa-users padding-small"></i>
-                        Contact
+                        About Jadi
                     </a>
                 </li>
-                <li class="panel anti-panel"><ul id="collapse-social" class="sidebar_submenu collapse {% block collapse_social %}{% endblock %}">
-                    {% for name, link in SOCIAL|sort(attribute='0') %}
-                    <li>
-                        <a href="{{ link }}" title="{{name|striptags|trim}}">
-                            <i class="{{get_icon_attributes(name|striptags|trim)}} padding-small"></i>
-                            {{ name }}
-                        </a>
-                    </li>
-                    {% endfor %}
-                </ul></li>
                 {% endif %}
                 {% for title, link in MENUITEMS %}
                 {% if loop.first%}
@@ -236,15 +228,9 @@
                     </a>
                 </li>
                 {% endfor %}
-                
+
                 {% if DISPLAY_PAGES_ON_MENU %}
                 <li class="nav-divider"></li>
-                <li>
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-pages">
-                        <i class="fa fa-folder-open padding-small"></i>
-                        Pages
-                    </a>
-                </li>
                 <li class="panel anti-panel"><ul id="collapse-pages" class="sidebar_submenu collapse {% block collapse_pages %}{% endblock %}">
                     {% for p in pages %}
                     <li{% if p == page %} class="active"{% endif %}>
@@ -256,7 +242,7 @@
                     {% endfor %}
                 </ul></li>
                 {% endif %}
-                
+
                 {% if DISPLAY_CATEGORIES_ON_MENU %}
                 <li class="nav-divider"></li>
                 <li>
@@ -277,7 +263,7 @@
                     {% endfor %}
                 </ul></li>
                 {% endif %}
-                
+
                 {% if DISPLAY_TAGS_ON_MENU %}
                     {% if DISPLAY_TAGS_INLINE %}
                         {% set tags = tag_cloud | sort(attribute='0') %}

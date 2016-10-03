@@ -1,9 +1,9 @@
-Title: Summary
+Title: Free LPIC1 book and videos
 Date: 2015-12-25 12:20
 Category: other
 Tags: test
 
-# Summary
+# Index page
 
 * [Introduction](README.md)
 * [101.1. Determine and configure hardware settings](1011_determine_and_configure_hardware_settings.md)

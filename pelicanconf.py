@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 
 AUTHOR = u'jadi'
 SITENAME = u'Linux Learner'
+SITESUBTITLE = u'Free LPIC 1 book, lessons and videos'
 SITEURL = u'http://linuxlearner.net'
 
 PATH = 'content'
@@ -48,3 +49,6 @@ FEED_ALL_ATOM = 'feeds/all.atom.xml'
 
 PLUGIN_PATHS = ["plugins"]
 PLUGINS = ["tag_cloud"]
+
+DISPLAY_RECENT_POSTS_ON_MENU = True
+DISPLAY_PAGES_ON_MENU = False
