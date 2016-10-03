@@ -1,65 +1,71 @@
+/* vim: ts=4 sw=4 et: */
 
-article, section,
-header, footer, 
-aside, nav {
-    display: block;
-}
-
-body, .page {
+html, body {
+    height: 100%;
+    width: 100%;
     margin: 0;
     padding: 0;
 }
 
-.page {
-    display: block;
-    margin: 2% 4%;
+#page {
+    max-width: 900px;
+    min-width: 240px;
+    margin: 0 auto;
+    padding: 0;
 }
 
-.page-head,
-.page-footer {
-  display: block;
-  width: 100%;
-  clear: both;
+#page-head,
+#page-body,
+#page-foot {
+    clear: both;
+    margin: 0;
+    padding: 0;
 }
 
-.page-content {
-    display: block;
-    float: right;
-    margin-left: 1%;
-    margin-right: 1%;
-    width: 68%;
+#page-body { margin: 0 1em; }
+
+#page-main, #page-side {
+    border-width: 0;
 }
 
-.page-sidebar {
-    display: block;
-    margin-left: 1%;
-    margin-right: 1%;
-    width: 28%;
+#page-side {
     float: left;
+    width: 25%;
+    height: 100%;
+    margin-top: 0;
 }
 
-@media screen and (min-width: 800px) {
-    .page { margin: 5% 10%; }
+#page-main {
+    float: right;
+    height: 100%;
+    width: 74%;
 }
 
-@media screen and (max-width: 600px) {
-    .page { margin: 0; }
-    .page-content,
-    .page-sidebar {
-        width: 98%;
+
+
+@media screen and (max-width: 550px) {
+    #page-main,
+    #page-side {
+        width: auto;
         clear: both;
+        float: none;
+    }
+
+    #page-side ul {
+        column-count: 2;
+        -moz-column-count: 2;
+        -webkit-column-count: 2;
+        -o-column-count: 2;
+        -ms-column-count: 2;
     }
 }
 
-@media print {
-    .page { margin: 0; }
-    .page-content {
-        width: 98%;
-        clear: both;
-    }
-    .page-head,
-    .page-footer,
-    .page-sidebar {
-        display: none;
+@media screen and (max-width: 490px) {
+    #page-side ul {
+        column-count: auto;
+        -moz-column-count: auto;
+        -webkit-column-count: auto;
+        -o-column-count: auto;
+        -ms-column-count: auto;
     }
 }

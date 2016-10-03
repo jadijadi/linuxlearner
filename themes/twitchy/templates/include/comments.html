@@ -1,0 +1,15 @@
+{% if DISQUS_SITENAME %}
+    {% if DISQUS_LOAD_LATER %}
+    <div id="show-comments" class="span7 text-center">
+        <a href="{{ SITEURL }}/{{ article.url }}#disqus_thread" data-disqus-identifier="{{ article.date|strftime('%Y-%m-') ~ article.slug if DISQUS_ID_PREFIX_SLUG else article.slug }}" class="btn btn-default">Show Comments</a>
+    </div>
+    {% endif %}
+    <section id="comments" class="comments {% if DISQUS_LOAD_LATER %}hidden{% endif %}">
+        <hr/>
+        <h2>Comments</h2>
+        <div id="disqus_thread"></div>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </section>
+{% endif %}

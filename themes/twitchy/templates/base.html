@@ -1,0 +1,337 @@
+{% if RECENT_POST_COUNT is not defined %}
+    {% set RECENT_POST_COUNT = 5 %}
+{% endif %}
+
+{% macro nav_small_li(href, title, content) -%}
+    <li>
+        <a href="{{href|striptags|trim}}" title="{{title|striptags|trim}}" class="collapsed">
+            {{content}}
+        </a>
+    </li>
+{%- endmacro %}
+{% macro nav_small_li_collapsable(href, title, content) -%}
+    <li>
+        <a href="{{href|striptags|trim}}" title="{{title|striptags|trim}}" class="collapsed">
+            {{content}}
+        </a>
+    </li>
+{%- endmacro %}
+{% macro get_icon_attributes(name) -%}
+    {%- set name_sanitized = name|lower|replace('+','-plus')|replace(' ','-') -%}
+    {%- if name_sanitized in ['flickr', 'spotify', 'stack-overflow'] -%}
+        {%- set iconattributes = 'fa fa-' ~ name_sanitized ~ ' fa-lg' -%}
+    {%- else -%}
+        {%- set iconattributes = 'fa fa-' ~ name_sanitized ~ '-square fa-lg' -%}
+    {%- endif -%}
+    {%- if name|lower == 'email' -%}
+        {%- set iconattributes = 'fa fa-envelope-square fa-lg' -%}
+    {%- endif -%}
+    {{iconattributes}}
+{%- endmacro %}
+{% if article or page %}
+    {% set share_url = (SITEURL + '/' + (article.url if article else page.url)) %}
+{% endif %}
+<!DOCTYPE html>
+<html lang="{% block html_lang %}{{ DEFAULT_LANG }}{% endblock %}">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {% block meta %}
+        <meta name="author" content="{{ AUTHOR }}" />
+        <meta name="description" content="{{ SITESUBTITLE|escape }}" />
+    {% endblock %}
+
+    {% if OPEN_GRAPH %}
+    {% include "include/open_graph.html" %}
+    {% endif %}
+
+    <title>{% block title %}{{ SITENAME }}{% endblock %}</title>
+
+    {% if BOOTSTRAP_THEME %}
+        <link rel="stylesheet" href="{{ SITEURL }}/theme/css/bootstrap.{{ BOOTSTRAP_THEME }}.min.css" type="text/css"/>
+    {% else %}
+        <link rel="stylesheet" href="{{ SITEURL }}/theme/css/bootstrap.min.css" type="text/css" />
+    {% endif %}
+
+    <link href="{{ SITEURL }}/theme/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="{{ SITEURL }}/theme/css/pygments/{{ PYGMENTS_STYLE|default('native') }}.css" rel="stylesheet" />
+    
+    {% if TYPOGRIFY %}
+        <link href="{{ SITEURL }}/theme/css/typogrify.css" rel="stylesheet" />
+    {% endif %}
+    <link href="{{ SITEURL }}/theme/css/pelican-twitchy.min.css" rel="stylesheet" />
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <!-- Feeds -->
+    {% if FEED_ALL_ATOM %}
+        <link href="{{ SITEURL }}/{{ FEED_ALL_ATOM }}" type="application/atom+xml" rel="alternate"
+              title="{{ SITENAME }} ATOM Feed" />
+    {% endif %}
+    {% if FEED_ALL_RSS %}
+        <link href="{{ SITEURL }}/{{ FEED_ALL_RSS }}" type="application/rss+xml" rel="alternate"
+              title="{{ SITENAME }} RSS Feed" />
+    {% endif %}
+    {% if CUSTOM_CSS %}
+        <link href="{{ SITEURL }}/{{ CUSTOM_CSS }}" rel="stylesheet" />
+    {% endif %}
+</head>
+<body data-spy="scroll" data-target="#scrollspy">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper-small" class="twitchy-background">
+            <ul id="accordion-small" class="sidebar-nav sidebar-nav-small">
+                {{ nav_small_li(SITEURL, SITENAME, '<span class="glyphicon glyphicon-home"></span>') }}
+                <li class="nav-divider"></li>
+                {{ nav_small_li(SITEURL + '/' + ARCHIVES_URL | default('archives.html'), 'Recent Articles', '<span class="glyphicon glyphicon-th-list"></span>') }}
+                
+                {% if SHARE %}
+                <li class="nav-divider"></li>
+                <li id="share-small">
+                    <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-share-small" title="Share" class="collapsed">
+                        <i class="fa fa-share-alt padding-small"></i>
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-share-small" class="collapse {% block collapse_share_small %}{% endblock %}">
+                    <li>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u={{share_url}}" title="Share via Facebook" target="popup">
+                            <i class="fa fa-facebook-square padding-small"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/share?url={{share_url}}" title="Share via Google+" target="popup">
+                            <i class="fa fa-google-plus padding-small"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" title="Share via Twitter" target="popup">
+                            <i class="fa fa-twitter-square padding-small"></i>
+                        </a>
+                    </li>
+                </ul></li>
+                {% endif %}
+                {% if SOCIAL %}
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-social-small" title="Social" class="collapsed">
+                        <i class="fa fa-users padding-small"></i>
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-social-small" class="collapse {% block collapse_social_small %}{% endblock %}">
+                {% for name, link in SOCIAL|sort(attribute='0') %}
+                    <li>
+                        <a href="{{ link }}" title="{{name}}"><i class="{{get_icon_attributes(name|striptags|trim)}} padding-small"></i></a>
+                    </li>
+                {% endfor %}
+                </ul></li>
+                {% endif %}
+                <li class="nav-divider"></li>
+                {{ nav_small_li('#', 'Back to top', '<span class="fa fa-arrow-up"></span>') }}
+            </ul>
+        </div>
+        <div id="sidebar-wrapper" class="twitchy-background">
+            <ul id="accordion" class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="{{ SITEURL }}/">
+                        {% if SITELOGO %}<img src="{{ SITEURL }}/{{ SITELOGO }}" width="{{ SITELOGO_SIZE }}" alt="Sitelogo"/> {% endif %}
+                        {% if not HIDE_SITENAME %}
+                            <span class="glyphicon glyphicon-home padding-small"></span>
+                            {{ SITENAME }}
+                        {% endif %}
+                    </a>
+                </li>
+                {% if DISPLAY_RECENT_POSTS_ON_MENU %}
+                    <li class="nav-divider"></li>
+                    <li>
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-latest">
+                            <span class="glyphicon glyphicon-th-list padding-small"></span>
+                            Recent Articles
+                        </a>
+                    </li>
+                    <li class="panel anti-panel"><ul id="collapse-latest" class="sidebar_submenu collapse {% block collapse_latest %}{% endblock %}">
+                    {% for a in (all_articles if all_articles else articles)[:RECENT_POST_COUNT] %}
+                        <li class="{% if a == article %}active{% endif %}">
+                            <a class="hide-overflow" href="{{ SITEURL }}/{{ a.url }}" title="{{ a.title|striptags|trim }}">
+                                <i class="fa fa-file-text padding-small"></i>
+                                {{ a.title | striptags | trim }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                    <li>
+                        <a href="{{ SITEURL }}/{{ ARCHIVES_URL | default('archives.html') }}">
+                            <i class="fa fa-arrow-right padding-small"></i>
+                            More
+                        </a>
+                    </li>
+                    </ul></li>
+                {% else %}
+                    <li>
+                        <a href="{{ SITEURL }}/{{ ARCHIVES_URL | default('archives.html') }}">
+                            <span class="glyphicon glyphicon-th-list padding-small"></span>
+                            Recent Articles
+                        </a>
+                    </li>
+                {% endif %}
+                {% if SHARE %}
+                <li class="nav-divider"></li>
+                <li id="share">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-share" title="Share" class="collapsed">
+                        <i class="fa fa-share-alt padding-small"></i>
+                        Share
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-share" class="sidebar_submenu collapse {% block collapse_share %}{% endblock %}">
+                    <li>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u={{share_url}}" target="popup">
+                            <i class="fa fa-facebook-square padding-small"></i>
+                            Facebook
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/share?url={{share_url}}" target="popup">
+                            <i class="fa fa-google-plus padding-small"></i>
+                            Google+
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" target="popup">
+                            <i class="fa fa-twitter-square padding-small"></i>
+                            Twitter
+                        </a>
+                    </li>
+                </ul></li>
+                {% endif %}
+                {% if SOCIAL %}
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-social">
+                        <i class="fa fa-users padding-small"></i>
+                        Contact
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-social" class="sidebar_submenu collapse {% block collapse_social %}{% endblock %}">
+                    {% for name, link in SOCIAL|sort(attribute='0') %}
+                    <li>
+                        <a href="{{ link }}" title="{{name|striptags|trim}}">
+                            <i class="{{get_icon_attributes(name|striptags|trim)}} padding-small"></i>
+                            {{ name }}
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul></li>
+                {% endif %}
+                {% for title, link in MENUITEMS %}
+                {% if loop.first%}
+                <li class="nav-divider"></li>
+                {% endif %}
+                <li>
+                    <a href="{{ link }}">
+                        {{ title }}
+                    </a>
+                </li>
+                {% endfor %}
+                
+                {% if DISPLAY_PAGES_ON_MENU %}
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-pages">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Pages
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-pages" class="sidebar_submenu collapse {% block collapse_pages %}{% endblock %}">
+                    {% for p in pages %}
+                    <li{% if p == page %} class="active"{% endif %}>
+                        <a href="{{ SITEURL }}/{{ p.url }}">
+                            <i class="fa fa-file-text padding-small"></i>
+                            {{ p.menulabel|default(p.title) }}
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul></li>
+                {% endif %}
+                
+                {% if DISPLAY_CATEGORIES_ON_MENU %}
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Categories
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse {% block collapse_categories %}{% endblock %}">
+                    {% for cat, articles in categories %}
+                    <li {% if cat == category %}class="active"{% endif %}>
+                        <a href="{{ SITEURL }}/{{ cat.url }}">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            {{ cat }}
+                            <span class="badge pull-right categorybadge">{{ articles|count }}</span>
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul></li>
+                {% endif %}
+                
+                {% if DISPLAY_TAGS_ON_MENU %}
+                    {% if DISPLAY_TAGS_INLINE %}
+                        {% set tags = tag_cloud | sort(attribute='0') %}
+                    {% else %}
+                        {% set tags = tag_cloud | sort(attribute='1') %}
+                    {% endif %}
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-tags">
+                        <i class="fa fa-tags padding-small"></i>
+                        Tags
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-tags" class="sidebar_submenu collapse {% block collapse_tags %}{% endblock %}">
+                    {% for tag in tags %}
+                    <li class="tag-{{ tag.1 }}">
+                        <a href="{{ SITEURL }}/{{ tag.0.url }}">
+                            {{ tag.0 }}
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul></li>
+                {% endif %}
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- open/close sidebar -->
+        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+            <span id="right-arrow" class="glyphicon glyphicon-chevron-right"  title="expand sidebar"></span>
+            <span id="left-arrow" class="glyphicon glyphicon-chevron-left" title="minimize sidebar"></span>
+        </a>
+       <!-- /open/close sidebar -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                {% block precontent scoped %}
+                {% endblock %}
+                {% block content scoped %}
+                {% endblock %}
+                {% include "include/footer.html" %}
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery Version 1.11.2 -->
+    <script src="{{ SITEURL }}/theme/js/jquery-1.11.2.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{{ SITEURL }}/theme/js/bootstrap.min.js"></script>
+    <!-- twitchy Script -->
+    <script src="{{ SITEURL }}/theme/js/pelican_twitchy.min.js"></script>
+    {% include 'include/ga.html' %}
+    {% block scripts %}
+    {% endblock %}
+</body>
+</html>

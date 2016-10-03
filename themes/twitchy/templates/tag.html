@@ -1,0 +1,17 @@
+{% extends "include/article_list.html" %}
+{% block title %}{{ tag }} - {{ SITENAME }}{% endblock %}
+{% block meta %}
+    <meta name="keywords" content="{{ tag }}" />
+{% endblock %}
+
+{% block collapse_tags %}in{% endblock %}
+
+{% block precontent %}
+<div class="row">
+    <div class="col-lg-9">
+        <header class="page-header">
+            <h1>Articles featuring {{ tag }}</h1>
+        </header>
+    </div>
+</div>
+{% endblock %}

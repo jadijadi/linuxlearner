@@ -1,0 +1,18 @@
+{% extends "include/article_list.html" %}
+{% block title %}{{ category }} - {{ SITENAME }}{% endblock %}
+{% block meta %}
+    <meta name="author" content="{{ AUTHOR }}" />
+    <meta name="keywords" content="{{ category }}" />
+{% endblock %}
+
+{% block collapse_categories %}in{% endblock %}
+
+{% block precontent %}
+<div class="row">
+    <div class="col-lg-9">
+        <header class="page-header">
+            <h1>Articles in {{ category }}</h1>
+        </header>
+    </div>
+</div>
+{% endblock %}
