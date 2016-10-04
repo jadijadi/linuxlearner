@@ -327,7 +327,823 @@ tmpfs /run tmpfs rw,nosuid,noexec,relatime,size=806028k,mode=755 0 0
 &lt;li&gt;Kernel is still logging its own messages in dmesg&lt;/li&gt;
 &lt;li&gt;in some systems it might be called /var/log/syslog&lt;/li&gt;
 &lt;li&gt;there are many other logs at /var/log&lt;/li&gt;
-&lt;/ul&gt;</summary><category term="test"></category></entry><entry><title>102.3. Manage shared libraries</title><link href="http://linuxlearner.net/1023-manage-shared-libraries.html" rel="alternate"></link><published>2015-12-25T12:20:00+00:00</published><updated>2015-12-25T12:20:00+00:00</updated><author><name>jadi</name></author><id>tag:linuxlearner.net,2015-12-25:1023-manage-shared-libraries.html</id><summary type="html">&lt;h1&gt;102.3. Manage shared libraries&lt;/h1&gt;
+&lt;/ul&gt;</summary><category term="test"></category></entry><entry><title>101.3. Change runlevels and shutdown or reboot system</title><link href="http://linuxlearner.net/1013-change-runlevels-and-shutdown-or-reboot-system.html" rel="alternate"></link><published>2015-12-25T12:20:00+00:00</published><updated>2015-12-25T12:20:00+00:00</updated><author><name>jadi</name></author><id>tag:linuxlearner.net,2015-12-25:1013-change-runlevels-and-shutdown-or-reboot-system.html</id><summary type="html">&lt;h1&gt;101.3. Change runlevels and shutdown or reboot system&lt;/h1&gt;
+&lt;p&gt;weight: 3&lt;/p&gt;
+&lt;p&gt;Candidates should be able to manage the runlevel of the system. This objective includes changing to single user mode, shutdown or rebooting the system. Candidates should be able to alert users before switching run level and properly terminate processes. This objective also includes setting the default run level. It also includes basic feature knowledge of potential replacements to init.&lt;/p&gt;
+&lt;h3&gt;Key Knowledge Areas&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Set the default runlevel.&lt;/li&gt;
+&lt;li&gt;Change between run levels including single user mode.&lt;/li&gt;
+&lt;li&gt;Shutdown and reboot from the command line.&lt;/li&gt;
+&lt;li&gt;Alert users before switching runlevels or other major system event.&lt;/li&gt;
+&lt;li&gt;Properly terminate processes.&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Knowledge of basic features of systemd and Upstart&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;/etc/inittab&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;shutdown&lt;/li&gt;
+&lt;li&gt;init&lt;/li&gt;
+&lt;li&gt;/etc/init.d&lt;/li&gt;
+&lt;li&gt;telinit&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;runlevels&lt;/h3&gt;
+&lt;p&gt;Runlevels define what tasks can be accomplished in the current state (or runlevel) of a Linux system&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;0- Halt&lt;/li&gt;
+&lt;li&gt;1- Single user mode (recovery)&lt;/li&gt;
+&lt;li&gt;2- Debian/Ubuntu default&lt;/li&gt;
+&lt;li&gt;3- RHEL/Fedora/SUSE text mode&lt;/li&gt;
+&lt;li&gt;4- free&lt;/li&gt;
+&lt;li&gt;5- RHEL/Fedora/SUSE graphical mode&lt;/li&gt;
+&lt;li&gt;6- reboot&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;default run level can be seen in this file which says init what to do, sets default runlevel and.. being phased out!&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;grep &amp;quot;^id:&amp;quot; /etc/inittab #on init systems
+id:5:initdefault:
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;it can also be done on grub kernel parameters.&lt;/p&gt;
+&lt;p&gt;or using the runleveland telinit commands:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# runlevel
+N 3
+# telinit 5
+# runlevel
+3 5
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; runlevel 1 is single user mode!&lt;/p&gt;
+&lt;h3&gt;/etc/inittab&lt;/h3&gt;
+&lt;p&gt;is being replaced by upstart and systemd but is still part of the exam.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="err"&gt;#&lt;/span&gt;
+&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="nt"&gt;inittab&lt;/span&gt;       &lt;span class="nt"&gt;This&lt;/span&gt; &lt;span class="nt"&gt;file&lt;/span&gt; &lt;span class="nt"&gt;describes&lt;/span&gt; &lt;span class="nt"&gt;how&lt;/span&gt; &lt;span class="nt"&gt;the&lt;/span&gt; &lt;span class="nt"&gt;INIT&lt;/span&gt; &lt;span class="nt"&gt;process&lt;/span&gt; &lt;span class="nt"&gt;should&lt;/span&gt; &lt;span class="nt"&gt;set&lt;/span&gt; &lt;span class="nt"&gt;up&lt;/span&gt;
+&lt;span class="err"&gt;#&lt;/span&gt;               &lt;span class="nt"&gt;the&lt;/span&gt; &lt;span class="nt"&gt;system&lt;/span&gt; &lt;span class="nt"&gt;in&lt;/span&gt; &lt;span class="nt"&gt;a&lt;/span&gt; &lt;span class="nt"&gt;certain&lt;/span&gt; &lt;span class="nt"&gt;run-level&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;
+&lt;span class="err"&gt;#&lt;/span&gt;
+&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="nt"&gt;Author&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;       &lt;span class="nt"&gt;Miquel&lt;/span&gt; &lt;span class="nt"&gt;van&lt;/span&gt; &lt;span class="nt"&gt;Smoorenburg&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;miquels&lt;/span&gt;&lt;span class="k"&gt;@drinkel&lt;/span&gt;&lt;span class="nc"&gt;.nl.mugnet.org&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="err"&gt;#&lt;/span&gt;               &lt;span class="nt"&gt;Modified&lt;/span&gt; &lt;span class="nt"&gt;for&lt;/span&gt; &lt;span class="nt"&gt;RHS&lt;/span&gt; &lt;span class="nt"&gt;Linux&lt;/span&gt; &lt;span class="nt"&gt;by&lt;/span&gt; &lt;span class="nt"&gt;Marc&lt;/span&gt; &lt;span class="nt"&gt;Ewing&lt;/span&gt; &lt;span class="nt"&gt;and&lt;/span&gt; &lt;span class="nt"&gt;Donnie&lt;/span&gt; &lt;span class="nt"&gt;Barnes&lt;/span&gt;
+&lt;span class="err"&gt;#&lt;/span&gt;
+
+&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="nt"&gt;Default&lt;/span&gt; &lt;span class="nt"&gt;runlevel&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt; &lt;span class="nt"&gt;The&lt;/span&gt; &lt;span class="nt"&gt;runlevels&lt;/span&gt; &lt;span class="nt"&gt;used&lt;/span&gt; &lt;span class="nt"&gt;by&lt;/span&gt; &lt;span class="nt"&gt;RHS&lt;/span&gt; &lt;span class="nt"&gt;are&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+&lt;span class="err"&gt;#&lt;/span&gt;   &lt;span class="nt"&gt;0&lt;/span&gt; &lt;span class="nt"&gt;-&lt;/span&gt; &lt;span class="nt"&gt;halt&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nt"&gt;Do&lt;/span&gt; &lt;span class="nt"&gt;NOT&lt;/span&gt; &lt;span class="nt"&gt;set&lt;/span&gt; &lt;span class="nt"&gt;initdefault&lt;/span&gt; &lt;span class="nt"&gt;to&lt;/span&gt; &lt;span class="nt"&gt;this&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="err"&gt;#&lt;/span&gt;   &lt;span class="nt"&gt;1&lt;/span&gt; &lt;span class="nt"&gt;-&lt;/span&gt; &lt;span class="nt"&gt;Single&lt;/span&gt; &lt;span class="nt"&gt;user&lt;/span&gt; &lt;span class="nt"&gt;mode&lt;/span&gt;
+&lt;span class="err"&gt;#&lt;/span&gt;   &lt;span class="nt"&gt;2&lt;/span&gt; &lt;span class="nt"&gt;-&lt;/span&gt; &lt;span class="nt"&gt;Multiuser&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;without&lt;/span&gt; &lt;span class="nt"&gt;NFS&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nt"&gt;The&lt;/span&gt; &lt;span class="nt"&gt;same&lt;/span&gt; &lt;span class="nt"&gt;as&lt;/span&gt; &lt;span class="nt"&gt;3&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;if&lt;/span&gt; &lt;span class="nt"&gt;you&lt;/span&gt; &lt;span class="nt"&gt;do&lt;/span&gt; &lt;span class="nt"&gt;not&lt;/span&gt; &lt;span class="nt"&gt;have&lt;/span&gt; &lt;span class="nt"&gt;networking&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="err"&gt;#&lt;/span&gt;   &lt;span class="nt"&gt;3&lt;/span&gt; &lt;span class="nt"&gt;-&lt;/span&gt; &lt;span class="nt"&gt;Full&lt;/span&gt; &lt;span class="nt"&gt;multiuser&lt;/span&gt; &lt;span class="nt"&gt;mode&lt;/span&gt;
+&lt;span class="err"&gt;#&lt;/span&gt;   &lt;span class="nt"&gt;4&lt;/span&gt; &lt;span class="nt"&gt;-&lt;/span&gt; &lt;span class="nt"&gt;unused&lt;/span&gt;
+&lt;span class="err"&gt;#&lt;/span&gt;   &lt;span class="nt"&gt;5&lt;/span&gt; &lt;span class="nt"&gt;-&lt;/span&gt; &lt;span class="nt"&gt;X11&lt;/span&gt;
+&lt;span class="err"&gt;#&lt;/span&gt;   &lt;span class="nt"&gt;6&lt;/span&gt; &lt;span class="nt"&gt;-&lt;/span&gt; &lt;span class="nt"&gt;reboot&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nt"&gt;Do&lt;/span&gt; &lt;span class="nt"&gt;NOT&lt;/span&gt; &lt;span class="nt"&gt;set&lt;/span&gt; &lt;span class="nt"&gt;initdefault&lt;/span&gt; &lt;span class="nt"&gt;to&lt;/span&gt; &lt;span class="nt"&gt;this&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="err"&gt;#&lt;/span&gt;
+&lt;span class="nt"&gt;id&lt;/span&gt;&lt;span class="nd"&gt;:5:initdefault&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+
+&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="nt"&gt;System&lt;/span&gt; &lt;span class="nt"&gt;initialization&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;
+&lt;span class="nt"&gt;si&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="nd"&gt;:sysinit&lt;/span&gt;&lt;span class="o"&gt;:/&lt;/span&gt;&lt;span class="nt"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;rc&lt;/span&gt;&lt;span class="nc"&gt;.d&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;rc&lt;/span&gt;&lt;span class="nc"&gt;.sysinit&lt;/span&gt;
+
+&lt;span class="nt"&gt;l0&lt;/span&gt;&lt;span class="nd"&gt;:0:wait&lt;/span&gt;&lt;span class="o"&gt;:/&lt;/span&gt;&lt;span class="nt"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;rc&lt;/span&gt;&lt;span class="nc"&gt;.d&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;rc&lt;/span&gt; &lt;span class="nt"&gt;0&lt;/span&gt;
+&lt;span class="nt"&gt;l1&lt;/span&gt;&lt;span class="nd"&gt;:1:wait&lt;/span&gt;&lt;span class="o"&gt;:/&lt;/span&gt;&lt;span class="nt"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;rc&lt;/span&gt;&lt;span class="nc"&gt;.d&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;rc&lt;/span&gt; &lt;span class="nt"&gt;1&lt;/span&gt;
+&lt;span class="nt"&gt;l2&lt;/span&gt;&lt;span class="nd"&gt;:2:wait&lt;/span&gt;&lt;span class="o"&gt;:/&lt;/span&gt;&lt;span class="nt"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;rc&lt;/span&gt;&lt;span class="nc"&gt;.d&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;rc&lt;/span&gt; &lt;span class="nt"&gt;2&lt;/span&gt;
+&lt;span class="nt"&gt;l3&lt;/span&gt;&lt;span class="nd"&gt;:3:wait&lt;/span&gt;&lt;span class="o"&gt;:/&lt;/span&gt;&lt;span class="nt"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;rc&lt;/span&gt;&lt;span class="nc"&gt;.d&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;rc&lt;/span&gt; &lt;span class="nt"&gt;3&lt;/span&gt;
+&lt;span class="nt"&gt;l4&lt;/span&gt;&lt;span class="nd"&gt;:4:wait&lt;/span&gt;&lt;span class="o"&gt;:/&lt;/span&gt;&lt;span class="nt"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;rc&lt;/span&gt;&lt;span class="nc"&gt;.d&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;rc&lt;/span&gt; &lt;span class="nt"&gt;4&lt;/span&gt;
+&lt;span class="nt"&gt;l5&lt;/span&gt;&lt;span class="nd"&gt;:5:wait&lt;/span&gt;&lt;span class="o"&gt;:/&lt;/span&gt;&lt;span class="nt"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;rc&lt;/span&gt;&lt;span class="nc"&gt;.d&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;rc&lt;/span&gt; &lt;span class="nt"&gt;5&lt;/span&gt;
+&lt;span class="nt"&gt;l6&lt;/span&gt;&lt;span class="nd"&gt;:6:wait&lt;/span&gt;&lt;span class="o"&gt;:/&lt;/span&gt;&lt;span class="nt"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;rc&lt;/span&gt;&lt;span class="nc"&gt;.d&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;rc&lt;/span&gt; &lt;span class="nt"&gt;6&lt;/span&gt;
+
+&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="nt"&gt;Trap&lt;/span&gt; &lt;span class="nt"&gt;CTRL-ALT-DELETE&lt;/span&gt;
+&lt;span class="nt"&gt;ca&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="nd"&gt;:ctrlaltdel&lt;/span&gt;&lt;span class="o"&gt;:/&lt;/span&gt;&lt;span class="nt"&gt;sbin&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;shutdown&lt;/span&gt; &lt;span class="nt"&gt;-t3&lt;/span&gt; &lt;span class="nt"&gt;-r&lt;/span&gt; &lt;span class="nt"&gt;now&lt;/span&gt;
+
+&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="nt"&gt;When&lt;/span&gt; &lt;span class="nt"&gt;our&lt;/span&gt; &lt;span class="nt"&gt;UPS&lt;/span&gt; &lt;span class="nt"&gt;tells&lt;/span&gt; &lt;span class="nt"&gt;us&lt;/span&gt; &lt;span class="nt"&gt;power&lt;/span&gt; &lt;span class="nt"&gt;has&lt;/span&gt; &lt;span class="nt"&gt;failed&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;assume&lt;/span&gt; &lt;span class="nt"&gt;we&lt;/span&gt; &lt;span class="nt"&gt;have&lt;/span&gt; &lt;span class="nt"&gt;a&lt;/span&gt; &lt;span class="nt"&gt;few&lt;/span&gt; &lt;span class="nt"&gt;minutes&lt;/span&gt;
+&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="nt"&gt;of&lt;/span&gt; &lt;span class="nt"&gt;power&lt;/span&gt; &lt;span class="nt"&gt;left&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;  &lt;span class="nt"&gt;Schedule&lt;/span&gt; &lt;span class="nt"&gt;a&lt;/span&gt; &lt;span class="nt"&gt;shutdown&lt;/span&gt; &lt;span class="nt"&gt;for&lt;/span&gt; &lt;span class="nt"&gt;2&lt;/span&gt; &lt;span class="nt"&gt;minutes&lt;/span&gt; &lt;span class="nt"&gt;from&lt;/span&gt; &lt;span class="nt"&gt;now&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;
+&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="nt"&gt;This&lt;/span&gt; &lt;span class="nt"&gt;does&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;of&lt;/span&gt; &lt;span class="nt"&gt;course&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;assume&lt;/span&gt; &lt;span class="nt"&gt;you&lt;/span&gt; &lt;span class="nt"&gt;have&lt;/span&gt; &lt;span class="nt"&gt;powerd&lt;/span&gt; &lt;span class="nt"&gt;installed&lt;/span&gt; &lt;span class="nt"&gt;and&lt;/span&gt; &lt;span class="nt"&gt;your&lt;/span&gt;
+&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="nt"&gt;UPS&lt;/span&gt; &lt;span class="nt"&gt;connected&lt;/span&gt; &lt;span class="nt"&gt;and&lt;/span&gt; &lt;span class="nt"&gt;working&lt;/span&gt; &lt;span class="nt"&gt;correctly&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;
+&lt;span class="nt"&gt;pf&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="nd"&gt;:powerfail&lt;/span&gt;&lt;span class="o"&gt;:/&lt;/span&gt;&lt;span class="nt"&gt;sbin&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;shutdown&lt;/span&gt; &lt;span class="nt"&gt;-f&lt;/span&gt; &lt;span class="nt"&gt;-h&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="nt"&gt;2&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Power Failure; System Shutting Down&amp;quot;&lt;/span&gt;
+
+&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="nt"&gt;If&lt;/span&gt; &lt;span class="nt"&gt;power&lt;/span&gt; &lt;span class="nt"&gt;was&lt;/span&gt; &lt;span class="nt"&gt;restored&lt;/span&gt; &lt;span class="nt"&gt;before&lt;/span&gt; &lt;span class="nt"&gt;the&lt;/span&gt; &lt;span class="nt"&gt;shutdown&lt;/span&gt; &lt;span class="nt"&gt;kicked&lt;/span&gt; &lt;span class="nt"&gt;in&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;cancel&lt;/span&gt; &lt;span class="nt"&gt;it&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;
+&lt;span class="nt"&gt;pr&lt;/span&gt;&lt;span class="nd"&gt;:12345:powerokwait&lt;/span&gt;&lt;span class="o"&gt;:/&lt;/span&gt;&lt;span class="nt"&gt;sbin&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;shutdown&lt;/span&gt; &lt;span class="nt"&gt;-c&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Power Restored; Shutdown Cancelled&amp;quot;&lt;/span&gt;
+
+
+&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="nt"&gt;Run&lt;/span&gt; &lt;span class="nt"&gt;gettys&lt;/span&gt; &lt;span class="nt"&gt;in&lt;/span&gt; &lt;span class="nt"&gt;standard&lt;/span&gt; &lt;span class="nt"&gt;runlevels&lt;/span&gt;
+&lt;span class="nt"&gt;1&lt;/span&gt;&lt;span class="nd"&gt;:2345:respawn&lt;/span&gt;&lt;span class="o"&gt;:/&lt;/span&gt;&lt;span class="nt"&gt;sbin&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;mingetty&lt;/span&gt; &lt;span class="nt"&gt;tty1&lt;/span&gt;
+&lt;span class="nt"&gt;2&lt;/span&gt;&lt;span class="nd"&gt;:2345:respawn&lt;/span&gt;&lt;span class="o"&gt;:/&lt;/span&gt;&lt;span class="nt"&gt;sbin&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;mingetty&lt;/span&gt; &lt;span class="nt"&gt;tty2&lt;/span&gt;
+&lt;span class="nt"&gt;3&lt;/span&gt;&lt;span class="nd"&gt;:2345:respawn&lt;/span&gt;&lt;span class="o"&gt;:/&lt;/span&gt;&lt;span class="nt"&gt;sbin&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;mingetty&lt;/span&gt; &lt;span class="nt"&gt;tty3&lt;/span&gt;
+&lt;span class="nt"&gt;4&lt;/span&gt;&lt;span class="nd"&gt;:2345:respawn&lt;/span&gt;&lt;span class="o"&gt;:/&lt;/span&gt;&lt;span class="nt"&gt;sbin&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;mingetty&lt;/span&gt; &lt;span class="nt"&gt;tty4&lt;/span&gt;
+&lt;span class="nt"&gt;5&lt;/span&gt;&lt;span class="nd"&gt;:2345:respawn&lt;/span&gt;&lt;span class="o"&gt;:/&lt;/span&gt;&lt;span class="nt"&gt;sbin&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;mingetty&lt;/span&gt; &lt;span class="nt"&gt;tty5&lt;/span&gt;
+&lt;span class="nt"&gt;6&lt;/span&gt;&lt;span class="nd"&gt;:2345:respawn&lt;/span&gt;&lt;span class="o"&gt;:/&lt;/span&gt;&lt;span class="nt"&gt;sbin&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;mingetty&lt;/span&gt; &lt;span class="nt"&gt;tty6&lt;/span&gt;
+
+&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="nt"&gt;Run&lt;/span&gt; &lt;span class="nt"&gt;xdm&lt;/span&gt; &lt;span class="nt"&gt;in&lt;/span&gt; &lt;span class="nt"&gt;runlevel&lt;/span&gt; &lt;span class="nt"&gt;5&lt;/span&gt;
+&lt;span class="nt"&gt;x&lt;/span&gt;&lt;span class="nd"&gt;:5:respawn&lt;/span&gt;&lt;span class="o"&gt;:/&lt;/span&gt;&lt;span class="nt"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;X11&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;prefdm&lt;/span&gt; &lt;span class="nt"&gt;-nodaemon&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;this is the format:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;runlevels&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;action&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;process&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;id: 2 or 3 chars&lt;/li&gt;
+&lt;li&gt;runlevels: which runlevel this commands refers to (empty means all)&lt;/li&gt;
+&lt;li&gt;action: respawn, wait, once, initdefault (default run level as seen above), ctrlaltdel (what to do with crrl+alt+delete)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;all scripts are here:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;ls -ltrh /etc/init.d
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;and start/stop on runlevels are controlled from these directories:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;root@funlife:~# ls /etc/rc2.d/
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Shutdown&lt;/h3&gt;
+&lt;p&gt;The preferred method to shut down or reboot the system is to use the shutdown command, which first sends a warning message to all logged-in users and blocks any further logins. It then signals init to switch runlevels. The init process then sends all running processes a SIGTERM signal, giving them a chance to save data or otherwise properly terminate. After 5 seconds, or another delay if specified, init sends a SIGKILL signal to forcibly end each remaining process.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;default is 5 seconds delay and then going to runlevel 1&lt;/li&gt;
+&lt;li&gt;-h will halt the system&lt;/li&gt;
+&lt;li&gt;-r will reboot the system&lt;/li&gt;
+&lt;li&gt;time is hh:mm or n (minutes) or now&lt;/li&gt;
+&lt;li&gt;whatever you add, will be broadcasted to logged in users&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;if the command is running, ctrl+c or the "shutdown -c" will cancel it&lt;/p&gt;
+&lt;p&gt;shutdown -r 60 Reloading updated kernel&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;for more advance users:
+&lt;em&gt; -t60 will delay 60 seconds between SIGTERM and SIGKILL
+&lt;/em&gt; if you cancel a shutdown, users wont get the news! you can use "wall" command to tell them that the shutdown is canceled&lt;/p&gt;
+&lt;h3&gt;Halt, reboot and poweroff&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;The halt command halts the system.&lt;/li&gt;
+&lt;li&gt;The poweroff command is a symbolic link to the halt command, which halts the system and then attempts to power it off.&lt;/li&gt;
+&lt;li&gt;The reboot command is another symbolic link to the halt command, which halts the system and then reboots it.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;upstart&lt;/h3&gt;
+&lt;p&gt;is not static set of init scripts and understands events. Events are used to trigger tasks or services (jobs). Examples are connecting a usb or starting the Apache server only after having network and filesystem.&lt;/p&gt;
+&lt;p&gt;jobs are defined in /etc/init and subdirectories.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;initctl list
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;being used in ubuntu.&lt;/p&gt;
+&lt;h3&gt;systemd&lt;/h3&gt;
+&lt;p&gt;uses sockets and a socket will be open for each daemon process but will start the daemon only when needed. Understands dependencies. Faster and parallel.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;systemctl
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;works with units (service, socket, device, mount, automount, target (group of other units), snapshot (save/rollback)). config files has unit type suffix (say cups.service or rpcbind.socket) and are located at /etc/systemd/system&lt;/p&gt;
+&lt;p&gt;being used in Fedora based systems and SUSE&lt;/p&gt;
+&lt;p&gt;.&lt;/p&gt;
+&lt;p&gt;.&lt;/p&gt;
+&lt;p&gt;.&lt;/p&gt;
+&lt;p&gt;.&lt;/p&gt;
+&lt;p&gt;.&lt;/p&gt;
+&lt;p&gt;.&lt;/p&gt;
+&lt;p&gt;.&lt;/p&gt;
+&lt;p&gt;.
+.&lt;/p&gt;</summary><category term="test"></category></entry><entry><title>102.1 Design hard disk layout</title><link href="http://linuxlearner.net/1021-design-hard-disk-layout.html" rel="alternate"></link><published>2015-12-25T12:20:00+00:00</published><updated>2015-12-25T12:20:00+00:00</updated><author><name>jadi</name></author><id>tag:linuxlearner.net,2015-12-25:1021-design-hard-disk-layout.html</id><summary type="html">&lt;h1&gt;102.1. Design hard disk layout&lt;/h1&gt;
+&lt;p&gt;&lt;em&gt;Weight: 2&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Description: Candidates should be able to design a disk partitioning scheme for a Linux system.&lt;/p&gt;
+&lt;h2&gt;Key Knowledge Areas&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Allocate filesystems and swap space to separate partitions or disks.&lt;/li&gt;
+&lt;li&gt;Tailor the design to the intended use of the system.&lt;/li&gt;
+&lt;li&gt;Ensure the /boot partition conforms to the hardware architecture requirements for booting.&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Knowledge of basic features of LVM&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;/ (root) filesystem&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;/var filesystem&lt;/li&gt;
+&lt;li&gt;/home filesystem&lt;/li&gt;
+&lt;li&gt;swap space&lt;/li&gt;
+&lt;li&gt;mount points&lt;/li&gt;
+&lt;li&gt;partitions&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Basics&lt;/h2&gt;
+&lt;p&gt;As any other OS, Linux uses &lt;em&gt;files&lt;/em&gt; and &lt;em&gt;directories&lt;/em&gt; to operate. But unlike &lt;em&gt;Windows&lt;/em&gt;, it does not use A:, C:, D:, etc. In Linux everything is in *&lt;em&gt;one big tree&lt;/em&gt;, starting with / (called root). Any partition, disk, CD, USB, network drive, ... will be placed somewhere in this huge tree.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Note: Most of external devices (USB, CD, ..) are mounted at /media/ or /mnt/ .&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2&gt;Unix directories&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Directory&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;bin&lt;/td&gt;
+&lt;td&gt;Essential command binaries&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;boot&lt;/td&gt;
+&lt;td&gt;Static files of the boot loader&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;dev&lt;/td&gt;
+&lt;td&gt;Device files&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;etc&lt;/td&gt;
+&lt;td&gt;Host-specific system configuration&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;home&lt;/td&gt;
+&lt;td&gt;Home directory of the users&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;lib&lt;/td&gt;
+&lt;td&gt;Essential shared libraries and kernel modules&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;media&lt;/td&gt;
+&lt;td&gt;Mount point for removable media&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;mnt&lt;/td&gt;
+&lt;td&gt;Mount point for mounting a filesystem temporarily&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;opt&lt;/td&gt;
+&lt;td&gt;Add-on application software packages&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;root&lt;/td&gt;
+&lt;td&gt;Home directory of the root user&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;sbin&lt;/td&gt;
+&lt;td&gt;Essential system binaries&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;srv&lt;/td&gt;
+&lt;td&gt;Data for services provided by this system&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;tmp&lt;/td&gt;
+&lt;td&gt;Temporary files&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;usr&lt;/td&gt;
+&lt;td&gt;Secondary hierarchy&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;var&lt;/td&gt;
+&lt;td&gt;Variable data&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2&gt;Partitions&lt;/h2&gt;
+&lt;p&gt;In Linux world, devices are defined at /dev/. First SATA disk is /dev/sda, second SATA disk is /dev/sdb, ... and first SCSI disk (older systems) is /dev/hda.&lt;/p&gt;
+&lt;p&gt;You have to &lt;em&gt;PARTITION&lt;/em&gt; the disks, that is creating smaller parts on a big disk and calling them /dev/sda1 (first partition on first SCSI disk) or /dev/hd&lt;strong&gt;b&lt;/strong&gt;3 (3rd partition on second disk).&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# fdisk /dev/sda
+Welcome to fdisk (util-linux 2.25.1).
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+
+Command (m for help): p
+Disk /dev/sda: 298.1 GiB, 320072933376 bytes, 625142448 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0x000beca1
+
+Device     Boot     Start       End   Sectors   Size Id Type
+/dev/sda1  *         2048  43094015  43091968  20.6G 83 Linux
+/dev/sda2        43094016  92078390  48984375  23.4G 83 Linux
+/dev/sda3        92080126 625141759 533061634 254.2G  5 Extended
+/dev/sda5        92080128 107702271  15622144   7.5G 82 Linux swap / Solaris
+/dev/sda6       107704320 625141759 517437440 246.8G 83 Linux
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Primary, Extended &amp;amp; Logical Partitions&lt;/h3&gt;
+&lt;p&gt;The partition table is located in the master boot record (&lt;strong&gt;MBR&lt;/strong&gt;) of a disk. The MBR is the first sector on the disk, so the partition table is not a very large part of it. This limits the primary partitions to 4 and the max size of a disk to around 2TBs. If you need more partitions you have a define one extended and then create logicals &lt;em&gt;inside&lt;/em&gt; them.&lt;/p&gt;
+&lt;p&gt;Linux numbers the primary partitions 1, 2, 3 &amp;amp; 4. If you define an extended partitions, logical partitions inside it will be called 5, 6, 7.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Note: an Extended partition is just an empty box for creating Logical partitions inside it.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;So:
+- /dev/sda3 is the 3rd primary partition on the first disk
+- /dev/sdb5 is the first logical partition on the second disk
+- /dev/sda7 is the 3rd logical partition of the first physical disk&lt;/p&gt;
+&lt;p&gt;The newer &lt;strong&gt;GUID Partition Table (or GPT)&lt;/strong&gt; solves this problems. If you format your disk with GTP you can have 128 primary partitions (no need to extended and logical).&lt;/p&gt;
+&lt;h2&gt;commands&lt;/h2&gt;
+&lt;h3&gt;parted&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;jadi@funlife:~$ sudo parted /dev/sda p
+Model: ATA ST320LT000-9VL14 (scsi)
+Disk /dev/sda: 320GB
+Sector size (logical/physical): 512B/512B
+Partition Table: msdos
+Disk Flags:
+
+Number  Start   End     Size    Type      File system     Flags
+ 1      1049kB  22.1GB  22.1GB  primary   ext4            boot
+ 2      22.1GB  47.1GB  25.1GB  primary   ext4
+ 3      47.1GB  320GB   273GB   extended
+ 5      47.1GB  55.1GB  7999MB  logical   linux-swap(v1)
+ 6      55.1GB  320GB   265GB   logical
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h4&gt;fdisk&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# sudo fdisk /dev/sda
+[sudo] password for jadi:
+
+Welcome to fdisk (util-linux 2.25.1).
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+
+Command (m for help): p
+Disk /dev/sda: 298.1 GiB, 320072933376 bytes, 625142448 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0x000beca1
+
+Device     Boot     Start       End   Sectors   Size Id Type
+/dev/sda1  *         2048  43094015  43091968  20.6G 83 Linux
+/dev/sda2        43094016  92078390  48984375  23.4G 83 Linux
+/dev/sda3        92080126 625141759 533061634 254.2G  5 Extended
+/dev/sda5        92080128 107702271  15622144   7.5G 82 Linux swap / Solaris
+/dev/sda6       107704320 625141759 517437440 246.8G 83 Linux
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;blockquote&gt;
+&lt;p&gt;Note: parted does not understands GPT&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4&gt;gparted&lt;/h4&gt;
+&lt;p&gt;A graphical tool for managing disks and partitions.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="" src="http://www.ibm.com/developerworks/linux/library/l-lpic1-v3-102-1/gparted-1s.jpg" /&gt;&lt;/p&gt;
+&lt;h3&gt;LVM&lt;/h3&gt;
+&lt;p&gt;In many cases you need to resize your partitions or even add new disks and &lt;em&gt;add&lt;/em&gt; them to your mount points. LVM is designed for this.&lt;/p&gt;
+&lt;p&gt;LVM helps you create one partition from different disks and add or remove space to them. The main concepts are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Physical Volume (pv): a whole drive or a partition. It is better to define partitions and &lt;strong&gt;not use whole disks - unpartitioned&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;Volume Groups (vg): this is the collection of one or more &lt;strong&gt;pv&lt;/strong&gt;s. OS will see the vg as one big disk. PVs in one vg, can have different sizes or even be on different physical disks.&lt;/li&gt;
+&lt;li&gt;Logical Volumes (lv): OS will see lvs as partitions. You can format an lv wit your OS and use it.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Design Hard disk layout&lt;/h2&gt;
+&lt;p&gt;Disk layout and allocation partitions to directories depends on you usage. First we will discuss &lt;em&gt;swap&lt;/em&gt; and &lt;em&gt;boot&lt;/em&gt; and then will see three different cases.&lt;/p&gt;
+&lt;h4&gt;swap&lt;/h4&gt;
+&lt;p&gt;swap in Linux works like an extended memory. Kernel will &lt;em&gt;page&lt;/em&gt; memory to this partition / file. It is enough to format one partition with &lt;strong&gt;swap file system&lt;/strong&gt; and define it in /etc/fstab (you will see this later in 104 modules).&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Note: swap size is 1 or 2 times the system memory but not more than 8GBs. So if you have 2GB of RAM, swap will be 4GB but if you have 6GB of RAM, it is recommended to have a 8GB swap partition.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4&gt;/boot&lt;/h4&gt;
+&lt;p&gt;Older Linux systems were not able to handle HUGE disks during the boot (say Terabytes) so there were a separated /boot. It is also useful to recover broken systems or even you can make /boot read only. Most of the time, having 100MB for /boot is enough. This can be a different disk or a separated partition.&lt;/p&gt;
+&lt;p&gt;This partition should be accessible by BIOS during the boot (no network drive).&lt;/p&gt;
+&lt;h3&gt;case one: Desktop computer&lt;/h3&gt;
+&lt;p&gt;On a desktop computer, it is good to have one swap, one /boot and allocate all other space to / (root).&lt;/p&gt;
+&lt;h3&gt;network workstation&lt;/h3&gt;
+&lt;p&gt;As any other system /boot should be local (a physical disk connected to the machine) and most of the time, the / (root file system) is also local. But in a network station, /home can be mounted from a network drive (NFS, SMB, SSH, ..). This lets users to sit at any station, login and have their own home mounted from a network drive. Swap can be mounted from network or local.&lt;/p&gt;
+&lt;h3&gt;Server&lt;/h3&gt;
+&lt;p&gt;On servers /boot is still local and based on usage, /home can be local or network. In many cases we separate the /var because logs and many other files are there and being updated so it is good to separate it or even put it on a more advanced storage (like RAID disks to prevent data loss). Some people also separate the /usr and write-protect it (read only file systems) or even mount the /usr from network so they can change / update one file on the network storage and all the servers will use the new file (you remember? /usr contains important executables like Apache web server).&lt;/p&gt;
+&lt;p&gt;.&lt;/p&gt;
+&lt;p&gt;.&lt;/p&gt;
+&lt;p&gt;.&lt;/p&gt;
+&lt;p&gt;.&lt;/p&gt;
+&lt;p&gt;.&lt;/p&gt;
+&lt;p&gt;.&lt;/p&gt;
+&lt;p&gt;.&lt;/p&gt;
+&lt;p&gt;.&lt;/p&gt;
+&lt;p&gt;.&lt;/p&gt;
+&lt;p&gt;.&lt;/p&gt;
+&lt;p&gt;.&lt;/p&gt;</summary><category term="test"></category></entry><entry><title>102.2 Install a boot manager</title><link href="http://linuxlearner.net/1022-install-a-boot-manager.html" rel="alternate"></link><published>2015-12-25T12:20:00+00:00</published><updated>2015-12-25T12:20:00+00:00</updated><author><name>jadi</name></author><id>tag:linuxlearner.net,2015-12-25:1022-install-a-boot-manager.html</id><summary type="html">&lt;h1&gt;102.2 Install a boot manager&lt;/h1&gt;
+&lt;p&gt;&lt;em&gt;Weight: 2&lt;/em&gt;
+    Description: Candidates should be able to select, install and configure a boot manager.&lt;/p&gt;
+&lt;h1&gt;Objectives&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;Providing alternative boot locations and backup boot options.&lt;/li&gt;
+&lt;li&gt;Install and configure a boot loader such as GRUB Legacy.&lt;/li&gt;
+&lt;li&gt;Perform basic configuration changes for GRUB 2.&lt;/li&gt;
+&lt;li&gt;Interact with the boot loader&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Terms and Utilities&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;/boot/grub/menu.lst&lt;/li&gt;
+&lt;li&gt;grub-install&lt;/li&gt;
+&lt;li&gt;MBR&lt;/li&gt;
+&lt;li&gt;superblock&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Boot overview&lt;/h2&gt;
+&lt;p&gt;System starts from BIOS and will do a self test called POST. Then it will hand over the boot process to the first sector of master boot record (MBR).&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;MBR is on track (Cylinder) 0, side (Head) 0 and Sector 1 of the first disk which defines CHS.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;MBR is only 512bytes so we need a &lt;em&gt;smart bootloader&lt;/em&gt; to handle larger boot managers and even multiple systems. Some of these boot loaders are LILO, GRUB and GRUB2.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Chain Loading is when a boot loaders, loads another boot loader. This is done when a linux bootloader needs to start a Windows system.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2&gt;LILO&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;LILO&lt;/strong&gt;  (&lt;strong&gt;LI&lt;/strong&gt;nux &lt;strong&gt;LO&lt;/strong&gt;ader) is the older of three main linux boot loaders and in new distributions it is not installed by default. Its configuration is in &lt;code&gt;/etc/lilo.conf&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;There is a command to generate an initial config: &lt;code&gt;/usr/sbin/liloconfig&lt;/code&gt;.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# Originally generated by liloconfig - modified by Ian Shields
+
+# This allows booting from any partition on disks with more than 1024
+# cylinders.
+lba32
+
+# Specifies the boot device (floppy)
+boot=/dev/fd0
+
+# Specifies the device that should be mounted as root.
+# If the special name CURRENT is used, the root device is set to the
+# device on which the root file system is currently mounted. If the root
+# has been changed with  -r , the respective device is used. If the
+# variable ROOT is omitted, the root device setting contained in the
+# kernel image is used. It can be changed with the rdev program.
+root=/dev/sda7
+
+# Bitmap configuration for /boot/coffee.bmp
+bitmap=/boot/coffee.bmp
+bmp-colors=12,,11,15,,8
+bmp-table=385p,100p,1,10
+bmp-timer=38,2,13,1
+
+# Enables map compaction:
+# Tries to merge read requests for adjacent sectors into a single
+# read request. This drastically reduces load time and keeps the map
+# smaller. Using COMPACT is especially recommended when booting from a
+# floppy disk.
+compact
+
+# Install the specified file as the new boot sector.
+# LILO supports built in boot sectors, you only need
+# to specify the type, choose one from &amp;#39;text&amp;#39;, &amp;#39;menu&amp;#39; or &amp;#39;bitmap&amp;#39;.
+# new: install=bmp      old: install=/boot/boot-bmp.b
+# new: install=text     old: install=/boot/boot-text.b
+# new: install=menu     old: install=/boot/boot-menu.b or boot.b
+# default: &amp;#39;menu&amp;#39; is default, unless you have a bitmap= line
+# Note: install=bmp must be used to see the bitmap menu.
+# install=menu
+install=bmp
+
+# Specifies the number of _tenths_ of a second LILO should
+# wait before booting the first image.  LILO
+# doesn&amp;#39;t wait if DELAY is omitted or if DELAY is set to zero.
+# delay=20
+
+# Prompt to use certain image. If prompt is specified without timeout,
+# boot will not take place unless you hit RETURN. Timeout is in tenths of
+# a second.
+prompt
+timeout=200
+
+# Enable large memory mode.
+large-memory
+
+# Specifies the location of the map file. If MAP is
+# omitted, a file /boot/map is used.
+map=/boot/map
+
+# Specifies the VGA text mode that should be selected when
+# booting. The following values are recognized (case is ignored):
+#   NORMAL  select normal 80x25 text mode.
+#   EXTENDED  select 80x50 text mode. The word EXTENDED can be
+#     abbreviated to EXT.
+#   ASK  stop and ask for user input (at boot time).
+#   &amp;lt;number&amp;gt;  use the corresponding text mode. A list of available modes
+#     can be obtained by booting with  vga=ask  and pressing [Enter].
+vga=normal
+
+# Defines non-standard parameters for the specified disk.
+#disk=/dev/sda
+#   bios=0x80
+
+# If you are using removable USB drivers (with mass-storage)
+# you will need to tell LILO to not use these devices even
+# if defined in /etc/fstab and referenced in /proc/partitions.
+# Adjust these lines to your devices:
+#
+# disk=/dev/sda inaccessible
+# disk=/dev/sdb inaccessible
+
+# These images were automagically added. You may need to edit something.
+
+image=/boot/vmlinuz-2.6.31-14-generic
+    label=&amp;quot;Lin 2.6.31-14&amp;quot;
+    initrd=/boot/initrd.img-2.6.31-14-generic
+    read-only
+
+image=/boot/vmlinuz-2.6.31-20-generic
+    label=&amp;quot;Lin 2.6.31-20&amp;quot;
+    initrd=/boot/initrd.img-2.6.31-20-generic
+    read-only
+
+image=/boot/memtest86+.bin
+    label=&amp;quot;Memory Test+&amp;quot;
+    read-only
+
+# If you have another OS on this machine (say DOS),
+# you can boot if by uncommenting the following lines
+# (Of course, change /dev/sda1 to wherever your DOS partition is.)
+other=/dev/sda6
+        label=&amp;quot;Fedora 8&amp;quot;
+
+ other=/dev/sda1
+   label=&amp;quot;Windows XP&amp;quot;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;When this config file is created, we have to issue the &lt;code&gt;lilo&lt;/code&gt; command to make the disk bootable:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# lilo -v -v
+LILO version 22.8, Copyright (C) 1992-1998 Werner Almesberger
+Development beyond version 21 Copyright (C) 1999-2006 John Coffman
+Released 19-Feb-2007, and compiled at 10:52:38 on Aug 25 2009
+Running Linux kernel 2.6.31-14-generic on i686
+Ubuntu
+
+raid_setup returns offset = 00000000  ndisk = 0
+ BIOS   VolumeID   Device
+Reading boot sector from /dev/fd0
+pf_hard_disk_scan: ndevs=1
+  0800  54085408  /dev/sda
+device codes (user assigned pf) = 0
+device codes (user assigned) = 0
+device codes (BIOS assigned) = 1
+device codes (canonical) = 1
+mode = 0x03,  columns = 80,  rows = 25,  page = 0
+Using BITMAP secondary loader
+Calling map_insert_data
+Secondary loader: 19 sectors (0x3800 dataend).
+Warning: The boot sector and map file are on different disks.
+bios_boot = 0x00  bios_map = 0x80  map==boot = 0  map S/N: 54085408
+Mapping bitmap file /boot/coffee.bmp
+Calling map_insert_file
+Compaction removed 592 BIOS calls.
+Bitmap: 603 sectors.
+BIOS data check was okay on the last boot
+
+Boot image: /boot/vmlinuz-2.6.31-14-generic
+Setup length is 26 sectors.
+Compaction removed 7452 BIOS calls.
+Mapped 7601 sectors.
+Mapping RAM disk /boot/initrd.img-2.6.31-14-generic
+Compaction removed 14696 BIOS calls.
+RAM disk: 14930 sectors.
+Added Lin_2.6.31-14 *
+
+Boot image: /boot/vmlinuz-2.6.31-20-generic
+Setup length is 26 sectors.
+Compaction removed 7468 BIOS calls.
+Mapped 7617 sectors.
+Mapping RAM disk /boot/initrd.img-2.6.31-20-generic
+Compaction removed 14704 BIOS calls.
+RAM disk: 14938 sectors.
+Added Lin_2.6.31-20
+
+Boot image: /boot/memtest86+.bin
+Setup length is 4 sectors.
+Compaction removed 243 BIOS calls.
+Mapped 254 sectors.
+Added Memory_Test+
+
+Boot other: /dev/sda6, loader CHAIN
+Pseudo partition start: 43198848
+Compaction removed 0 BIOS calls.
+Mapped 6 (4+1+1) sectors.
+Added Fedora_8
+
+Boot other: /dev/sda1, on /dev/sda, loader CHAIN
+Compaction removed 0 BIOS calls.
+Mapped 6 (4+1+1) sectors.
+Added Windows_XP
+
+ BIOS   VolumeID   Device
+  80    54085408    0800
+Writing boot sector.
+/boot/boot.0200 exists - no boot sector backup copy made.
+Map file size: 336896 bytes.
+RAID device mask 0x0000
+One warning was issued.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;blockquote&gt;
+&lt;p&gt;-v -v doubles the verbosity! You can have up to 5 &lt;code&gt;-v&lt;/code&gt;s!&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;No you can boot your system from that floppy and you will get a menu to choose one of the boot options.&lt;/p&gt;
+&lt;p&gt;These are some other LILO switches:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;switch&lt;/th&gt;
+&lt;th&gt;meaning&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;-q&lt;/td&gt;
+&lt;td&gt;show information about the map file. map file is located at /boot/map and contains the boot configs&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;-R&lt;/td&gt;
+&lt;td&gt;boot the system on the next reboot only. Used for remote systems&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;-l&lt;/td&gt;
+&lt;td&gt;list information about the Kernel&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;-u&lt;/td&gt;
+&lt;td&gt;uninstall lilo and restore previous boot record&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Please note that pressing &lt;strong&gt;TAB&lt;/strong&gt; when choosing an item in LILO menu, will let you edit that item.&lt;/p&gt;
+&lt;h2&gt;GRUB (version 1 or the Legacy grub)&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;GRUB&lt;/strong&gt; (&lt;strong&gt;GR&lt;/strong&gt;and &lt;strong&gt;U&lt;/strong&gt;nified &lt;strong&gt;B&lt;/strong&gt;ootloader) is a newer bootloader than LILO.&lt;/p&gt;
+&lt;p&gt;The GRUBv1 (actually 0.9) config file is in &lt;code&gt;/boot/grub/grub.conf&lt;/code&gt; and most of the times &lt;code&gt;/boot/grub/menu.lst&lt;/code&gt; is a symbolic link to it.&lt;/p&gt;
+&lt;p&gt;A sample grub.conf file for GRUB legacy is shown below.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="x"&gt; grub.conf generated by anaconda&lt;/span&gt;
+&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="x"&gt;&lt;/span&gt;
+&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="x"&gt; Note that you do not have to rerun grub after making changes to this file&lt;/span&gt;
+&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="x"&gt; NOTICE:  You do not have a /boot partition.  This means that&lt;/span&gt;
+&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="x"&gt;          all kernel and initrd paths are relative to /, eg.&lt;/span&gt;
+&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="x"&gt;          root (hd0,5)&lt;/span&gt;
+&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="x"&gt;          kernel /boot/vmlinuz-version ro root=/dev/sda6&lt;/span&gt;
+&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="x"&gt;          initrd /boot/initrd-version.img&lt;/span&gt;
+&lt;span class="cp"&gt;#&lt;/span&gt;&lt;span class="nf"&gt;boot&lt;/span&gt;&lt;span class="x"&gt;=/dev/sda6&lt;/span&gt;
+&lt;span class="x"&gt;default=1&lt;/span&gt;
+&lt;span class="x"&gt;timeout=10&lt;/span&gt;
+&lt;span class="x"&gt;splashimage=(hd0,5)/boot/grub/splash.xpm.gz&lt;/span&gt;
+&lt;span class="cp"&gt;#&lt;/span&gt;&lt;span class="nf"&gt;hiddenmenu&lt;/span&gt;&lt;span class="x"&gt;&lt;/span&gt;
+&lt;span class="x"&gt;password --md5 &lt;/span&gt;&lt;span class="p"&gt;$&lt;/span&gt;&lt;span class="x"&gt;1&lt;/span&gt;&lt;span class="p"&gt;$&lt;/span&gt;&lt;span class="nv"&gt;RW1VW&lt;/span&gt;&lt;span class="x"&gt;/&lt;/span&gt;&lt;span class="p"&gt;$&lt;/span&gt;&lt;span class="x"&gt;4XGAklxB7/GJk0uO47Srx1&lt;/span&gt;
+&lt;span class="x"&gt;title Upgrade to Fedora 11 (Leonidas)&lt;/span&gt;
+&lt;span class="x"&gt;    kernel /boot/upgrade/vmlinuz preupgrade \&lt;/span&gt;
+&lt;span class="x"&gt;      repo=hd::/var/cache/yum/preupgrade stage2=\&lt;/span&gt;
+&lt;span class="x"&gt;      hd:UUID=8b4c62e7-2022-4288-8995-5eda92cd149b:/boot/upgrade/install.img \&lt;/span&gt;
+&lt;span class="x"&gt;      ks=hd:UUID=8b4c62e7-2022-4288-8995-5eda92cd149b:/boot/upgrade/ks.cfg&lt;/span&gt;
+&lt;span class="x"&gt;    initrd /boot/upgrade/initrd.img&lt;/span&gt;
+&lt;span class="x"&gt;title Fedora (2.6.26.8-57.fc8)&lt;/span&gt;
+&lt;span class="x"&gt;    root (hd0,5)&lt;/span&gt;
+&lt;span class="x"&gt;    kernel /boot/vmlinuz-2.6.26.8-57.fc8 ro root=LABEL=FEDORA8 rhgb quiet&lt;/span&gt;
+&lt;span class="x"&gt;    initrd /boot/initrd-2.6.26.8-57.fc8.img&lt;/span&gt;
+&lt;span class="x"&gt;title Fedora (2.6.26.6-49.fc8)&lt;/span&gt;
+&lt;span class="x"&gt;    root (hd0,5)&lt;/span&gt;
+&lt;span class="x"&gt;    kernel /boot/vmlinuz-2.6.26.6-49.fc8 ro root=LABEL=FEDORA8 rhgb quiet&lt;/span&gt;
+&lt;span class="x"&gt;    initrd /boot/initrd-2.6.26.6-49.fc8.img&lt;/span&gt;
+&lt;span class="x"&gt;title GRUB Menu&lt;/span&gt;
+&lt;span class="x"&gt;    rootnoverify (hd0,1)&lt;/span&gt;
+&lt;span class="x"&gt;    chainloader +1&lt;/span&gt;
+&lt;span class="x"&gt;title Windows&lt;/span&gt;
+&lt;span class="x"&gt;    rootnoverify (hd0,0)&lt;/span&gt;
+&lt;span class="x"&gt;    chainloader +1&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;As you can see the first part tells grub how it should behave and the second part is describing boot options (OSs).&lt;/p&gt;
+&lt;p&gt;There are options in this file:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;command&lt;/th&gt;
+&lt;th&gt;meaning&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;#&lt;/td&gt;
+&lt;td&gt;comment&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;default&lt;/td&gt;
+&lt;td&gt;the default system to boot; starts from 0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;timeout&lt;/td&gt;
+&lt;td&gt;how long to wait before autobooting&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;splashimage&lt;/td&gt;
+&lt;td&gt;background image&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;password&lt;/td&gt;
+&lt;td&gt;Security is important! will ask this password&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;title&lt;/td&gt;
+&lt;td&gt;Name of the entery&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;root&lt;/td&gt;
+&lt;td&gt;The partion to boot. Counting starts from 0. &lt;code&gt;root(hd0,2)&lt;/code&gt; is the 3rd partion on the first disk&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;kernel&lt;/td&gt;
+&lt;td&gt;which kernel image should be loaded&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;initrd&lt;/td&gt;
+&lt;td&gt;the name of the initial RAM disk. Modules needed by the kernel before the file system is mounted&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;savedefault&lt;/td&gt;
+&lt;td&gt;remember the last booted item&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;chainloader&lt;/td&gt;
+&lt;td&gt;another file will act as stage 1 loader. Used for booting Windows systems&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3&gt;GRUB (legacy) commands&lt;/h3&gt;
+&lt;p&gt;After creating the configuration, you need to install the grub on a disk do this with one of these command forms:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# grub-install /dev/fd0
+# grub-install &amp;#39;(fd0)&amp;#39;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;blockquote&gt;
+&lt;p&gt;As other boot managers, you can install grub on a CD, floppy, MBR (/dev/sda, /dev/sdb, ..) or a partition (/dev/sdb2, /dev/sda6, ..).&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;If you needed to change or reconfigure anything during the startup, just press the &lt;code&gt;e&lt;/code&gt; on that item and you'll get an interactive editing environment. Press &lt;strong&gt;Enter&lt;/strong&gt; when done and &lt;code&gt;b&lt;/code&gt; for boot.&lt;/p&gt;
+&lt;h2&gt;GRUB2&lt;/h2&gt;
+&lt;p&gt;This is the most common boot loader these days. Its main config file is &lt;code&gt;/boot/grub/grub.cfg&lt;/code&gt; and can be created by &lt;code&gt;grub-mkconfig &amp;gt; /boot/grub/grub.cfg&lt;/code&gt;. Grub also is highly dependent on a core.img file in /boot/grub.&lt;/p&gt;
+&lt;p&gt;When you run &lt;code&gt;grub-install /dev/sda&lt;/code&gt;, grub2 builds a core image, build a configuration file and install GRUB 2 in your MBR.&lt;/p&gt;
+&lt;p&gt;These steps can be done separately:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ grub-install --help
+Usage: grub-install &lt;span class="o"&gt;[&lt;/span&gt;OPTION&lt;span class="o"&gt;]&lt;/span&gt; install_device
+Install GRUB on your drive.
+
+  -h, --help              print this message and &lt;span class="nb"&gt;exit&lt;/span&gt;
+  -v, --version           print the version information and &lt;span class="nb"&gt;exit&lt;/span&gt;
+  --modules&lt;span class="o"&gt;=&lt;/span&gt;MODULES       pre-load specified modules MODULES
+  --root-directory&lt;span class="o"&gt;=&lt;/span&gt;DIR    install GRUB images under the directory DIR
+                          instead of the root directory
+  --grub-setup&lt;span class="o"&gt;=&lt;/span&gt;FILE       use FILE as grub-setup
+  --grub-mkimage&lt;span class="o"&gt;=&lt;/span&gt;FILE     use FILE as grub-mkimage
+  --grub-mkdevicemap&lt;span class="o"&gt;=&lt;/span&gt;FILE use FILE as grub-mkdevicemap
+  --grub-probe&lt;span class="o"&gt;=&lt;/span&gt;FILE       use FILE as grub-probe
+  --no-floppy             &lt;span class="k"&gt;do&lt;/span&gt; not probe any floppy drive
+  --recheck               probe a device map even &lt;span class="k"&gt;if&lt;/span&gt; it already exists
+  --force                 install even &lt;span class="k"&gt;if&lt;/span&gt; problems are detected
+  --disk-module&lt;span class="o"&gt;=&lt;/span&gt;MODULE    disk module to use
+
+INSTALL_DEVICE can be a GRUB device name or a system device filename.
+
+grub-install copies GRUB images into the DIR/boot directory specified by
+--root-directory, and uses grub-setup to install grub into the boot
+sector.
+
+Report bugs to &amp;lt;bug-grub@gnu.org&amp;gt;.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;blockquote&gt;
+&lt;p&gt;There is a command called &lt;code&gt;update-grub&lt;/code&gt; as a frontend to &lt;code&gt;grub-mkconfig&lt;/code&gt; which looks into the /etc/default/grub and creates a grub.cfg file.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Here is a sample of grub2 configuration file:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;### BEGIN /etc/grub.d/05_debian_theme ###                               
+set menu_color_normal=white/black
+set menu_color_highlight=black/white
+### END /etc/grub.d/05_debian_theme ###                                 
+
+### BEGIN /etc/grub.d/10_linux ###                                      
+menuentry &amp;quot;Ubuntu, Linux 2.6.31-20-generic&amp;quot; {
+        recordfail=1
+        if [ -n &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;have_grubenv&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt; ]; then save_env recordfail; fi
+        set quiet=1
+        insmod ext2
+        set root=(hd0,7)
+        search --no-floppy --fs-uuid --set 8954fa66-e11f-42dc-91f0-b4aa480fa103
+        linux   /boot/vmlinuz-2.6.31-20-generic \
+          root=UUID=8954fa66-e11f-42dc-91f0-b4aa480fa103 ro   quiet splash
+        initrd  /boot/initrd.img-2.6.31-20-generic
+}
+menuentry &amp;quot;Ubuntu, Linux 2.6.31-20-generic (recovery mode)&amp;quot; {
+        recordfail=1
+        if [ -n &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;have_grubenv&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt; ]; then save_env recordfail; fi
+        insmod ext2
+        set root=(hd0,7)
+        search --no-floppy --fs-uuid --set 8954fa66-e11f-42dc-91f0-b4aa480fa103
+        linux   /boot/vmlinuz-2.6.31-20-generic
+         root=UUID=8954fa66-e11f-42dc-91f0-b4aa480fa103 ro single
+        initrd  /boot/initrd.img-2.6.31-20-generic
+}
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;.&lt;/p&gt;
+&lt;p&gt;.&lt;/p&gt;
+&lt;p&gt;.&lt;/p&gt;
+&lt;p&gt;.&lt;/p&gt;
+&lt;p&gt;.&lt;/p&gt;
+&lt;p&gt;.&lt;/p&gt;
+&lt;p&gt;.&lt;/p&gt;
+&lt;p&gt;.&lt;/p&gt;
+&lt;p&gt;.&lt;/p&gt;
+&lt;p&gt;.&lt;/p&gt;</summary><category term="test"></category></entry><entry><title>102.3. Manage shared libraries</title><link href="http://linuxlearner.net/1023-manage-shared-libraries.html" rel="alternate"></link><published>2015-12-25T12:20:00+00:00</published><updated>2015-12-25T12:20:00+00:00</updated><author><name>jadi</name></author><id>tag:linuxlearner.net,2015-12-25:1023-manage-shared-libraries.html</id><summary type="html">&lt;h1&gt;102.3. Manage shared libraries&lt;/h1&gt;
 &lt;p&gt;&lt;em&gt;weight 2&lt;/em&gt;&lt;/p&gt;
 &lt;h2&gt;Objectives&lt;/h2&gt;
 &lt;p&gt;Candidates should be able to determine the shared libraries that executable programs depend on and install them when necessary.&lt;/p&gt;
@@ -1050,6 +1866,432 @@ missing     /etc/bash_completion.d/bzr
 &lt;h3&gt;Other tools&lt;/h3&gt;
 &lt;p&gt;YUM and RPM are the main package manager tools on Fedora, RHEL &amp;amp; Centos. but other system are available. The SUSE uses YaST and many modern desktops (KDE &amp;amp; Gnome) use PackageKit. Package Kit installs and updates packages on graphical interfaces on most linux systems (Debian, Fedora, Arch, ...).&lt;/p&gt;
 &lt;p&gt;.&lt;/p&gt;
+&lt;p&gt;.&lt;/p&gt;
+&lt;p&gt;.&lt;/p&gt;
+&lt;p&gt;.&lt;/p&gt;
+&lt;p&gt;.&lt;/p&gt;
+&lt;p&gt;.&lt;/p&gt;
+&lt;p&gt;.&lt;/p&gt;
+&lt;p&gt;.&lt;/p&gt;
+&lt;p&gt;.&lt;/p&gt;</summary><category term="test"></category></entry><entry><title>103.1 Work on the command line</title><link href="http://linuxlearner.net/1031-work-on-the-command-line.html" rel="alternate"></link><published>2015-12-25T12:20:00+00:00</published><updated>2015-12-25T12:20:00+00:00</updated><author><name>jadi</name></author><id>tag:linuxlearner.net,2015-12-25:1031-work-on-the-command-line.html</id><summary type="html">&lt;h1&gt;Work on the command line&lt;/h1&gt;
+&lt;p&gt;&lt;em&gt;Weight: 4&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Description: Candidates should be able to interact with shells and commands using the command line. The objective assumes the bash shell.&lt;/p&gt;
+&lt;h2&gt;Objectives&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Use single shell commands and one line command sequences to perform basic tasks on command line.&lt;/li&gt;
+&lt;li&gt;Use and modify the shell environment including defining, referencing and exporting environment variables.&lt;/li&gt;
+&lt;li&gt;Use and edit command history.&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Invoke commands inside and outside the defined path.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;. and ..&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;bash&lt;/li&gt;
+&lt;li&gt;echo&lt;/li&gt;
+&lt;li&gt;env&lt;/li&gt;
+&lt;li&gt;exec&lt;/li&gt;
+&lt;li&gt;export&lt;/li&gt;
+&lt;li&gt;pwd&lt;/li&gt;
+&lt;li&gt;set&lt;/li&gt;
+&lt;li&gt;unset&lt;/li&gt;
+&lt;li&gt;man&lt;/li&gt;
+&lt;li&gt;uname&lt;/li&gt;
+&lt;li&gt;history&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Bash&lt;/h3&gt;
+&lt;p&gt;As any other thing Linux, you can choose your shell too (by shell I mean the command line interface). &lt;strong&gt;Bash&lt;/strong&gt; in the most common one.&lt;/p&gt;
+&lt;p&gt;Some commands are build in (cd, break, exec) and it uses streams:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;stdin&lt;/strong&gt; is the standard input stream, which provides input to commands.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;stdout&lt;/strong&gt; is the standard output stream, which displays output from commands.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;stderr&lt;/strong&gt; is the standard error stream, which displays error output from commands.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;User Prompts are like these:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;jadi@funlife:~$
+[jadi@funlife lpic1]$
+$
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;blockquote&gt;
+&lt;p&gt;in most cases, root users prompt uses # instead of $ (say: &lt;code&gt;root@funlife:/etc#&lt;/code&gt;).&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Global bash configs are stored at /etc/profile and each user has her own config at ~/.profile &amp;amp; ~/.bash_profile &amp;amp; ~/.bash_logout&lt;/p&gt;
+&lt;h3&gt;Commands and sequences&lt;/h3&gt;
+&lt;p&gt;Most commands have a &lt;em&gt;command name&lt;/em&gt; and some &lt;em&gt;parameters&lt;/em&gt;. A simple one is the &lt;code&gt;`echo&lt;/code&gt; command:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;echo&lt;/span&gt;
+
+$ &lt;span class="nb"&gt;echo&lt;/span&gt; Hello lpic
+Hello lpic
+$ &lt;span class="nb"&gt;echo&lt;/span&gt; Hello lpic &lt;span class="c1"&gt;#just a simple hi&lt;/span&gt;
+Hello lpic
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;blockquote&gt;
+&lt;p&gt;Note: the # is for &lt;em&gt;comments&lt;/em&gt;. Anything after it is comment.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4&gt;escaped characters&lt;/h4&gt;
+&lt;p&gt;Some special characters need special case in programming and linux world. Say you want to go to the new line during an echo command.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;jadi@funlife:~$ echo -e &amp;quot;hello\nthere&amp;quot;
+hello
+there
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Escape sequence   Function&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;\a&lt;/td&gt;
+&lt;td&gt;Alert (bell)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;\b&lt;/td&gt;
+&lt;td&gt;Backspace&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;\c&lt;/td&gt;
+&lt;td&gt;Suppress trailing newline (same function as -n option)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;\f&lt;/td&gt;
+&lt;td&gt;Form feed (clear the screen on a video display)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;\n&lt;/td&gt;
+&lt;td&gt;New line&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;\r&lt;/td&gt;
+&lt;td&gt;Carriage return&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;\t&lt;/td&gt;
+&lt;td&gt;Horizontal tab&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Note: you can use \ to break a command in many lines:&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;echo&lt;/span&gt; but this &lt;span class="se"&gt;\&lt;/span&gt;
+&amp;gt; is another &lt;span class="se"&gt;\&lt;/span&gt;
+&amp;gt; usage
+but this is another usage
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h4&gt;metacharacters and Control operators&lt;/h4&gt;
+&lt;p&gt;Also there are characters with special meaning. You need to escape then if you need them in your commands: &lt;strong&gt;| &amp;amp; ; ( ) &amp;lt; &amp;gt;&lt;/strong&gt;*&lt;/p&gt;
+&lt;p&gt;There is also control operators. They also have special meanings: &lt;strong&gt; || &amp;amp;&amp;amp; &amp;amp; ; ;; | ( )&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The most important ones are ; (do one by one), &amp;amp;&amp;amp; (logical and) and || (logical or).&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;echo&lt;/span&gt; line 1&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; line 2&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="nb"&gt;echo&lt;/span&gt; line 3
+line 1
+line 2
+line 3
+
+$ &lt;span class="nb"&gt;echo&lt;/span&gt; line 1&lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; line 2&lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; line 3
+line 1
+line 2
+line 3
+
+$ &lt;span class="nb"&gt;echo&lt;/span&gt; line 1&lt;span class="o"&gt;||&lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; line 2&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="nb"&gt;echo&lt;/span&gt; line 3
+line 1
+line 3
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;exiting shell&lt;/h2&gt;
+&lt;p&gt;the &lt;code&gt;exit&lt;/code&gt; command exits the shell. Same as ctrl+d.&lt;/p&gt;
+&lt;p&gt;if you run a command inside parentheses that command will be run inside a sub-shell.&lt;/p&gt;
+&lt;p&gt;and &lt;code&gt;exec&lt;/code&gt; will run a command and closes the current shell.&lt;/p&gt;
+&lt;h2&gt;Environment variables&lt;/h2&gt;
+&lt;p&gt;Concept of EV.&lt;/p&gt;
+&lt;p&gt;Every variable has name and a value. echo the name with a $ in front of it.&lt;/p&gt;
+&lt;p&gt;Some common ones are:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Name&lt;/th&gt;
+&lt;th&gt;Function&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;USER&lt;/td&gt;
+&lt;td&gt;The name of the logged-in user&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;UID&lt;/td&gt;
+&lt;td&gt;The numeric user id of the logged-in user&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;HOME&lt;/td&gt;
+&lt;td&gt;The user's home directory&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;PWD&lt;/td&gt;
+&lt;td&gt;The current working directory&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;SHELL&lt;/td&gt;
+&lt;td&gt;The name of the shell&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;$&lt;/td&gt;
+&lt;td&gt;The process id (or PIDof the running bash shell (or other) process&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;PPID&lt;/td&gt;
+&lt;td&gt;The process id of the process that started this process (that is, the id of the parent process)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;?&lt;/td&gt;
+&lt;td&gt;The exit code of the last command&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="nv"&gt;$USER&lt;/span&gt; &lt;span class="nv"&gt;$UID&lt;/span&gt;
+jadi 1000
+&lt;span class="nv"&gt;$SHELL&lt;/span&gt; &lt;span class="nv"&gt;$HOME&lt;/span&gt; &lt;span class="nv"&gt;$PWD&lt;/span&gt;
+/bin/bash /home/jadi /home/jadi/lpic
+$ &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;exit&lt;/span&gt; 0&lt;span class="o"&gt;)&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="nv"&gt;$?&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;exit&lt;/span&gt; 4&lt;span class="o"&gt;)&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="nv"&gt;$?&lt;/span&gt;
+0
+4
+$ &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="nv"&gt;$$&lt;/span&gt; &lt;span class="nv"&gt;$PPID&lt;/span&gt;
+&lt;span class="m"&gt;2559&lt;/span&gt; 2558
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;And this is the way to define a EV:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="x"&gt;jadi@funlife:~&lt;/span&gt;&lt;span class="p"&gt;$&lt;/span&gt;&lt;span class="x"&gt; MYMOOD=happy&lt;/span&gt;
+&lt;span class="x"&gt;jadi@funlife:~&lt;/span&gt;&lt;span class="p"&gt;$&lt;/span&gt;&lt;span class="x"&gt; echo I am &lt;/span&gt;&lt;span class="p"&gt;$&lt;/span&gt;&lt;span class="nv"&gt;MYMOOD&lt;/span&gt;&lt;span class="x"&gt;&lt;/span&gt;
+&lt;span class="x"&gt;I am happy&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;if we &lt;code&gt;export&lt;/code&gt; a variable, it will be available for other programs starting from that shell.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Note: sometimes you may need to use { and } to describe a variable:&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;-&lt;/span&gt;&lt;span class="nv"&gt;$HOME&lt;/span&gt;&lt;span class="s2"&gt;/abc-&amp;quot;&lt;/span&gt;
+-/home/jadi/abc-
+$ &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;-&lt;/span&gt;&lt;span class="nv"&gt;$HOME_abc&lt;/span&gt;&lt;span class="s2"&gt;-&amp;quot;&lt;/span&gt;
+--
+$ &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;-&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;HOME&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;_abc-&amp;quot;&lt;/span&gt;
+-/home/jadi_abc-
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;env, set, unset&lt;/h3&gt;
+&lt;p&gt;the &lt;code&gt;env&lt;/code&gt; shows current EVs. It can also be used to run a command in a specific environment.&lt;/p&gt;
+&lt;p&gt;set is a bit more complicated. it can configure how your bash behaves.
+unset, unsets a variable.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="nv"&gt;$-&lt;/span&gt;
+himBH
+$ &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="nv"&gt;$VAR1&lt;/span&gt;
+
+$ &lt;span class="nb"&gt;set&lt;/span&gt; -u&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="nv"&gt;$-&lt;/span&gt;
+himuBH
+$ &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="nv"&gt;$VAR1&lt;/span&gt;
+-bash: VAR1: unbound variable
+$ &lt;span class="nv"&gt;VAR1&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;v1&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="nv"&gt;$VAR1&lt;/span&gt;
+v1
+$ &lt;span class="nb"&gt;unset&lt;/span&gt; VAR1&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="nv"&gt;$VAR1&lt;/span&gt;
+-bash: VAR1: unbound variable
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;blockquote&gt;
+&lt;p&gt;Note: if you use &lt;code&gt;set&lt;/code&gt; with no parameter, it shows the EVs.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2&gt;uname&lt;/h2&gt;
+&lt;p&gt;gives you data about the system. Common switches are:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Option&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;-s&lt;/td&gt;
+&lt;td&gt;Print the kernel name. This is the default if no option is specified.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;-n&lt;/td&gt;
+&lt;td&gt;Print the nodename or hostname.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;-r&lt;/td&gt;
+&lt;td&gt;Print the release of the kernel. This option is often used with module-handling commands.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;-v&lt;/td&gt;
+&lt;td&gt;Print the version of the kernel.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;-m&lt;/td&gt;
+&lt;td&gt;Print the machine's hardware (CPU) name.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;-o&lt;/td&gt;
+&lt;td&gt;Print the operating system name.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;-a&lt;/td&gt;
+&lt;td&gt;Print all of the above information.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ uname -a
+Linux funlife 3.16.0-28-generic &lt;span class="c1"&gt;#38-Ubuntu SMP Fri Dec 12 17:37:40 UTC 2014 x86_64 x86_64 x86_64 GNU/Linux&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;history&lt;/h2&gt;
+&lt;p&gt;The bash, saves the commands you issue in a file defined in &lt;strong&gt;HISTFILE&lt;/strong&gt; ev. the &lt;code&gt;history&lt;/code&gt; shows the full command history (500 commands normally but can be changes in HISTSIZE).&lt;/p&gt;
+&lt;p&gt;There are also some shortcuts:
+- &lt;code&gt;history 20&lt;/code&gt; shows last 20 commands
+- &lt;code&gt;!!&lt;/code&gt; last command
+- &lt;code&gt;!string&lt;/code&gt; most recent command that starts with string
+- &lt;code&gt;!?string?&lt;/code&gt; most recent command that contains string&lt;/p&gt;
+&lt;p&gt;when you logout, all these are saved in .bash_history&lt;/p&gt;
+&lt;h2&gt;Paths&lt;/h2&gt;
+&lt;p&gt;External commands are just files on disks. So where does bash knows where to find commands?&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="x"&gt;jadi@funlife:~&lt;/span&gt;&lt;span class="p"&gt;$&lt;/span&gt;&lt;span class="x"&gt; echo &lt;/span&gt;&lt;span class="p"&gt;$&lt;/span&gt;&lt;span class="nv"&gt;PATH&lt;/span&gt;&lt;span class="x"&gt;&lt;/span&gt;
+&lt;span class="x"&gt;/home/jadi/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;and this gives me some more data:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;jadi@funlife:~$ which tar
+/bin/tar
+jadi@funlife:~$ type tar
+tar is /bin/tar
+jadi@funlife:~$ whereis tar
+tar: /usr/lib/tar /bin/tar /usr/include/tar.h /usr/share/man/man1/tar.1.gz
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h4&gt;running other commands&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;It is possible to add to my path&lt;/li&gt;
+&lt;li&gt;give the full path&lt;/li&gt;
+&lt;li&gt;give the relative path (. &amp;amp; ..)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;cd &amp;amp; pwd&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;cd``` will change directories (including .. and .) and&lt;/code&gt;pwd```` tells where you are at the moment.&lt;/p&gt;
+&lt;h2&gt;man pages&lt;/h2&gt;
+&lt;p&gt;the best linux help you can find.-&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ man ping
+PING&lt;span class="o"&gt;(&lt;/span&gt;8&lt;span class="o"&gt;)&lt;/span&gt;                                                            System Manager&lt;span class="s1"&gt;&amp;#39;s Manual: iputils                                                           PING(8)&lt;/span&gt;
+
+&lt;span class="s1"&gt;NAME&lt;/span&gt;
+&lt;span class="s1"&gt;       ping, ping6 - send ICMP ECHO_REQUEST to network hosts&lt;/span&gt;
+
+&lt;span class="s1"&gt;SYNOPSIS&lt;/span&gt;
+&lt;span class="s1"&gt;       ping  [-aAbBdDfhLnOqrRUvV]  [-c  count] [-F flowlabel] [-i interval] [-I interface] [-l preload] [-m mark] [-M pmtudisc_option] [-N nodeinfo_option] [-w dead‐&lt;/span&gt;
+&lt;span class="s1"&gt;       line] [-W timeout] [-p pattern] [-Q tos] [-s packetsize] [-S sndbuf] [-t ttl] [-T timestamp option] [hop ...] destination&lt;/span&gt;
+
+&lt;span class="s1"&gt;DESCRIPTION&lt;/span&gt;
+&lt;span class="s1"&gt;       ping uses the ICMP protocol&amp;#39;&lt;/span&gt;s mandatory ECHO_REQUEST datagram to elicit an ICMP ECHO_RESPONSE from a host or gateway.  ECHO_REQUEST datagrams &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="sb"&gt;``&lt;/span&gt;pings&lt;span class="s1"&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; have
+       an IP and ICMP header, followed by a struct timeval and &lt;span class="k"&gt;then&lt;/span&gt; an arbitrary number of &lt;span class="sb"&gt;``&lt;/span&gt;pad&lt;span class="s1"&gt;&amp;#39;&amp;#39;&lt;/span&gt; bytes used to fill out the packet.
+
+       ping6  is  IPv6  version of ping, and can also send Node Information Queries &lt;span class="o"&gt;(&lt;/span&gt;RFC4620&lt;span class="o"&gt;)&lt;/span&gt;.  Intermediate hops may not be allowed, because IPv6 &lt;span class="nb"&gt;source&lt;/span&gt; routing was
+       deprecated &lt;span class="o"&gt;(&lt;/span&gt;RFC5095&lt;span class="o"&gt;)&lt;/span&gt;.
+
+OPTIONS
+       -a     Audible ping.
+
+       -A     Adaptive ping. Interpacket interval adapts to round-trip time, so that effectively not more than one &lt;span class="o"&gt;(&lt;/span&gt;or more, &lt;span class="k"&gt;if&lt;/span&gt; preload is &lt;span class="nb"&gt;set&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; unanswered  probe  is
+              present in the network. Minimal interval is 200msec &lt;span class="k"&gt;for&lt;/span&gt; not super-user.  On networks with low rtt this mode is essentially equivalent to flood mode.
+
+       -b     Allow pinging a broadcast address.
+
+       -B     Do not allow ping to change &lt;span class="nb"&gt;source&lt;/span&gt; address of probes.  The address is bound to one selected when ping starts.
+
+       -c count
+              Stop after sending count ECHO_REQUEST packets. With deadline option, ping waits &lt;span class="k"&gt;for&lt;/span&gt; count ECHO_REPLY packets, &lt;span class="k"&gt;until&lt;/span&gt; the timeout expires.
+...
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;As you can see, on top:
+- Name of the command and section
+- name and related commands in this section
+- options and formats
+- short description
+- detailed info&lt;/p&gt;
+&lt;p&gt;and at the end bug reporting, files, related commands and authors.&lt;/p&gt;
+&lt;p&gt;There are 9 man sections:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;User commands (env, ls, echo, mkdir, tty)&lt;/li&gt;
+&lt;li&gt;System calls or kernel functions (link, sethostname, mkdir)&lt;/li&gt;
+&lt;li&gt;Library routines (acosh, asctime, btree, locale, XML::Parser)&lt;/li&gt;
+&lt;li&gt;Device related information (isdn_audio, mouse, tty, zero)&lt;/li&gt;
+&lt;li&gt;File format descriptions (keymaps, motd, wvdial.conf)&lt;/li&gt;
+&lt;li&gt;Games (note that many games are now graphical and have graphical help outside the man page system)&lt;/li&gt;
+&lt;li&gt;Miscellaneous (arp, boot, regex, unix utf8)&lt;/li&gt;
+&lt;li&gt;System administration (debugfs, fdisk, fsck, mount, renice, rpm)&lt;/li&gt;
+&lt;li&gt;kernel utils&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;of course there can be more and one command can be in different places.&lt;/p&gt;
+&lt;p&gt;If you are searching, do:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;jadi@funlife:~$ man -f ls
+ls (1)               - list directory contents
+jadi@funlife:~$ man -w ls
+/usr/share/man/man1/ls.1.gz
+jadi@funlife:~$ man -k ls | head
+SSL (3ssl)           - OpenSSL SSL/TLS library
+_llseek (2)          - reposition read/write file offset
+aconnect (1)         - ALSA sequencer connection manager
+add-shell (8)        - add shells to the list of valid login shells
+afs_syscall (2)      - unimplemented system calls
+alsactl (1)          - advanced controls for ALSA soundcard driver
+alsactl_init (7)     - alsa control management - initialization
+alsaloop (1)         - command-line PCM loopback
+alsamixer (1)        - soundcard mixer for ALSA soundcard driver, with ncurses interface
+amidi (1)            - read from and write to ALSA RawMIDI ports
+...
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Or use the &lt;code&gt;apropos&lt;/code&gt; command which searches man pages:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ apropos route
+ip-mroute &lt;span class="o"&gt;(&lt;/span&gt;8&lt;span class="o"&gt;)&lt;/span&gt;        - multicast routing cache management
+ip-route &lt;span class="o"&gt;(&lt;/span&gt;8&lt;span class="o"&gt;)&lt;/span&gt;         - routing table management
+route &lt;span class="o"&gt;(&lt;/span&gt;8&lt;span class="o"&gt;)&lt;/span&gt;            - show / manipulate the IP routing table
+routef &lt;span class="o"&gt;(&lt;/span&gt;8&lt;span class="o"&gt;)&lt;/span&gt;           - flush routes
+routel &lt;span class="o"&gt;(&lt;/span&gt;8&lt;span class="o"&gt;)&lt;/span&gt;           - list routes with pretty output format
+sensible-mda &lt;span class="o"&gt;(&lt;/span&gt;8&lt;span class="o"&gt;)&lt;/span&gt;     - a generic &lt;span class="nb"&gt;local&lt;/span&gt; MDA router &lt;span class="k"&gt;for&lt;/span&gt; Debian systems
+tor &lt;span class="o"&gt;(&lt;/span&gt;1&lt;span class="o"&gt;)&lt;/span&gt;              - The second-generation onion router
+torrc &lt;span class="o"&gt;(&lt;/span&gt;5&lt;span class="o"&gt;)&lt;/span&gt;            - The second-generation onion router
+traceroute6 &lt;span class="o"&gt;(&lt;/span&gt;8&lt;span class="o"&gt;)&lt;/span&gt;      - traces path to a network host
+traceroute6.iputils &lt;span class="o"&gt;(&lt;/span&gt;8&lt;span class="o"&gt;)&lt;/span&gt; - traces path to a network host
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;blockquote&gt;
+&lt;p&gt;Note: A linux master will read as many &lt;code&gt;man pages&lt;/code&gt; she can! Start with &lt;code&gt;man man&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;.&lt;/p&gt;
+&lt;p&gt;.&lt;/p&gt;
+&lt;p&gt;.&lt;/p&gt;
+&lt;p&gt;.&lt;/p&gt;
+&lt;p&gt;.&lt;/p&gt;
+&lt;p&gt;.&lt;/p&gt;
+&lt;p&gt;.&lt;/p&gt;
+&lt;p&gt;.&lt;/p&gt;
+&lt;p&gt;..&lt;/p&gt;
 &lt;p&gt;.&lt;/p&gt;
 &lt;p&gt;.&lt;/p&gt;
 &lt;p&gt;.&lt;/p&gt;
@@ -9167,1257 +10409,4 @@ total 8.0K
 &lt;/blockquote&gt;
 &lt;p&gt;and another one to verify that a document is singed correctly:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;gpg --verify recievedfile
-&lt;/pre&gt;&lt;/div&gt;</summary><category term="test"></category></entry><entry><title>Change runlevels and shutdown or reboot system</title><link href="http://linuxlearner.net/change-runlevels-and-shutdown-or-reboot-system.html" rel="alternate"></link><published>2015-12-25T12:20:00+00:00</published><updated>2015-12-25T12:20:00+00:00</updated><author><name>jadi</name></author><id>tag:linuxlearner.net,2015-12-25:change-runlevels-and-shutdown-or-reboot-system.html</id><summary type="html">&lt;h1&gt;101.3. Change runlevels and shutdown or reboot system&lt;/h1&gt;
-&lt;p&gt;weight: 3&lt;/p&gt;
-&lt;p&gt;Candidates should be able to manage the runlevel of the system. This objective includes changing to single user mode, shutdown or rebooting the system. Candidates should be able to alert users before switching run level and properly terminate processes. This objective also includes setting the default run level. It also includes basic feature knowledge of potential replacements to init.&lt;/p&gt;
-&lt;h3&gt;Key Knowledge Areas&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;Set the default runlevel.&lt;/li&gt;
-&lt;li&gt;Change between run levels including single user mode.&lt;/li&gt;
-&lt;li&gt;Shutdown and reboot from the command line.&lt;/li&gt;
-&lt;li&gt;Alert users before switching runlevels or other major system event.&lt;/li&gt;
-&lt;li&gt;Properly terminate processes.&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Knowledge of basic features of systemd and Upstart&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;/etc/inittab&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;shutdown&lt;/li&gt;
-&lt;li&gt;init&lt;/li&gt;
-&lt;li&gt;/etc/init.d&lt;/li&gt;
-&lt;li&gt;telinit&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3&gt;runlevels&lt;/h3&gt;
-&lt;p&gt;Runlevels define what tasks can be accomplished in the current state (or runlevel) of a Linux system&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;0- Halt&lt;/li&gt;
-&lt;li&gt;1- Single user mode (recovery)&lt;/li&gt;
-&lt;li&gt;2- Debian/Ubuntu default&lt;/li&gt;
-&lt;li&gt;3- RHEL/Fedora/SUSE text mode&lt;/li&gt;
-&lt;li&gt;4- free&lt;/li&gt;
-&lt;li&gt;5- RHEL/Fedora/SUSE graphical mode&lt;/li&gt;
-&lt;li&gt;6- reboot&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;default run level can be seen in this file which says init what to do, sets default runlevel and.. being phased out!&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;grep &amp;quot;^id:&amp;quot; /etc/inittab #on init systems
-id:5:initdefault:
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;it can also be done on grub kernel parameters.&lt;/p&gt;
-&lt;p&gt;or using the runleveland telinit commands:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# runlevel
-N 3
-# telinit 5
-# runlevel
-3 5
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; runlevel 1 is single user mode!&lt;/p&gt;
-&lt;h3&gt;/etc/inittab&lt;/h3&gt;
-&lt;p&gt;is being replaced by upstart and systemd but is still part of the exam.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="err"&gt;#&lt;/span&gt;
-&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="nt"&gt;inittab&lt;/span&gt;       &lt;span class="nt"&gt;This&lt;/span&gt; &lt;span class="nt"&gt;file&lt;/span&gt; &lt;span class="nt"&gt;describes&lt;/span&gt; &lt;span class="nt"&gt;how&lt;/span&gt; &lt;span class="nt"&gt;the&lt;/span&gt; &lt;span class="nt"&gt;INIT&lt;/span&gt; &lt;span class="nt"&gt;process&lt;/span&gt; &lt;span class="nt"&gt;should&lt;/span&gt; &lt;span class="nt"&gt;set&lt;/span&gt; &lt;span class="nt"&gt;up&lt;/span&gt;
-&lt;span class="err"&gt;#&lt;/span&gt;               &lt;span class="nt"&gt;the&lt;/span&gt; &lt;span class="nt"&gt;system&lt;/span&gt; &lt;span class="nt"&gt;in&lt;/span&gt; &lt;span class="nt"&gt;a&lt;/span&gt; &lt;span class="nt"&gt;certain&lt;/span&gt; &lt;span class="nt"&gt;run-level&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;
-&lt;span class="err"&gt;#&lt;/span&gt;
-&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="nt"&gt;Author&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;       &lt;span class="nt"&gt;Miquel&lt;/span&gt; &lt;span class="nt"&gt;van&lt;/span&gt; &lt;span class="nt"&gt;Smoorenburg&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;miquels&lt;/span&gt;&lt;span class="k"&gt;@drinkel&lt;/span&gt;&lt;span class="nc"&gt;.nl.mugnet.org&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
-&lt;span class="err"&gt;#&lt;/span&gt;               &lt;span class="nt"&gt;Modified&lt;/span&gt; &lt;span class="nt"&gt;for&lt;/span&gt; &lt;span class="nt"&gt;RHS&lt;/span&gt; &lt;span class="nt"&gt;Linux&lt;/span&gt; &lt;span class="nt"&gt;by&lt;/span&gt; &lt;span class="nt"&gt;Marc&lt;/span&gt; &lt;span class="nt"&gt;Ewing&lt;/span&gt; &lt;span class="nt"&gt;and&lt;/span&gt; &lt;span class="nt"&gt;Donnie&lt;/span&gt; &lt;span class="nt"&gt;Barnes&lt;/span&gt;
-&lt;span class="err"&gt;#&lt;/span&gt;
-
-&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="nt"&gt;Default&lt;/span&gt; &lt;span class="nt"&gt;runlevel&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt; &lt;span class="nt"&gt;The&lt;/span&gt; &lt;span class="nt"&gt;runlevels&lt;/span&gt; &lt;span class="nt"&gt;used&lt;/span&gt; &lt;span class="nt"&gt;by&lt;/span&gt; &lt;span class="nt"&gt;RHS&lt;/span&gt; &lt;span class="nt"&gt;are&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
-&lt;span class="err"&gt;#&lt;/span&gt;   &lt;span class="nt"&gt;0&lt;/span&gt; &lt;span class="nt"&gt;-&lt;/span&gt; &lt;span class="nt"&gt;halt&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nt"&gt;Do&lt;/span&gt; &lt;span class="nt"&gt;NOT&lt;/span&gt; &lt;span class="nt"&gt;set&lt;/span&gt; &lt;span class="nt"&gt;initdefault&lt;/span&gt; &lt;span class="nt"&gt;to&lt;/span&gt; &lt;span class="nt"&gt;this&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
-&lt;span class="err"&gt;#&lt;/span&gt;   &lt;span class="nt"&gt;1&lt;/span&gt; &lt;span class="nt"&gt;-&lt;/span&gt; &lt;span class="nt"&gt;Single&lt;/span&gt; &lt;span class="nt"&gt;user&lt;/span&gt; &lt;span class="nt"&gt;mode&lt;/span&gt;
-&lt;span class="err"&gt;#&lt;/span&gt;   &lt;span class="nt"&gt;2&lt;/span&gt; &lt;span class="nt"&gt;-&lt;/span&gt; &lt;span class="nt"&gt;Multiuser&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;without&lt;/span&gt; &lt;span class="nt"&gt;NFS&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nt"&gt;The&lt;/span&gt; &lt;span class="nt"&gt;same&lt;/span&gt; &lt;span class="nt"&gt;as&lt;/span&gt; &lt;span class="nt"&gt;3&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;if&lt;/span&gt; &lt;span class="nt"&gt;you&lt;/span&gt; &lt;span class="nt"&gt;do&lt;/span&gt; &lt;span class="nt"&gt;not&lt;/span&gt; &lt;span class="nt"&gt;have&lt;/span&gt; &lt;span class="nt"&gt;networking&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
-&lt;span class="err"&gt;#&lt;/span&gt;   &lt;span class="nt"&gt;3&lt;/span&gt; &lt;span class="nt"&gt;-&lt;/span&gt; &lt;span class="nt"&gt;Full&lt;/span&gt; &lt;span class="nt"&gt;multiuser&lt;/span&gt; &lt;span class="nt"&gt;mode&lt;/span&gt;
-&lt;span class="err"&gt;#&lt;/span&gt;   &lt;span class="nt"&gt;4&lt;/span&gt; &lt;span class="nt"&gt;-&lt;/span&gt; &lt;span class="nt"&gt;unused&lt;/span&gt;
-&lt;span class="err"&gt;#&lt;/span&gt;   &lt;span class="nt"&gt;5&lt;/span&gt; &lt;span class="nt"&gt;-&lt;/span&gt; &lt;span class="nt"&gt;X11&lt;/span&gt;
-&lt;span class="err"&gt;#&lt;/span&gt;   &lt;span class="nt"&gt;6&lt;/span&gt; &lt;span class="nt"&gt;-&lt;/span&gt; &lt;span class="nt"&gt;reboot&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nt"&gt;Do&lt;/span&gt; &lt;span class="nt"&gt;NOT&lt;/span&gt; &lt;span class="nt"&gt;set&lt;/span&gt; &lt;span class="nt"&gt;initdefault&lt;/span&gt; &lt;span class="nt"&gt;to&lt;/span&gt; &lt;span class="nt"&gt;this&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
-&lt;span class="err"&gt;#&lt;/span&gt;
-&lt;span class="nt"&gt;id&lt;/span&gt;&lt;span class="nd"&gt;:5:initdefault&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
-
-&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="nt"&gt;System&lt;/span&gt; &lt;span class="nt"&gt;initialization&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;
-&lt;span class="nt"&gt;si&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="nd"&gt;:sysinit&lt;/span&gt;&lt;span class="o"&gt;:/&lt;/span&gt;&lt;span class="nt"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;rc&lt;/span&gt;&lt;span class="nc"&gt;.d&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;rc&lt;/span&gt;&lt;span class="nc"&gt;.sysinit&lt;/span&gt;
-
-&lt;span class="nt"&gt;l0&lt;/span&gt;&lt;span class="nd"&gt;:0:wait&lt;/span&gt;&lt;span class="o"&gt;:/&lt;/span&gt;&lt;span class="nt"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;rc&lt;/span&gt;&lt;span class="nc"&gt;.d&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;rc&lt;/span&gt; &lt;span class="nt"&gt;0&lt;/span&gt;
-&lt;span class="nt"&gt;l1&lt;/span&gt;&lt;span class="nd"&gt;:1:wait&lt;/span&gt;&lt;span class="o"&gt;:/&lt;/span&gt;&lt;span class="nt"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;rc&lt;/span&gt;&lt;span class="nc"&gt;.d&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;rc&lt;/span&gt; &lt;span class="nt"&gt;1&lt;/span&gt;
-&lt;span class="nt"&gt;l2&lt;/span&gt;&lt;span class="nd"&gt;:2:wait&lt;/span&gt;&lt;span class="o"&gt;:/&lt;/span&gt;&lt;span class="nt"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;rc&lt;/span&gt;&lt;span class="nc"&gt;.d&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;rc&lt;/span&gt; &lt;span class="nt"&gt;2&lt;/span&gt;
-&lt;span class="nt"&gt;l3&lt;/span&gt;&lt;span class="nd"&gt;:3:wait&lt;/span&gt;&lt;span class="o"&gt;:/&lt;/span&gt;&lt;span class="nt"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;rc&lt;/span&gt;&lt;span class="nc"&gt;.d&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;rc&lt;/span&gt; &lt;span class="nt"&gt;3&lt;/span&gt;
-&lt;span class="nt"&gt;l4&lt;/span&gt;&lt;span class="nd"&gt;:4:wait&lt;/span&gt;&lt;span class="o"&gt;:/&lt;/span&gt;&lt;span class="nt"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;rc&lt;/span&gt;&lt;span class="nc"&gt;.d&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;rc&lt;/span&gt; &lt;span class="nt"&gt;4&lt;/span&gt;
-&lt;span class="nt"&gt;l5&lt;/span&gt;&lt;span class="nd"&gt;:5:wait&lt;/span&gt;&lt;span class="o"&gt;:/&lt;/span&gt;&lt;span class="nt"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;rc&lt;/span&gt;&lt;span class="nc"&gt;.d&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;rc&lt;/span&gt; &lt;span class="nt"&gt;5&lt;/span&gt;
-&lt;span class="nt"&gt;l6&lt;/span&gt;&lt;span class="nd"&gt;:6:wait&lt;/span&gt;&lt;span class="o"&gt;:/&lt;/span&gt;&lt;span class="nt"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;rc&lt;/span&gt;&lt;span class="nc"&gt;.d&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;rc&lt;/span&gt; &lt;span class="nt"&gt;6&lt;/span&gt;
-
-&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="nt"&gt;Trap&lt;/span&gt; &lt;span class="nt"&gt;CTRL-ALT-DELETE&lt;/span&gt;
-&lt;span class="nt"&gt;ca&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="nd"&gt;:ctrlaltdel&lt;/span&gt;&lt;span class="o"&gt;:/&lt;/span&gt;&lt;span class="nt"&gt;sbin&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;shutdown&lt;/span&gt; &lt;span class="nt"&gt;-t3&lt;/span&gt; &lt;span class="nt"&gt;-r&lt;/span&gt; &lt;span class="nt"&gt;now&lt;/span&gt;
-
-&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="nt"&gt;When&lt;/span&gt; &lt;span class="nt"&gt;our&lt;/span&gt; &lt;span class="nt"&gt;UPS&lt;/span&gt; &lt;span class="nt"&gt;tells&lt;/span&gt; &lt;span class="nt"&gt;us&lt;/span&gt; &lt;span class="nt"&gt;power&lt;/span&gt; &lt;span class="nt"&gt;has&lt;/span&gt; &lt;span class="nt"&gt;failed&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;assume&lt;/span&gt; &lt;span class="nt"&gt;we&lt;/span&gt; &lt;span class="nt"&gt;have&lt;/span&gt; &lt;span class="nt"&gt;a&lt;/span&gt; &lt;span class="nt"&gt;few&lt;/span&gt; &lt;span class="nt"&gt;minutes&lt;/span&gt;
-&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="nt"&gt;of&lt;/span&gt; &lt;span class="nt"&gt;power&lt;/span&gt; &lt;span class="nt"&gt;left&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;  &lt;span class="nt"&gt;Schedule&lt;/span&gt; &lt;span class="nt"&gt;a&lt;/span&gt; &lt;span class="nt"&gt;shutdown&lt;/span&gt; &lt;span class="nt"&gt;for&lt;/span&gt; &lt;span class="nt"&gt;2&lt;/span&gt; &lt;span class="nt"&gt;minutes&lt;/span&gt; &lt;span class="nt"&gt;from&lt;/span&gt; &lt;span class="nt"&gt;now&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;
-&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="nt"&gt;This&lt;/span&gt; &lt;span class="nt"&gt;does&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;of&lt;/span&gt; &lt;span class="nt"&gt;course&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;assume&lt;/span&gt; &lt;span class="nt"&gt;you&lt;/span&gt; &lt;span class="nt"&gt;have&lt;/span&gt; &lt;span class="nt"&gt;powerd&lt;/span&gt; &lt;span class="nt"&gt;installed&lt;/span&gt; &lt;span class="nt"&gt;and&lt;/span&gt; &lt;span class="nt"&gt;your&lt;/span&gt;
-&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="nt"&gt;UPS&lt;/span&gt; &lt;span class="nt"&gt;connected&lt;/span&gt; &lt;span class="nt"&gt;and&lt;/span&gt; &lt;span class="nt"&gt;working&lt;/span&gt; &lt;span class="nt"&gt;correctly&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;
-&lt;span class="nt"&gt;pf&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="nd"&gt;:powerfail&lt;/span&gt;&lt;span class="o"&gt;:/&lt;/span&gt;&lt;span class="nt"&gt;sbin&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;shutdown&lt;/span&gt; &lt;span class="nt"&gt;-f&lt;/span&gt; &lt;span class="nt"&gt;-h&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="nt"&gt;2&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Power Failure; System Shutting Down&amp;quot;&lt;/span&gt;
-
-&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="nt"&gt;If&lt;/span&gt; &lt;span class="nt"&gt;power&lt;/span&gt; &lt;span class="nt"&gt;was&lt;/span&gt; &lt;span class="nt"&gt;restored&lt;/span&gt; &lt;span class="nt"&gt;before&lt;/span&gt; &lt;span class="nt"&gt;the&lt;/span&gt; &lt;span class="nt"&gt;shutdown&lt;/span&gt; &lt;span class="nt"&gt;kicked&lt;/span&gt; &lt;span class="nt"&gt;in&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;cancel&lt;/span&gt; &lt;span class="nt"&gt;it&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;
-&lt;span class="nt"&gt;pr&lt;/span&gt;&lt;span class="nd"&gt;:12345:powerokwait&lt;/span&gt;&lt;span class="o"&gt;:/&lt;/span&gt;&lt;span class="nt"&gt;sbin&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;shutdown&lt;/span&gt; &lt;span class="nt"&gt;-c&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Power Restored; Shutdown Cancelled&amp;quot;&lt;/span&gt;
-
-
-&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="nt"&gt;Run&lt;/span&gt; &lt;span class="nt"&gt;gettys&lt;/span&gt; &lt;span class="nt"&gt;in&lt;/span&gt; &lt;span class="nt"&gt;standard&lt;/span&gt; &lt;span class="nt"&gt;runlevels&lt;/span&gt;
-&lt;span class="nt"&gt;1&lt;/span&gt;&lt;span class="nd"&gt;:2345:respawn&lt;/span&gt;&lt;span class="o"&gt;:/&lt;/span&gt;&lt;span class="nt"&gt;sbin&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;mingetty&lt;/span&gt; &lt;span class="nt"&gt;tty1&lt;/span&gt;
-&lt;span class="nt"&gt;2&lt;/span&gt;&lt;span class="nd"&gt;:2345:respawn&lt;/span&gt;&lt;span class="o"&gt;:/&lt;/span&gt;&lt;span class="nt"&gt;sbin&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;mingetty&lt;/span&gt; &lt;span class="nt"&gt;tty2&lt;/span&gt;
-&lt;span class="nt"&gt;3&lt;/span&gt;&lt;span class="nd"&gt;:2345:respawn&lt;/span&gt;&lt;span class="o"&gt;:/&lt;/span&gt;&lt;span class="nt"&gt;sbin&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;mingetty&lt;/span&gt; &lt;span class="nt"&gt;tty3&lt;/span&gt;
-&lt;span class="nt"&gt;4&lt;/span&gt;&lt;span class="nd"&gt;:2345:respawn&lt;/span&gt;&lt;span class="o"&gt;:/&lt;/span&gt;&lt;span class="nt"&gt;sbin&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;mingetty&lt;/span&gt; &lt;span class="nt"&gt;tty4&lt;/span&gt;
-&lt;span class="nt"&gt;5&lt;/span&gt;&lt;span class="nd"&gt;:2345:respawn&lt;/span&gt;&lt;span class="o"&gt;:/&lt;/span&gt;&lt;span class="nt"&gt;sbin&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;mingetty&lt;/span&gt; &lt;span class="nt"&gt;tty5&lt;/span&gt;
-&lt;span class="nt"&gt;6&lt;/span&gt;&lt;span class="nd"&gt;:2345:respawn&lt;/span&gt;&lt;span class="o"&gt;:/&lt;/span&gt;&lt;span class="nt"&gt;sbin&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;mingetty&lt;/span&gt; &lt;span class="nt"&gt;tty6&lt;/span&gt;
-
-&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="nt"&gt;Run&lt;/span&gt; &lt;span class="nt"&gt;xdm&lt;/span&gt; &lt;span class="nt"&gt;in&lt;/span&gt; &lt;span class="nt"&gt;runlevel&lt;/span&gt; &lt;span class="nt"&gt;5&lt;/span&gt;
-&lt;span class="nt"&gt;x&lt;/span&gt;&lt;span class="nd"&gt;:5:respawn&lt;/span&gt;&lt;span class="o"&gt;:/&lt;/span&gt;&lt;span class="nt"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;X11&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;prefdm&lt;/span&gt; &lt;span class="nt"&gt;-nodaemon&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;this is the format:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;runlevels&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;action&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;process&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;ul&gt;
-&lt;li&gt;id: 2 or 3 chars&lt;/li&gt;
-&lt;li&gt;runlevels: which runlevel this commands refers to (empty means all)&lt;/li&gt;
-&lt;li&gt;action: respawn, wait, once, initdefault (default run level as seen above), ctrlaltdel (what to do with crrl+alt+delete)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;all scripts are here:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;ls -ltrh /etc/init.d
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;and start/stop on runlevels are controlled from these directories:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;root@funlife:~# ls /etc/rc2.d/
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;h3&gt;Shutdown&lt;/h3&gt;
-&lt;p&gt;The preferred method to shut down or reboot the system is to use the shutdown command, which first sends a warning message to all logged-in users and blocks any further logins. It then signals init to switch runlevels. The init process then sends all running processes a SIGTERM signal, giving them a chance to save data or otherwise properly terminate. After 5 seconds, or another delay if specified, init sends a SIGKILL signal to forcibly end each remaining process.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;default is 5 seconds delay and then going to runlevel 1&lt;/li&gt;
-&lt;li&gt;-h will halt the system&lt;/li&gt;
-&lt;li&gt;-r will reboot the system&lt;/li&gt;
-&lt;li&gt;time is hh:mm or n (minutes) or now&lt;/li&gt;
-&lt;li&gt;whatever you add, will be broadcasted to logged in users&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;if the command is running, ctrl+c or the "shutdown -c" will cancel it&lt;/p&gt;
-&lt;p&gt;shutdown -r 60 Reloading updated kernel&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;for more advance users:
-&lt;em&gt; -t60 will delay 60 seconds between SIGTERM and SIGKILL
-&lt;/em&gt; if you cancel a shutdown, users wont get the news! you can use "wall" command to tell them that the shutdown is canceled&lt;/p&gt;
-&lt;h3&gt;Halt, reboot and poweroff&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;The halt command halts the system.&lt;/li&gt;
-&lt;li&gt;The poweroff command is a symbolic link to the halt command, which halts the system and then attempts to power it off.&lt;/li&gt;
-&lt;li&gt;The reboot command is another symbolic link to the halt command, which halts the system and then reboots it.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3&gt;upstart&lt;/h3&gt;
-&lt;p&gt;is not static set of init scripts and understands events. Events are used to trigger tasks or services (jobs). Examples are connecting a usb or starting the Apache server only after having network and filesystem.&lt;/p&gt;
-&lt;p&gt;jobs are defined in /etc/init and subdirectories.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;initctl list
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;being used in ubuntu.&lt;/p&gt;
-&lt;h3&gt;systemd&lt;/h3&gt;
-&lt;p&gt;uses sockets and a socket will be open for each daemon process but will start the daemon only when needed. Understands dependencies. Faster and parallel.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;systemctl
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;works with units (service, socket, device, mount, automount, target (group of other units), snapshot (save/rollback)). config files has unit type suffix (say cups.service or rpcbind.socket) and are located at /etc/systemd/system&lt;/p&gt;
-&lt;p&gt;being used in Fedora based systems and SUSE&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.
-.&lt;/p&gt;</summary><category term="test"></category></entry><entry><title>Design hard disk layout</title><link href="http://linuxlearner.net/design-hard-disk-layout.html" rel="alternate"></link><published>2015-12-25T12:20:00+00:00</published><updated>2015-12-25T12:20:00+00:00</updated><author><name>jadi</name></author><id>tag:linuxlearner.net,2015-12-25:design-hard-disk-layout.html</id><summary type="html">&lt;h1&gt;102.1. Design hard disk layout&lt;/h1&gt;
-&lt;p&gt;&lt;em&gt;Weight: 2&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;Description: Candidates should be able to design a disk partitioning scheme for a Linux system.&lt;/p&gt;
-&lt;h2&gt;Key Knowledge Areas&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;Allocate filesystems and swap space to separate partitions or disks.&lt;/li&gt;
-&lt;li&gt;Tailor the design to the intended use of the system.&lt;/li&gt;
-&lt;li&gt;Ensure the /boot partition conforms to the hardware architecture requirements for booting.&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Knowledge of basic features of LVM&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;/ (root) filesystem&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;/var filesystem&lt;/li&gt;
-&lt;li&gt;/home filesystem&lt;/li&gt;
-&lt;li&gt;swap space&lt;/li&gt;
-&lt;li&gt;mount points&lt;/li&gt;
-&lt;li&gt;partitions&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2&gt;Basics&lt;/h2&gt;
-&lt;p&gt;As any other OS, Linux uses &lt;em&gt;files&lt;/em&gt; and &lt;em&gt;directories&lt;/em&gt; to operate. But unlike &lt;em&gt;Windows&lt;/em&gt;, it does not use A:, C:, D:, etc. In Linux everything is in *&lt;em&gt;one big tree&lt;/em&gt;, starting with / (called root). Any partition, disk, CD, USB, network drive, ... will be placed somewhere in this huge tree.&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;Note: Most of external devices (USB, CD, ..) are mounted at /media/ or /mnt/ .&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2&gt;Unix directories&lt;/h2&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;Directory&lt;/th&gt;
-&lt;th&gt;Description&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;bin&lt;/td&gt;
-&lt;td&gt;Essential command binaries&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;boot&lt;/td&gt;
-&lt;td&gt;Static files of the boot loader&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;dev&lt;/td&gt;
-&lt;td&gt;Device files&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;etc&lt;/td&gt;
-&lt;td&gt;Host-specific system configuration&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;home&lt;/td&gt;
-&lt;td&gt;Home directory of the users&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;lib&lt;/td&gt;
-&lt;td&gt;Essential shared libraries and kernel modules&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;media&lt;/td&gt;
-&lt;td&gt;Mount point for removable media&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;mnt&lt;/td&gt;
-&lt;td&gt;Mount point for mounting a filesystem temporarily&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;opt&lt;/td&gt;
-&lt;td&gt;Add-on application software packages&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;root&lt;/td&gt;
-&lt;td&gt;Home directory of the root user&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;sbin&lt;/td&gt;
-&lt;td&gt;Essential system binaries&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;srv&lt;/td&gt;
-&lt;td&gt;Data for services provided by this system&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;tmp&lt;/td&gt;
-&lt;td&gt;Temporary files&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;usr&lt;/td&gt;
-&lt;td&gt;Secondary hierarchy&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;var&lt;/td&gt;
-&lt;td&gt;Variable data&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;h2&gt;Partitions&lt;/h2&gt;
-&lt;p&gt;In Linux world, devices are defined at /dev/. First SATA disk is /dev/sda, second SATA disk is /dev/sdb, ... and first SCSI disk (older systems) is /dev/hda.&lt;/p&gt;
-&lt;p&gt;You have to &lt;em&gt;PARTITION&lt;/em&gt; the disks, that is creating smaller parts on a big disk and calling them /dev/sda1 (first partition on first SCSI disk) or /dev/hd&lt;strong&gt;b&lt;/strong&gt;3 (3rd partition on second disk).&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# fdisk /dev/sda
-Welcome to fdisk (util-linux 2.25.1).
-Changes will remain in memory only, until you decide to write them.
-Be careful before using the write command.
-
-
-Command (m for help): p
-Disk /dev/sda: 298.1 GiB, 320072933376 bytes, 625142448 sectors
-Units: sectors of 1 * 512 = 512 bytes
-Sector size (logical/physical): 512 bytes / 512 bytes
-I/O size (minimum/optimal): 512 bytes / 512 bytes
-Disklabel type: dos
-Disk identifier: 0x000beca1
-
-Device     Boot     Start       End   Sectors   Size Id Type
-/dev/sda1  *         2048  43094015  43091968  20.6G 83 Linux
-/dev/sda2        43094016  92078390  48984375  23.4G 83 Linux
-/dev/sda3        92080126 625141759 533061634 254.2G  5 Extended
-/dev/sda5        92080128 107702271  15622144   7.5G 82 Linux swap / Solaris
-/dev/sda6       107704320 625141759 517437440 246.8G 83 Linux
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;h3&gt;Primary, Extended &amp;amp; Logical Partitions&lt;/h3&gt;
-&lt;p&gt;The partition table is located in the master boot record (&lt;strong&gt;MBR&lt;/strong&gt;) of a disk. The MBR is the first sector on the disk, so the partition table is not a very large part of it. This limits the primary partitions to 4 and the max size of a disk to around 2TBs. If you need more partitions you have a define one extended and then create logicals &lt;em&gt;inside&lt;/em&gt; them.&lt;/p&gt;
-&lt;p&gt;Linux numbers the primary partitions 1, 2, 3 &amp;amp; 4. If you define an extended partitions, logical partitions inside it will be called 5, 6, 7.&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;Note: an Extended partition is just an empty box for creating Logical partitions inside it.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;So:
-- /dev/sda3 is the 3rd primary partition on the first disk
-- /dev/sdb5 is the first logical partition on the second disk
-- /dev/sda7 is the 3rd logical partition of the first physical disk&lt;/p&gt;
-&lt;p&gt;The newer &lt;strong&gt;GUID Partition Table (or GPT)&lt;/strong&gt; solves this problems. If you format your disk with GTP you can have 128 primary partitions (no need to extended and logical).&lt;/p&gt;
-&lt;h2&gt;commands&lt;/h2&gt;
-&lt;h3&gt;parted&lt;/h3&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;jadi@funlife:~$ sudo parted /dev/sda p
-Model: ATA ST320LT000-9VL14 (scsi)
-Disk /dev/sda: 320GB
-Sector size (logical/physical): 512B/512B
-Partition Table: msdos
-Disk Flags:
-
-Number  Start   End     Size    Type      File system     Flags
- 1      1049kB  22.1GB  22.1GB  primary   ext4            boot
- 2      22.1GB  47.1GB  25.1GB  primary   ext4
- 3      47.1GB  320GB   273GB   extended
- 5      47.1GB  55.1GB  7999MB  logical   linux-swap(v1)
- 6      55.1GB  320GB   265GB   logical
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;h4&gt;fdisk&lt;/h4&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# sudo fdisk /dev/sda
-[sudo] password for jadi:
-
-Welcome to fdisk (util-linux 2.25.1).
-Changes will remain in memory only, until you decide to write them.
-Be careful before using the write command.
-
-
-Command (m for help): p
-Disk /dev/sda: 298.1 GiB, 320072933376 bytes, 625142448 sectors
-Units: sectors of 1 * 512 = 512 bytes
-Sector size (logical/physical): 512 bytes / 512 bytes
-I/O size (minimum/optimal): 512 bytes / 512 bytes
-Disklabel type: dos
-Disk identifier: 0x000beca1
-
-Device     Boot     Start       End   Sectors   Size Id Type
-/dev/sda1  *         2048  43094015  43091968  20.6G 83 Linux
-/dev/sda2        43094016  92078390  48984375  23.4G 83 Linux
-/dev/sda3        92080126 625141759 533061634 254.2G  5 Extended
-/dev/sda5        92080128 107702271  15622144   7.5G 82 Linux swap / Solaris
-/dev/sda6       107704320 625141759 517437440 246.8G 83 Linux
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;blockquote&gt;
-&lt;p&gt;Note: parted does not understands GPT&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h4&gt;gparted&lt;/h4&gt;
-&lt;p&gt;A graphical tool for managing disks and partitions.&lt;/p&gt;
-&lt;p&gt;&lt;img alt="" src="http://www.ibm.com/developerworks/linux/library/l-lpic1-v3-102-1/gparted-1s.jpg" /&gt;&lt;/p&gt;
-&lt;h3&gt;LVM&lt;/h3&gt;
-&lt;p&gt;In many cases you need to resize your partitions or even add new disks and &lt;em&gt;add&lt;/em&gt; them to your mount points. LVM is designed for this.&lt;/p&gt;
-&lt;p&gt;LVM helps you create one partition from different disks and add or remove space to them. The main concepts are:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Physical Volume (pv): a whole drive or a partition. It is better to define partitions and &lt;strong&gt;not use whole disks - unpartitioned&lt;/strong&gt;.&lt;/li&gt;
-&lt;li&gt;Volume Groups (vg): this is the collection of one or more &lt;strong&gt;pv&lt;/strong&gt;s. OS will see the vg as one big disk. PVs in one vg, can have different sizes or even be on different physical disks.&lt;/li&gt;
-&lt;li&gt;Logical Volumes (lv): OS will see lvs as partitions. You can format an lv wit your OS and use it.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2&gt;Design Hard disk layout&lt;/h2&gt;
-&lt;p&gt;Disk layout and allocation partitions to directories depends on you usage. First we will discuss &lt;em&gt;swap&lt;/em&gt; and &lt;em&gt;boot&lt;/em&gt; and then will see three different cases.&lt;/p&gt;
-&lt;h4&gt;swap&lt;/h4&gt;
-&lt;p&gt;swap in Linux works like an extended memory. Kernel will &lt;em&gt;page&lt;/em&gt; memory to this partition / file. It is enough to format one partition with &lt;strong&gt;swap file system&lt;/strong&gt; and define it in /etc/fstab (you will see this later in 104 modules).&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;Note: swap size is 1 or 2 times the system memory but not more than 8GBs. So if you have 2GB of RAM, swap will be 4GB but if you have 6GB of RAM, it is recommended to have a 8GB swap partition.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h4&gt;/boot&lt;/h4&gt;
-&lt;p&gt;Older Linux systems were not able to handle HUGE disks during the boot (say Terabytes) so there were a separated /boot. It is also useful to recover broken systems or even you can make /boot read only. Most of the time, having 100MB for /boot is enough. This can be a different disk or a separated partition.&lt;/p&gt;
-&lt;p&gt;This partition should be accessible by BIOS during the boot (no network drive).&lt;/p&gt;
-&lt;h3&gt;case one: Desktop computer&lt;/h3&gt;
-&lt;p&gt;On a desktop computer, it is good to have one swap, one /boot and allocate all other space to / (root).&lt;/p&gt;
-&lt;h3&gt;network workstation&lt;/h3&gt;
-&lt;p&gt;As any other system /boot should be local (a physical disk connected to the machine) and most of the time, the / (root file system) is also local. But in a network station, /home can be mounted from a network drive (NFS, SMB, SSH, ..). This lets users to sit at any station, login and have their own home mounted from a network drive. Swap can be mounted from network or local.&lt;/p&gt;
-&lt;h3&gt;Server&lt;/h3&gt;
-&lt;p&gt;On servers /boot is still local and based on usage, /home can be local or network. In many cases we separate the /var because logs and many other files are there and being updated so it is good to separate it or even put it on a more advanced storage (like RAID disks to prevent data loss). Some people also separate the /usr and write-protect it (read only file systems) or even mount the /usr from network so they can change / update one file on the network storage and all the servers will use the new file (you remember? /usr contains important executables like Apache web server).&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;</summary><category term="test"></category></entry><entry><title>Glossary</title><link href="http://linuxlearner.net/glossary.html" rel="alternate"></link><published>2015-12-25T12:20:00+00:00</published><updated>2015-12-25T12:20:00+00:00</updated><author><name>jadi</name></author><id>tag:linuxlearner.net,2015-12-25:glossary.html</id><summary type="html">&lt;h2&gt;Glossary&lt;/h2&gt;</summary><category term="test"></category></entry><entry><title>Hardware</title><link href="http://linuxlearner.net/hardware.html" rel="alternate"></link><published>2015-12-25T12:20:00+00:00</published><updated>2015-12-25T12:20:00+00:00</updated><author><name>jadi</name></author><id>tag:linuxlearner.net,2015-12-25:hardware.html</id><summary type="html">&lt;h1&gt;101.1. Hardware&lt;/h1&gt;</summary><category term="test"></category></entry><entry><title>Install a boot manager</title><link href="http://linuxlearner.net/install-a-boot-manager.html" rel="alternate"></link><published>2015-12-25T12:20:00+00:00</published><updated>2015-12-25T12:20:00+00:00</updated><author><name>jadi</name></author><id>tag:linuxlearner.net,2015-12-25:install-a-boot-manager.html</id><summary type="html">&lt;h1&gt;102.2 Install a boot manager&lt;/h1&gt;
-&lt;p&gt;&lt;em&gt;Weight: 2&lt;/em&gt;
-    Description: Candidates should be able to select, install and configure a boot manager.&lt;/p&gt;
-&lt;h1&gt;Objectives&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;Providing alternative boot locations and backup boot options.&lt;/li&gt;
-&lt;li&gt;Install and configure a boot loader such as GRUB Legacy.&lt;/li&gt;
-&lt;li&gt;Perform basic configuration changes for GRUB 2.&lt;/li&gt;
-&lt;li&gt;Interact with the boot loader&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Terms and Utilities&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;/boot/grub/menu.lst&lt;/li&gt;
-&lt;li&gt;grub-install&lt;/li&gt;
-&lt;li&gt;MBR&lt;/li&gt;
-&lt;li&gt;superblock&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2&gt;Boot overview&lt;/h2&gt;
-&lt;p&gt;System starts from BIOS and will do a self test called POST. Then it will hand over the boot process to the first sector of master boot record (MBR).&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;MBR is on track (Cylinder) 0, side (Head) 0 and Sector 1 of the first disk which defines CHS.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;MBR is only 512bytes so we need a &lt;em&gt;smart bootloader&lt;/em&gt; to handle larger boot managers and even multiple systems. Some of these boot loaders are LILO, GRUB and GRUB2.&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;Chain Loading is when a boot loaders, loads another boot loader. This is done when a linux bootloader needs to start a Windows system.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2&gt;LILO&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;LILO&lt;/strong&gt;  (&lt;strong&gt;LI&lt;/strong&gt;nux &lt;strong&gt;LO&lt;/strong&gt;ader) is the older of three main linux boot loaders and in new distributions it is not installed by default. Its configuration is in &lt;code&gt;/etc/lilo.conf&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;There is a command to generate an initial config: &lt;code&gt;/usr/sbin/liloconfig&lt;/code&gt;.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# Originally generated by liloconfig - modified by Ian Shields
-
-# This allows booting from any partition on disks with more than 1024
-# cylinders.
-lba32
-
-# Specifies the boot device (floppy)
-boot=/dev/fd0
-
-# Specifies the device that should be mounted as root.
-# If the special name CURRENT is used, the root device is set to the
-# device on which the root file system is currently mounted. If the root
-# has been changed with  -r , the respective device is used. If the
-# variable ROOT is omitted, the root device setting contained in the
-# kernel image is used. It can be changed with the rdev program.
-root=/dev/sda7
-
-# Bitmap configuration for /boot/coffee.bmp
-bitmap=/boot/coffee.bmp
-bmp-colors=12,,11,15,,8
-bmp-table=385p,100p,1,10
-bmp-timer=38,2,13,1
-
-# Enables map compaction:
-# Tries to merge read requests for adjacent sectors into a single
-# read request. This drastically reduces load time and keeps the map
-# smaller. Using COMPACT is especially recommended when booting from a
-# floppy disk.
-compact
-
-# Install the specified file as the new boot sector.
-# LILO supports built in boot sectors, you only need
-# to specify the type, choose one from &amp;#39;text&amp;#39;, &amp;#39;menu&amp;#39; or &amp;#39;bitmap&amp;#39;.
-# new: install=bmp      old: install=/boot/boot-bmp.b
-# new: install=text     old: install=/boot/boot-text.b
-# new: install=menu     old: install=/boot/boot-menu.b or boot.b
-# default: &amp;#39;menu&amp;#39; is default, unless you have a bitmap= line
-# Note: install=bmp must be used to see the bitmap menu.
-# install=menu
-install=bmp
-
-# Specifies the number of _tenths_ of a second LILO should
-# wait before booting the first image.  LILO
-# doesn&amp;#39;t wait if DELAY is omitted or if DELAY is set to zero.
-# delay=20
-
-# Prompt to use certain image. If prompt is specified without timeout,
-# boot will not take place unless you hit RETURN. Timeout is in tenths of
-# a second.
-prompt
-timeout=200
-
-# Enable large memory mode.
-large-memory
-
-# Specifies the location of the map file. If MAP is
-# omitted, a file /boot/map is used.
-map=/boot/map
-
-# Specifies the VGA text mode that should be selected when
-# booting. The following values are recognized (case is ignored):
-#   NORMAL  select normal 80x25 text mode.
-#   EXTENDED  select 80x50 text mode. The word EXTENDED can be
-#     abbreviated to EXT.
-#   ASK  stop and ask for user input (at boot time).
-#   &amp;lt;number&amp;gt;  use the corresponding text mode. A list of available modes
-#     can be obtained by booting with  vga=ask  and pressing [Enter].
-vga=normal
-
-# Defines non-standard parameters for the specified disk.
-#disk=/dev/sda
-#   bios=0x80
-
-# If you are using removable USB drivers (with mass-storage)
-# you will need to tell LILO to not use these devices even
-# if defined in /etc/fstab and referenced in /proc/partitions.
-# Adjust these lines to your devices:
-#
-# disk=/dev/sda inaccessible
-# disk=/dev/sdb inaccessible
-
-# These images were automagically added. You may need to edit something.
-
-image=/boot/vmlinuz-2.6.31-14-generic
-    label=&amp;quot;Lin 2.6.31-14&amp;quot;
-    initrd=/boot/initrd.img-2.6.31-14-generic
-    read-only
-
-image=/boot/vmlinuz-2.6.31-20-generic
-    label=&amp;quot;Lin 2.6.31-20&amp;quot;
-    initrd=/boot/initrd.img-2.6.31-20-generic
-    read-only
-
-image=/boot/memtest86+.bin
-    label=&amp;quot;Memory Test+&amp;quot;
-    read-only
-
-# If you have another OS on this machine (say DOS),
-# you can boot if by uncommenting the following lines
-# (Of course, change /dev/sda1 to wherever your DOS partition is.)
-other=/dev/sda6
-        label=&amp;quot;Fedora 8&amp;quot;
-
- other=/dev/sda1
-   label=&amp;quot;Windows XP&amp;quot;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;When this config file is created, we have to issue the &lt;code&gt;lilo&lt;/code&gt; command to make the disk bootable:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# lilo -v -v
-LILO version 22.8, Copyright (C) 1992-1998 Werner Almesberger
-Development beyond version 21 Copyright (C) 1999-2006 John Coffman
-Released 19-Feb-2007, and compiled at 10:52:38 on Aug 25 2009
-Running Linux kernel 2.6.31-14-generic on i686
-Ubuntu
-
-raid_setup returns offset = 00000000  ndisk = 0
- BIOS   VolumeID   Device
-Reading boot sector from /dev/fd0
-pf_hard_disk_scan: ndevs=1
-  0800  54085408  /dev/sda
-device codes (user assigned pf) = 0
-device codes (user assigned) = 0
-device codes (BIOS assigned) = 1
-device codes (canonical) = 1
-mode = 0x03,  columns = 80,  rows = 25,  page = 0
-Using BITMAP secondary loader
-Calling map_insert_data
-Secondary loader: 19 sectors (0x3800 dataend).
-Warning: The boot sector and map file are on different disks.
-bios_boot = 0x00  bios_map = 0x80  map==boot = 0  map S/N: 54085408
-Mapping bitmap file /boot/coffee.bmp
-Calling map_insert_file
-Compaction removed 592 BIOS calls.
-Bitmap: 603 sectors.
-BIOS data check was okay on the last boot
-
-Boot image: /boot/vmlinuz-2.6.31-14-generic
-Setup length is 26 sectors.
-Compaction removed 7452 BIOS calls.
-Mapped 7601 sectors.
-Mapping RAM disk /boot/initrd.img-2.6.31-14-generic
-Compaction removed 14696 BIOS calls.
-RAM disk: 14930 sectors.
-Added Lin_2.6.31-14 *
-
-Boot image: /boot/vmlinuz-2.6.31-20-generic
-Setup length is 26 sectors.
-Compaction removed 7468 BIOS calls.
-Mapped 7617 sectors.
-Mapping RAM disk /boot/initrd.img-2.6.31-20-generic
-Compaction removed 14704 BIOS calls.
-RAM disk: 14938 sectors.
-Added Lin_2.6.31-20
-
-Boot image: /boot/memtest86+.bin
-Setup length is 4 sectors.
-Compaction removed 243 BIOS calls.
-Mapped 254 sectors.
-Added Memory_Test+
-
-Boot other: /dev/sda6, loader CHAIN
-Pseudo partition start: 43198848
-Compaction removed 0 BIOS calls.
-Mapped 6 (4+1+1) sectors.
-Added Fedora_8
-
-Boot other: /dev/sda1, on /dev/sda, loader CHAIN
-Compaction removed 0 BIOS calls.
-Mapped 6 (4+1+1) sectors.
-Added Windows_XP
-
- BIOS   VolumeID   Device
-  80    54085408    0800
-Writing boot sector.
-/boot/boot.0200 exists - no boot sector backup copy made.
-Map file size: 336896 bytes.
-RAID device mask 0x0000
-One warning was issued.
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;blockquote&gt;
-&lt;p&gt;-v -v doubles the verbosity! You can have up to 5 &lt;code&gt;-v&lt;/code&gt;s!&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;No you can boot your system from that floppy and you will get a menu to choose one of the boot options.&lt;/p&gt;
-&lt;p&gt;These are some other LILO switches:&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;switch&lt;/th&gt;
-&lt;th&gt;meaning&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;-q&lt;/td&gt;
-&lt;td&gt;show information about the map file. map file is located at /boot/map and contains the boot configs&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;-R&lt;/td&gt;
-&lt;td&gt;boot the system on the next reboot only. Used for remote systems&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;-l&lt;/td&gt;
-&lt;td&gt;list information about the Kernel&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;-u&lt;/td&gt;
-&lt;td&gt;uninstall lilo and restore previous boot record&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;Please note that pressing &lt;strong&gt;TAB&lt;/strong&gt; when choosing an item in LILO menu, will let you edit that item.&lt;/p&gt;
-&lt;h2&gt;GRUB (version 1 or the Legacy grub)&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;GRUB&lt;/strong&gt; (&lt;strong&gt;GR&lt;/strong&gt;and &lt;strong&gt;U&lt;/strong&gt;nified &lt;strong&gt;B&lt;/strong&gt;ootloader) is a newer bootloader than LILO.&lt;/p&gt;
-&lt;p&gt;The GRUBv1 (actually 0.9) config file is in &lt;code&gt;/boot/grub/grub.conf&lt;/code&gt; and most of the times &lt;code&gt;/boot/grub/menu.lst&lt;/code&gt; is a symbolic link to it.&lt;/p&gt;
-&lt;p&gt;A sample grub.conf file for GRUB legacy is shown below.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="x"&gt; grub.conf generated by anaconda&lt;/span&gt;
-&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="x"&gt;&lt;/span&gt;
-&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="x"&gt; Note that you do not have to rerun grub after making changes to this file&lt;/span&gt;
-&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="x"&gt; NOTICE:  You do not have a /boot partition.  This means that&lt;/span&gt;
-&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="x"&gt;          all kernel and initrd paths are relative to /, eg.&lt;/span&gt;
-&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="x"&gt;          root (hd0,5)&lt;/span&gt;
-&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="x"&gt;          kernel /boot/vmlinuz-version ro root=/dev/sda6&lt;/span&gt;
-&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="x"&gt;          initrd /boot/initrd-version.img&lt;/span&gt;
-&lt;span class="cp"&gt;#&lt;/span&gt;&lt;span class="nf"&gt;boot&lt;/span&gt;&lt;span class="x"&gt;=/dev/sda6&lt;/span&gt;
-&lt;span class="x"&gt;default=1&lt;/span&gt;
-&lt;span class="x"&gt;timeout=10&lt;/span&gt;
-&lt;span class="x"&gt;splashimage=(hd0,5)/boot/grub/splash.xpm.gz&lt;/span&gt;
-&lt;span class="cp"&gt;#&lt;/span&gt;&lt;span class="nf"&gt;hiddenmenu&lt;/span&gt;&lt;span class="x"&gt;&lt;/span&gt;
-&lt;span class="x"&gt;password --md5 &lt;/span&gt;&lt;span class="p"&gt;$&lt;/span&gt;&lt;span class="x"&gt;1&lt;/span&gt;&lt;span class="p"&gt;$&lt;/span&gt;&lt;span class="nv"&gt;RW1VW&lt;/span&gt;&lt;span class="x"&gt;/&lt;/span&gt;&lt;span class="p"&gt;$&lt;/span&gt;&lt;span class="x"&gt;4XGAklxB7/GJk0uO47Srx1&lt;/span&gt;
-&lt;span class="x"&gt;title Upgrade to Fedora 11 (Leonidas)&lt;/span&gt;
-&lt;span class="x"&gt;    kernel /boot/upgrade/vmlinuz preupgrade \&lt;/span&gt;
-&lt;span class="x"&gt;      repo=hd::/var/cache/yum/preupgrade stage2=\&lt;/span&gt;
-&lt;span class="x"&gt;      hd:UUID=8b4c62e7-2022-4288-8995-5eda92cd149b:/boot/upgrade/install.img \&lt;/span&gt;
-&lt;span class="x"&gt;      ks=hd:UUID=8b4c62e7-2022-4288-8995-5eda92cd149b:/boot/upgrade/ks.cfg&lt;/span&gt;
-&lt;span class="x"&gt;    initrd /boot/upgrade/initrd.img&lt;/span&gt;
-&lt;span class="x"&gt;title Fedora (2.6.26.8-57.fc8)&lt;/span&gt;
-&lt;span class="x"&gt;    root (hd0,5)&lt;/span&gt;
-&lt;span class="x"&gt;    kernel /boot/vmlinuz-2.6.26.8-57.fc8 ro root=LABEL=FEDORA8 rhgb quiet&lt;/span&gt;
-&lt;span class="x"&gt;    initrd /boot/initrd-2.6.26.8-57.fc8.img&lt;/span&gt;
-&lt;span class="x"&gt;title Fedora (2.6.26.6-49.fc8)&lt;/span&gt;
-&lt;span class="x"&gt;    root (hd0,5)&lt;/span&gt;
-&lt;span class="x"&gt;    kernel /boot/vmlinuz-2.6.26.6-49.fc8 ro root=LABEL=FEDORA8 rhgb quiet&lt;/span&gt;
-&lt;span class="x"&gt;    initrd /boot/initrd-2.6.26.6-49.fc8.img&lt;/span&gt;
-&lt;span class="x"&gt;title GRUB Menu&lt;/span&gt;
-&lt;span class="x"&gt;    rootnoverify (hd0,1)&lt;/span&gt;
-&lt;span class="x"&gt;    chainloader +1&lt;/span&gt;
-&lt;span class="x"&gt;title Windows&lt;/span&gt;
-&lt;span class="x"&gt;    rootnoverify (hd0,0)&lt;/span&gt;
-&lt;span class="x"&gt;    chainloader +1&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;As you can see the first part tells grub how it should behave and the second part is describing boot options (OSs).&lt;/p&gt;
-&lt;p&gt;There are options in this file:&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;command&lt;/th&gt;
-&lt;th&gt;meaning&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;#&lt;/td&gt;
-&lt;td&gt;comment&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;default&lt;/td&gt;
-&lt;td&gt;the default system to boot; starts from 0&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;timeout&lt;/td&gt;
-&lt;td&gt;how long to wait before autobooting&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;splashimage&lt;/td&gt;
-&lt;td&gt;background image&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;password&lt;/td&gt;
-&lt;td&gt;Security is important! will ask this password&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;title&lt;/td&gt;
-&lt;td&gt;Name of the entery&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;root&lt;/td&gt;
-&lt;td&gt;The partion to boot. Counting starts from 0. &lt;code&gt;root(hd0,2)&lt;/code&gt; is the 3rd partion on the first disk&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;kernel&lt;/td&gt;
-&lt;td&gt;which kernel image should be loaded&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;initrd&lt;/td&gt;
-&lt;td&gt;the name of the initial RAM disk. Modules needed by the kernel before the file system is mounted&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;savedefault&lt;/td&gt;
-&lt;td&gt;remember the last booted item&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;chainloader&lt;/td&gt;
-&lt;td&gt;another file will act as stage 1 loader. Used for booting Windows systems&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;h3&gt;GRUB (legacy) commands&lt;/h3&gt;
-&lt;p&gt;After creating the configuration, you need to install the grub on a disk do this with one of these command forms:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# grub-install /dev/fd0
-# grub-install &amp;#39;(fd0)&amp;#39;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;blockquote&gt;
-&lt;p&gt;As other boot managers, you can install grub on a CD, floppy, MBR (/dev/sda, /dev/sdb, ..) or a partition (/dev/sdb2, /dev/sda6, ..).&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;If you needed to change or reconfigure anything during the startup, just press the &lt;code&gt;e&lt;/code&gt; on that item and you'll get an interactive editing environment. Press &lt;strong&gt;Enter&lt;/strong&gt; when done and &lt;code&gt;b&lt;/code&gt; for boot.&lt;/p&gt;
-&lt;h2&gt;GRUB2&lt;/h2&gt;
-&lt;p&gt;This is the most common boot loader these days. Its main config file is &lt;code&gt;/boot/grub/grub.cfg&lt;/code&gt; and can be created by &lt;code&gt;grub-mkconfig &amp;gt; /boot/grub/grub.cfg&lt;/code&gt;. Grub also is highly dependent on a core.img file in /boot/grub.&lt;/p&gt;
-&lt;p&gt;When you run &lt;code&gt;grub-install /dev/sda&lt;/code&gt;, grub2 builds a core image, build a configuration file and install GRUB 2 in your MBR.&lt;/p&gt;
-&lt;p&gt;These steps can be done separately:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ grub-install --help
-Usage: grub-install &lt;span class="o"&gt;[&lt;/span&gt;OPTION&lt;span class="o"&gt;]&lt;/span&gt; install_device
-Install GRUB on your drive.
-
-  -h, --help              print this message and &lt;span class="nb"&gt;exit&lt;/span&gt;
-  -v, --version           print the version information and &lt;span class="nb"&gt;exit&lt;/span&gt;
-  --modules&lt;span class="o"&gt;=&lt;/span&gt;MODULES       pre-load specified modules MODULES
-  --root-directory&lt;span class="o"&gt;=&lt;/span&gt;DIR    install GRUB images under the directory DIR
-                          instead of the root directory
-  --grub-setup&lt;span class="o"&gt;=&lt;/span&gt;FILE       use FILE as grub-setup
-  --grub-mkimage&lt;span class="o"&gt;=&lt;/span&gt;FILE     use FILE as grub-mkimage
-  --grub-mkdevicemap&lt;span class="o"&gt;=&lt;/span&gt;FILE use FILE as grub-mkdevicemap
-  --grub-probe&lt;span class="o"&gt;=&lt;/span&gt;FILE       use FILE as grub-probe
-  --no-floppy             &lt;span class="k"&gt;do&lt;/span&gt; not probe any floppy drive
-  --recheck               probe a device map even &lt;span class="k"&gt;if&lt;/span&gt; it already exists
-  --force                 install even &lt;span class="k"&gt;if&lt;/span&gt; problems are detected
-  --disk-module&lt;span class="o"&gt;=&lt;/span&gt;MODULE    disk module to use
-
-INSTALL_DEVICE can be a GRUB device name or a system device filename.
-
-grub-install copies GRUB images into the DIR/boot directory specified by
---root-directory, and uses grub-setup to install grub into the boot
-sector.
-
-Report bugs to &amp;lt;bug-grub@gnu.org&amp;gt;.
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;blockquote&gt;
-&lt;p&gt;There is a command called &lt;code&gt;update-grub&lt;/code&gt; as a frontend to &lt;code&gt;grub-mkconfig&lt;/code&gt; which looks into the /etc/default/grub and creates a grub.cfg file.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;Here is a sample of grub2 configuration file:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;### BEGIN /etc/grub.d/05_debian_theme ###                               
-set menu_color_normal=white/black
-set menu_color_highlight=black/white
-### END /etc/grub.d/05_debian_theme ###                                 
-
-### BEGIN /etc/grub.d/10_linux ###                                      
-menuentry &amp;quot;Ubuntu, Linux 2.6.31-20-generic&amp;quot; {
-        recordfail=1
-        if [ -n &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;have_grubenv&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt; ]; then save_env recordfail; fi
-        set quiet=1
-        insmod ext2
-        set root=(hd0,7)
-        search --no-floppy --fs-uuid --set 8954fa66-e11f-42dc-91f0-b4aa480fa103
-        linux   /boot/vmlinuz-2.6.31-20-generic \
-          root=UUID=8954fa66-e11f-42dc-91f0-b4aa480fa103 ro   quiet splash
-        initrd  /boot/initrd.img-2.6.31-20-generic
-}
-menuentry &amp;quot;Ubuntu, Linux 2.6.31-20-generic (recovery mode)&amp;quot; {
-        recordfail=1
-        if [ -n &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;have_grubenv&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt; ]; then save_env recordfail; fi
-        insmod ext2
-        set root=(hd0,7)
-        search --no-floppy --fs-uuid --set 8954fa66-e11f-42dc-91f0-b4aa480fa103
-        linux   /boot/vmlinuz-2.6.31-20-generic
-         root=UUID=8954fa66-e11f-42dc-91f0-b4aa480fa103 ro single
-        initrd  /boot/initrd.img-2.6.31-20-generic
-}
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;</summary><category term="test"></category></entry><entry><title>LPIC 1 study guide in plain English</title><link href="http://linuxlearner.net/lpic-1-study-guide-in-plain-english.html" rel="alternate"></link><published>2015-12-25T12:20:00+00:00</published><updated>2015-12-25T12:20:00+00:00</updated><author><name>jadi</name></author><id>tag:linuxlearner.net,2015-12-25:lpic-1-study-guide-in-plain-english.html</id><summary type="html">&lt;h1&gt;LPIC 1 study guide in plain English&lt;/h1&gt;
-&lt;p&gt;This book is originally released as a part of a series of free video tutorials for LPIC1 created by Jadi (in Persian language). But it is also possible to use it as a reference for self-study to prepare for LPIC1-101 &amp;amp; LPIC-102 exam.&lt;/p&gt;
-&lt;p&gt;If you want to download Farsi LPIC 101 &amp;amp; LPIC 102 exam videos &lt;a href="magnet:?xt=urn:btih:e003aba9b19bee27dab9085f79afb4ed88d856b2&amp;amp;dn=Jadi-net-LPIC1-Exam101and102-version1.0-July2016&amp;amp;tr=udp%3a%2f%2fdenis.stalker.h3q.com%3a6969%2fannounce&amp;amp;tr=http%3a%2f%2fopen.tracker.thepiratebay.org%2fannounce&amp;amp;tr=http%3a%2f%2fdenis.stalker.h3q.com%3a6969%2fannounce&amp;amp;tr=http%3a%2f%2fwww.sumotracker.com%2fannounce&amp;amp;tr=http%3a%2f%2fwww.torrent-downloads.to%3a2710%2fannounce"&gt;use this torrent magnet link&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Latest versions of this be book is always available at &lt;strong&gt;http://j.mp/jadilpic1&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;I've tried to write a short, easy to understand but still comprehensive exam guide. I'm not a native English speaker be ready for some possible language flaws.&lt;/p&gt;
-&lt;p&gt;Enjoy!&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Personal site: &lt;a href="http://jadi.ir"&gt;Jadi.ir&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Persian Weblog: &lt;a href="http://jadi.net"&gt;jadi.net&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;twitter: &lt;a href="http://twitter.com/jadi"&gt;@jadi&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Donations? &lt;a href="http://jadi.ir/support-donate/"&gt;http://jadi.ir/support-donate/&lt;/a&gt; :D&lt;/p&gt;</summary><category term="test"></category></entry><entry><title>Work on the command line</title><link href="http://linuxlearner.net/work-on-the-command-line.html" rel="alternate"></link><published>2015-12-25T12:20:00+00:00</published><updated>2015-12-25T12:20:00+00:00</updated><author><name>jadi</name></author><id>tag:linuxlearner.net,2015-12-25:work-on-the-command-line.html</id><summary type="html">&lt;h1&gt;Work on the command line&lt;/h1&gt;
-&lt;p&gt;&lt;em&gt;Weight: 4&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;Description: Candidates should be able to interact with shells and commands using the command line. The objective assumes the bash shell.&lt;/p&gt;
-&lt;h2&gt;Objectives&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;Use single shell commands and one line command sequences to perform basic tasks on command line.&lt;/li&gt;
-&lt;li&gt;Use and modify the shell environment including defining, referencing and exporting environment variables.&lt;/li&gt;
-&lt;li&gt;Use and edit command history.&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Invoke commands inside and outside the defined path.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;. and ..&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;bash&lt;/li&gt;
-&lt;li&gt;echo&lt;/li&gt;
-&lt;li&gt;env&lt;/li&gt;
-&lt;li&gt;exec&lt;/li&gt;
-&lt;li&gt;export&lt;/li&gt;
-&lt;li&gt;pwd&lt;/li&gt;
-&lt;li&gt;set&lt;/li&gt;
-&lt;li&gt;unset&lt;/li&gt;
-&lt;li&gt;man&lt;/li&gt;
-&lt;li&gt;uname&lt;/li&gt;
-&lt;li&gt;history&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3&gt;Bash&lt;/h3&gt;
-&lt;p&gt;As any other thing Linux, you can choose your shell too (by shell I mean the command line interface). &lt;strong&gt;Bash&lt;/strong&gt; in the most common one.&lt;/p&gt;
-&lt;p&gt;Some commands are build in (cd, break, exec) and it uses streams:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;stdin&lt;/strong&gt; is the standard input stream, which provides input to commands.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;stdout&lt;/strong&gt; is the standard output stream, which displays output from commands.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;stderr&lt;/strong&gt; is the standard error stream, which displays error output from commands.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;User Prompts are like these:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;jadi@funlife:~$
-[jadi@funlife lpic1]$
-$
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;blockquote&gt;
-&lt;p&gt;in most cases, root users prompt uses # instead of $ (say: &lt;code&gt;root@funlife:/etc#&lt;/code&gt;).&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;Global bash configs are stored at /etc/profile and each user has her own config at ~/.profile &amp;amp; ~/.bash_profile &amp;amp; ~/.bash_logout&lt;/p&gt;
-&lt;h3&gt;Commands and sequences&lt;/h3&gt;
-&lt;p&gt;Most commands have a &lt;em&gt;command name&lt;/em&gt; and some &lt;em&gt;parameters&lt;/em&gt;. A simple one is the &lt;code&gt;`echo&lt;/code&gt; command:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;echo&lt;/span&gt;
-
-$ &lt;span class="nb"&gt;echo&lt;/span&gt; Hello lpic
-Hello lpic
-$ &lt;span class="nb"&gt;echo&lt;/span&gt; Hello lpic &lt;span class="c1"&gt;#just a simple hi&lt;/span&gt;
-Hello lpic
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;blockquote&gt;
-&lt;p&gt;Note: the # is for &lt;em&gt;comments&lt;/em&gt;. Anything after it is comment.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h4&gt;escaped characters&lt;/h4&gt;
-&lt;p&gt;Some special characters need special case in programming and linux world. Say you want to go to the new line during an echo command.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;jadi@funlife:~$ echo -e &amp;quot;hello\nthere&amp;quot;
-hello
-there
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;Escape sequence   Function&lt;/th&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;\a&lt;/td&gt;
-&lt;td&gt;Alert (bell)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;\b&lt;/td&gt;
-&lt;td&gt;Backspace&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;\c&lt;/td&gt;
-&lt;td&gt;Suppress trailing newline (same function as -n option)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;\f&lt;/td&gt;
-&lt;td&gt;Form feed (clear the screen on a video display)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;\n&lt;/td&gt;
-&lt;td&gt;New line&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;\r&lt;/td&gt;
-&lt;td&gt;Carriage return&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;\t&lt;/td&gt;
-&lt;td&gt;Horizontal tab&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;blockquote&gt;
-&lt;p&gt;Note: you can use \ to break a command in many lines:&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;echo&lt;/span&gt; but this &lt;span class="se"&gt;\&lt;/span&gt;
-&amp;gt; is another &lt;span class="se"&gt;\&lt;/span&gt;
-&amp;gt; usage
-but this is another usage
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;h4&gt;metacharacters and Control operators&lt;/h4&gt;
-&lt;p&gt;Also there are characters with special meaning. You need to escape then if you need them in your commands: &lt;strong&gt;| &amp;amp; ; ( ) &amp;lt; &amp;gt;&lt;/strong&gt;*&lt;/p&gt;
-&lt;p&gt;There is also control operators. They also have special meanings: &lt;strong&gt; || &amp;amp;&amp;amp; &amp;amp; ; ;; | ( )&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;The most important ones are ; (do one by one), &amp;amp;&amp;amp; (logical and) and || (logical or).&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;echo&lt;/span&gt; line 1&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; line 2&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="nb"&gt;echo&lt;/span&gt; line 3
-line 1
-line 2
-line 3
-
-$ &lt;span class="nb"&gt;echo&lt;/span&gt; line 1&lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; line 2&lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; line 3
-line 1
-line 2
-line 3
-
-$ &lt;span class="nb"&gt;echo&lt;/span&gt; line 1&lt;span class="o"&gt;||&lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; line 2&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="nb"&gt;echo&lt;/span&gt; line 3
-line 1
-line 3
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;h2&gt;exiting shell&lt;/h2&gt;
-&lt;p&gt;the &lt;code&gt;exit&lt;/code&gt; command exits the shell. Same as ctrl+d.&lt;/p&gt;
-&lt;p&gt;if you run a command inside parentheses that command will be run inside a sub-shell.&lt;/p&gt;
-&lt;p&gt;and &lt;code&gt;exec&lt;/code&gt; will run a command and closes the current shell.&lt;/p&gt;
-&lt;h2&gt;Environment variables&lt;/h2&gt;
-&lt;p&gt;Concept of EV.&lt;/p&gt;
-&lt;p&gt;Every variable has name and a value. echo the name with a $ in front of it.&lt;/p&gt;
-&lt;p&gt;Some common ones are:&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;Name&lt;/th&gt;
-&lt;th&gt;Function&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;USER&lt;/td&gt;
-&lt;td&gt;The name of the logged-in user&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;UID&lt;/td&gt;
-&lt;td&gt;The numeric user id of the logged-in user&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;HOME&lt;/td&gt;
-&lt;td&gt;The user's home directory&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;PWD&lt;/td&gt;
-&lt;td&gt;The current working directory&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;SHELL&lt;/td&gt;
-&lt;td&gt;The name of the shell&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;$&lt;/td&gt;
-&lt;td&gt;The process id (or PIDof the running bash shell (or other) process&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;PPID&lt;/td&gt;
-&lt;td&gt;The process id of the process that started this process (that is, the id of the parent process)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;?&lt;/td&gt;
-&lt;td&gt;The exit code of the last command&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="nv"&gt;$USER&lt;/span&gt; &lt;span class="nv"&gt;$UID&lt;/span&gt;
-jadi 1000
-&lt;span class="nv"&gt;$SHELL&lt;/span&gt; &lt;span class="nv"&gt;$HOME&lt;/span&gt; &lt;span class="nv"&gt;$PWD&lt;/span&gt;
-/bin/bash /home/jadi /home/jadi/lpic
-$ &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;exit&lt;/span&gt; 0&lt;span class="o"&gt;)&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="nv"&gt;$?&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;exit&lt;/span&gt; 4&lt;span class="o"&gt;)&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="nv"&gt;$?&lt;/span&gt;
-0
-4
-$ &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="nv"&gt;$$&lt;/span&gt; &lt;span class="nv"&gt;$PPID&lt;/span&gt;
-&lt;span class="m"&gt;2559&lt;/span&gt; 2558
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;And this is the way to define a EV:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="x"&gt;jadi@funlife:~&lt;/span&gt;&lt;span class="p"&gt;$&lt;/span&gt;&lt;span class="x"&gt; MYMOOD=happy&lt;/span&gt;
-&lt;span class="x"&gt;jadi@funlife:~&lt;/span&gt;&lt;span class="p"&gt;$&lt;/span&gt;&lt;span class="x"&gt; echo I am &lt;/span&gt;&lt;span class="p"&gt;$&lt;/span&gt;&lt;span class="nv"&gt;MYMOOD&lt;/span&gt;&lt;span class="x"&gt;&lt;/span&gt;
-&lt;span class="x"&gt;I am happy&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;if we &lt;code&gt;export&lt;/code&gt; a variable, it will be available for other programs starting from that shell.&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;Note: sometimes you may need to use { and } to describe a variable:&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;-&lt;/span&gt;&lt;span class="nv"&gt;$HOME&lt;/span&gt;&lt;span class="s2"&gt;/abc-&amp;quot;&lt;/span&gt;
--/home/jadi/abc-
-$ &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;-&lt;/span&gt;&lt;span class="nv"&gt;$HOME_abc&lt;/span&gt;&lt;span class="s2"&gt;-&amp;quot;&lt;/span&gt;
---
-$ &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;-&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;HOME&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;_abc-&amp;quot;&lt;/span&gt;
--/home/jadi_abc-
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;h3&gt;env, set, unset&lt;/h3&gt;
-&lt;p&gt;the &lt;code&gt;env&lt;/code&gt; shows current EVs. It can also be used to run a command in a specific environment.&lt;/p&gt;
-&lt;p&gt;set is a bit more complicated. it can configure how your bash behaves.
-unset, unsets a variable.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="nv"&gt;$-&lt;/span&gt;
-himBH
-$ &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="nv"&gt;$VAR1&lt;/span&gt;
-
-$ &lt;span class="nb"&gt;set&lt;/span&gt; -u&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="nv"&gt;$-&lt;/span&gt;
-himuBH
-$ &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="nv"&gt;$VAR1&lt;/span&gt;
--bash: VAR1: unbound variable
-$ &lt;span class="nv"&gt;VAR1&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;v1&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="nv"&gt;$VAR1&lt;/span&gt;
-v1
-$ &lt;span class="nb"&gt;unset&lt;/span&gt; VAR1&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="nv"&gt;$VAR1&lt;/span&gt;
--bash: VAR1: unbound variable
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;blockquote&gt;
-&lt;p&gt;Note: if you use &lt;code&gt;set&lt;/code&gt; with no parameter, it shows the EVs.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2&gt;uname&lt;/h2&gt;
-&lt;p&gt;gives you data about the system. Common switches are:&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;Option&lt;/th&gt;
-&lt;th&gt;Description&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;-s&lt;/td&gt;
-&lt;td&gt;Print the kernel name. This is the default if no option is specified.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;-n&lt;/td&gt;
-&lt;td&gt;Print the nodename or hostname.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;-r&lt;/td&gt;
-&lt;td&gt;Print the release of the kernel. This option is often used with module-handling commands.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;-v&lt;/td&gt;
-&lt;td&gt;Print the version of the kernel.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;-m&lt;/td&gt;
-&lt;td&gt;Print the machine's hardware (CPU) name.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;-o&lt;/td&gt;
-&lt;td&gt;Print the operating system name.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;-a&lt;/td&gt;
-&lt;td&gt;Print all of the above information.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ uname -a
-Linux funlife 3.16.0-28-generic &lt;span class="c1"&gt;#38-Ubuntu SMP Fri Dec 12 17:37:40 UTC 2014 x86_64 x86_64 x86_64 GNU/Linux&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;h2&gt;history&lt;/h2&gt;
-&lt;p&gt;The bash, saves the commands you issue in a file defined in &lt;strong&gt;HISTFILE&lt;/strong&gt; ev. the &lt;code&gt;history&lt;/code&gt; shows the full command history (500 commands normally but can be changes in HISTSIZE).&lt;/p&gt;
-&lt;p&gt;There are also some shortcuts:
-- &lt;code&gt;history 20&lt;/code&gt; shows last 20 commands
-- &lt;code&gt;!!&lt;/code&gt; last command
-- &lt;code&gt;!string&lt;/code&gt; most recent command that starts with string
-- &lt;code&gt;!?string?&lt;/code&gt; most recent command that contains string&lt;/p&gt;
-&lt;p&gt;when you logout, all these are saved in .bash_history&lt;/p&gt;
-&lt;h2&gt;Paths&lt;/h2&gt;
-&lt;p&gt;External commands are just files on disks. So where does bash knows where to find commands?&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="x"&gt;jadi@funlife:~&lt;/span&gt;&lt;span class="p"&gt;$&lt;/span&gt;&lt;span class="x"&gt; echo &lt;/span&gt;&lt;span class="p"&gt;$&lt;/span&gt;&lt;span class="nv"&gt;PATH&lt;/span&gt;&lt;span class="x"&gt;&lt;/span&gt;
-&lt;span class="x"&gt;/home/jadi/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;and this gives me some more data:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;jadi@funlife:~$ which tar
-/bin/tar
-jadi@funlife:~$ type tar
-tar is /bin/tar
-jadi@funlife:~$ whereis tar
-tar: /usr/lib/tar /bin/tar /usr/include/tar.h /usr/share/man/man1/tar.1.gz
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;h4&gt;running other commands&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;It is possible to add to my path&lt;/li&gt;
-&lt;li&gt;give the full path&lt;/li&gt;
-&lt;li&gt;give the relative path (. &amp;amp; ..)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2&gt;cd &amp;amp; pwd&lt;/h2&gt;
-&lt;p&gt;&lt;code&gt;cd``` will change directories (including .. and .) and&lt;/code&gt;pwd```` tells where you are at the moment.&lt;/p&gt;
-&lt;h2&gt;man pages&lt;/h2&gt;
-&lt;p&gt;the best linux help you can find.-&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ man ping
-PING&lt;span class="o"&gt;(&lt;/span&gt;8&lt;span class="o"&gt;)&lt;/span&gt;                                                            System Manager&lt;span class="s1"&gt;&amp;#39;s Manual: iputils                                                           PING(8)&lt;/span&gt;
-
-&lt;span class="s1"&gt;NAME&lt;/span&gt;
-&lt;span class="s1"&gt;       ping, ping6 - send ICMP ECHO_REQUEST to network hosts&lt;/span&gt;
-
-&lt;span class="s1"&gt;SYNOPSIS&lt;/span&gt;
-&lt;span class="s1"&gt;       ping  [-aAbBdDfhLnOqrRUvV]  [-c  count] [-F flowlabel] [-i interval] [-I interface] [-l preload] [-m mark] [-M pmtudisc_option] [-N nodeinfo_option] [-w dead‐&lt;/span&gt;
-&lt;span class="s1"&gt;       line] [-W timeout] [-p pattern] [-Q tos] [-s packetsize] [-S sndbuf] [-t ttl] [-T timestamp option] [hop ...] destination&lt;/span&gt;
-
-&lt;span class="s1"&gt;DESCRIPTION&lt;/span&gt;
-&lt;span class="s1"&gt;       ping uses the ICMP protocol&amp;#39;&lt;/span&gt;s mandatory ECHO_REQUEST datagram to elicit an ICMP ECHO_RESPONSE from a host or gateway.  ECHO_REQUEST datagrams &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="sb"&gt;``&lt;/span&gt;pings&lt;span class="s1"&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; have
-       an IP and ICMP header, followed by a struct timeval and &lt;span class="k"&gt;then&lt;/span&gt; an arbitrary number of &lt;span class="sb"&gt;``&lt;/span&gt;pad&lt;span class="s1"&gt;&amp;#39;&amp;#39;&lt;/span&gt; bytes used to fill out the packet.
-
-       ping6  is  IPv6  version of ping, and can also send Node Information Queries &lt;span class="o"&gt;(&lt;/span&gt;RFC4620&lt;span class="o"&gt;)&lt;/span&gt;.  Intermediate hops may not be allowed, because IPv6 &lt;span class="nb"&gt;source&lt;/span&gt; routing was
-       deprecated &lt;span class="o"&gt;(&lt;/span&gt;RFC5095&lt;span class="o"&gt;)&lt;/span&gt;.
-
-OPTIONS
-       -a     Audible ping.
-
-       -A     Adaptive ping. Interpacket interval adapts to round-trip time, so that effectively not more than one &lt;span class="o"&gt;(&lt;/span&gt;or more, &lt;span class="k"&gt;if&lt;/span&gt; preload is &lt;span class="nb"&gt;set&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; unanswered  probe  is
-              present in the network. Minimal interval is 200msec &lt;span class="k"&gt;for&lt;/span&gt; not super-user.  On networks with low rtt this mode is essentially equivalent to flood mode.
-
-       -b     Allow pinging a broadcast address.
-
-       -B     Do not allow ping to change &lt;span class="nb"&gt;source&lt;/span&gt; address of probes.  The address is bound to one selected when ping starts.
-
-       -c count
-              Stop after sending count ECHO_REQUEST packets. With deadline option, ping waits &lt;span class="k"&gt;for&lt;/span&gt; count ECHO_REPLY packets, &lt;span class="k"&gt;until&lt;/span&gt; the timeout expires.
-...
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;As you can see, on top:
-- Name of the command and section
-- name and related commands in this section
-- options and formats
-- short description
-- detailed info&lt;/p&gt;
-&lt;p&gt;and at the end bug reporting, files, related commands and authors.&lt;/p&gt;
-&lt;p&gt;There are 9 man sections:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;User commands (env, ls, echo, mkdir, tty)&lt;/li&gt;
-&lt;li&gt;System calls or kernel functions (link, sethostname, mkdir)&lt;/li&gt;
-&lt;li&gt;Library routines (acosh, asctime, btree, locale, XML::Parser)&lt;/li&gt;
-&lt;li&gt;Device related information (isdn_audio, mouse, tty, zero)&lt;/li&gt;
-&lt;li&gt;File format descriptions (keymaps, motd, wvdial.conf)&lt;/li&gt;
-&lt;li&gt;Games (note that many games are now graphical and have graphical help outside the man page system)&lt;/li&gt;
-&lt;li&gt;Miscellaneous (arp, boot, regex, unix utf8)&lt;/li&gt;
-&lt;li&gt;System administration (debugfs, fdisk, fsck, mount, renice, rpm)&lt;/li&gt;
-&lt;li&gt;kernel utils&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;of course there can be more and one command can be in different places.&lt;/p&gt;
-&lt;p&gt;If you are searching, do:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;jadi@funlife:~$ man -f ls
-ls (1)               - list directory contents
-jadi@funlife:~$ man -w ls
-/usr/share/man/man1/ls.1.gz
-jadi@funlife:~$ man -k ls | head
-SSL (3ssl)           - OpenSSL SSL/TLS library
-_llseek (2)          - reposition read/write file offset
-aconnect (1)         - ALSA sequencer connection manager
-add-shell (8)        - add shells to the list of valid login shells
-afs_syscall (2)      - unimplemented system calls
-alsactl (1)          - advanced controls for ALSA soundcard driver
-alsactl_init (7)     - alsa control management - initialization
-alsaloop (1)         - command-line PCM loopback
-alsamixer (1)        - soundcard mixer for ALSA soundcard driver, with ncurses interface
-amidi (1)            - read from and write to ALSA RawMIDI ports
-...
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;Or use the &lt;code&gt;apropos&lt;/code&gt; command which searches man pages:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ apropos route
-ip-mroute &lt;span class="o"&gt;(&lt;/span&gt;8&lt;span class="o"&gt;)&lt;/span&gt;        - multicast routing cache management
-ip-route &lt;span class="o"&gt;(&lt;/span&gt;8&lt;span class="o"&gt;)&lt;/span&gt;         - routing table management
-route &lt;span class="o"&gt;(&lt;/span&gt;8&lt;span class="o"&gt;)&lt;/span&gt;            - show / manipulate the IP routing table
-routef &lt;span class="o"&gt;(&lt;/span&gt;8&lt;span class="o"&gt;)&lt;/span&gt;           - flush routes
-routel &lt;span class="o"&gt;(&lt;/span&gt;8&lt;span class="o"&gt;)&lt;/span&gt;           - list routes with pretty output format
-sensible-mda &lt;span class="o"&gt;(&lt;/span&gt;8&lt;span class="o"&gt;)&lt;/span&gt;     - a generic &lt;span class="nb"&gt;local&lt;/span&gt; MDA router &lt;span class="k"&gt;for&lt;/span&gt; Debian systems
-tor &lt;span class="o"&gt;(&lt;/span&gt;1&lt;span class="o"&gt;)&lt;/span&gt;              - The second-generation onion router
-torrc &lt;span class="o"&gt;(&lt;/span&gt;5&lt;span class="o"&gt;)&lt;/span&gt;            - The second-generation onion router
-traceroute6 &lt;span class="o"&gt;(&lt;/span&gt;8&lt;span class="o"&gt;)&lt;/span&gt;      - traces path to a network host
-traceroute6.iputils &lt;span class="o"&gt;(&lt;/span&gt;8&lt;span class="o"&gt;)&lt;/span&gt; - traces path to a network host
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;blockquote&gt;
-&lt;p&gt;Note: A linux master will read as many &lt;code&gt;man pages&lt;/code&gt; she can! Start with &lt;code&gt;man man&lt;/code&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;..&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;</summary><category term="test"></category></entry></feed>
+&lt;/pre&gt;&lt;/div&gt;</summary><category term="test"></category></entry><entry><title>Glossary</title><link href="http://linuxlearner.net/glossary.html" rel="alternate"></link><published>2015-12-25T12:20:00+00:00</published><updated>2015-12-25T12:20:00+00:00</updated><author><name>jadi</name></author><id>tag:linuxlearner.net,2015-12-25:glossary.html</id><summary type="html">&lt;h2&gt;Glossary&lt;/h2&gt;</summary><category term="test"></category></entry></feed>

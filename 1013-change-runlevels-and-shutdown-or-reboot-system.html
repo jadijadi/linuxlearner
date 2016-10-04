@@ -7,10 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="author" content="jadi" />
         <meta name="keywords" content="test" />
-        <meta name="description" content="103.7 Search text files using regular expressions Weight: 2 Candidates should be able to manipulate files and text data using regular expressions. This objective includes creating simple regular expressions containing several notational elements. It also includes using regular expression tools to perform searches through a filesystem or file content ..." />
+        <meta name="description" content="101.3. Change runlevels and shutdown or reboot system weight: 3 Candidates should be able to manage the runlevel of the system. This objective includes changing to single user mode, shutdown or rebooting the system. Candidates should be able to alert users before switching run level and properly terminate processes ..." />
 
 
-    <title>103.7 Search text files using regular expressions - Linux Learner</title>
+    <title>101.3. Change runlevels and shutdown or reboot system - Linux Learner</title>
 
         <link rel="stylesheet" href="./theme/css/bootstrap.min.css" type="text/css" />
 
@@ -107,7 +107,7 @@
                                 101.2. Boot the system
                             </a>
                         </li>
-                        <li class="">
+                        <li class="active">
                             <a class="hide-overflow" href="./1013-change-runlevels-and-shutdown-or-reboot-system.html" title="101.3. Change runlevels and shutdown or reboot system">
                                 <i class="fa fa-file-text padding-small"></i>
                                 101.3. Change runlevels and shutdown or reboot system
@@ -179,7 +179,7 @@
                                 103.6. Modify process execution priorities
                             </a>
                         </li>
-                        <li class="active">
+                        <li class="">
                             <a class="hide-overflow" href="./1037-search-text-files-using-regular-expressions.html" title="103.7 Search text files using regular expressions">
                                 <i class="fa fa-file-text padding-small"></i>
                                 103.7 Search text files using regular expressions
@@ -418,260 +418,180 @@
         <div class="row">
             <div class="col-lg-9">
                 <div class="entry-content">
-                    <h1>103.7 Search text files using regular expressions</h1>
-<p><em>Weight: 2</em></p>
-<p>Candidates should be able to manipulate files and text data using regular expressions. This objective includes creating simple regular expressions containing several notational elements. It also includes using regular expression tools to perform searches through a filesystem or file content.</p>
-<h1>Objectives</h1>
+                    <h1>101.3. Change runlevels and shutdown or reboot system</h1>
+<p>weight: 3</p>
+<p>Candidates should be able to manage the runlevel of the system. This objective includes changing to single user mode, shutdown or rebooting the system. Candidates should be able to alert users before switching run level and properly terminate processes. This objective also includes setting the default run level. It also includes basic feature knowledge of potential replacements to init.</p>
+<h3>Key Knowledge Areas</h3>
 <ul>
-<li>Create simple regular expressions containing several notational elements.</li>
+<li>Set the default runlevel.</li>
+<li>Change between run levels including single user mode.</li>
+<li>Shutdown and reboot from the command line.</li>
+<li>Alert users before switching runlevels or other major system event.</li>
+<li>Properly terminate processes.</li>
 <li>
-<p>Use regular expression tools to perform searches through a filesystem or file content.</p>
+<p>Knowledge of basic features of systemd and Upstart</p>
 </li>
 <li>
-<p>grep</p>
+<p>/etc/inittab</p>
 </li>
-<li>egrep</li>
-<li>fgrep</li>
-<li>sed</li>
-<li>regex</li>
+<li>shutdown</li>
+<li>init</li>
+<li>/etc/init.d</li>
+<li>telinit</li>
 </ul>
-<h2>Regex</h2>
-<p>Regular expression, Regex, regexp is a pattern to describe what we want to <em>match</em> from a text. Here will discuss the form of regex which is used with the <strong>grep</strong> (generalised regular expression processor) command.</p>
-<blockquote>
-<p>There is two kind of regex in GNU grep: Basic an Extended.</p>
-</blockquote>
-<h3>Basic blocks</h3>
-<h4>Adding two expressions</h4>
-<p>If you need to add (concat) two expressions, just write them after each other.</p>
-<table>
-<thead>
-<tr>
-<th>Regex</th>
-<th>Will match</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>a</td>
-<td>ali, mina, hamid, jadi</td>
-</tr>
-<tr>
-<td>na</td>
-<td>nasim, mina, nananana batman, mona</td>
-</tr>
-</tbody>
-</table>
-<h4>Repeating</h4>
+<h3>runlevels</h3>
+<p>Runlevels define what tasks can be accomplished in the current state (or runlevel) of a Linux system</p>
 <ul>
-<li>The <strong>*</strong> means repeating the previous character for 0 or more</li>
-<li>The <strong>+</strong> means repeating the previous character for 1 or more</li>
-<li>the <strong>?</strong> means zero or one repeats</li>
-<li>{n,m}  The item is matched at least n times, but not more than m times</li>
+<li>0- Halt</li>
+<li>1- Single user mode (recovery)</li>
+<li>2- Debian/Ubuntu default</li>
+<li>3- RHEL/Fedora/SUSE text mode</li>
+<li>4- free</li>
+<li>5- RHEL/Fedora/SUSE graphical mode</li>
+<li>6- reboot</li>
 </ul>
-<table>
-<thead>
-<tr>
-<th>Regex</th>
-<th>Will match</th>
-<th>Note</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>a*b</td>
-<td>ab, aaab, aaaaab, aaabthis</td>
-<td></td>
-</tr>
-<tr>
-<td>a*b</td>
-<td>b, mobser</td>
-<td>Because there is a b here with zero <strong>a</strong> before it</td>
-</tr>
-<tr>
-<td>a+b</td>
-<td>ab, aab, aaabenz</td>
-<td>wont match <strong>sober</strong> or <strong>b</strong> because there needs to be at lear one <strong>a</strong></td>
-</tr>
-<tr>
-<td>a?b</td>
-<td>ab, a<strong>ab</strong>, b, batman (zero a then b), ...</td>
-<td>.</td>
-</tr>
-</tbody>
-</table>
-<h4>Alternation (\|)</h4>
-<p>If you say <code>a\|b</code> it will match a or b.</p>
-<h4>Character Classes</h4>
-<p>The dot (<strong>.</strong>) means any character. So <strong>..</strong> will match anything with at least two character in it. You can also create your own classes with [abc] which will match a or b or c and [a-z] which match a to z.</p>
-<p>You can also refer to digits with \d and</p>
-<h4>Ranges</h4>
-<p>There are easy ways to  commonly used classes. Named classes open with [: and close with :]</p>
-<table>
-<thead>
-<tr>
-<th>Range</th>
-<th>Meaning</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>[:alnum:]</td>
-<td>Alphanumeric characters</td>
-</tr>
-<tr>
-<td>[:blank:]</td>
-<td>Space and tab characters</td>
-</tr>
-<tr>
-<td>[:digit:]</td>
-<td>The digits 0 through 9 (equivalent to 0-9)</td>
-</tr>
-<tr>
-<td>[:upper:] and [:lower:]</td>
-<td>Upper and lower case letters, respectively.</td>
-</tr>
-<tr>
-<td>^ (negation)</td>
-<td>As the first character after [ in a character class negates the sense of the remaining characters</td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p>A common form is .* which matches any character (zero or any length).</p>
-</blockquote>
-<h4>Matching specific locations</h4>
+<p>default run level can be seen in this file which says init what to do, sets default runlevel and.. being phased out!</p>
+<div class="highlight"><pre><span></span>grep &quot;^id:&quot; /etc/inittab #on init systems
+id:5:initdefault:
+</pre></div>
+
+
+<p>it can also be done on grub kernel parameters.</p>
+<p>or using the runleveland telinit commands:</p>
+<div class="highlight"><pre><span></span># runlevel
+N 3
+# telinit 5
+# runlevel
+3 5
+</pre></div>
+
+
+<p><strong>Note:</strong> runlevel 1 is single user mode!</p>
+<h3>/etc/inittab</h3>
+<p>is being replaced by upstart and systemd but is still part of the exam.</p>
+<div class="highlight"><pre><span></span><span class="err">#</span>
+<span class="err">#</span> <span class="nt">inittab</span>       <span class="nt">This</span> <span class="nt">file</span> <span class="nt">describes</span> <span class="nt">how</span> <span class="nt">the</span> <span class="nt">INIT</span> <span class="nt">process</span> <span class="nt">should</span> <span class="nt">set</span> <span class="nt">up</span>
+<span class="err">#</span>               <span class="nt">the</span> <span class="nt">system</span> <span class="nt">in</span> <span class="nt">a</span> <span class="nt">certain</span> <span class="nt">run-level</span><span class="o">.</span>
+<span class="err">#</span>
+<span class="err">#</span> <span class="nt">Author</span><span class="o">:</span>       <span class="nt">Miquel</span> <span class="nt">van</span> <span class="nt">Smoorenburg</span><span class="o">,</span> <span class="o">&lt;</span><span class="nt">miquels</span><span class="k">@drinkel</span><span class="nc">.nl.mugnet.org</span><span class="o">&gt;</span>
+<span class="err">#</span>               <span class="nt">Modified</span> <span class="nt">for</span> <span class="nt">RHS</span> <span class="nt">Linux</span> <span class="nt">by</span> <span class="nt">Marc</span> <span class="nt">Ewing</span> <span class="nt">and</span> <span class="nt">Donnie</span> <span class="nt">Barnes</span>
+<span class="err">#</span>
+
+<span class="err">#</span> <span class="nt">Default</span> <span class="nt">runlevel</span><span class="o">.</span> <span class="nt">The</span> <span class="nt">runlevels</span> <span class="nt">used</span> <span class="nt">by</span> <span class="nt">RHS</span> <span class="nt">are</span><span class="o">:</span>
+<span class="err">#</span>   <span class="nt">0</span> <span class="nt">-</span> <span class="nt">halt</span> <span class="o">(</span><span class="nt">Do</span> <span class="nt">NOT</span> <span class="nt">set</span> <span class="nt">initdefault</span> <span class="nt">to</span> <span class="nt">this</span><span class="o">)</span>
+<span class="err">#</span>   <span class="nt">1</span> <span class="nt">-</span> <span class="nt">Single</span> <span class="nt">user</span> <span class="nt">mode</span>
+<span class="err">#</span>   <span class="nt">2</span> <span class="nt">-</span> <span class="nt">Multiuser</span><span class="o">,</span> <span class="nt">without</span> <span class="nt">NFS</span> <span class="o">(</span><span class="nt">The</span> <span class="nt">same</span> <span class="nt">as</span> <span class="nt">3</span><span class="o">,</span> <span class="nt">if</span> <span class="nt">you</span> <span class="nt">do</span> <span class="nt">not</span> <span class="nt">have</span> <span class="nt">networking</span><span class="o">)</span>
+<span class="err">#</span>   <span class="nt">3</span> <span class="nt">-</span> <span class="nt">Full</span> <span class="nt">multiuser</span> <span class="nt">mode</span>
+<span class="err">#</span>   <span class="nt">4</span> <span class="nt">-</span> <span class="nt">unused</span>
+<span class="err">#</span>   <span class="nt">5</span> <span class="nt">-</span> <span class="nt">X11</span>
+<span class="err">#</span>   <span class="nt">6</span> <span class="nt">-</span> <span class="nt">reboot</span> <span class="o">(</span><span class="nt">Do</span> <span class="nt">NOT</span> <span class="nt">set</span> <span class="nt">initdefault</span> <span class="nt">to</span> <span class="nt">this</span><span class="o">)</span>
+<span class="err">#</span>
+<span class="nt">id</span><span class="nd">:5:initdefault</span><span class="o">:</span>
+
+<span class="err">#</span> <span class="nt">System</span> <span class="nt">initialization</span><span class="o">.</span>
+<span class="nt">si</span><span class="o">:</span><span class="nd">:sysinit</span><span class="o">:/</span><span class="nt">etc</span><span class="o">/</span><span class="nt">rc</span><span class="nc">.d</span><span class="o">/</span><span class="nt">rc</span><span class="nc">.sysinit</span>
+
+<span class="nt">l0</span><span class="nd">:0:wait</span><span class="o">:/</span><span class="nt">etc</span><span class="o">/</span><span class="nt">rc</span><span class="nc">.d</span><span class="o">/</span><span class="nt">rc</span> <span class="nt">0</span>
+<span class="nt">l1</span><span class="nd">:1:wait</span><span class="o">:/</span><span class="nt">etc</span><span class="o">/</span><span class="nt">rc</span><span class="nc">.d</span><span class="o">/</span><span class="nt">rc</span> <span class="nt">1</span>
+<span class="nt">l2</span><span class="nd">:2:wait</span><span class="o">:/</span><span class="nt">etc</span><span class="o">/</span><span class="nt">rc</span><span class="nc">.d</span><span class="o">/</span><span class="nt">rc</span> <span class="nt">2</span>
+<span class="nt">l3</span><span class="nd">:3:wait</span><span class="o">:/</span><span class="nt">etc</span><span class="o">/</span><span class="nt">rc</span><span class="nc">.d</span><span class="o">/</span><span class="nt">rc</span> <span class="nt">3</span>
+<span class="nt">l4</span><span class="nd">:4:wait</span><span class="o">:/</span><span class="nt">etc</span><span class="o">/</span><span class="nt">rc</span><span class="nc">.d</span><span class="o">/</span><span class="nt">rc</span> <span class="nt">4</span>
+<span class="nt">l5</span><span class="nd">:5:wait</span><span class="o">:/</span><span class="nt">etc</span><span class="o">/</span><span class="nt">rc</span><span class="nc">.d</span><span class="o">/</span><span class="nt">rc</span> <span class="nt">5</span>
+<span class="nt">l6</span><span class="nd">:6:wait</span><span class="o">:/</span><span class="nt">etc</span><span class="o">/</span><span class="nt">rc</span><span class="nc">.d</span><span class="o">/</span><span class="nt">rc</span> <span class="nt">6</span>
+
+<span class="err">#</span> <span class="nt">Trap</span> <span class="nt">CTRL-ALT-DELETE</span>
+<span class="nt">ca</span><span class="o">:</span><span class="nd">:ctrlaltdel</span><span class="o">:/</span><span class="nt">sbin</span><span class="o">/</span><span class="nt">shutdown</span> <span class="nt">-t3</span> <span class="nt">-r</span> <span class="nt">now</span>
+
+<span class="err">#</span> <span class="nt">When</span> <span class="nt">our</span> <span class="nt">UPS</span> <span class="nt">tells</span> <span class="nt">us</span> <span class="nt">power</span> <span class="nt">has</span> <span class="nt">failed</span><span class="o">,</span> <span class="nt">assume</span> <span class="nt">we</span> <span class="nt">have</span> <span class="nt">a</span> <span class="nt">few</span> <span class="nt">minutes</span>
+<span class="err">#</span> <span class="nt">of</span> <span class="nt">power</span> <span class="nt">left</span><span class="o">.</span>  <span class="nt">Schedule</span> <span class="nt">a</span> <span class="nt">shutdown</span> <span class="nt">for</span> <span class="nt">2</span> <span class="nt">minutes</span> <span class="nt">from</span> <span class="nt">now</span><span class="o">.</span>
+<span class="err">#</span> <span class="nt">This</span> <span class="nt">does</span><span class="o">,</span> <span class="nt">of</span> <span class="nt">course</span><span class="o">,</span> <span class="nt">assume</span> <span class="nt">you</span> <span class="nt">have</span> <span class="nt">powerd</span> <span class="nt">installed</span> <span class="nt">and</span> <span class="nt">your</span>
+<span class="err">#</span> <span class="nt">UPS</span> <span class="nt">connected</span> <span class="nt">and</span> <span class="nt">working</span> <span class="nt">correctly</span><span class="o">.</span>
+<span class="nt">pf</span><span class="o">:</span><span class="nd">:powerfail</span><span class="o">:/</span><span class="nt">sbin</span><span class="o">/</span><span class="nt">shutdown</span> <span class="nt">-f</span> <span class="nt">-h</span> <span class="o">+</span><span class="nt">2</span> <span class="s2">&quot;Power Failure; System Shutting Down&quot;</span>
+
+<span class="err">#</span> <span class="nt">If</span> <span class="nt">power</span> <span class="nt">was</span> <span class="nt">restored</span> <span class="nt">before</span> <span class="nt">the</span> <span class="nt">shutdown</span> <span class="nt">kicked</span> <span class="nt">in</span><span class="o">,</span> <span class="nt">cancel</span> <span class="nt">it</span><span class="o">.</span>
+<span class="nt">pr</span><span class="nd">:12345:powerokwait</span><span class="o">:/</span><span class="nt">sbin</span><span class="o">/</span><span class="nt">shutdown</span> <span class="nt">-c</span> <span class="s2">&quot;Power Restored; Shutdown Cancelled&quot;</span>
+
+
+<span class="err">#</span> <span class="nt">Run</span> <span class="nt">gettys</span> <span class="nt">in</span> <span class="nt">standard</span> <span class="nt">runlevels</span>
+<span class="nt">1</span><span class="nd">:2345:respawn</span><span class="o">:/</span><span class="nt">sbin</span><span class="o">/</span><span class="nt">mingetty</span> <span class="nt">tty1</span>
+<span class="nt">2</span><span class="nd">:2345:respawn</span><span class="o">:/</span><span class="nt">sbin</span><span class="o">/</span><span class="nt">mingetty</span> <span class="nt">tty2</span>
+<span class="nt">3</span><span class="nd">:2345:respawn</span><span class="o">:/</span><span class="nt">sbin</span><span class="o">/</span><span class="nt">mingetty</span> <span class="nt">tty3</span>
+<span class="nt">4</span><span class="nd">:2345:respawn</span><span class="o">:/</span><span class="nt">sbin</span><span class="o">/</span><span class="nt">mingetty</span> <span class="nt">tty4</span>
+<span class="nt">5</span><span class="nd">:2345:respawn</span><span class="o">:/</span><span class="nt">sbin</span><span class="o">/</span><span class="nt">mingetty</span> <span class="nt">tty5</span>
+<span class="nt">6</span><span class="nd">:2345:respawn</span><span class="o">:/</span><span class="nt">sbin</span><span class="o">/</span><span class="nt">mingetty</span> <span class="nt">tty6</span>
+
+<span class="err">#</span> <span class="nt">Run</span> <span class="nt">xdm</span> <span class="nt">in</span> <span class="nt">runlevel</span> <span class="nt">5</span>
+<span class="nt">x</span><span class="nd">:5:respawn</span><span class="o">:/</span><span class="nt">etc</span><span class="o">/</span><span class="nt">X11</span><span class="o">/</span><span class="nt">prefdm</span> <span class="nt">-nodaemon</span>
+</pre></div>
+
+
+<p>this is the format:</p>
+<div class="highlight"><pre><span></span><span class="n">id</span><span class="o">:</span><span class="n">runlevels</span><span class="o">:</span><span class="n">action</span><span class="o">:</span><span class="n">process</span>
+</pre></div>
+
+
 <ul>
-<li>The caret <strong>^</strong> means beginning of the string</li>
-<li>The dollar <strong>$</strong> means the end of the string</li>
+<li>id: 2 or 3 chars</li>
+<li>runlevels: which runlevel this commands refers to (empty means all)</li>
+<li>action: respawn, wait, once, initdefault (default run level as seen above), ctrlaltdel (what to do with crrl+alt+delete)</li>
 </ul>
-<h3>Samples</h3>
+<p>all scripts are here:</p>
+<div class="highlight"><pre><span></span>ls -ltrh /etc/init.d
+</pre></div>
+
+
+<p>and start/stop on runlevels are controlled from these directories:</p>
+<div class="highlight"><pre><span></span>root@funlife:~# ls /etc/rc2.d/
+</pre></div>
+
+
+<h3>Shutdown</h3>
+<p>The preferred method to shut down or reboot the system is to use the shutdown command, which first sends a warning message to all logged-in users and blocks any further logins. It then signals init to switch runlevels. The init process then sends all running processes a SIGTERM signal, giving them a chance to save data or otherwise properly terminate. After 5 seconds, or another delay if specified, init sends a SIGKILL signal to forcibly end each remaining process.</p>
 <ul>
-<li><code>^a.*</code> Matches anything that starts with a</li>
-<li><code>^a.*b$</code> Matches anything that starts with a and ends with b</li>
-<li><code>^a.*\d+.*b$</code> Matches anything starting with a, have some digits in the middle and end with b</li>
-<li><code>^(l|b)oo</code> Matches anything starts with l or b and then have oo</li>
-<li><code>[f-h]|[A-K]$</code> The last character should be f to h (capital or small)</li>
+<li>default is 5 seconds delay and then going to runlevel 1</li>
+<li>-h will halt the system</li>
+<li>-r will reboot the system</li>
+<li>time is hh:mm or n (minutes) or now</li>
+<li>whatever you add, will be broadcasted to logged in users</li>
+<li>
+<p>if the command is running, ctrl+c or the "shutdown -c" will cancel it</p>
+<p>shutdown -r 60 Reloading updated kernel</p>
+</li>
 </ul>
-<h2>grep</h2>
-<p>The <code>grep</code> command can search inside the files.</p>
-<div class="highlight"><pre><span></span>$ grep p friends
-payam
-pedram
-$
+<p>for more advance users:
+<em> -t60 will delay 60 seconds between SIGTERM and SIGKILL
+</em> if you cancel a shutdown, users wont get the news! you can use "wall" command to tell them that the shutdown is canceled</p>
+<h3>Halt, reboot and poweroff</h3>
+<ul>
+<li>The halt command halts the system.</li>
+<li>The poweroff command is a symbolic link to the halt command, which halts the system and then attempts to power it off.</li>
+<li>The reboot command is another symbolic link to the halt command, which halts the system and then reboots it.</li>
+</ul>
+<h3>upstart</h3>
+<p>is not static set of init scripts and understands events. Events are used to trigger tasks or services (jobs). Examples are connecting a usb or starting the Apache server only after having network and filesystem.</p>
+<p>jobs are defined in /etc/init and subdirectories.</p>
+<div class="highlight"><pre><span></span>initctl list
 </pre></div>
 
 
-<p>There are the most important switches:</p>
-<table>
-<thead>
-<tr>
-<th>switch</th>
-<th>meaning</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>-c</td>
-<td>just show the count</td>
-</tr>
-<tr>
-<td>-v</td>
-<td>reverse the search</td>
-</tr>
-<tr>
-<td>-n</td>
-<td>show line numbers</td>
-</tr>
-<tr>
-<td>-l</td>
-<td>show only file names</td>
-</tr>
-<tr>
-<td>-i</td>
-<td>case insensitive</td>
-</tr>
-</tbody>
-</table>
-<div class="highlight"><pre><span></span>$ grep p *
-friends:payam
-friends:pedram
-what_I_have.txt:laptop  2
-what_I_have.txt:pillow  5
-what_I_have.txt:apple   2
-$ grep p * -n
-friends:12:payam
-friends:15:pedram
-what_I_have.txt:2:laptop    2
-what_I_have.txt:3:pillow    5
-what_I_have.txt:4:apple 2
-$ grep p * -l
-friends
-what_I_have.txt
-$ grep p * -c
-friends:2
-what_I_have.txt:3
-$
+<p>being used in ubuntu.</p>
+<h3>systemd</h3>
+<p>uses sockets and a socket will be open for each daemon process but will start the daemon only when needed. Understands dependencies. Faster and parallel.</p>
+<div class="highlight"><pre><span></span>systemctl
 </pre></div>
 
 
-<blockquote>
-<p>If is very common to combine grep and find: <code>find . -type f -print0 | xargs -0 grep -c a | grep -v ali</code> # find all files with <strong>a</strong> in them but not <strong>ali</strong>`</p>
-</blockquote>
-<h2>extended grep</h2>
-<p>Extended grep is a GNU extension. It does not need the escaping and much easier. It can be used with -E option or <strong>egrep</strong> command which equals to <code>grep -E</code>.</p>
-<h2>Fixed grep</h2>
-<p>If you need to search the exact string (and not interpret it as a regex), use <code>grep -F</code> or <code>fgrep</code> so the <code>fgrep this$</code> wont go for the end of the line and will find <em>this$that</em> too.</p>
-<h2>sed</h2>
-<p>In previous lessons we saw simple <code>sed</code> usage. Here I have great news for you: <strong>sed understands regex</strong>! If is good to use <code>-r</code> switch to tell sed that we are using them.</p>
-<div class="highlight"><pre><span></span>$ sed -r <span class="s2">&quot;s/^(a|b)/STARTS WITH A OR B/&quot;</span> friends
-STARTS WITH A OR Bmir
-mina
-jadi
-STARTS WITH A OR Bita
-STARTS WITH A OR Bli
-hassan
-</pre></div>
-
-
-<p>Main switches:</p>
-<table>
-<thead>
-<tr>
-<th>switch</th>
-<th>meaning</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>-r</td>
-<td>use advanced regex</td>
-</tr>
-<tr>
-<td>-n</td>
-<td>suppress output, you can use p at the end of your regex ( /something/p ) to print the output</td>
-</tr>
-</tbody>
-</table>
-<div class="highlight"><pre><span></span>$ sed -rn <span class="s2">&quot;/^(a|b)/p&quot;</span> friends
-amir
-bita
-ali
-</pre></div>
-
-
+<p>works with units (service, socket, device, mount, automount, target (group of other units), snapshot (save/rollback)). config files has unit type suffix (say cups.service or rpcbind.socket) and are located at /etc/systemd/system</p>
+<p>being used in Fedora based systems and SUSE</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
 <p>.</p>
 <p>.</p>
 <p>.
 .</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
-<p>.</p>
                 </div>
                 <footer class="text-right">
                     <p></p>

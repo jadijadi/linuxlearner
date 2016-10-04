@@ -7,10 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="author" content="jadi" />
         <meta name="keywords" content="test" />
-        <meta name="description" content="103.7 Search text files using regular expressions Weight: 2 Candidates should be able to manipulate files and text data using regular expressions. This objective includes creating simple regular expressions containing several notational elements. It also includes using regular expression tools to perform searches through a filesystem or file content ..." />
+        <meta name="description" content="102.2 Install a boot manager Weight: 2 Description: Candidates should be able to select, install and configure a boot manager. Objectives Providing alternative boot locations and backup boot options. Install and configure a boot loader such as GRUB Legacy. Perform basic configuration changes for GRUB 2. Interact with the ..." />
 
 
-    <title>103.7 Search text files using regular expressions - Linux Learner</title>
+    <title>102.2 Install a boot manager - Linux Learner</title>
 
         <link rel="stylesheet" href="./theme/css/bootstrap.min.css" type="text/css" />
 
@@ -119,7 +119,7 @@
                                 102.1 Design hard disk layout
                             </a>
                         </li>
-                        <li class="">
+                        <li class="active">
                             <a class="hide-overflow" href="./1022-install-a-boot-manager.html" title="102.2 Install a boot manager">
                                 <i class="fa fa-file-text padding-small"></i>
                                 102.2 Install a boot manager
@@ -179,7 +179,7 @@
                                 103.6. Modify process execution priorities
                             </a>
                         </li>
-                        <li class="active">
+                        <li class="">
                             <a class="hide-overflow" href="./1037-search-text-files-using-regular-expressions.html" title="103.7 Search text files using regular expressions">
                                 <i class="fa fa-file-text padding-small"></i>
                                 103.7 Search text files using regular expressions
@@ -418,150 +418,222 @@
         <div class="row">
             <div class="col-lg-9">
                 <div class="entry-content">
-                    <h1>103.7 Search text files using regular expressions</h1>
-<p><em>Weight: 2</em></p>
-<p>Candidates should be able to manipulate files and text data using regular expressions. This objective includes creating simple regular expressions containing several notational elements. It also includes using regular expression tools to perform searches through a filesystem or file content.</p>
+                    <h1>102.2 Install a boot manager</h1>
+<p><em>Weight: 2</em>
+    Description: Candidates should be able to select, install and configure a boot manager.</p>
 <h1>Objectives</h1>
 <ul>
-<li>Create simple regular expressions containing several notational elements.</li>
-<li>
-<p>Use regular expression tools to perform searches through a filesystem or file content.</p>
-</li>
-<li>
-<p>grep</p>
-</li>
-<li>egrep</li>
-<li>fgrep</li>
-<li>sed</li>
-<li>regex</li>
+<li>Providing alternative boot locations and backup boot options.</li>
+<li>Install and configure a boot loader such as GRUB Legacy.</li>
+<li>Perform basic configuration changes for GRUB 2.</li>
+<li>Interact with the boot loader</li>
 </ul>
-<h2>Regex</h2>
-<p>Regular expression, Regex, regexp is a pattern to describe what we want to <em>match</em> from a text. Here will discuss the form of regex which is used with the <strong>grep</strong> (generalised regular expression processor) command.</p>
+<p>Terms and Utilities</p>
+<ul>
+<li>/boot/grub/menu.lst</li>
+<li>grub-install</li>
+<li>MBR</li>
+<li>superblock</li>
+</ul>
+<h2>Boot overview</h2>
+<p>System starts from BIOS and will do a self test called POST. Then it will hand over the boot process to the first sector of master boot record (MBR).</p>
 <blockquote>
-<p>There is two kind of regex in GNU grep: Basic an Extended.</p>
+<p>MBR is on track (Cylinder) 0, side (Head) 0 and Sector 1 of the first disk which defines CHS.</p>
 </blockquote>
-<h3>Basic blocks</h3>
-<h4>Adding two expressions</h4>
-<p>If you need to add (concat) two expressions, just write them after each other.</p>
-<table>
-<thead>
-<tr>
-<th>Regex</th>
-<th>Will match</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>a</td>
-<td>ali, mina, hamid, jadi</td>
-</tr>
-<tr>
-<td>na</td>
-<td>nasim, mina, nananana batman, mona</td>
-</tr>
-</tbody>
-</table>
-<h4>Repeating</h4>
-<ul>
-<li>The <strong>*</strong> means repeating the previous character for 0 or more</li>
-<li>The <strong>+</strong> means repeating the previous character for 1 or more</li>
-<li>the <strong>?</strong> means zero or one repeats</li>
-<li>{n,m}  The item is matched at least n times, but not more than m times</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>Regex</th>
-<th>Will match</th>
-<th>Note</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>a*b</td>
-<td>ab, aaab, aaaaab, aaabthis</td>
-<td></td>
-</tr>
-<tr>
-<td>a*b</td>
-<td>b, mobser</td>
-<td>Because there is a b here with zero <strong>a</strong> before it</td>
-</tr>
-<tr>
-<td>a+b</td>
-<td>ab, aab, aaabenz</td>
-<td>wont match <strong>sober</strong> or <strong>b</strong> because there needs to be at lear one <strong>a</strong></td>
-</tr>
-<tr>
-<td>a?b</td>
-<td>ab, a<strong>ab</strong>, b, batman (zero a then b), ...</td>
-<td>.</td>
-</tr>
-</tbody>
-</table>
-<h4>Alternation (\|)</h4>
-<p>If you say <code>a\|b</code> it will match a or b.</p>
-<h4>Character Classes</h4>
-<p>The dot (<strong>.</strong>) means any character. So <strong>..</strong> will match anything with at least two character in it. You can also create your own classes with [abc] which will match a or b or c and [a-z] which match a to z.</p>
-<p>You can also refer to digits with \d and</p>
-<h4>Ranges</h4>
-<p>There are easy ways to  commonly used classes. Named classes open with [: and close with :]</p>
-<table>
-<thead>
-<tr>
-<th>Range</th>
-<th>Meaning</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>[:alnum:]</td>
-<td>Alphanumeric characters</td>
-</tr>
-<tr>
-<td>[:blank:]</td>
-<td>Space and tab characters</td>
-</tr>
-<tr>
-<td>[:digit:]</td>
-<td>The digits 0 through 9 (equivalent to 0-9)</td>
-</tr>
-<tr>
-<td>[:upper:] and [:lower:]</td>
-<td>Upper and lower case letters, respectively.</td>
-</tr>
-<tr>
-<td>^ (negation)</td>
-<td>As the first character after [ in a character class negates the sense of the remaining characters</td>
-</tr>
-</tbody>
-</table>
+<p>MBR is only 512bytes so we need a <em>smart bootloader</em> to handle larger boot managers and even multiple systems. Some of these boot loaders are LILO, GRUB and GRUB2.</p>
 <blockquote>
-<p>A common form is .* which matches any character (zero or any length).</p>
+<p>Chain Loading is when a boot loaders, loads another boot loader. This is done when a linux bootloader needs to start a Windows system.</p>
 </blockquote>
-<h4>Matching specific locations</h4>
-<ul>
-<li>The caret <strong>^</strong> means beginning of the string</li>
-<li>The dollar <strong>$</strong> means the end of the string</li>
-</ul>
-<h3>Samples</h3>
-<ul>
-<li><code>^a.*</code> Matches anything that starts with a</li>
-<li><code>^a.*b$</code> Matches anything that starts with a and ends with b</li>
-<li><code>^a.*\d+.*b$</code> Matches anything starting with a, have some digits in the middle and end with b</li>
-<li><code>^(l|b)oo</code> Matches anything starts with l or b and then have oo</li>
-<li><code>[f-h]|[A-K]$</code> The last character should be f to h (capital or small)</li>
-</ul>
-<h2>grep</h2>
-<p>The <code>grep</code> command can search inside the files.</p>
-<div class="highlight"><pre><span></span>$ grep p friends
-payam
-pedram
-$
+<h2>LILO</h2>
+<p><strong>LILO</strong>  (<strong>LI</strong>nux <strong>LO</strong>ader) is the older of three main linux boot loaders and in new distributions it is not installed by default. Its configuration is in <code>/etc/lilo.conf</code>.</p>
+<p>There is a command to generate an initial config: <code>/usr/sbin/liloconfig</code>.</p>
+<div class="highlight"><pre><span></span># Originally generated by liloconfig - modified by Ian Shields
+
+# This allows booting from any partition on disks with more than 1024
+# cylinders.
+lba32
+
+# Specifies the boot device (floppy)
+boot=/dev/fd0
+
+# Specifies the device that should be mounted as root.
+# If the special name CURRENT is used, the root device is set to the
+# device on which the root file system is currently mounted. If the root
+# has been changed with  -r , the respective device is used. If the
+# variable ROOT is omitted, the root device setting contained in the
+# kernel image is used. It can be changed with the rdev program.
+root=/dev/sda7
+
+# Bitmap configuration for /boot/coffee.bmp
+bitmap=/boot/coffee.bmp
+bmp-colors=12,,11,15,,8
+bmp-table=385p,100p,1,10
+bmp-timer=38,2,13,1
+
+# Enables map compaction:
+# Tries to merge read requests for adjacent sectors into a single
+# read request. This drastically reduces load time and keeps the map
+# smaller. Using COMPACT is especially recommended when booting from a
+# floppy disk.
+compact
+
+# Install the specified file as the new boot sector.
+# LILO supports built in boot sectors, you only need
+# to specify the type, choose one from &#39;text&#39;, &#39;menu&#39; or &#39;bitmap&#39;.
+# new: install=bmp      old: install=/boot/boot-bmp.b
+# new: install=text     old: install=/boot/boot-text.b
+# new: install=menu     old: install=/boot/boot-menu.b or boot.b
+# default: &#39;menu&#39; is default, unless you have a bitmap= line
+# Note: install=bmp must be used to see the bitmap menu.
+# install=menu
+install=bmp
+
+# Specifies the number of _tenths_ of a second LILO should
+# wait before booting the first image.  LILO
+# doesn&#39;t wait if DELAY is omitted or if DELAY is set to zero.
+# delay=20
+
+# Prompt to use certain image. If prompt is specified without timeout,
+# boot will not take place unless you hit RETURN. Timeout is in tenths of
+# a second.
+prompt
+timeout=200
+
+# Enable large memory mode.
+large-memory
+
+# Specifies the location of the map file. If MAP is
+# omitted, a file /boot/map is used.
+map=/boot/map
+
+# Specifies the VGA text mode that should be selected when
+# booting. The following values are recognized (case is ignored):
+#   NORMAL  select normal 80x25 text mode.
+#   EXTENDED  select 80x50 text mode. The word EXTENDED can be
+#     abbreviated to EXT.
+#   ASK  stop and ask for user input (at boot time).
+#   &lt;number&gt;  use the corresponding text mode. A list of available modes
+#     can be obtained by booting with  vga=ask  and pressing [Enter].
+vga=normal
+
+# Defines non-standard parameters for the specified disk.
+#disk=/dev/sda
+#   bios=0x80
+
+# If you are using removable USB drivers (with mass-storage)
+# you will need to tell LILO to not use these devices even
+# if defined in /etc/fstab and referenced in /proc/partitions.
+# Adjust these lines to your devices:
+#
+# disk=/dev/sda inaccessible
+# disk=/dev/sdb inaccessible
+
+# These images were automagically added. You may need to edit something.
+
+image=/boot/vmlinuz-2.6.31-14-generic
+    label=&quot;Lin 2.6.31-14&quot;
+    initrd=/boot/initrd.img-2.6.31-14-generic
+    read-only
+
+image=/boot/vmlinuz-2.6.31-20-generic
+    label=&quot;Lin 2.6.31-20&quot;
+    initrd=/boot/initrd.img-2.6.31-20-generic
+    read-only
+
+image=/boot/memtest86+.bin
+    label=&quot;Memory Test+&quot;
+    read-only
+
+# If you have another OS on this machine (say DOS),
+# you can boot if by uncommenting the following lines
+# (Of course, change /dev/sda1 to wherever your DOS partition is.)
+other=/dev/sda6
+        label=&quot;Fedora 8&quot;
+
+ other=/dev/sda1
+   label=&quot;Windows XP&quot;
 </pre></div>
 
 
-<p>There are the most important switches:</p>
+<p>When this config file is created, we have to issue the <code>lilo</code> command to make the disk bootable:</p>
+<div class="highlight"><pre><span></span># lilo -v -v
+LILO version 22.8, Copyright (C) 1992-1998 Werner Almesberger
+Development beyond version 21 Copyright (C) 1999-2006 John Coffman
+Released 19-Feb-2007, and compiled at 10:52:38 on Aug 25 2009
+Running Linux kernel 2.6.31-14-generic on i686
+Ubuntu
+
+raid_setup returns offset = 00000000  ndisk = 0
+ BIOS   VolumeID   Device
+Reading boot sector from /dev/fd0
+pf_hard_disk_scan: ndevs=1
+  0800  54085408  /dev/sda
+device codes (user assigned pf) = 0
+device codes (user assigned) = 0
+device codes (BIOS assigned) = 1
+device codes (canonical) = 1
+mode = 0x03,  columns = 80,  rows = 25,  page = 0
+Using BITMAP secondary loader
+Calling map_insert_data
+Secondary loader: 19 sectors (0x3800 dataend).
+Warning: The boot sector and map file are on different disks.
+bios_boot = 0x00  bios_map = 0x80  map==boot = 0  map S/N: 54085408
+Mapping bitmap file /boot/coffee.bmp
+Calling map_insert_file
+Compaction removed 592 BIOS calls.
+Bitmap: 603 sectors.
+BIOS data check was okay on the last boot
+
+Boot image: /boot/vmlinuz-2.6.31-14-generic
+Setup length is 26 sectors.
+Compaction removed 7452 BIOS calls.
+Mapped 7601 sectors.
+Mapping RAM disk /boot/initrd.img-2.6.31-14-generic
+Compaction removed 14696 BIOS calls.
+RAM disk: 14930 sectors.
+Added Lin_2.6.31-14 *
+
+Boot image: /boot/vmlinuz-2.6.31-20-generic
+Setup length is 26 sectors.
+Compaction removed 7468 BIOS calls.
+Mapped 7617 sectors.
+Mapping RAM disk /boot/initrd.img-2.6.31-20-generic
+Compaction removed 14704 BIOS calls.
+RAM disk: 14938 sectors.
+Added Lin_2.6.31-20
+
+Boot image: /boot/memtest86+.bin
+Setup length is 4 sectors.
+Compaction removed 243 BIOS calls.
+Mapped 254 sectors.
+Added Memory_Test+
+
+Boot other: /dev/sda6, loader CHAIN
+Pseudo partition start: 43198848
+Compaction removed 0 BIOS calls.
+Mapped 6 (4+1+1) sectors.
+Added Fedora_8
+
+Boot other: /dev/sda1, on /dev/sda, loader CHAIN
+Compaction removed 0 BIOS calls.
+Mapped 6 (4+1+1) sectors.
+Added Windows_XP
+
+ BIOS   VolumeID   Device
+  80    54085408    0800
+Writing boot sector.
+/boot/boot.0200 exists - no boot sector backup copy made.
+Map file size: 336896 bytes.
+RAID device mask 0x0000
+One warning was issued.
+</pre></div>
+
+
+<blockquote>
+<p>-v -v doubles the verbosity! You can have up to 5 <code>-v</code>s!</p>
+</blockquote>
+<p>No you can boot your system from that floppy and you will get a menu to choose one of the boot options.</p>
+<p>These are some other LILO switches:</p>
 <table>
 <thead>
 <tr>
@@ -571,98 +643,199 @@ $
 </thead>
 <tbody>
 <tr>
-<td>-c</td>
-<td>just show the count</td>
+<td>-q</td>
+<td>show information about the map file. map file is located at /boot/map and contains the boot configs</td>
 </tr>
 <tr>
-<td>-v</td>
-<td>reverse the search</td>
-</tr>
-<tr>
-<td>-n</td>
-<td>show line numbers</td>
+<td>-R</td>
+<td>boot the system on the next reboot only. Used for remote systems</td>
 </tr>
 <tr>
 <td>-l</td>
-<td>show only file names</td>
+<td>list information about the Kernel</td>
 </tr>
 <tr>
-<td>-i</td>
-<td>case insensitive</td>
+<td>-u</td>
+<td>uninstall lilo and restore previous boot record</td>
 </tr>
 </tbody>
 </table>
-<div class="highlight"><pre><span></span>$ grep p *
-friends:payam
-friends:pedram
-what_I_have.txt:laptop  2
-what_I_have.txt:pillow  5
-what_I_have.txt:apple   2
-$ grep p * -n
-friends:12:payam
-friends:15:pedram
-what_I_have.txt:2:laptop    2
-what_I_have.txt:3:pillow    5
-what_I_have.txt:4:apple 2
-$ grep p * -l
-friends
-what_I_have.txt
-$ grep p * -c
-friends:2
-what_I_have.txt:3
-$
+<p>Please note that pressing <strong>TAB</strong> when choosing an item in LILO menu, will let you edit that item.</p>
+<h2>GRUB (version 1 or the Legacy grub)</h2>
+<p><strong>GRUB</strong> (<strong>GR</strong>and <strong>U</strong>nified <strong>B</strong>ootloader) is a newer bootloader than LILO.</p>
+<p>The GRUBv1 (actually 0.9) config file is in <code>/boot/grub/grub.conf</code> and most of the times <code>/boot/grub/menu.lst</code> is a symbolic link to it.</p>
+<p>A sample grub.conf file for GRUB legacy is shown below.</p>
+<div class="highlight"><pre><span></span><span class="err">#</span><span class="x"> grub.conf generated by anaconda</span>
+<span class="err">#</span><span class="x"></span>
+<span class="err">#</span><span class="x"> Note that you do not have to rerun grub after making changes to this file</span>
+<span class="err">#</span><span class="x"> NOTICE:  You do not have a /boot partition.  This means that</span>
+<span class="err">#</span><span class="x">          all kernel and initrd paths are relative to /, eg.</span>
+<span class="err">#</span><span class="x">          root (hd0,5)</span>
+<span class="err">#</span><span class="x">          kernel /boot/vmlinuz-version ro root=/dev/sda6</span>
+<span class="err">#</span><span class="x">          initrd /boot/initrd-version.img</span>
+<span class="cp">#</span><span class="nf">boot</span><span class="x">=/dev/sda6</span>
+<span class="x">default=1</span>
+<span class="x">timeout=10</span>
+<span class="x">splashimage=(hd0,5)/boot/grub/splash.xpm.gz</span>
+<span class="cp">#</span><span class="nf">hiddenmenu</span><span class="x"></span>
+<span class="x">password --md5 </span><span class="p">$</span><span class="x">1</span><span class="p">$</span><span class="nv">RW1VW</span><span class="x">/</span><span class="p">$</span><span class="x">4XGAklxB7/GJk0uO47Srx1</span>
+<span class="x">title Upgrade to Fedora 11 (Leonidas)</span>
+<span class="x">    kernel /boot/upgrade/vmlinuz preupgrade \</span>
+<span class="x">      repo=hd::/var/cache/yum/preupgrade stage2=\</span>
+<span class="x">      hd:UUID=8b4c62e7-2022-4288-8995-5eda92cd149b:/boot/upgrade/install.img \</span>
+<span class="x">      ks=hd:UUID=8b4c62e7-2022-4288-8995-5eda92cd149b:/boot/upgrade/ks.cfg</span>
+<span class="x">    initrd /boot/upgrade/initrd.img</span>
+<span class="x">title Fedora (2.6.26.8-57.fc8)</span>
+<span class="x">    root (hd0,5)</span>
+<span class="x">    kernel /boot/vmlinuz-2.6.26.8-57.fc8 ro root=LABEL=FEDORA8 rhgb quiet</span>
+<span class="x">    initrd /boot/initrd-2.6.26.8-57.fc8.img</span>
+<span class="x">title Fedora (2.6.26.6-49.fc8)</span>
+<span class="x">    root (hd0,5)</span>
+<span class="x">    kernel /boot/vmlinuz-2.6.26.6-49.fc8 ro root=LABEL=FEDORA8 rhgb quiet</span>
+<span class="x">    initrd /boot/initrd-2.6.26.6-49.fc8.img</span>
+<span class="x">title GRUB Menu</span>
+<span class="x">    rootnoverify (hd0,1)</span>
+<span class="x">    chainloader +1</span>
+<span class="x">title Windows</span>
+<span class="x">    rootnoverify (hd0,0)</span>
+<span class="x">    chainloader +1</span>
 </pre></div>
 
 
-<blockquote>
-<p>If is very common to combine grep and find: <code>find . -type f -print0 | xargs -0 grep -c a | grep -v ali</code> # find all files with <strong>a</strong> in them but not <strong>ali</strong>`</p>
-</blockquote>
-<h2>extended grep</h2>
-<p>Extended grep is a GNU extension. It does not need the escaping and much easier. It can be used with -E option or <strong>egrep</strong> command which equals to <code>grep -E</code>.</p>
-<h2>Fixed grep</h2>
-<p>If you need to search the exact string (and not interpret it as a regex), use <code>grep -F</code> or <code>fgrep</code> so the <code>fgrep this$</code> wont go for the end of the line and will find <em>this$that</em> too.</p>
-<h2>sed</h2>
-<p>In previous lessons we saw simple <code>sed</code> usage. Here I have great news for you: <strong>sed understands regex</strong>! If is good to use <code>-r</code> switch to tell sed that we are using them.</p>
-<div class="highlight"><pre><span></span>$ sed -r <span class="s2">&quot;s/^(a|b)/STARTS WITH A OR B/&quot;</span> friends
-STARTS WITH A OR Bmir
-mina
-jadi
-STARTS WITH A OR Bita
-STARTS WITH A OR Bli
-hassan
-</pre></div>
-
-
-<p>Main switches:</p>
+<p>As you can see the first part tells grub how it should behave and the second part is describing boot options (OSs).</p>
+<p>There are options in this file:</p>
 <table>
 <thead>
 <tr>
-<th>switch</th>
+<th>command</th>
 <th>meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>-r</td>
-<td>use advanced regex</td>
+<td>#</td>
+<td>comment</td>
 </tr>
 <tr>
-<td>-n</td>
-<td>suppress output, you can use p at the end of your regex ( /something/p ) to print the output</td>
+<td>default</td>
+<td>the default system to boot; starts from 0</td>
+</tr>
+<tr>
+<td>timeout</td>
+<td>how long to wait before autobooting</td>
+</tr>
+<tr>
+<td>splashimage</td>
+<td>background image</td>
+</tr>
+<tr>
+<td>password</td>
+<td>Security is important! will ask this password</td>
+</tr>
+<tr>
+<td>title</td>
+<td>Name of the entery</td>
+</tr>
+<tr>
+<td>root</td>
+<td>The partion to boot. Counting starts from 0. <code>root(hd0,2)</code> is the 3rd partion on the first disk</td>
+</tr>
+<tr>
+<td>kernel</td>
+<td>which kernel image should be loaded</td>
+</tr>
+<tr>
+<td>initrd</td>
+<td>the name of the initial RAM disk. Modules needed by the kernel before the file system is mounted</td>
+</tr>
+<tr>
+<td>savedefault</td>
+<td>remember the last booted item</td>
+</tr>
+<tr>
+<td>chainloader</td>
+<td>another file will act as stage 1 loader. Used for booting Windows systems</td>
 </tr>
 </tbody>
 </table>
-<div class="highlight"><pre><span></span>$ sed -rn <span class="s2">&quot;/^(a|b)/p&quot;</span> friends
-amir
-bita
-ali
+<h3>GRUB (legacy) commands</h3>
+<p>After creating the configuration, you need to install the grub on a disk do this with one of these command forms:</p>
+<div class="highlight"><pre><span></span># grub-install /dev/fd0
+# grub-install &#39;(fd0)&#39;
+</pre></div>
+
+
+<blockquote>
+<p>As other boot managers, you can install grub on a CD, floppy, MBR (/dev/sda, /dev/sdb, ..) or a partition (/dev/sdb2, /dev/sda6, ..).</p>
+</blockquote>
+<p>If you needed to change or reconfigure anything during the startup, just press the <code>e</code> on that item and you'll get an interactive editing environment. Press <strong>Enter</strong> when done and <code>b</code> for boot.</p>
+<h2>GRUB2</h2>
+<p>This is the most common boot loader these days. Its main config file is <code>/boot/grub/grub.cfg</code> and can be created by <code>grub-mkconfig &gt; /boot/grub/grub.cfg</code>. Grub also is highly dependent on a core.img file in /boot/grub.</p>
+<p>When you run <code>grub-install /dev/sda</code>, grub2 builds a core image, build a configuration file and install GRUB 2 in your MBR.</p>
+<p>These steps can be done separately:</p>
+<div class="highlight"><pre><span></span>$ grub-install --help
+Usage: grub-install <span class="o">[</span>OPTION<span class="o">]</span> install_device
+Install GRUB on your drive.
+
+  -h, --help              print this message and <span class="nb">exit</span>
+  -v, --version           print the version information and <span class="nb">exit</span>
+  --modules<span class="o">=</span>MODULES       pre-load specified modules MODULES
+  --root-directory<span class="o">=</span>DIR    install GRUB images under the directory DIR
+                          instead of the root directory
+  --grub-setup<span class="o">=</span>FILE       use FILE as grub-setup
+  --grub-mkimage<span class="o">=</span>FILE     use FILE as grub-mkimage
+  --grub-mkdevicemap<span class="o">=</span>FILE use FILE as grub-mkdevicemap
+  --grub-probe<span class="o">=</span>FILE       use FILE as grub-probe
+  --no-floppy             <span class="k">do</span> not probe any floppy drive
+  --recheck               probe a device map even <span class="k">if</span> it already exists
+  --force                 install even <span class="k">if</span> problems are detected
+  --disk-module<span class="o">=</span>MODULE    disk module to use
+
+INSTALL_DEVICE can be a GRUB device name or a system device filename.
+
+grub-install copies GRUB images into the DIR/boot directory specified by
+--root-directory, and uses grub-setup to install grub into the boot
+sector.
+
+Report bugs to &lt;bug-grub@gnu.org&gt;.
+</pre></div>
+
+
+<blockquote>
+<p>There is a command called <code>update-grub</code> as a frontend to <code>grub-mkconfig</code> which looks into the /etc/default/grub and creates a grub.cfg file.</p>
+</blockquote>
+<p>Here is a sample of grub2 configuration file:</p>
+<div class="highlight"><pre><span></span>### BEGIN /etc/grub.d/05_debian_theme ###                               
+set menu_color_normal=white/black
+set menu_color_highlight=black/white
+### END /etc/grub.d/05_debian_theme ###                                 
+
+### BEGIN /etc/grub.d/10_linux ###                                      
+menuentry &quot;Ubuntu, Linux 2.6.31-20-generic&quot; {
+        recordfail=1
+        if [ -n <span class="cp">${</span><span class="n">have_grubenv</span><span class="cp">}</span> ]; then save_env recordfail; fi
+        set quiet=1
+        insmod ext2
+        set root=(hd0,7)
+        search --no-floppy --fs-uuid --set 8954fa66-e11f-42dc-91f0-b4aa480fa103
+        linux   /boot/vmlinuz-2.6.31-20-generic \
+          root=UUID=8954fa66-e11f-42dc-91f0-b4aa480fa103 ro   quiet splash
+        initrd  /boot/initrd.img-2.6.31-20-generic
+}
+menuentry &quot;Ubuntu, Linux 2.6.31-20-generic (recovery mode)&quot; {
+        recordfail=1
+        if [ -n <span class="cp">${</span><span class="n">have_grubenv</span><span class="cp">}</span> ]; then save_env recordfail; fi
+        insmod ext2
+        set root=(hd0,7)
+        search --no-floppy --fs-uuid --set 8954fa66-e11f-42dc-91f0-b4aa480fa103
+        linux   /boot/vmlinuz-2.6.31-20-generic
+         root=UUID=8954fa66-e11f-42dc-91f0-b4aa480fa103 ro single
+        initrd  /boot/initrd.img-2.6.31-20-generic
+}
 </pre></div>
 
 
 <p>.</p>
-<p>.</p>
-<p>.
-.</p>
 <p>.</p>
 <p>.</p>
 <p>.</p>
