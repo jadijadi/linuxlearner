@@ -1,4 +1,4 @@
-Title: Design hard disk layout
+Title: 102.1 Design hard disk layout
 Date: 2015-12-25 12:20
 Category: lpic101
 Tags: test

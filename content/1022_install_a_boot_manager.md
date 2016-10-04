@@ -1,9 +1,9 @@
-Title: Install a boot manager
+Title: 102.2 Install a boot manager
 Date: 2015-12-25 12:20
 Category: lpic101
 Tags: test
 
-#102.2 Install a boot manager
+# 102.2 Install a boot manager
 
 *Weight: 2*
     Description: Candidates should be able to select, install and configure a boot manager.
