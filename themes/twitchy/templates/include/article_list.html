@@ -4,10 +4,10 @@
 <div class="row">
     <div class="col-lg-9">
     {% if articles %}
-        {% for article in (articles_page.object_list if articles_page else articles) %}
+        {% for article in (articles) %}
             <article>
                 <h4>
-                    <time datetime="{{ article.date.isoformat() }}"> {{ article.locale_date }}</time>
+                    <!--time datetime="{{ article.date.isoformat() }}"> {{ article.locale_date }}</time-->
                     <a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a>
                 </h4>
             </article>
