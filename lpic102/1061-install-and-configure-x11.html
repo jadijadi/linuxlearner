@@ -1,0 +1,712 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="author" content="jadi" />
+        <meta name="description" content="106.1 Install and configure X11 Weight: 2 Candidates should be able to install and configure X11. Key Knowledge Areas Verify that the video card and monitor are supported by an X server Awareness of the X font server Basic understanding and knowledge of the X Window configuration file Terms ..." />
+
+
+    <title>106.1 Install and configure X11 - Linux Learner</title>
+
+        <link rel="stylesheet" href="../theme/css/bootstrap.min.css" type="text/css" />
+
+    <link href="../theme/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../theme/css/pygments/native.css" rel="stylesheet" />
+
+    <link href="../theme/css/pelican-twitchy.min.css" rel="stylesheet" />
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Feeds -->
+        <link href="../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Linux Learner ATOM Feed" />
+        <link href="../feeds/all.rss.xml" type="application/rss+xml" rel="alternate"
+              title="Linux Learner RSS Feed" />
+</head>
+<body data-spy="scroll" data-target="#scrollspy">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper-small" class="twitchy-background">
+            <ul id="accordion-small" class="sidebar-nav sidebar-nav-small">
+                <li>
+        <a href=".." title="Linux Learner" class="collapsed">
+            <span class="glyphicon glyphicon-home"></span>
+        </a>
+    </li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="../archives.html" title="Recent Articles" class="collapsed">
+            <span class="glyphicon glyphicon-th-list"></span>
+        </a>
+    </li>
+
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-social-small" title="Social" class="collapsed">
+                        <i class="fa fa-users padding-small"></i>
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-social-small" class="collapse ">
+                    <li>
+                        <a href="#" title="Another social link"><i class="fa fa-another-social-link-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="#" title="You can add links in your config file"><i class="fa fa-you-can-add-links-in-your-config-file-square fa-lg padding-small"></i></a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="#" title="Back to top" class="collapsed">
+            <span class="fa fa-arrow-up"></span>
+        </a>
+    </li>
+            </ul>
+        </div>
+        <div id="sidebar-wrapper" class="twitchy-background">
+            <ul id="accordion" class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="../">
+                            <span class="glyphicon glyphicon-home padding-small"></span>
+                            Linux Learner
+                    </a>
+                </li>
+                <li class="nav-divider"></li>
+                <li>
+                    <a  data-parent="#accordion" href="/pages/donate.html">
+                        <span class="glyphicon glyphicon-heart padding-small"></span>
+                        Support
+                    </a>
+                </li>
+
+                    <li class="nav-divider"></li>
+                    <li>
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-latest">
+                            <span class="glyphicon glyphicon-th-list padding-small"></span>
+                            LPIC1 Chapters
+                        </a>
+                    </li>
+                    <li class="panel anti-panel"><ul id="collapse-latest" class="sidebar_submenu collapse in">
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1011-determine-and-configure-hardware-settings.html" title="101.1 Determine and configure hardware settings">
+                                <i class="fa fa-file-text padding-small"></i>
+                                101.1 Determine and configure hardware settings
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1012-boot-the-system.html" title="101.2. Boot the system">
+                                <i class="fa fa-file-text padding-small"></i>
+                                101.2. Boot the system
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1013-change-runlevels-and-shutdown-or-reboot-system.html" title="101.3. Change runlevels and shutdown or reboot system">
+                                <i class="fa fa-file-text padding-small"></i>
+                                101.3. Change runlevels and shutdown or reboot system
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1021-design-hard-disk-layout.html" title="102.1 Design hard disk layout">
+                                <i class="fa fa-file-text padding-small"></i>
+                                102.1 Design hard disk layout
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1022-install-a-boot-manager.html" title="102.2 Install a boot manager">
+                                <i class="fa fa-file-text padding-small"></i>
+                                102.2 Install a boot manager
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1023-manage-shared-libraries.html" title="102.3. Manage shared libraries">
+                                <i class="fa fa-file-text padding-small"></i>
+                                102.3. Manage shared libraries
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1024-use-debian-package-management.html" title="102.4. Use Debian package management">
+                                <i class="fa fa-file-text padding-small"></i>
+                                102.4. Use Debian package management
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1025-use-rpm-and-yum-package-management.html" title="102.5 Use RPM and YUM package management">
+                                <i class="fa fa-file-text padding-small"></i>
+                                102.5 Use RPM and YUM package management
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1031-work-on-the-command-line.html" title="103.1 Work on the command line">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.1 Work on the command line
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1032-process-text-streams-using-filters.html" title="103.2. Process text streams using filters">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.2. Process text streams using filters
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1033-perform-basic-file-management.html" title="103.3 Perform basic file management">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.3 Perform basic file management
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1034-use-streams-pipes-and-redirects.html" title="103.4. Use streams, pipes and redirects">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.4. Use streams, pipes and redirects
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1035-create-monitor-and-kill-processes.html" title="103.5. Create, monitor and kill processes">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.5. Create, monitor and kill processes
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1036-modify-process-execution-priorities.html" title="103.6. Modify process execution priorities">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.6. Modify process execution priorities
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1037-search-text-files-using-regular-expressions.html" title="103.7 Search text files using regular expressions">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.7 Search text files using regular expressions
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1038-perform-basic-file-editing-operations-using-vi.html" title="103.8 Perform basic file editing operations using vi">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.8 Perform basic file editing operations using vi
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1041-create-partitions-and-filesystems.html" title="104.1. Create partitions and filesystems">
+                                <i class="fa fa-file-text padding-small"></i>
+                                104.1. Create partitions and filesystems
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1042-maintain-the-integrity-of-filesystems.html" title="104.2 Maintain the integrity of filesystems">
+                                <i class="fa fa-file-text padding-small"></i>
+                                104.2 Maintain the integrity of filesystems
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1043-control-mounting-and-unmounting-of-filesystems.html" title="104.3. Control mounting and unmounting of filesystems">
+                                <i class="fa fa-file-text padding-small"></i>
+                                104.3. Control mounting and unmounting of filesystems
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1044-manage-disk-quotas.html" title="104.4 Manage disk quotas">
+                                <i class="fa fa-file-text padding-small"></i>
+                                104.4 Manage disk quotas
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1045-manage-file-permissions-and-ownership.html" title="104.5 Manage file permissions and ownership">
+                                <i class="fa fa-file-text padding-small"></i>
+                                104.5 Manage file permissions and ownership
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1046-create-and-change-hard-symbolic-links.html" title="104.6. Create and change hard & symbolic links">
+                                <i class="fa fa-file-text padding-small"></i>
+                                104.6. Create and change hard & symbolic links
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1047-find-system-files-and-place-files-in-the-correct-location.html" title="104.7 Find system files and place files in the correct location">
+                                <i class="fa fa-file-text padding-small"></i>
+                                104.7 Find system files and place files in the correct location
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1051-customize-and-use-the-shell-environment.html" title="105.1. Customize and use the shell environment">
+                                <i class="fa fa-file-text padding-small"></i>
+                                105.1. Customize and use the shell environment
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1052-customize-or-write-simple-scripts.html" title="105.2 Customize or write simple scripts">
+                                <i class="fa fa-file-text padding-small"></i>
+                                105.2 Customize or write simple scripts
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1053-sql-data-management.html" title="105.3 SQL data management">
+                                <i class="fa fa-file-text padding-small"></i>
+                                105.3 SQL data management
+                            </a>
+                        </li>
+                        <li class="active">
+                            <a class="hide-overflow" href="../lpic102/1061-install-and-configure-x11.html" title="106.1 Install and configure X11">
+                                <i class="fa fa-file-text padding-small"></i>
+                                106.1 Install and configure X11
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1062-setup-a-display-manager.html" title="106.2 Setup a display manager">
+                                <i class="fa fa-file-text padding-small"></i>
+                                106.2 Setup a display manager
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1063-accessibility.html" title="106.3 Accessibility">
+                                <i class="fa fa-file-text padding-small"></i>
+                                106.3 Accessibility
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1071-manage-user-and-group-accounts-and-related-system-files.html" title="107.1 Manage user and group accounts and related system files">
+                                <i class="fa fa-file-text padding-small"></i>
+                                107.1 Manage user and group accounts and related system files
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1072-automate-system-administration-tasks-by-scheduling-jobs.html" title="107.2 Automate system administration tasks by scheduling jobs">
+                                <i class="fa fa-file-text padding-small"></i>
+                                107.2 Automate system administration tasks by scheduling jobs
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1073-localisation-and-internationalisation.html" title="107.3 Localisation and internationalisation">
+                                <i class="fa fa-file-text padding-small"></i>
+                                107.3 Localisation and internationalisation
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1081-maintain-system-time.html" title="108.1 Maintain system time">
+                                <i class="fa fa-file-text padding-small"></i>
+                                108.1 Maintain system time
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1082-system-logging.html" title="108.2 System logging">
+                                <i class="fa fa-file-text padding-small"></i>
+                                108.2 System logging
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1083-mail-transfer-agent-mta-basics.html" title="108.3 Mail Transfer Agent (MTA) basics">
+                                <i class="fa fa-file-text padding-small"></i>
+                                108.3 Mail Transfer Agent (MTA) basics
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1084-manage-printers-and-printing.html" title="108.4 Manage printers and printing">
+                                <i class="fa fa-file-text padding-small"></i>
+                                108.4 Manage printers and printing
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1091-fundamentals-of-internet-protocols.html" title="109.1 Fundamentals of internet protocols">
+                                <i class="fa fa-file-text padding-small"></i>
+                                109.1 Fundamentals of internet protocols
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1092-basic-network-configuration.html" title="109.2 Basic network configuration">
+                                <i class="fa fa-file-text padding-small"></i>
+                                109.2 Basic network configuration
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1093-basic-network-troubleshooting.html" title="109.3 Basic network troubleshooting">
+                                <i class="fa fa-file-text padding-small"></i>
+                                109.3 Basic network troubleshooting
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1094-configure-client-side-dns.html" title="109.4 Configure client side DNS">
+                                <i class="fa fa-file-text padding-small"></i>
+                                109.4 Configure client side DNS
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1101-perform-security-administration-tasks.html" title="110.1 Perform security administration tasks">
+                                <i class="fa fa-file-text padding-small"></i>
+                                110.1 Perform security administration tasks
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1102-setup-host-security.html" title="110.2 Setup host security">
+                                <i class="fa fa-file-text padding-small"></i>
+                                110.2 Setup host security
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1103-securing-data-with-encryption.html" title="110.3 Securing data with encryption">
+                                <i class="fa fa-file-text padding-small"></i>
+                                110.3 Securing data with encryption
+                            </a>
+                        </li>
+                    </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+                    <a  href="/pages/about.html">
+                        <i class="fa fa-users padding-small"></i>
+                        About Jadi
+                    </a>
+                </li>
+
+
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Categories
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
+                    <li >
+                        <a href="../category/lpic101.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            lpic101
+                            <span class="badge pull-right categorybadge">16</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="../category/lpic102.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            lpic102
+                            <span class="badge pull-right categorybadge">27</span>
+                        </a>
+                    </li>
+                </ul></li>
+
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- open/close sidebar -->
+        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+            <span id="right-arrow" class="glyphicon glyphicon-chevron-right"  title="expand sidebar"></span>
+            <span id="left-arrow" class="glyphicon glyphicon-chevron-left" title="minimize sidebar"></span>
+        </a>
+       <!-- /open/close sidebar -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+<section id="content">
+    <article>
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="entry-content">
+                    <h1>106.1 Install and configure X11</h1>
+<p><em>Weight: 2</em></p>
+<p>Candidates should be able to install and configure X11.</p>
+<h3>Key Knowledge Areas</h3>
+<ul>
+<li>Verify that the video card and monitor are supported by an X server</li>
+<li>Awareness of the X font server</li>
+<li>Basic understanding and knowledge of the X Window configuration file</li>
+</ul>
+<h3>Terms and Utilities:</h3>
+<ul>
+<li>/etc/X11/xorg.conf</li>
+<li>xhost</li>
+<li>DISPLAY</li>
+<li>xwininfo</li>
+<li>xdpyinfo</li>
+<li>X</li>
+</ul>
+<h2>Hisotry</h2>
+<p>This lesson is useless in modern life! Very strange but practically nothing in this lesson is used in real life because xorg.conf, xhost, ... is not used in any modern linux system anymore. Maybe they are here so you wont be shocked if you see an older linux.</p>
+<h2>X</h2>
+<p>The X Window System is a network transparent window system which runs on a wide range of computing and graphics machines; including practically ALL linux systems with graphical interfaces. It is also called X11 because of its version, X window system, X server, ...</p>
+<h2>/etc/X11/xorg.conf</h2>
+<p>This is file X used to use for its configuration. In most cases this is automatically generated and works. Newer systems do not have this file so lets have a look at a xorg.conf I found on the Internet.</p>
+<div class="highlight"><pre><span></span>Section &quot;Files&quot;
+    FontPath    &quot;/usr/share/X11/fonts/misc&quot;
+    FontPath    &quot;/usr/share/X11/fonts/100dpi/:unscaled&quot;
+    FontPath    &quot;/usr/share/X11/fonts/75dpi/:unscaled&quot;
+    FontPath    &quot;/usr/share/X11/fonts/Type1&quot;
+    FontPath    &quot;/usr/share/X11/fonts/100dpi&quot;
+    FontPath    &quot;/usr/share/X11/fonts/75dpi&quot;
+    FontPath    &quot;/var/lib/defoma/x-ttcidfont-conf.d/dirs/TrueType&quot;
+EndSection
+</pre></div>
+
+
+<p>This part is about Fonts. When X-Server is running it needs these files. FontPaths tell X11 where fonts are. It also can refer to an IP running a font-server which is not common these days. Font servers used to be responsible of rendering fonts to be shown on clients but nowadays computers are fast and can render their own fonts. Font servers are going out of fashion!</p>
+<div class="highlight"><pre><span></span>Section &quot;Module&quot;
+    Load    &quot;bitmap&quot;
+    Load    &quot;ddc&quot;
+    Load    &quot;dri&quot;
+    Load    &quot;extmod&quot;
+    Load    &quot;freetype&quot;
+    Load    &quot;glx&quot;
+    Load    &quot;int10&quot;
+    Load    &quot;type1&quot;
+    Load    &quot;vbe&quot;
+    Load    &quot;dbe&quot;
+EndSection
+</pre></div>
+
+
+<p>These are modules. For example <code>glx</code> takes care of 3d graphical effects. We are asking X server to load so called modules.</p>
+<p>Next we have to define our <code>InputDevice</code>s:</p>
+<div class="highlight"><pre><span></span>Section &quot;InputDevice&quot;
+    Identifier  &quot;Generic Keyboard&quot;
+    Driver      &quot;kbd&quot;
+    Option      &quot;CoreKeyboard&quot;
+    Option      &quot;XkbRules&quot;  &quot;xorg&quot;
+    Option      &quot;XkbModel&quot;  &quot;pc105&quot;
+    Option      &quot;XkbLayout&quot; &quot;us&quot;
+EndSection
+
+Section &quot;InputDevice&quot;
+    Identifier  &quot;Configured Mouse&quot;
+    Driver      &quot;mouse&quot;
+    Option      &quot;CorePointer&quot;
+    Option      &quot;Device&quot;        &quot;/dev/input/mice&quot;
+    Option      &quot;Protocol&quot;      &quot;ImPS/2&quot;
+    Option      &quot;Emulate3Buttons&quot;   &quot;true&quot;
+    Option      &quot;ZAxisMapping&quot;      &quot;4 5&quot;
+EndSection
+
+Section &quot;InputDevice&quot;
+        Identifier      &quot;Synaptics Touchpad&quot;
+        Driver          &quot;synaptics&quot;
+        Option          &quot;SendCoreEvents&quot;        &quot;true&quot;
+        Option          &quot;Device&quot;                &quot;/dev/psaux&quot;
+        Option          &quot;Protocol&quot;              &quot;auto-dev&quot;
+        Option      &quot;RightEdge&quot;     &quot;5000&quot;
+EndSection
+</pre></div>
+
+
+<p>As you can see each device has an <code>Identifier</code>, <code>Driver</code> and some options. We just defined a mouse, a keyboard and a touchpad and gave them some names.</p>
+<div class="highlight"><pre><span></span>Section &quot;Device&quot;
+    Identifier  &quot;ATI Technologies, Inc. Radeon Mobility 7500 (M7 LW)&quot;
+    Driver      &quot;radeon&quot;
+    BusID       &quot;PCI:1:0:0&quot;
+    Option      &quot;DynamicClocks&quot; &quot;on&quot;
+    Option      &quot;CRT2HSync&quot; &quot;30-80&quot;
+    Option      &quot;CRT2VRefresh&quot;  &quot;59-75&quot;
+    Option      &quot;MetaModes&quot; &quot;1024x768 800x600 640x480 1024x768+1280x1024&quot;
+EndSection
+</pre></div>
+
+
+<p>A graphic card is defined above. Again it has its identifies (name), its drivers and some options (like support resolutions, refresh rates, ...). This device needs a screen and a monitor:</p>
+<blockquote>
+<p>Note: The <code>vesa</code> points to a low resolution, always working driver. It is used for troubleshooting.</p>
+</blockquote>
+<div class="highlight"><pre><span></span>Section &quot;Monitor&quot;
+    Identifier  &quot;Generic Monitor&quot;
+    Option      &quot;DPMS&quot;
+EndSection
+
+Section &quot;Screen&quot;
+    Identifier  &quot;Screen0&quot;
+    Device      &quot;Screen0 ATI Technologies, Inc. Radeon Mobility 7500 (M7 LW)&quot;
+    Monitor     &quot;Generic Monitor&quot;
+    DefaultDepth    24
+    SubSection &quot;Display&quot;
+        Depth       1
+        Modes       &quot;1024x768&quot;
+    EndSubSection
+    SubSection &quot;Display&quot;
+        Depth       4
+        Modes       &quot;1024x768&quot;
+    EndSubSection
+    SubSection &quot;Display&quot;
+        Depth       8
+        Modes       &quot;1024x768&quot;
+    EndSubSection
+    SubSection &quot;Display&quot;
+        Depth       15
+        Modes       &quot;1024x768&quot;
+    EndSubSection
+    SubSection &quot;Display&quot;
+        Depth       16
+        Modes       &quot;1024x768&quot;
+    EndSubSection
+    SubSection &quot;Display&quot;
+        Depth       24
+        Modes       &quot;1024x768&quot;
+    EndSubSection
+EndSection
+</pre></div>
+
+
+<p>Note how the screen uses the defined monitor (using its identifier "Generic Monitor") and defined graphic card. Also note the different color modes (say 24bit 1024x768).</p>
+<p>At the end we have to glue all of the above in one place as <code>ServerLayout</code>:</p>
+<div class="highlight"><pre><span></span>Section &quot;ServerLayout&quot;
+    Identifier  &quot;DefaultLayout&quot;
+    Screen      &quot;Default Screen&quot;
+    InputDevice &quot;Generic Keyboard&quot;
+    InputDevice &quot;Configured Mouse&quot;
+    InputDevice &quot;Synaptics Touchpad&quot;
+EndSection
+</pre></div>
+
+
+<p>We have a layout with a screen and 3 input devices :)</p>
+<blockquote>
+<p>Note: Do not panic. It is enough for you to understand the <code>Section</code> and <code>EndSection</code> and a general understanding of the xorg.conf</p>
+</blockquote>
+<h2>xwininfo</h2>
+<p>The <code>xwininfo</code> command is a window information utility for X. Run it and it waits for you to click on any window and gives you some information about that <em>window</em> like its size, position, color depth, ...</p>
+<div class="highlight"><pre><span></span>$ xwininfo
+
+xwininfo: Please <span class="k">select</span> the window about which you
+          would like information by clicking the
+          mouse in that window.
+
+xwininfo: Window id: 0x5400004 <span class="s2">&quot;jadi@funlife: ~/w/lpic/lpic1book&quot;</span>
+
+  Absolute upper-left X:  629
+  Absolute upper-left Y:  245
+  Relative upper-left X:  10
+  Relative upper-left Y:  36
+  Width: 655
+  Height: 426
+  Depth: 32
+  Visual: 0x71
+  Visual Class: TrueColor
+  Border width: 0
+  Class: InputOutput
+  Colormap: 0x5400003 <span class="o">(</span>not installed<span class="o">)</span>
+  Bit Gravity State: NorthWestGravity
+  Window Gravity State: NorthWestGravity
+  Backing Store State: NotUseful
+  Save Under State: no
+  Map State: IsViewable
+  Override Redirect State: no
+  Corners:  +629+245  -82+245  -82-97  +629-97
+  -geometry 80x24-72-87
+</pre></div>
+
+
+<h2>xdpyinfo</h2>
+<p>This give you information about the running X session. Things like screens, color depth, version, name, ...</p>
+<div class="highlight"><pre><span></span><span class="nt">name</span> <span class="nt">of</span> <span class="nt">display</span><span class="o">:</span>    <span class="nd">:0</span>
+<span class="nt">version</span> <span class="nt">number</span><span class="o">:</span>    <span class="nt">11</span><span class="nc">.0</span>
+<span class="nt">vendor</span> <span class="nt">string</span><span class="o">:</span>    <span class="nt">The</span> <span class="nt">X</span><span class="nc">.Org</span> <span class="nt">Foundation</span>
+<span class="nt">vendor</span> <span class="nt">release</span> <span class="nt">number</span><span class="o">:</span>    <span class="nt">11701000</span>
+<span class="nt">X</span><span class="nc">.Org</span> <span class="nt">version</span><span class="o">:</span> <span class="nt">1</span><span class="nc">.17.1</span>
+<span class="nt">maximum</span> <span class="nt">request</span> <span class="nt">size</span><span class="o">:</span>  <span class="nt">16777212</span> <span class="nt">bytes</span>
+<span class="nt">motion</span> <span class="nt">buffer</span> <span class="nt">size</span><span class="o">:</span>  <span class="nt">256</span>
+<span class="nt">bitmap</span> <span class="nt">unit</span><span class="o">,</span> <span class="nt">bit</span> <span class="nt">order</span><span class="o">,</span> <span class="nt">padding</span><span class="o">:</span>    <span class="nt">32</span><span class="o">,</span> <span class="nt">LSBFirst</span><span class="o">,</span> <span class="nt">32</span>
+<span class="nt">image</span> <span class="nt">byte</span> <span class="nt">order</span><span class="o">:</span>    <span class="nt">LSBFirst</span>
+<span class="nt">number</span> <span class="nt">of</span> <span class="nt">supported</span> <span class="nt">pixmap</span> <span class="nt">formats</span><span class="o">:</span>    <span class="nt">7</span>
+<span class="nt">supported</span> <span class="nt">pixmap</span> <span class="nt">formats</span><span class="o">:</span>
+    <span class="nt">depth</span> <span class="nt">1</span><span class="o">,</span> <span class="nt">bits_per_pixel</span> <span class="nt">1</span><span class="o">,</span> <span class="nt">scanline_pad</span> <span class="nt">32</span>
+    <span class="nt">depth</span> <span class="nt">4</span><span class="o">,</span> <span class="nt">bits_per_pixel</span> <span class="nt">8</span><span class="o">,</span> <span class="nt">scanline_pad</span> <span class="nt">32</span>
+    <span class="nt">depth</span> <span class="nt">8</span><span class="o">,</span> <span class="nt">bits_per_pixel</span> <span class="nt">8</span><span class="o">,</span> <span class="nt">scanline_pad</span> <span class="nt">32</span>
+    <span class="nt">depth</span> <span class="nt">15</span><span class="o">,</span> <span class="nt">bits_per_pixel</span> <span class="nt">16</span><span class="o">,</span> <span class="nt">scanline_pad</span> <span class="nt">32</span>
+    <span class="nt">depth</span> <span class="nt">16</span><span class="o">,</span> <span class="nt">bits_per_pixel</span> <span class="nt">16</span><span class="o">,</span> <span class="nt">scanline_pad</span> <span class="nt">32</span>
+    <span class="nt">depth</span> <span class="nt">24</span><span class="o">,</span> <span class="nt">bits_per_pixel</span> <span class="nt">32</span><span class="o">,</span> <span class="nt">scanline_pad</span> <span class="nt">32</span>
+    <span class="nt">depth</span> <span class="nt">32</span><span class="o">,</span> <span class="nt">bits_per_pixel</span> <span class="nt">32</span><span class="o">,</span> <span class="nt">scanline_pad</span> <span class="nt">32</span>
+<span class="nt">keycode</span> <span class="nt">range</span><span class="o">:</span>    <span class="nt">minimum</span> <span class="nt">8</span><span class="o">,</span> <span class="nt">maximum</span> <span class="nt">255</span>
+<span class="nt">focus</span><span class="o">:</span>  <span class="nt">window</span> <span class="nt">0x5400005</span><span class="o">,</span> <span class="nt">revert</span> <span class="nt">to</span> <span class="nt">Parent</span>
+<span class="nt">number</span> <span class="nt">of</span> <span class="nt">extensions</span><span class="o">:</span>    <span class="nt">28</span>
+    <span class="nt">BIG-REQUESTS</span>
+    <span class="nt">Composite</span>
+    <span class="nt">DAMAGE</span>
+<span class="o">...</span>
+<span class="o">...</span>
+</pre></div>
+
+
+<h2>xhost</h2>
+<p>This command used to control the access to the X server. If you are on a X server and run <code>xhost</code> it tells you the access status.</p>
+<div class="highlight"><pre><span></span>$ xhost
+access control enabled, only authorized clients can connect
+SI:localuser:jadi
+</pre></div>
+
+
+<p>As you can see only authorized clients can connect. To open it for all:</p>
+<div class="highlight"><pre><span></span>jadi@funlife:~$ xhost +
+access control disabled, clients can connect from any host
+</pre></div>
+
+
+<p>And for closing it again:</p>
+<div class="highlight"><pre><span></span>jadi@funlife:~$ xhost -
+access control enabled, only authorized clients can connect
+</pre></div>
+
+
+<p>Or open it for only one specific IP:</p>
+<div class="highlight"><pre><span></span>jadi@funlife:~$ xhost +192.168.42.85
+192.168.42.85 being added to access control list
+jadi@funlife:~$ xhost
+access control enabled, only authorized clients can connect
+INET:192.168.42.85  (no nameserver response within 5 seconds)
+SI:localuser:jadi
+</pre></div>
+
+
+<h3>DISPLAY</h3>
+<p>This variable tell graphical program where to show their graphical output (where to draw their inputs). In normal cases this is set on my own machine:</p>
+<div class="highlight"><pre><span></span>$ <span class="nb">echo</span> <span class="nv">$DISPLAY</span>
+:0
+</pre></div>
+
+
+<p>but if another X is listening to all IPs (after <code>xhost +</code>) or listening to my machine (after <code>xhost 192.168.42.85</code>) I can change the DISPLAY environment and connect my graphical output to that machine. In this case if I run a graphical program, its output (windows) will be shown on another machine:</p>
+<div class="highlight"><pre><span></span>$ <span class="nb">export</span> <span class="nv">DISPLAY</span><span class="o">=</span>192.168.42.85:0
+$ xeyes <span class="c1"># the eyes will be shown on 192.168.42.85 machine</span>
+</pre></div>
+
+
+<blockquote>
+<p>Note: This wont work if you test it on a modern machine. Most X11s do not listen on any port these days.</p>
+</blockquote>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+                </div>
+                <footer class="text-right">
+                    <p></p>
+                </footer>
+            </div>
+        </div>
+    </article>
+</section>
+<footer>
+    <hr>
+    <div class="row">
+        <div class="col-lg-9 text-center">
+            <p><small>
+                Built by <a href="http://docs.getpelican.com/en/latest">Pelican</a> / <a href="https://github.com/ingwinlu/pelican-twitchy">pelican-twitchy</a>
+                &middot;                    &copy; 2015 jadi
+            </small></p>
+        </div>
+    </div>
+</footer>            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery Version 1.11.2 -->
+    <script src="../theme/js/jquery-1.11.2.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../theme/js/bootstrap.min.js"></script>
+    <!-- twitchy Script -->
+    <script src="../theme/js/pelican_twitchy.min.js"></script>
+
+</body>
+</html>

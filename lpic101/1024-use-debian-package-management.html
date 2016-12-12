@@ -1,0 +1,695 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="author" content="jadi" />
+        <meta name="description" content="102.4. Use Debian package management weight: 3 Candidates should be able to perform package management using the Debian package tools. Install, upgrade and uninstall Debian binary packages. Find packages containing specific files or libraries which may or may not be installed. Obtain package information like version, content, dependencies, package ..." />
+
+
+    <title>102.4. Use Debian package management - Linux Learner</title>
+
+        <link rel="stylesheet" href="../theme/css/bootstrap.min.css" type="text/css" />
+
+    <link href="../theme/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../theme/css/pygments/native.css" rel="stylesheet" />
+
+    <link href="../theme/css/pelican-twitchy.min.css" rel="stylesheet" />
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Feeds -->
+        <link href="../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Linux Learner ATOM Feed" />
+        <link href="../feeds/all.rss.xml" type="application/rss+xml" rel="alternate"
+              title="Linux Learner RSS Feed" />
+</head>
+<body data-spy="scroll" data-target="#scrollspy">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper-small" class="twitchy-background">
+            <ul id="accordion-small" class="sidebar-nav sidebar-nav-small">
+                <li>
+        <a href=".." title="Linux Learner" class="collapsed">
+            <span class="glyphicon glyphicon-home"></span>
+        </a>
+    </li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="../archives.html" title="Recent Articles" class="collapsed">
+            <span class="glyphicon glyphicon-th-list"></span>
+        </a>
+    </li>
+
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-social-small" title="Social" class="collapsed">
+                        <i class="fa fa-users padding-small"></i>
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-social-small" class="collapse ">
+                    <li>
+                        <a href="#" title="Another social link"><i class="fa fa-another-social-link-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="#" title="You can add links in your config file"><i class="fa fa-you-can-add-links-in-your-config-file-square fa-lg padding-small"></i></a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="#" title="Back to top" class="collapsed">
+            <span class="fa fa-arrow-up"></span>
+        </a>
+    </li>
+            </ul>
+        </div>
+        <div id="sidebar-wrapper" class="twitchy-background">
+            <ul id="accordion" class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="../">
+                            <span class="glyphicon glyphicon-home padding-small"></span>
+                            Linux Learner
+                    </a>
+                </li>
+                <li class="nav-divider"></li>
+                <li>
+                    <a  data-parent="#accordion" href="/pages/donate.html">
+                        <span class="glyphicon glyphicon-heart padding-small"></span>
+                        Support
+                    </a>
+                </li>
+
+                    <li class="nav-divider"></li>
+                    <li>
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-latest">
+                            <span class="glyphicon glyphicon-th-list padding-small"></span>
+                            LPIC1 Chapters
+                        </a>
+                    </li>
+                    <li class="panel anti-panel"><ul id="collapse-latest" class="sidebar_submenu collapse in">
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1011-determine-and-configure-hardware-settings.html" title="101.1 Determine and configure hardware settings">
+                                <i class="fa fa-file-text padding-small"></i>
+                                101.1 Determine and configure hardware settings
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1012-boot-the-system.html" title="101.2. Boot the system">
+                                <i class="fa fa-file-text padding-small"></i>
+                                101.2. Boot the system
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1013-change-runlevels-and-shutdown-or-reboot-system.html" title="101.3. Change runlevels and shutdown or reboot system">
+                                <i class="fa fa-file-text padding-small"></i>
+                                101.3. Change runlevels and shutdown or reboot system
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1021-design-hard-disk-layout.html" title="102.1 Design hard disk layout">
+                                <i class="fa fa-file-text padding-small"></i>
+                                102.1 Design hard disk layout
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1022-install-a-boot-manager.html" title="102.2 Install a boot manager">
+                                <i class="fa fa-file-text padding-small"></i>
+                                102.2 Install a boot manager
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1023-manage-shared-libraries.html" title="102.3. Manage shared libraries">
+                                <i class="fa fa-file-text padding-small"></i>
+                                102.3. Manage shared libraries
+                            </a>
+                        </li>
+                        <li class="active">
+                            <a class="hide-overflow" href="../lpic101/1024-use-debian-package-management.html" title="102.4. Use Debian package management">
+                                <i class="fa fa-file-text padding-small"></i>
+                                102.4. Use Debian package management
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1025-use-rpm-and-yum-package-management.html" title="102.5 Use RPM and YUM package management">
+                                <i class="fa fa-file-text padding-small"></i>
+                                102.5 Use RPM and YUM package management
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1031-work-on-the-command-line.html" title="103.1 Work on the command line">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.1 Work on the command line
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1032-process-text-streams-using-filters.html" title="103.2. Process text streams using filters">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.2. Process text streams using filters
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1033-perform-basic-file-management.html" title="103.3 Perform basic file management">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.3 Perform basic file management
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1034-use-streams-pipes-and-redirects.html" title="103.4. Use streams, pipes and redirects">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.4. Use streams, pipes and redirects
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1035-create-monitor-and-kill-processes.html" title="103.5. Create, monitor and kill processes">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.5. Create, monitor and kill processes
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1036-modify-process-execution-priorities.html" title="103.6. Modify process execution priorities">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.6. Modify process execution priorities
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1037-search-text-files-using-regular-expressions.html" title="103.7 Search text files using regular expressions">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.7 Search text files using regular expressions
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1038-perform-basic-file-editing-operations-using-vi.html" title="103.8 Perform basic file editing operations using vi">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.8 Perform basic file editing operations using vi
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1041-create-partitions-and-filesystems.html" title="104.1. Create partitions and filesystems">
+                                <i class="fa fa-file-text padding-small"></i>
+                                104.1. Create partitions and filesystems
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1042-maintain-the-integrity-of-filesystems.html" title="104.2 Maintain the integrity of filesystems">
+                                <i class="fa fa-file-text padding-small"></i>
+                                104.2 Maintain the integrity of filesystems
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1043-control-mounting-and-unmounting-of-filesystems.html" title="104.3. Control mounting and unmounting of filesystems">
+                                <i class="fa fa-file-text padding-small"></i>
+                                104.3. Control mounting and unmounting of filesystems
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1044-manage-disk-quotas.html" title="104.4 Manage disk quotas">
+                                <i class="fa fa-file-text padding-small"></i>
+                                104.4 Manage disk quotas
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1045-manage-file-permissions-and-ownership.html" title="104.5 Manage file permissions and ownership">
+                                <i class="fa fa-file-text padding-small"></i>
+                                104.5 Manage file permissions and ownership
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1046-create-and-change-hard-symbolic-links.html" title="104.6. Create and change hard & symbolic links">
+                                <i class="fa fa-file-text padding-small"></i>
+                                104.6. Create and change hard & symbolic links
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1047-find-system-files-and-place-files-in-the-correct-location.html" title="104.7 Find system files and place files in the correct location">
+                                <i class="fa fa-file-text padding-small"></i>
+                                104.7 Find system files and place files in the correct location
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1051-customize-and-use-the-shell-environment.html" title="105.1. Customize and use the shell environment">
+                                <i class="fa fa-file-text padding-small"></i>
+                                105.1. Customize and use the shell environment
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1052-customize-or-write-simple-scripts.html" title="105.2 Customize or write simple scripts">
+                                <i class="fa fa-file-text padding-small"></i>
+                                105.2 Customize or write simple scripts
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1053-sql-data-management.html" title="105.3 SQL data management">
+                                <i class="fa fa-file-text padding-small"></i>
+                                105.3 SQL data management
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1061-install-and-configure-x11.html" title="106.1 Install and configure X11">
+                                <i class="fa fa-file-text padding-small"></i>
+                                106.1 Install and configure X11
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1062-setup-a-display-manager.html" title="106.2 Setup a display manager">
+                                <i class="fa fa-file-text padding-small"></i>
+                                106.2 Setup a display manager
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1063-accessibility.html" title="106.3 Accessibility">
+                                <i class="fa fa-file-text padding-small"></i>
+                                106.3 Accessibility
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1071-manage-user-and-group-accounts-and-related-system-files.html" title="107.1 Manage user and group accounts and related system files">
+                                <i class="fa fa-file-text padding-small"></i>
+                                107.1 Manage user and group accounts and related system files
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1072-automate-system-administration-tasks-by-scheduling-jobs.html" title="107.2 Automate system administration tasks by scheduling jobs">
+                                <i class="fa fa-file-text padding-small"></i>
+                                107.2 Automate system administration tasks by scheduling jobs
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1073-localisation-and-internationalisation.html" title="107.3 Localisation and internationalisation">
+                                <i class="fa fa-file-text padding-small"></i>
+                                107.3 Localisation and internationalisation
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1081-maintain-system-time.html" title="108.1 Maintain system time">
+                                <i class="fa fa-file-text padding-small"></i>
+                                108.1 Maintain system time
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1082-system-logging.html" title="108.2 System logging">
+                                <i class="fa fa-file-text padding-small"></i>
+                                108.2 System logging
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1083-mail-transfer-agent-mta-basics.html" title="108.3 Mail Transfer Agent (MTA) basics">
+                                <i class="fa fa-file-text padding-small"></i>
+                                108.3 Mail Transfer Agent (MTA) basics
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1084-manage-printers-and-printing.html" title="108.4 Manage printers and printing">
+                                <i class="fa fa-file-text padding-small"></i>
+                                108.4 Manage printers and printing
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1091-fundamentals-of-internet-protocols.html" title="109.1 Fundamentals of internet protocols">
+                                <i class="fa fa-file-text padding-small"></i>
+                                109.1 Fundamentals of internet protocols
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1092-basic-network-configuration.html" title="109.2 Basic network configuration">
+                                <i class="fa fa-file-text padding-small"></i>
+                                109.2 Basic network configuration
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1093-basic-network-troubleshooting.html" title="109.3 Basic network troubleshooting">
+                                <i class="fa fa-file-text padding-small"></i>
+                                109.3 Basic network troubleshooting
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1094-configure-client-side-dns.html" title="109.4 Configure client side DNS">
+                                <i class="fa fa-file-text padding-small"></i>
+                                109.4 Configure client side DNS
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1101-perform-security-administration-tasks.html" title="110.1 Perform security administration tasks">
+                                <i class="fa fa-file-text padding-small"></i>
+                                110.1 Perform security administration tasks
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1102-setup-host-security.html" title="110.2 Setup host security">
+                                <i class="fa fa-file-text padding-small"></i>
+                                110.2 Setup host security
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1103-securing-data-with-encryption.html" title="110.3 Securing data with encryption">
+                                <i class="fa fa-file-text padding-small"></i>
+                                110.3 Securing data with encryption
+                            </a>
+                        </li>
+                    </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+                    <a  href="/pages/about.html">
+                        <i class="fa fa-users padding-small"></i>
+                        About Jadi
+                    </a>
+                </li>
+
+
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Categories
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
+                    <li class="active">
+                        <a href="../category/lpic101.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            lpic101
+                            <span class="badge pull-right categorybadge">16</span>
+                        </a>
+                    </li>
+                    <li >
+                        <a href="../category/lpic102.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            lpic102
+                            <span class="badge pull-right categorybadge">27</span>
+                        </a>
+                    </li>
+                </ul></li>
+
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- open/close sidebar -->
+        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+            <span id="right-arrow" class="glyphicon glyphicon-chevron-right"  title="expand sidebar"></span>
+            <span id="left-arrow" class="glyphicon glyphicon-chevron-left" title="minimize sidebar"></span>
+        </a>
+       <!-- /open/close sidebar -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+<section id="content">
+    <article>
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="entry-content">
+                    <h1>102.4. Use Debian package management</h1>
+<p><em>weight: 3</em></p>
+<p>Candidates should be able to perform package management using the Debian package tools.</p>
+<ul>
+<li>Install, upgrade and uninstall Debian binary packages.</li>
+<li>Find packages containing specific files or libraries which may or may not be installed.</li>
+<li>
+<p>Obtain package information like version, content, dependencies, package integrity and installation status (whether or not the package is installed).</p>
+</li>
+<li>
+<p>/etc/apt/sources.list</p>
+</li>
+<li>dpkg</li>
+<li>dpkg-reconfigure</li>
+<li>apt-get</li>
+<li>apt-cache</li>
+<li>aptitude</li>
+</ul>
+<h2>Concept of the package management system</h2>
+<p>Linux used to be based on compiling source code but then Distributions arrived. Most distributions have their own Package Manager for installing pre-build programs from defined <em>repositories</em>. Debian based distros use .deb files with apt, dpkg, aptitude and Fedora, RedHat, RHEL, SUSE, .. use RPM and Yum package managers.</p>
+<h2>Installing packages</h2>
+<p>We do not have "bzr" installed.</p>
+<div class="highlight"><pre><span></span>jadi@funlife:~/w/lpic/101$ bzr
+The program &#39;bzr&#39; is currently not installed. You can install it by typing:
+sudo apt-get install bzr
+jadi@funlife:~/w/lpic/101$ which bzr
+jadi@funlife:~/w/lpic/101$ type bzr
+bash: type: bzr: not found
+</pre></div>
+
+
+<p>so lets install it. If we have the .deb file:</p>
+<div class="highlight"><pre><span></span> apt-get install bzr
+</pre></div>
+
+
+<p>note that
+- apt-get install asked for confirmation (Y)
+- apt-get resolved <em>dependencies</em>, it know what is needed to install this package and installs them
+- debian packages are something.deb</p>
+<div class="highlight"><pre><span></span>bzr
+</pre></div>
+
+
+<p>if you only want a dry-run / simulation:</p>
+<div class="highlight"><pre><span></span>apt-get install -s bzr
+</pre></div>
+
+
+<p>and this will only download the files without installing them:</p>
+<div class="highlight"><pre><span></span>apt-get install --download-only bzr
+</pre></div>
+
+
+<p>which only ownloaded files are stored them at /var/cache/apt/archive/ (or use the -d switch instead)</p>
+<h2>Package location</h2>
+<p>where these packages come from? from a <strong>Repository</strong> of different <strong>Repositories</strong> which are defined at /etc/apt/sources.list file and files located at /etc/apt/sources.list.d/ in the form of:</p>
+<div class="highlight"><pre><span></span><span class="err">$</span> <span class="err">cat</span> <span class="err">/etc/apt/sources.list</span>
+
+<span class="k">deb</span> <span class="s">http://ir.archive.ubuntu.com/ubuntu/</span> <span class="kp">utopic-updates</span> <span class="kp">multiverse</span>
+
+<span class="c">## N.B. software from this repository may not have been tested as</span>
+<span class="c">## extensively as that contained in the main release, although it includes</span>
+<span class="c">## newer versions of some applications which may provide useful features.</span>
+<span class="c">## Also, please note that software in backports WILL NOT receive any review</span>
+<span class="c">## or updates from the Ubuntu security team.</span>
+<span class="k">deb</span> <span class="s">http://ir.archive.ubuntu.com/ubuntu/</span> <span class="kp">utopic-backports</span> <span class="kp">main</span> <span class="kp">restricted</span> <span class="kp">universe</span> <span class="kp">multiverse</span>
+
+<span class="k">deb</span> <span class="s">http://security.ubuntu.com/ubuntu</span> <span class="kp">utopic-security</span> <span class="kp">main</span> <span class="kp">restricted</span>
+<span class="k">deb</span> <span class="s">http://security.ubuntu.com/ubuntu</span> <span class="kp">utopic-security</span> <span class="kp">universe</span>
+<span class="k">deb</span> <span class="s">http://security.ubuntu.com/ubuntu</span> <span class="kp">utopic-security</span> <span class="kp">multiverse</span>
+</pre></div>
+
+
+<p>Updating sources information:</p>
+<div class="highlight"><pre><span></span>apt-get update
+</pre></div>
+
+
+<h2>Removing debian packages</h2>
+<div class="highlight"><pre><span></span>apt-get remove bzr
+</pre></div>
+
+
+<p>and if you want to remove automatically installed dependencies:</p>
+<div class="highlight"><pre><span></span>$ apt-get autoremove bzr
+</pre></div>
+
+
+<p>or even</p>
+<div class="highlight"><pre><span></span>$ apt-get autoremove
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+The following packages will be REMOVED:
+  linux-image-3.16.0-25-generic linux-image-extra-3.16.0-25-generic
+<span class="m">0</span> upgraded, <span class="m">0</span> newly installed, <span class="m">2</span> to remove and <span class="m">0</span> not upgraded.
+After this operation, <span class="m">203</span> MB disk space will be freed.
+Do you want to <span class="k">continue</span>? <span class="o">[</span>Y/n<span class="o">]</span> y
+</pre></div>
+
+
+<p>Notes:
+- removing a package will not remove its dependencies
+- if removing a dependency, you'll get a warning about what will be removed alongside this package</p>
+<h2>searching for packages</h2>
+<div class="highlight"><pre><span></span>$ apt-cache search <span class="s2">&quot;tiny window&quot;</span>
+$ aptitude search grub2
+</pre></div>
+
+
+<h2>Updating</h2>
+<p>for updating a single package</p>
+<div class="highlight"><pre><span></span>apt-get install tzdata
+</pre></div>
+
+
+<p>and for upgrading whatever installed:</p>
+<div class="highlight"><pre><span></span>apt-get upgrade
+</pre></div>
+
+
+<p>or going to a new distribution:</p>
+<div class="highlight"><pre><span></span>apt-get dist-upgrade
+</pre></div>
+
+
+<p>Note: as most other tools, you can configure the default configs at /etc/apt/apt.conf and there is a program apt-config for this purpose.</p>
+<h2>reconfiguring packages</h2>
+<p>A program called debconf configures packages after they are installed. you can reconfigure a package (say tzdata) using</p>
+<div class="highlight"><pre><span></span> dpkg-reconfigure tzdata
+</pre></div>
+
+
+<h2>package information with dpkg</h2>
+<p>dpkg is a very powerful tool for working with .deb package files. If you want to see what is inside a .deb file:</p>
+<div class="highlight"><pre><span></span>$ dpkg --contents bzr_2.6.0+bzr6595-1ubuntu1_all.deb
+drwxr-xr-x root/root         <span class="m">0</span> 2014-05-02 18:16 ./
+drwxr-xr-x root/root         <span class="m">0</span> 2014-05-02 18:15 ./etc/
+drwxr-xr-x root/root         <span class="m">0</span> 2014-05-02 18:15 ./etc/bash_completion.d/
+-rw-r--r-- root/root      <span class="m">1467</span> 2010-04-22 11:31 ./etc/bash_completion.d/bzr
+...
+...
+</pre></div>
+
+
+<p>another apt tool is dpkg. dpkg can install, remove, configure and query packages and as always the config is at /etc/dpkg/dpkg.cfg and uses /var/lib/dpkg tree . the most important switch is <strong>-s</strong> for <strong>status</strong>.</p>
+<div class="highlight"><pre><span></span>$ dpkg -s bzr
+Package: bzr
+Status: deinstall ok config-files
+Priority: optional
+Section: vcs
+Installed-Size: 102
+Maintainer: Ubuntu Developers &lt;ubuntu-devel-discuss@lists.ubuntu.com&gt;
+Architecture: all
+Version: 2.6.0+bzr6595-1ubuntu1
+Config-Version: 2.6.0+bzr6595-1ubuntu1
+Depends: python-bzrlib <span class="o">(</span>&lt;<span class="o">=</span> 2.6.0+bzr6595-1ubuntu1.1~<span class="o">)</span>, python-bzrlib <span class="o">(</span>&gt;<span class="o">=</span> 2.6.0+bzr6595-1ubuntu1<span class="o">)</span>, python:any
+Recommends: python-gpgme
+Suggests: bzr-doc, bzrtools, python-bzrlib.tests
+Breaks: bzr-pqm <span class="o">(</span><span class="s">&lt;&lt; 1.4.0~bzr80), bzr-xmloutput (&lt;&lt; 0.8.8+bzr1</span>60<span class="o">)</span>, python-bzrlib <span class="o">(</span><span class="s">&lt;&lt; 2.4.0~beta3~)</span>
+<span class="s">Conffiles:</span>
+<span class="s"> /etc/bash_completion.d/bzr b8d9ca9552</span>1a7c5f14860e205a854da2
+Description: easy to use distributed version control system
+ Bazaar is a distributed version control system designed to be easy to
+ use and intuitive, able to adapt to many workflows, reliable, and
+ easily extendable.
+ .
+ Publishing of branches can be <span class="k">done</span> over plain HTTP, that is, no special
+ software is needed on the server to host Bazaar branches. Branches can
+ be pushed to the server via sftp <span class="o">(</span>which most SSH installations come
+ with<span class="o">)</span>, FTP, or over a custom and faster protocol <span class="k">if</span> bzr is installed in
+ the remote end.
+ .
+ Merging in Bazaar is easy, as the implementation is able to avoid many
+ spurious conflicts, deals well with repeated merges between branches,
+ and is able to handle modifications to renamed files correctly.
+ .
+ Bazaar is written in Python, and has a flexible plugin interface which
+ can be used to extend its functionality. Many plugins exist, providing
+ useful commands <span class="o">(</span>bzrtools<span class="o">)</span>, graphical interfaces <span class="o">(</span>qbzr<span class="o">)</span>, or native
+ interaction with Subversion branches <span class="o">(</span>bzr-svn<span class="o">)</span>.
+ .
+ Install python-paramiko <span class="k">if</span> you are going to push branches to remote
+ hosts with sftp, and python-pycurl <span class="k">if</span> you<span class="err">&#39;</span>d like <span class="k">for</span> SSL certificates
+ always to be verified.
+Homepage: http://bazaar-vcs.org
+Original-Maintainer: Debian Bazaar Maintainers &lt;pkg-bazaar-maint@lists.alioth.debian.org&gt;
+</pre></div>
+
+
+<p>another command is <strong>purge</strong> which will remove the package and all of its configurations.. the switch is <strong>-P</strong> or <strong>--purge</strong>.</p>
+<p>There is also <strong>-L</strong> to check the files and directories a package installed:</p>
+<div class="highlight"><pre><span></span>$ dpkg -L jcal
+/.
+/usr
+/usr/bin
+/usr/bin/jcal
+/usr/share
+/usr/share/doc
+/usr/share/doc/jcal
+/usr/share/doc/jcal/README
+/usr/share/doc/jcal/copyright
+/usr/share/man
+/usr/share/man/man1
+/usr/share/man/man1/jcal.1.gz
+/usr/share/doc/jcal/changelog.Debian.gz
+</pre></div>
+
+
+<p>and <strong>-S</strong> will show which package installed the given file:</p>
+<div class="highlight"><pre><span></span>$ dpkg -S /var/lib/mplayer/prefs/mirrors
+mplayer: /var/lib/mplayer/prefs/mirrors
+</pre></div>
+
+
+<p>Note: you can also use <code>which</code> for finding out what file will be used on any given command:</p>
+<div class="highlight"><pre><span></span>jadi@funlife:~/w/lpic/101$ which java
+/usr/bin/java
+</pre></div>
+
+
+<h2>aptitude</h2>
+<p>is a newer tool for managing files. It can be used like this:</p>
+<div class="highlight"><pre><span></span>$ aptitude install jcal
+$ aptitude remove jcal
+$ aptitude search cal
+$ aptitude show bzr
+</pre></div>
+
+
+<p>or it can also be used as a standalone program:</p>
+<p><img alt="aptitude sample" src="http://www.ibm.com/developerworks/linux/library/l-lpic1-v3-102-4/fig-102-4-2.gif" /></p>
+<h2>other tools</h2>
+<p>there is gui tools like "synaptic" and "update manager". These will Search, Update, Upgrade, Install, Remove via a graphical user interface and are present in many distributions. This is ubuntu software center:</p>
+<p><img alt="Ubuntu Software Center" src="http://screenshots.debian.net/screenshots/s/software-center/10674_large.png" /></p>
+<p>and this is a software updater GUI for gnome:</p>
+<p><img alt="Software Updater" src="http://farm5.static.flickr.com/4100/4897220771_4b27362dbc.jpg" /></p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.
+.
+.</p>
+<p>..</p>
+<p>.
+.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+                </div>
+                <footer class="text-right">
+                    <p></p>
+                </footer>
+            </div>
+        </div>
+    </article>
+</section>
+<footer>
+    <hr>
+    <div class="row">
+        <div class="col-lg-9 text-center">
+            <p><small>
+                Built by <a href="http://docs.getpelican.com/en/latest">Pelican</a> / <a href="https://github.com/ingwinlu/pelican-twitchy">pelican-twitchy</a>
+                &middot;                    &copy; 2015 jadi
+            </small></p>
+        </div>
+    </div>
+</footer>            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery Version 1.11.2 -->
+    <script src="../theme/js/jquery-1.11.2.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../theme/js/bootstrap.min.js"></script>
+    <!-- twitchy Script -->
+    <script src="../theme/js/pelican_twitchy.min.js"></script>
+
+</body>
+</html>

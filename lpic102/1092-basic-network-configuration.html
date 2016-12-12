@@ -1,0 +1,696 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="author" content="jadi" />
+        <meta name="description" content="109.2 Basic network configuration Weight: 4 Candidates should be able to view, change and verify configuration settings on client hosts. Key Knowledge Areas Manually and automatically configure network interfaces. Basic TCP/IP host configuration. Setting a default route. Terms and Utilities /etc/hostname /etc/hosts /etc/nsswitch.conf ifconfig ..." />
+
+
+    <title>109.2 Basic network configuration - Linux Learner</title>
+
+        <link rel="stylesheet" href="../theme/css/bootstrap.min.css" type="text/css" />
+
+    <link href="../theme/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../theme/css/pygments/native.css" rel="stylesheet" />
+
+    <link href="../theme/css/pelican-twitchy.min.css" rel="stylesheet" />
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Feeds -->
+        <link href="../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Linux Learner ATOM Feed" />
+        <link href="../feeds/all.rss.xml" type="application/rss+xml" rel="alternate"
+              title="Linux Learner RSS Feed" />
+</head>
+<body data-spy="scroll" data-target="#scrollspy">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper-small" class="twitchy-background">
+            <ul id="accordion-small" class="sidebar-nav sidebar-nav-small">
+                <li>
+        <a href=".." title="Linux Learner" class="collapsed">
+            <span class="glyphicon glyphicon-home"></span>
+        </a>
+    </li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="../archives.html" title="Recent Articles" class="collapsed">
+            <span class="glyphicon glyphicon-th-list"></span>
+        </a>
+    </li>
+
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-social-small" title="Social" class="collapsed">
+                        <i class="fa fa-users padding-small"></i>
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-social-small" class="collapse ">
+                    <li>
+                        <a href="#" title="Another social link"><i class="fa fa-another-social-link-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="#" title="You can add links in your config file"><i class="fa fa-you-can-add-links-in-your-config-file-square fa-lg padding-small"></i></a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="#" title="Back to top" class="collapsed">
+            <span class="fa fa-arrow-up"></span>
+        </a>
+    </li>
+            </ul>
+        </div>
+        <div id="sidebar-wrapper" class="twitchy-background">
+            <ul id="accordion" class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="../">
+                            <span class="glyphicon glyphicon-home padding-small"></span>
+                            Linux Learner
+                    </a>
+                </li>
+                <li class="nav-divider"></li>
+                <li>
+                    <a  data-parent="#accordion" href="/pages/donate.html">
+                        <span class="glyphicon glyphicon-heart padding-small"></span>
+                        Support
+                    </a>
+                </li>
+
+                    <li class="nav-divider"></li>
+                    <li>
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-latest">
+                            <span class="glyphicon glyphicon-th-list padding-small"></span>
+                            LPIC1 Chapters
+                        </a>
+                    </li>
+                    <li class="panel anti-panel"><ul id="collapse-latest" class="sidebar_submenu collapse in">
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1011-determine-and-configure-hardware-settings.html" title="101.1 Determine and configure hardware settings">
+                                <i class="fa fa-file-text padding-small"></i>
+                                101.1 Determine and configure hardware settings
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1012-boot-the-system.html" title="101.2. Boot the system">
+                                <i class="fa fa-file-text padding-small"></i>
+                                101.2. Boot the system
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1013-change-runlevels-and-shutdown-or-reboot-system.html" title="101.3. Change runlevels and shutdown or reboot system">
+                                <i class="fa fa-file-text padding-small"></i>
+                                101.3. Change runlevels and shutdown or reboot system
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1021-design-hard-disk-layout.html" title="102.1 Design hard disk layout">
+                                <i class="fa fa-file-text padding-small"></i>
+                                102.1 Design hard disk layout
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1022-install-a-boot-manager.html" title="102.2 Install a boot manager">
+                                <i class="fa fa-file-text padding-small"></i>
+                                102.2 Install a boot manager
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1023-manage-shared-libraries.html" title="102.3. Manage shared libraries">
+                                <i class="fa fa-file-text padding-small"></i>
+                                102.3. Manage shared libraries
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1024-use-debian-package-management.html" title="102.4. Use Debian package management">
+                                <i class="fa fa-file-text padding-small"></i>
+                                102.4. Use Debian package management
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1025-use-rpm-and-yum-package-management.html" title="102.5 Use RPM and YUM package management">
+                                <i class="fa fa-file-text padding-small"></i>
+                                102.5 Use RPM and YUM package management
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1031-work-on-the-command-line.html" title="103.1 Work on the command line">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.1 Work on the command line
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1032-process-text-streams-using-filters.html" title="103.2. Process text streams using filters">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.2. Process text streams using filters
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1033-perform-basic-file-management.html" title="103.3 Perform basic file management">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.3 Perform basic file management
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1034-use-streams-pipes-and-redirects.html" title="103.4. Use streams, pipes and redirects">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.4. Use streams, pipes and redirects
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1035-create-monitor-and-kill-processes.html" title="103.5. Create, monitor and kill processes">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.5. Create, monitor and kill processes
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1036-modify-process-execution-priorities.html" title="103.6. Modify process execution priorities">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.6. Modify process execution priorities
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1037-search-text-files-using-regular-expressions.html" title="103.7 Search text files using regular expressions">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.7 Search text files using regular expressions
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1038-perform-basic-file-editing-operations-using-vi.html" title="103.8 Perform basic file editing operations using vi">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.8 Perform basic file editing operations using vi
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1041-create-partitions-and-filesystems.html" title="104.1. Create partitions and filesystems">
+                                <i class="fa fa-file-text padding-small"></i>
+                                104.1. Create partitions and filesystems
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1042-maintain-the-integrity-of-filesystems.html" title="104.2 Maintain the integrity of filesystems">
+                                <i class="fa fa-file-text padding-small"></i>
+                                104.2 Maintain the integrity of filesystems
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1043-control-mounting-and-unmounting-of-filesystems.html" title="104.3. Control mounting and unmounting of filesystems">
+                                <i class="fa fa-file-text padding-small"></i>
+                                104.3. Control mounting and unmounting of filesystems
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1044-manage-disk-quotas.html" title="104.4 Manage disk quotas">
+                                <i class="fa fa-file-text padding-small"></i>
+                                104.4 Manage disk quotas
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1045-manage-file-permissions-and-ownership.html" title="104.5 Manage file permissions and ownership">
+                                <i class="fa fa-file-text padding-small"></i>
+                                104.5 Manage file permissions and ownership
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1046-create-and-change-hard-symbolic-links.html" title="104.6. Create and change hard & symbolic links">
+                                <i class="fa fa-file-text padding-small"></i>
+                                104.6. Create and change hard & symbolic links
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1047-find-system-files-and-place-files-in-the-correct-location.html" title="104.7 Find system files and place files in the correct location">
+                                <i class="fa fa-file-text padding-small"></i>
+                                104.7 Find system files and place files in the correct location
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1051-customize-and-use-the-shell-environment.html" title="105.1. Customize and use the shell environment">
+                                <i class="fa fa-file-text padding-small"></i>
+                                105.1. Customize and use the shell environment
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1052-customize-or-write-simple-scripts.html" title="105.2 Customize or write simple scripts">
+                                <i class="fa fa-file-text padding-small"></i>
+                                105.2 Customize or write simple scripts
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1053-sql-data-management.html" title="105.3 SQL data management">
+                                <i class="fa fa-file-text padding-small"></i>
+                                105.3 SQL data management
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1061-install-and-configure-x11.html" title="106.1 Install and configure X11">
+                                <i class="fa fa-file-text padding-small"></i>
+                                106.1 Install and configure X11
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1062-setup-a-display-manager.html" title="106.2 Setup a display manager">
+                                <i class="fa fa-file-text padding-small"></i>
+                                106.2 Setup a display manager
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1063-accessibility.html" title="106.3 Accessibility">
+                                <i class="fa fa-file-text padding-small"></i>
+                                106.3 Accessibility
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1071-manage-user-and-group-accounts-and-related-system-files.html" title="107.1 Manage user and group accounts and related system files">
+                                <i class="fa fa-file-text padding-small"></i>
+                                107.1 Manage user and group accounts and related system files
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1072-automate-system-administration-tasks-by-scheduling-jobs.html" title="107.2 Automate system administration tasks by scheduling jobs">
+                                <i class="fa fa-file-text padding-small"></i>
+                                107.2 Automate system administration tasks by scheduling jobs
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1073-localisation-and-internationalisation.html" title="107.3 Localisation and internationalisation">
+                                <i class="fa fa-file-text padding-small"></i>
+                                107.3 Localisation and internationalisation
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1081-maintain-system-time.html" title="108.1 Maintain system time">
+                                <i class="fa fa-file-text padding-small"></i>
+                                108.1 Maintain system time
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1082-system-logging.html" title="108.2 System logging">
+                                <i class="fa fa-file-text padding-small"></i>
+                                108.2 System logging
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1083-mail-transfer-agent-mta-basics.html" title="108.3 Mail Transfer Agent (MTA) basics">
+                                <i class="fa fa-file-text padding-small"></i>
+                                108.3 Mail Transfer Agent (MTA) basics
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1084-manage-printers-and-printing.html" title="108.4 Manage printers and printing">
+                                <i class="fa fa-file-text padding-small"></i>
+                                108.4 Manage printers and printing
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1091-fundamentals-of-internet-protocols.html" title="109.1 Fundamentals of internet protocols">
+                                <i class="fa fa-file-text padding-small"></i>
+                                109.1 Fundamentals of internet protocols
+                            </a>
+                        </li>
+                        <li class="active">
+                            <a class="hide-overflow" href="../lpic102/1092-basic-network-configuration.html" title="109.2 Basic network configuration">
+                                <i class="fa fa-file-text padding-small"></i>
+                                109.2 Basic network configuration
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1093-basic-network-troubleshooting.html" title="109.3 Basic network troubleshooting">
+                                <i class="fa fa-file-text padding-small"></i>
+                                109.3 Basic network troubleshooting
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1094-configure-client-side-dns.html" title="109.4 Configure client side DNS">
+                                <i class="fa fa-file-text padding-small"></i>
+                                109.4 Configure client side DNS
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1101-perform-security-administration-tasks.html" title="110.1 Perform security administration tasks">
+                                <i class="fa fa-file-text padding-small"></i>
+                                110.1 Perform security administration tasks
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1102-setup-host-security.html" title="110.2 Setup host security">
+                                <i class="fa fa-file-text padding-small"></i>
+                                110.2 Setup host security
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1103-securing-data-with-encryption.html" title="110.3 Securing data with encryption">
+                                <i class="fa fa-file-text padding-small"></i>
+                                110.3 Securing data with encryption
+                            </a>
+                        </li>
+                    </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+                    <a  href="/pages/about.html">
+                        <i class="fa fa-users padding-small"></i>
+                        About Jadi
+                    </a>
+                </li>
+
+
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Categories
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
+                    <li >
+                        <a href="../category/lpic101.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            lpic101
+                            <span class="badge pull-right categorybadge">16</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="../category/lpic102.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            lpic102
+                            <span class="badge pull-right categorybadge">27</span>
+                        </a>
+                    </li>
+                </ul></li>
+
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- open/close sidebar -->
+        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+            <span id="right-arrow" class="glyphicon glyphicon-chevron-right"  title="expand sidebar"></span>
+            <span id="left-arrow" class="glyphicon glyphicon-chevron-left" title="minimize sidebar"></span>
+        </a>
+       <!-- /open/close sidebar -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+<section id="content">
+    <article>
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="entry-content">
+                    <h1>109.2 Basic network configuration</h1>
+<p><em>Weight: 4</em></p>
+<p>Candidates should be able to view, change and verify configuration settings on client hosts.</p>
+<h2>Key Knowledge Areas</h2>
+<ul>
+<li>Manually and automatically configure network interfaces.</li>
+<li>Basic TCP/IP host configuration.</li>
+<li>Setting a default route.</li>
+</ul>
+<h2>Terms and Utilities</h2>
+<ul>
+<li>/etc/hostname</li>
+<li>/etc/hosts</li>
+<li>/etc/nsswitch.conf</li>
+<li>ifconfig</li>
+<li>ifup</li>
+<li>ifdown</li>
+<li>ip</li>
+<li>route</li>
+<li>ping</li>
+</ul>
+<h3>ifconfig, up and down</h3>
+<p>The <code>ifconfig</code> is the main command for configuring the network adapters manually. Running it with no arguments, will show all the network adapters and their configurations.</p>
+<div class="highlight"><pre><span></span>$ ifconfig
+enp0s25: <span class="nv">flags</span><span class="o">=</span>4099&lt;UP,BROADCAST,MULTICAST&gt;  mtu 1500
+        ether f0:de:f1:62:c5:73  txqueuelen <span class="m">1000</span>  <span class="o">(</span>Ethernet<span class="o">)</span>
+        RX packets <span class="m">0</span>  bytes <span class="m">0</span> <span class="o">(</span>0.0 B<span class="o">)</span>
+        RX errors <span class="m">0</span>  dropped <span class="m">0</span>  overruns <span class="m">0</span>  frame 0
+        TX packets <span class="m">0</span>  bytes <span class="m">0</span> <span class="o">(</span>0.0 B<span class="o">)</span>
+        TX errors <span class="m">0</span>  dropped <span class="m">0</span> overruns <span class="m">0</span>  carrier <span class="m">0</span>  collisions 0
+        device interrupt <span class="m">20</span>  memory 0xd1500000-d1520000  
+
+lo: <span class="nv">flags</span><span class="o">=</span>73&lt;UP,LOOPBACK,RUNNING&gt;  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen <span class="m">128</span>  scopeid 0x10&lt;host&gt;
+        loop  txqueuelen <span class="m">1</span>  <span class="o">(</span>Local Loopback<span class="o">)</span>
+        RX packets <span class="m">560719</span>  bytes <span class="m">339937974</span> <span class="o">(</span>324.1 MiB<span class="o">)</span>
+        RX errors <span class="m">0</span>  dropped <span class="m">0</span>  overruns <span class="m">0</span>  frame 0
+        TX packets <span class="m">560719</span>  bytes <span class="m">339937974</span> <span class="o">(</span>324.1 MiB<span class="o">)</span>
+        TX errors <span class="m">0</span>  dropped <span class="m">0</span> overruns <span class="m">0</span>  carrier <span class="m">0</span>  collisions 0
+
+wlp3s0: <span class="nv">flags</span><span class="o">=</span>4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
+        inet 192.168.1.35  netmask 255.255.255.0  broadcast 192.168.1.255
+        inet6 fe80::8ea9:82ff:fe7b:8906  prefixlen <span class="m">64</span>  scopeid 0x20&lt;link&gt;
+        ether 8c:a9:82:7b:89:06  txqueuelen <span class="m">1000</span>  <span class="o">(</span>Ethernet<span class="o">)</span>
+        RX packets <span class="m">2325385</span>  bytes <span class="m">2629859900</span> <span class="o">(</span>2.4 GiB<span class="o">)</span>
+        RX errors <span class="m">0</span>  dropped <span class="m">0</span>  overruns <span class="m">0</span>  frame 0
+        TX packets <span class="m">2023796</span>  bytes <span class="m">510997240</span> <span class="o">(</span>487.3 MiB<span class="o">)</span>
+        TX errors <span class="m">0</span>  dropped <span class="m">0</span> overruns <span class="m">0</span>  carrier <span class="m">0</span>  collisions 0
+</pre></div>
+
+
+<blockquote>
+<p><code>lo</code> is a virtual network adapter and is called <em>loopback</em>. It ia accessible only from the computer itself. It is used when programs want to speak with the computer they are running on it.</p>
+</blockquote>
+<p>Ethernet networks are called <strong>ethx</strong> or things like <strong>enp0s25</strong>.</p>
+<p>It is possible to use <code>ifconfig</code> to change the network configurations, but you should have root access:</p>
+<div class="highlight"><pre><span></span>$  sudo ifconfig enp0s25 192.168.42.42
+password <span class="k">for</span> jadi:
+$ ifconfig enp0s25
+enp0s25: <span class="nv">flags</span><span class="o">=</span>4099&lt;UP,BROADCAST,MULTICAST&gt;  mtu 1500
+        inet 192.168.42.42  netmask 255.255.255.0  broadcast 192.168.42.255
+        ether f0:de:f1:62:c5:73  txqueuelen <span class="m">1000</span>  <span class="o">(</span>Ethernet<span class="o">)</span>
+        RX packets <span class="m">0</span>  bytes <span class="m">0</span> <span class="o">(</span>0.0 B<span class="o">)</span>
+        RX errors <span class="m">0</span>  dropped <span class="m">0</span>  overruns <span class="m">0</span>  frame 0
+        TX packets <span class="m">0</span>  bytes <span class="m">0</span> <span class="o">(</span>0.0 B<span class="o">)</span>
+        TX errors <span class="m">0</span>  dropped <span class="m">0</span> overruns <span class="m">0</span>  carrier <span class="m">0</span>  collisions 0
+        device interrupt <span class="m">20</span>  memory 0xd1500000-d1520000  
+
+$
+</pre></div>
+
+
+<p>in the same way, you can change the netmask of an interface with <code>ifconfig eth0 netmask 255.255.0.0</code> or do both in one step:</p>
+<div class="highlight"><pre><span></span># ifconfig eth0 192.168.42.42 netmask 255.255.255.0
+</pre></div>
+
+
+<p>It is also possible to turn the interfaces <em>up</em> and <em>down</em> (on and off) using a predefined configuration by:</p>
+<div class="highlight"><pre><span></span>$ sudo ifconfig enp0s25 down
+<span class="o">[</span>sudo<span class="o">]</span> password <span class="k">for</span> jadi:
+$ ifconfig
+lo: <span class="nv">flags</span><span class="o">=</span>73&lt;UP,LOOPBACK,RUNNING&gt;  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen <span class="m">128</span>  scopeid 0x10&lt;host&gt;
+        loop  txqueuelen <span class="m">1</span>  <span class="o">(</span>Local Loopback<span class="o">)</span>
+        RX packets <span class="m">562273</span>  bytes <span class="m">340257228</span> <span class="o">(</span>324.4 MiB<span class="o">)</span>
+        RX errors <span class="m">0</span>  dropped <span class="m">0</span>  overruns <span class="m">0</span>  frame 0
+        TX packets <span class="m">562273</span>  bytes <span class="m">340257228</span> <span class="o">(</span>324.4 MiB<span class="o">)</span>
+        TX errors <span class="m">0</span>  dropped <span class="m">0</span> overruns <span class="m">0</span>  carrier <span class="m">0</span>  collisions 0
+
+wlp3s0: <span class="nv">flags</span><span class="o">=</span>4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
+        inet 192.168.1.35  netmask 255.255.255.0  broadcast 192.168.1.255
+        inet6 fe80::8ea9:82ff:fe7b:8906  prefixlen <span class="m">64</span>  scopeid 0x20&lt;link&gt;
+        ether 8c:a9:82:7b:89:06  txqueuelen <span class="m">1000</span>  <span class="o">(</span>Ethernet<span class="o">)</span>
+        RX packets <span class="m">2330388</span>  bytes <span class="m">2634026235</span> <span class="o">(</span>2.4 GiB<span class="o">)</span>
+        RX errors <span class="m">0</span>  dropped <span class="m">0</span>  overruns <span class="m">0</span>  frame 0
+        TX packets <span class="m">2027352</span>  bytes <span class="m">511549072</span> <span class="o">(</span>487.8 MiB<span class="o">)</span>
+        TX errors <span class="m">0</span>  dropped <span class="m">0</span> overruns <span class="m">0</span>  carrier <span class="m">0</span>  collisions 0
+</pre></div>
+
+
+<p>As you can see <em>down</em>ing the interface removed it from the list of active interfaces, using switch <code>-a</code> will tell the <code>ifconfig</code> to sho ALL interfaces, even if they are down.</p>
+<p>In may systems there are <code>ifup</code> and <code>ifdown</code> commands directly to up and down interfaces easily. They work just like <code>ifup eth0</code>.</p>
+<h3>Network Gateways</h3>
+<p>A computer normaly can see all of the computers in its own subnet / netmask. But what happens when you send a packet to a computer <em>outside</em> of your own network? In this case your computer delivers that packet to an address called <strong>network gateway</strong>. The <strong>gateway</strong> device can <strong>route</strong> the packets between different networks. It has more than 1 interface and is connected to different networks so working like a post office, it can hand over your packets to another network and after several handovers, your packet will reach its destination.</p>
+<p>In your network configurations, there is a <strong>default gateway</strong>. That is the address which is used as a <strong>gateway</strong> when your computer tries to reach a computer outside its network.</p>
+<h3>network configuration files</h3>
+<h4>Redhat based systems</h4>
+<p>Unfortunately Debian based and Redhat based systems use different locations for their nework configuration files. On Redhat, CentOS, Fedora, ... the fiels are located at <code>/etc/sysconfig/network-scripts/</code>. A sample is as below:</p>
+<div class="highlight"><pre><span></span>$ cat /etc/sysconfig/network-scripts/ifcfg-eth0
+<span class="nv">DEVICE</span><span class="o">=</span>eth0
+<span class="nv">ONBOOT</span><span class="o">=</span>yes
+<span class="nv">TYPE</span><span class="o">=</span>Ethernet
+<span class="nv">IPADDR</span><span class="o">=</span>192.168.1.10
+<span class="nv">NETMASK</span><span class="o">=</span>255.255.255.0
+<span class="nv">DNS1</span><span class="o">=</span>4.2.2.4
+</pre></div>
+
+
+<p>On these systems, the default gateway is configured via the below file:</p>
+<div class="highlight"><pre><span></span>cat /etc/sysconfig/network
+NETWORKING=yes
+HOSTNAME=lpictest
+GATEWAY=192.168.1.1
+</pre></div>
+
+
+<h4>Debian based systems</h4>
+<p>On Debian based systems (including Ubuntu) the main configuration file for network interfaces is <code>/etc/network/interfaces</code>. This one file has the configuration for all of the interfaces. Have a look:</p>
+<div class="highlight"><pre><span></span>auto lo
+iface lo inte loopback
+
+auto eth0
+#ifconfig eth0 inet dhcp
+iface eth0 inet static
+address 192.168.1.10
+netmask 255.255.255.0
+gateway 192.168.1.1
+dns-nameservers 4.2.2.4
+</pre></div>
+
+
+<blockquote>
+<p>ifdown and ifup will use these config files</p>
+</blockquote>
+<h3>DNS config file</h3>
+<p>As you saw, we were able to set the DNS configuration in network interface config files. But this is not the only way. There is another file which contains this data: <code>/etc/resolv.conf</code>.</p>
+<div class="highlight"><pre><span></span>$ cat /etc/resolv.conf
+<span class="c1"># Generated by resolvconf</span>
+nameserver 192.168.1.1
+</pre></div>
+
+
+<p>if you want to change your DNS on the fly, you can edit this file but it will be lost after reboot or ifdown and ifup.</p>
+<h3>hostname</h3>
+<p>There is another text file which shows or sets the hostname. That is <code>/etc/hostname</code>.</p>
+<div class="highlight"><pre><span></span>$ cat /etc/hostname
+funlife
+</pre></div>
+
+
+<h3>hosts</h3>
+<p>The <code>/etc/hosts</code> file contains server names and their IPs. It is just like what DNS does but has a higher priority than DNS. If you add something like</p>
+<div class="highlight"><pre><span></span>4.2.2.4 funnyip
+</pre></div>
+
+
+<p>there and <code>ping funnyip</code> your computer will start pinging 4.2.2.4 without quering any DNS server.</p>
+<blockquote>
+<p>there is an entry on /etc/hosts for your machine. If you are changing the /etc/hostname it is important to add that name to your /etc/hosts line containing 127.0.0.1 too.</p>
+</blockquote>
+<h3>route</h3>
+<p>The <code>route</code> command can show or change the routing system. As you saw on <strong>default gateway</strong> section, routing is responsible to send your packets to their correct destination. For checking the current route you can issue</p>
+<div class="highlight"><pre><span></span>$ route
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+default         gateway         0.0.0.0         UG    <span class="m">600</span>    <span class="m">0</span>        <span class="m">0</span> wlp3s0
+192.168.1.0     *               255.255.255.0   U     <span class="m">600</span>    <span class="m">0</span>        <span class="m">0</span> wlp3s0
+</pre></div>
+
+
+<p>and for temporary adding a default route, youc an do:</p>
+<div class="highlight"><pre><span></span>route add default gw 192.168.1.1
+</pre></div>
+
+
+<h3>ip</h3>
+<p>The <code>ip</code> command is the new tool for configuring the networking interfaces. You can do many things using it. the <code>addr show</code> will show you the current interfaces and their configurations:</p>
+<div class="highlight"><pre><span></span>$ ip addr show
+1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu <span class="m">65536</span> qdisc noqueue state UNKNOWN group default qlen 1
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host
+       valid_lft forever preferred_lft forever
+2: wlp3s0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu <span class="m">1500</span> qdisc mq state UP group default qlen 1000
+    link/ether 8c:a9:82:7b:89:06 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.1.35/24 brd 192.168.1.255 scope global dynamic wlp3s0
+       valid_lft 254572sec preferred_lft 254572sec
+    inet6 fe80::8ea9:82ff:fe7b:8906/64 scope link
+       valid_lft forever preferred_lft forever
+3: enp0s25: &lt;BROADCAST,MULTICAST&gt; mtu <span class="m">1500</span> qdisc fq_codel state DOWN group default qlen 1000
+    link/ether f0:de:f1:62:c5:73 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.42.42/24 brd 192.168.42.255 scope global enp0s25
+       valid_lft forever preferred_lft forever
+</pre></div>
+
+
+<h3>ping</h3>
+<p><code>ping</code> is the most straight forward network troubleshooting command. You can check your connection with any server using it. Lets see if my computer sees 4.2.2.4:</p>
+<div class="highlight"><pre><span></span>$ ping 4.2.2.4
+PING 4.2.2.4 <span class="o">(</span>4.2.2.4<span class="o">)</span> 56<span class="o">(</span>84<span class="o">)</span> bytes of data.
+<span class="m">64</span> bytes from 4.2.2.4: <span class="nv">icmp_seq</span><span class="o">=</span><span class="m">1</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">52</span> <span class="nv">time</span><span class="o">=</span><span class="m">103</span> ms
+<span class="m">64</span> bytes from 4.2.2.4: <span class="nv">icmp_seq</span><span class="o">=</span><span class="m">2</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">52</span> <span class="nv">time</span><span class="o">=</span><span class="m">101</span> ms
+<span class="m">64</span> bytes from 4.2.2.4: <span class="nv">icmp_seq</span><span class="o">=</span><span class="m">3</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">52</span> <span class="nv">time</span><span class="o">=</span><span class="m">103</span> ms
+<span class="m">64</span> bytes from 4.2.2.4: <span class="nv">icmp_seq</span><span class="o">=</span><span class="m">4</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">52</span> <span class="nv">time</span><span class="o">=</span><span class="m">102</span> ms
+<span class="m">64</span> bytes from 4.2.2.4: <span class="nv">icmp_seq</span><span class="o">=</span><span class="m">5</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">52</span> <span class="nv">time</span><span class="o">=</span><span class="m">101</span> ms
+<span class="m">64</span> bytes from 4.2.2.4: <span class="nv">icmp_seq</span><span class="o">=</span><span class="m">6</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">52</span> <span class="nv">time</span><span class="o">=</span><span class="m">108</span> ms
+^C
+--- 4.2.2.4 ping statistics ---
+<span class="m">6</span> packets transmitted, <span class="m">6</span> received, 0% packet loss, <span class="nb">time</span> 5007ms
+rtt min/avg/max/mdev <span class="o">=</span> 101.465/103.608/108.219/2.263 ms
+</pre></div>
+
+
+<p>I issued the command, waited for 6 packets, each of them returned back after 103ms, 101ms, ... and then I used Ctrl+c to break the ping. The stats tell me that 6 packets transmitted, 6 received, 0% packet loss; my network works great!</p>
+<h2>nssswitch</h2>
+<p>The <code>/etc/nsswitch.conf</code> file is used to configure which services are to be used to determine information such as hostnames, password files, and group files. Mine is</p>
+<div class="highlight"><pre><span></span># cat /etc/nsswitch.conf
+# Begin /etc/nsswitch.conf
+
+passwd: files
+group: files
+shadow: files
+
+publickey: files
+
+hosts: files dns myhostname
+networks: files
+
+protocols: files
+services: files
+ethers: files
+rpc: files
+
+netgroup: files
+
+# End /etc/nsswitch.conf
+</pre></div>
+
+
+<p>So if someone wants to check a password, the system will try the password <em>file</em> on the system. Or if they want to check an ip address of a hostname, my config says <code>hosts: files dns myhostname</code> so the computer first tries the files (/etc/hosts) and then goes for DNS. If I reverse these and change the line to</p>
+<div class="highlight"><pre><span></span><span class="n">hosts</span><span class="o">:</span>      <span class="n">dns</span> <span class="n">files</span>
+</pre></div>
+
+
+<p>any resolve request will be sent to a DNS server first and the /etc/hosts will be used <em>only</em> if the DNS servers answeres "I dont know!"</p>
+                </div>
+                <footer class="text-right">
+                    <p></p>
+                </footer>
+            </div>
+        </div>
+    </article>
+</section>
+<footer>
+    <hr>
+    <div class="row">
+        <div class="col-lg-9 text-center">
+            <p><small>
+                Built by <a href="http://docs.getpelican.com/en/latest">Pelican</a> / <a href="https://github.com/ingwinlu/pelican-twitchy">pelican-twitchy</a>
+                &middot;                    &copy; 2015 jadi
+            </small></p>
+        </div>
+    </div>
+</footer>            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery Version 1.11.2 -->
+    <script src="../theme/js/jquery-1.11.2.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../theme/js/bootstrap.min.js"></script>
+    <!-- twitchy Script -->
+    <script src="../theme/js/pelican_twitchy.min.js"></script>
+
+</body>
+</html>

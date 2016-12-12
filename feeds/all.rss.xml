@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0"><channel><title>Linux Learner</title><link>http://linuxlearner.net/</link><description>Free LPIC 1 book, lessons and videos</description><lastBuildDate>Fri, 25 Dec 2015 12:20:00 +0000</lastBuildDate><item><title>101.1 Determine and configure hardware settings</title><link>http://linuxlearner.net/1011-determine-and-configure-hardware-settings.html</link><description>&lt;h1&gt;101.1 Determine and configure hardware settings&lt;/h1&gt;
+<rss version="2.0"><channel><title>Linux Learner</title><link>http://linuxlearner.net/</link><description>Free LPIC 1 book, lessons and videos</description><lastBuildDate>Fri, 25 Dec 2015 12:20:00 +0000</lastBuildDate><item><title>101.1 Determine and configure hardware settings</title><link>http://linuxlearner.net/lpic101/1011-determine-and-configure-hardware-settings.html</link><description>&lt;h1&gt;101.1 Determine and configure hardware settings&lt;/h1&gt;
 &lt;p&gt;&lt;em&gt;Weight: 2&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;Candidates should be able to determine and configure fundamental system hardware.&lt;/p&gt;
 &lt;h2&gt;Objectives&lt;/h2&gt;
@@ -275,7 +275,7 @@ tmpfs /run tmpfs rw,nosuid,noexec,relatime,size=806028k,mode=755 0 0
 
 &lt;p&gt;Every other device has its own ID which can be used to &lt;em&gt;identify&lt;/em&gt; it.&lt;/p&gt;
 &lt;h2&gt;hotplug&lt;/h2&gt;
-&lt;p&gt;Hotplug is when you insert a hardware into a running computer and coldplug is when you have to turn your computer off to install a hardware. USB devices are hot pluggable while PCI cards should be cold-plugged.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:1011-determine-and-configure-hardware-settings.html</guid></item><item><title>101.2. Boot the system</title><link>http://linuxlearner.net/1012-boot-the-system.html</link><description>&lt;h1&gt;101.2. Boot the system&lt;/h1&gt;
+&lt;p&gt;Hotplug is when you insert a hardware into a running computer and coldplug is when you have to turn your computer off to install a hardware. USB devices are hot pluggable while PCI cards should be cold-plugged.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:lpic101/1011-determine-and-configure-hardware-settings.html</guid></item><item><title>101.2. Boot the system</title><link>http://linuxlearner.net/lpic101/1012-boot-the-system.html</link><description>&lt;h1&gt;101.2. Boot the system&lt;/h1&gt;
 &lt;p&gt;weight: 3&lt;/p&gt;
 &lt;p&gt;Candidates should be able to guide the system through the booting process.&lt;/p&gt;
 &lt;h2&gt;Key Knowledge Areas&lt;/h2&gt;
@@ -327,7 +327,7 @@ tmpfs /run tmpfs rw,nosuid,noexec,relatime,size=806028k,mode=755 0 0
 &lt;li&gt;Kernel is still logging its own messages in dmesg&lt;/li&gt;
 &lt;li&gt;in some systems it might be called /var/log/syslog&lt;/li&gt;
 &lt;li&gt;there are many other logs at /var/log&lt;/li&gt;
-&lt;/ul&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:1012-boot-the-system.html</guid></item><item><title>101.3. Change runlevels and shutdown or reboot system</title><link>http://linuxlearner.net/1013-change-runlevels-and-shutdown-or-reboot-system.html</link><description>&lt;h1&gt;101.3. Change runlevels and shutdown or reboot system&lt;/h1&gt;
+&lt;/ul&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:lpic101/1012-boot-the-system.html</guid></item><item><title>101.3. Change runlevels and shutdown or reboot system</title><link>http://linuxlearner.net/lpic101/1013-change-runlevels-and-shutdown-or-reboot-system.html</link><description>&lt;h1&gt;101.3. Change runlevels and shutdown or reboot system&lt;/h1&gt;
 &lt;p&gt;weight: 3&lt;/p&gt;
 &lt;p&gt;Candidates should be able to manage the runlevel of the system. This objective includes changing to single user mode, shutdown or rebooting the system. Candidates should be able to alert users before switching run level and properly terminate processes. This objective also includes setting the default run level. It also includes basic feature knowledge of potential replacements to init.&lt;/p&gt;
 &lt;h3&gt;Key Knowledge Areas&lt;/h3&gt;
@@ -500,7 +500,7 @@ N 3
 &lt;p&gt;.&lt;/p&gt;
 &lt;p&gt;.&lt;/p&gt;
 &lt;p&gt;.
-.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:1013-change-runlevels-and-shutdown-or-reboot-system.html</guid></item><item><title>102.1 Design hard disk layout</title><link>http://linuxlearner.net/1021-design-hard-disk-layout.html</link><description>&lt;h1&gt;102.1. Design hard disk layout&lt;/h1&gt;
+.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:lpic101/1013-change-runlevels-and-shutdown-or-reboot-system.html</guid></item><item><title>102.1 Design hard disk layout</title><link>http://linuxlearner.net/lpic101/1021-design-hard-disk-layout.html</link><description>&lt;h1&gt;102.1. Design hard disk layout&lt;/h1&gt;
 &lt;p&gt;&lt;em&gt;Weight: 2&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;Description: Candidates should be able to design a disk partitioning scheme for a Linux system.&lt;/p&gt;
 &lt;h2&gt;Key Knowledge Areas&lt;/h2&gt;
@@ -717,7 +717,7 @@ Device     Boot     Start       End   Sectors   Size Id Type
 &lt;p&gt;.&lt;/p&gt;
 &lt;p&gt;.&lt;/p&gt;
 &lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:1021-design-hard-disk-layout.html</guid></item><item><title>102.2 Install a boot manager</title><link>http://linuxlearner.net/1022-install-a-boot-manager.html</link><description>&lt;h1&gt;102.2 Install a boot manager&lt;/h1&gt;
+&lt;p&gt;.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:lpic101/1021-design-hard-disk-layout.html</guid></item><item><title>102.2 Install a boot manager</title><link>http://linuxlearner.net/lpic101/1022-install-a-boot-manager.html</link><description>&lt;h1&gt;102.2 Install a boot manager&lt;/h1&gt;
 &lt;p&gt;&lt;em&gt;Weight: 2&lt;/em&gt;
     Description: Candidates should be able to select, install and configure a boot manager.&lt;/p&gt;
 &lt;h1&gt;Objectives&lt;/h1&gt;
@@ -1143,7 +1143,7 @@ menuentry &amp;quot;Ubuntu, Linux 2.6.31-20-generic (recovery mode)&amp;quot; {
 &lt;p&gt;.&lt;/p&gt;
 &lt;p&gt;.&lt;/p&gt;
 &lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:1022-install-a-boot-manager.html</guid></item><item><title>102.3. Manage shared libraries</title><link>http://linuxlearner.net/1023-manage-shared-libraries.html</link><description>&lt;h1&gt;102.3. Manage shared libraries&lt;/h1&gt;
+&lt;p&gt;.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:lpic101/1022-install-a-boot-manager.html</guid></item><item><title>102.3. Manage shared libraries</title><link>http://linuxlearner.net/lpic101/1023-manage-shared-libraries.html</link><description>&lt;h1&gt;102.3. Manage shared libraries&lt;/h1&gt;
 &lt;p&gt;&lt;em&gt;weight 2&lt;/em&gt;&lt;/p&gt;
 &lt;h2&gt;Objectives&lt;/h2&gt;
 &lt;p&gt;Candidates should be able to determine the shared libraries that executable programs depend on and install them when necessary.&lt;/p&gt;
@@ -1270,7 +1270,7 @@ root@funlife:/sbin# cat /etc/ld.so.conf.d/x86_64-linux-gnu_GL.conf
 &lt;p&gt;.&lt;/p&gt;
 &lt;p&gt;.&lt;/p&gt;
 &lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:1023-manage-shared-libraries.html</guid></item><item><title>102.4. Use Debian package management</title><link>http://linuxlearner.net/1024-use-debian-package-management.html</link><description>&lt;h1&gt;102.4. Use Debian package management&lt;/h1&gt;
+&lt;p&gt;.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:lpic101/1023-manage-shared-libraries.html</guid></item><item><title>102.4. Use Debian package management</title><link>http://linuxlearner.net/lpic101/1024-use-debian-package-management.html</link><description>&lt;h1&gt;102.4. Use Debian package management&lt;/h1&gt;
 &lt;p&gt;&lt;em&gt;weight: 3&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;Candidates should be able to perform package management using the Debian package tools.&lt;/p&gt;
 &lt;ul&gt;
@@ -1526,7 +1526,7 @@ $ aptitude show bzr
 &lt;p&gt;.&lt;/p&gt;
 &lt;p&gt;.&lt;/p&gt;
 &lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:1024-use-debian-package-management.html</guid></item><item><title>102.5 Use RPM and YUM package management</title><link>http://linuxlearner.net/1025-use-rpm-and-yum-package-management.html</link><description>&lt;h1&gt;102.5 Use RPM and YUM package management&lt;/h1&gt;
+&lt;p&gt;.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:lpic101/1024-use-debian-package-management.html</guid></item><item><title>102.5 Use RPM and YUM package management</title><link>http://linuxlearner.net/lpic101/1025-use-rpm-and-yum-package-management.html</link><description>&lt;h1&gt;102.5 Use RPM and YUM package management&lt;/h1&gt;
 &lt;p&gt;&lt;em&gt;Weight: 3&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;Candidates should be able to perform package management using RPM and YUM tools.&lt;/p&gt;
 &lt;h2&gt;Goals&lt;/h2&gt;
@@ -1873,7 +1873,7 @@ missing     /etc/bash_completion.d/bzr
 &lt;p&gt;.&lt;/p&gt;
 &lt;p&gt;.&lt;/p&gt;
 &lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:1025-use-rpm-and-yum-package-management.html</guid></item><item><title>103.1 Work on the command line</title><link>http://linuxlearner.net/1031-work-on-the-command-line.html</link><description>&lt;h1&gt;Work on the command line&lt;/h1&gt;
+&lt;p&gt;.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:lpic101/1025-use-rpm-and-yum-package-management.html</guid></item><item><title>103.1 Work on the command line</title><link>http://linuxlearner.net/lpic101/1031-work-on-the-command-line.html</link><description>&lt;h1&gt;Work on the command line&lt;/h1&gt;
 &lt;p&gt;&lt;em&gt;Weight: 4&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;Description: Candidates should be able to interact with shells and commands using the command line. The objective assumes the bash shell.&lt;/p&gt;
 &lt;h2&gt;Objectives&lt;/h2&gt;
@@ -2299,7 +2299,7 @@ traceroute6.iputils &lt;span class="o"&gt;(&lt;/span&gt;8&lt;span class="o"&gt;)
 &lt;p&gt;.&lt;/p&gt;
 &lt;p&gt;.&lt;/p&gt;
 &lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:1031-work-on-the-command-line.html</guid></item><item><title>103.2. Process text streams using filters</title><link>http://linuxlearner.net/1032-process-text-streams-using-filters.html</link><description>&lt;h1&gt;103.2. Process text streams using filters&lt;/h1&gt;
+&lt;p&gt;.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:lpic101/1031-work-on-the-command-line.html</guid></item><item><title>103.2. Process text streams using filters</title><link>http://linuxlearner.net/lpic101/1032-process-text-streams-using-filters.html</link><description>&lt;h1&gt;103.2. Process text streams using filters&lt;/h1&gt;
 &lt;p&gt;&lt;em&gt;Weight: 3&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;Description: Candidates should be able to apply filters to text streams.&lt;/p&gt;
 &lt;h2&gt;Objectives&lt;/h2&gt;
@@ -2770,7 +2770,7 @@ and this    is  getting longer
 .
 and longer
 and longer!
-````&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:1032-process-text-streams-using-filters.html</guid></item><item><title>103.3 Perform basic file management</title><link>http://linuxlearner.net/1033-perform-basic-file-management.html</link><description>&lt;h1&gt;103.3 Perform basic file management&lt;/h1&gt;
+````&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:lpic101/1032-process-text-streams-using-filters.html</guid></item><item><title>103.3 Perform basic file management</title><link>http://linuxlearner.net/lpic101/1033-perform-basic-file-management.html</link><description>&lt;h1&gt;103.3 Perform basic file management&lt;/h1&gt;
 &lt;p&gt;&lt;em&gt;Weight: 4&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;Candidates should be able to use the basic Linux commands to manage files and directories.&lt;/p&gt;
 &lt;h2&gt;Objectives&lt;/h2&gt;
@@ -3367,7 +3367,7 @@ $
 &lt;p&gt;.&lt;/p&gt;
 &lt;p&gt;.&lt;/p&gt;
 &lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:1033-perform-basic-file-management.html</guid></item><item><title>103.4. Use streams, pipes and redirects</title><link>http://linuxlearner.net/1034-use-streams-pipes-and-redirects.html</link><description>&lt;h1&gt;103.4. Use streams, pipes and redirects&lt;/h1&gt;
+&lt;p&gt;.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:lpic101/1033-perform-basic-file-management.html</guid></item><item><title>103.4. Use streams, pipes and redirects</title><link>http://linuxlearner.net/lpic101/1034-use-streams-pipes-and-redirects.html</link><description>&lt;h1&gt;103.4. Use streams, pipes and redirects&lt;/h1&gt;
 &lt;ul&gt;
 &lt;li&gt;Candidates should be able to redirect streams and connect them in order to efficiently process textual data. Tasks include redirecting standard input, standard output and standard error, piping the output of one command to the input of another command, using the output of one command as arguments to another command and sending output to both stdout and a file.&lt;/li&gt;
 &lt;/ul&gt;
@@ -3561,7 +3561,7 @@ sina
 &lt;p&gt;.&lt;/p&gt;
 &lt;p&gt;.&lt;/p&gt;
 &lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:1034-use-streams-pipes-and-redirects.html</guid></item><item><title>103.5. Create, monitor and kill processes</title><link>http://linuxlearner.net/1035-create-monitor-and-kill-processes.html</link><description>&lt;h1&gt;103.5. Create, monitor and kill processes&lt;/h1&gt;
+&lt;p&gt;.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:lpic101/1034-use-streams-pipes-and-redirects.html</guid></item><item><title>103.5. Create, monitor and kill processes</title><link>http://linuxlearner.net/lpic101/1035-create-monitor-and-kill-processes.html</link><description>&lt;h1&gt;103.5. Create, monitor and kill processes&lt;/h1&gt;
 &lt;p&gt;&lt;em&gt;Weight: 4&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;Candidates should be able to perform basic process management.&lt;/p&gt;
 &lt;h2&gt;Objectives&lt;/h2&gt;
@@ -3813,7 +3813,7 @@ The `uptime` command shows the time, how long the system is up, how may users ar
 &lt;p&gt;.&lt;/p&gt;
 &lt;p&gt;.&lt;/p&gt;
 &lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:1035-create-monitor-and-kill-processes.html</guid></item><item><title>103.6. Modify process execution priorities</title><link>http://linuxlearner.net/1036-modify-process-execution-priorities.html</link><description>&lt;h1&gt;103.6. Modify process execution priorities&lt;/h1&gt;
+&lt;p&gt;.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:lpic101/1035-create-monitor-and-kill-processes.html</guid></item><item><title>103.6. Modify process execution priorities</title><link>http://linuxlearner.net/lpic101/1036-modify-process-execution-priorities.html</link><description>&lt;h1&gt;103.6. Modify process execution priorities&lt;/h1&gt;
 &lt;p&gt;&lt;em&gt;Weight: 2&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;Candidates should be able to manage process execution priorities.&lt;/p&gt;
 &lt;h2&gt;Objectives&lt;/h2&gt;
@@ -3922,7 +3922,7 @@ $ sudo renice -n -10 13605
 &lt;p&gt;.&lt;/p&gt;
 &lt;p&gt;.
 .&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:1036-modify-process-execution-priorities.html</guid></item><item><title>103.7 Search text files using regular expressions</title><link>http://linuxlearner.net/1037-search-text-files-using-regular-expressions.html</link><description>&lt;h1&gt;103.7 Search text files using regular expressions&lt;/h1&gt;
+&lt;p&gt;.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:lpic101/1036-modify-process-execution-priorities.html</guid></item><item><title>103.7 Search text files using regular expressions</title><link>http://linuxlearner.net/lpic101/1037-search-text-files-using-regular-expressions.html</link><description>&lt;h1&gt;103.7 Search text files using regular expressions&lt;/h1&gt;
 &lt;p&gt;&lt;em&gt;Weight: 2&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;Candidates should be able to manipulate files and text data using regular expressions. This objective includes creating simple regular expressions containing several notational elements. It also includes using regular expression tools to perform searches through a filesystem or file content.&lt;/p&gt;
 &lt;h1&gt;Objectives&lt;/h1&gt;
@@ -4175,7 +4175,7 @@ ali
 &lt;p&gt;.&lt;/p&gt;
 &lt;p&gt;.&lt;/p&gt;
 &lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:1037-search-text-files-using-regular-expressions.html</guid></item><item><title>103.8 Perform basic file editing operations using vi</title><link>http://linuxlearner.net/1038-perform-basic-file-editing-operations-using-vi.html</link><description>&lt;h1&gt;103.8 Perform basic file editing operations using vi&lt;/h1&gt;
+&lt;p&gt;.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:lpic101/1037-search-text-files-using-regular-expressions.html</guid></item><item><title>103.8 Perform basic file editing operations using vi</title><link>http://linuxlearner.net/lpic101/1038-perform-basic-file-editing-operations-using-vi.html</link><description>&lt;h1&gt;103.8 Perform basic file editing operations using vi&lt;/h1&gt;
 &lt;p&gt;&lt;em&gt;Weight: 3&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;Candidates should be able to edit text files using vi. This objective includes vi navigation, basic vi modes, inserting, editing, deleting, copying and finding text.&lt;/p&gt;
 &lt;h2&gt;Objectives&lt;/h2&gt;
@@ -4437,7 +4437,7 @@ Small version without GUI.  Features included &lt;span class="o"&gt;(&lt;/span&g
 &lt;p&gt;.&lt;/p&gt;
 &lt;p&gt;.
 .&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:1038-perform-basic-file-editing-operations-using-vi.html</guid></item><item><title>104.1. Create partitions and filesystems</title><link>http://linuxlearner.net/1041-create-partitions-and-filesystems.html</link><description>&lt;h1&gt;104.1. Create partitions and filesystems&lt;/h1&gt;
+&lt;p&gt;.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:lpic101/1038-perform-basic-file-editing-operations-using-vi.html</guid></item><item><title>104.1. Create partitions and filesystems</title><link>http://linuxlearner.net/lpic102/1041-create-partitions-and-filesystems.html</link><description>&lt;h1&gt;104.1. Create partitions and filesystems&lt;/h1&gt;
 &lt;p&gt;&lt;em&gt;Weight: 2&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;Description: Candidates should be able to configure disk partitions and then create filesystems on media such as hard disks. This includes the handling of swap partitions.&lt;/p&gt;
 &lt;h2&gt;Objective&lt;/h2&gt;
@@ -4843,7 +4843,7 @@ to GPT format!
 &lt;p&gt;.&lt;/p&gt;
 &lt;p&gt;.&lt;/p&gt;
 &lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:1041-create-partitions-and-filesystems.html</guid></item><item><title>104.2 Maintain the integrity of filesystems</title><link>http://linuxlearner.net/1042-maintain-the-integrity-of-filesystems.html</link><description>&lt;h1&gt;104.2 Maintain the integrity of filesystems&lt;/h1&gt;
+&lt;p&gt;.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:lpic102/1041-create-partitions-and-filesystems.html</guid></item><item><title>104.2 Maintain the integrity of filesystems</title><link>http://linuxlearner.net/lpic102/1042-maintain-the-integrity-of-filesystems.html</link><description>&lt;h1&gt;104.2 Maintain the integrity of filesystems&lt;/h1&gt;
 &lt;p&gt;&lt;em&gt;Weight: 2&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;Candidates should be able to maintain a standard filesystem, as well as the extra data associated with a journaling filesystem.&lt;/p&gt;
 &lt;h1&gt;Objectives&lt;/h1&gt;
@@ -5224,7 +5224,7 @@ Superblock backups stored on blocks:
 &lt;p&gt;.&lt;/p&gt;
 &lt;p&gt;.&lt;/p&gt;
 &lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:1042-maintain-the-integrity-of-filesystems.html</guid></item><item><title>104.3. Control mounting and unmounting of filesystems</title><link>http://linuxlearner.net/1043-control-mounting-and-unmounting-of-filesystems.html</link><description>&lt;h1&gt;104.3. Control mounting and unmounting of filesystems&lt;/h1&gt;
+&lt;p&gt;.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:lpic102/1042-maintain-the-integrity-of-filesystems.html</guid></item><item><title>104.3. Control mounting and unmounting of filesystems</title><link>http://linuxlearner.net/lpic102/1043-control-mounting-and-unmounting-of-filesystems.html</link><description>&lt;h1&gt;104.3. Control mounting and unmounting of filesystems&lt;/h1&gt;
 &lt;p&gt;weight: 3&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;http://j.mp/jadilpic1&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Configure the mounting of a filesystem. Tasks include manually mounting and unmounting filesystems, configuring filesystem mounting on bootup, and configuring user-mountable removable filesystems.&lt;/p&gt;
@@ -5274,7 +5274,7 @@ mount -o remount,ro /dev/sda1
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;swapon
 swapoff
 swapon -s
-&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:1043-control-mounting-and-unmounting-of-filesystems.html</guid></item><item><title>104.4 Manage disk quotas</title><link>http://linuxlearner.net/1044-manage-disk-quotas.html</link><description>&lt;h1&gt;104.4 Manage disk quotas&lt;/h1&gt;
+&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:lpic102/1043-control-mounting-and-unmounting-of-filesystems.html</guid></item><item><title>104.4 Manage disk quotas</title><link>http://linuxlearner.net/lpic102/1044-manage-disk-quotas.html</link><description>&lt;h1&gt;104.4 Manage disk quotas&lt;/h1&gt;
 &lt;p&gt;&lt;em&gt;Weight: 1&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;Candidates should be able to manage disk quotas for users.&lt;/p&gt;
 &lt;h2&gt;Objectives&lt;/h2&gt;
@@ -5401,7 +5401,7 @@ Disk quotas for user jadi (uid 1000):
 &lt;p&gt;.&lt;/p&gt;
 &lt;p&gt;.&lt;/p&gt;
 &lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:1044-manage-disk-quotas.html</guid></item><item><title>104.5 Manage file permissions and ownership</title><link>http://linuxlearner.net/1045-manage-file-permissions-and-ownership.html</link><description>&lt;h1&gt;104.5 Manage file permissions and ownership&lt;/h1&gt;
+&lt;p&gt;.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:lpic102/1044-manage-disk-quotas.html</guid></item><item><title>104.5 Manage file permissions and ownership</title><link>http://linuxlearner.net/lpic102/1045-manage-file-permissions-and-ownership.html</link><description>&lt;h1&gt;104.5 Manage file permissions and ownership&lt;/h1&gt;
 &lt;p&gt;&lt;em&gt;Weight: 3&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;Candidates should be able to control file access through the proper use of permissions and ownerships.&lt;/p&gt;
 &lt;h2&gt;Objectives&lt;/h2&gt;
@@ -5701,7 +5701,7 @@ $ touch newerfile
 $ ls -ltrh new*
 -rw------- &lt;span class="m"&gt;1&lt;/span&gt; jadi jadi &lt;span class="m"&gt;0&lt;/span&gt; Feb  &lt;span class="m"&gt;8&lt;/span&gt; 21:53 newfile
 -rw------- &lt;span class="m"&gt;1&lt;/span&gt; jadi adm  &lt;span class="m"&gt;0&lt;/span&gt; Feb  &lt;span class="m"&gt;8&lt;/span&gt; 21:54 newerfile
-&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:1045-manage-file-permissions-and-ownership.html</guid></item><item><title>104.6. Create and change hard &amp; symbolic links</title><link>http://linuxlearner.net/1046-create-and-change-hard-symbolic-links.html</link><description>&lt;h1&gt;104.6. Create and change hard &amp;amp; symbolic links&lt;/h1&gt;
+&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:lpic102/1045-manage-file-permissions-and-ownership.html</guid></item><item><title>104.6. Create and change hard &amp; symbolic links</title><link>http://linuxlearner.net/lpic102/1046-create-and-change-hard-symbolic-links.html</link><description>&lt;h1&gt;104.6. Create and change hard &amp;amp; symbolic links&lt;/h1&gt;
 &lt;p&gt;weight: 2&lt;/p&gt;
 &lt;h3&gt;Key Knowledge Areas&lt;/h3&gt;
 &lt;ul&gt;
@@ -5747,7 +5747,7 @@ $ ls -ltrh new*
 &lt;p&gt;and they are useful!&lt;/p&gt;
 &lt;p&gt;$ which java # linking to specific versions
   $ ls -ltrhi /etc/grub2.cfg # easier admin tasks
-  $ ls -l /usr/lib64/ # keeping libraries clean&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:1046-create-and-change-hard-symbolic-links.html</guid></item><item><title>104.7 Find system files and place files in the correct location</title><link>http://linuxlearner.net/1047-find-system-files-and-place-files-in-the-correct-location.html</link><description>&lt;h1&gt;104.7 Find system files and place files in the correct location&lt;/h1&gt;
+  $ ls -l /usr/lib64/ # keeping libraries clean&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:lpic102/1046-create-and-change-hard-symbolic-links.html</guid></item><item><title>104.7 Find system files and place files in the correct location</title><link>http://linuxlearner.net/lpic102/1047-find-system-files-and-place-files-in-the-correct-location.html</link><description>&lt;h1&gt;104.7 Find system files and place files in the correct location&lt;/h1&gt;
 &lt;p&gt;&lt;em&gt;Weight: 2&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;Candidates should be thoroughly familiar with the &lt;strong&gt;Filesystem Hierarchy Standard (FHS)&lt;/strong&gt;, including typical file locations and directory classifications.&lt;/p&gt;
 &lt;h2&gt;Objectives&lt;/h2&gt;
@@ -5978,7 +5978,7 @@ Database /var/lib/mlocate/mlocate.db:
 &lt;p&gt;.&lt;/p&gt;
 &lt;p&gt;.&lt;/p&gt;
 &lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:1047-find-system-files-and-place-files-in-the-correct-location.html</guid></item><item><title>105.1. Customize and use the shell environment</title><link>http://linuxlearner.net/1051-customize-and-use-the-shell-environment.html</link><description>&lt;h1&gt;105.1. Customize and use the shell environment&lt;/h1&gt;
+&lt;p&gt;.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:lpic102/1047-find-system-files-and-place-files-in-the-correct-location.html</guid></item><item><title>105.1. Customize and use the shell environment</title><link>http://linuxlearner.net/lpic102/1051-customize-and-use-the-shell-environment.html</link><description>&lt;h1&gt;105.1. Customize and use the shell environment&lt;/h1&gt;
 &lt;p&gt;&lt;em&gt;Weight: 4&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;Candidates should be able to customize shell environments to meet users’ needs. Candidates should be able to modify global and user profiles.&lt;/p&gt;
 &lt;h3&gt;Key Knowledge Areas&lt;/h3&gt;
@@ -6172,7 +6172,7 @@ man injam
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;Please pay attention to the syntax.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:1051-customize-and-use-the-shell-environment.html</guid></item><item><title>105.2 Customize or write simple scripts</title><link>http://linuxlearner.net/1052-customize-or-write-simple-scripts.html</link><description>&lt;h1&gt;105.2 Customize or write simple scripts&lt;/h1&gt;
+&lt;p&gt;Please pay attention to the syntax.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:lpic102/1051-customize-and-use-the-shell-environment.html</guid></item><item><title>105.2 Customize or write simple scripts</title><link>http://linuxlearner.net/lpic102/1052-customize-or-write-simple-scripts.html</link><description>&lt;h1&gt;105.2 Customize or write simple scripts&lt;/h1&gt;
 &lt;p&gt;&lt;em&gt;Weight: 4&lt;/em&gt;&lt;/p&gt;
 &lt;h3&gt;Description&lt;/h3&gt;
 &lt;p&gt;Candidates should be able to customize existing scripts, or write simple new Bash scripts.&lt;/p&gt;
@@ -6434,7 +6434,7 @@ hello there. This is my mail
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;This can be easily embeded as poart of your scripts!&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:1052-customize-or-write-simple-scripts.html</guid></item><item><title>105.3 SQL data management</title><link>http://linuxlearner.net/1053-sql-data-management.html</link><description>&lt;h1&gt;105.3 SQL data management&lt;/h1&gt;
+&lt;p&gt;This can be easily embeded as poart of your scripts!&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:lpic102/1052-customize-or-write-simple-scripts.html</guid></item><item><title>105.3 SQL data management</title><link>http://linuxlearner.net/lpic102/1053-sql-data-management.html</link><description>&lt;h1&gt;105.3 SQL data management&lt;/h1&gt;
 &lt;p&gt;&lt;em&gt;Weight: 2&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;Candidates should be able to query databases and manipulate data using basic SQL commands. This objective includes performing queries involving joining of 2 tables and/or subselects.&lt;/p&gt;
 &lt;h3&gt;Key Knowledge Areas&lt;/h3&gt;
@@ -6848,7 +6848,7 @@ jadi@funlife:~$
 &lt;p&gt;.&lt;/p&gt;
 &lt;p&gt;.&lt;/p&gt;
 &lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:1053-sql-data-management.html</guid></item><item><title>106.1 Install and configure X11</title><link>http://linuxlearner.net/1061-install-and-configure-x11.html</link><description>&lt;h1&gt;106.1 Install and configure X11&lt;/h1&gt;
+&lt;p&gt;.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:lpic102/1053-sql-data-management.html</guid></item><item><title>106.1 Install and configure X11</title><link>http://linuxlearner.net/lpic102/1061-install-and-configure-x11.html</link><description>&lt;h1&gt;106.1 Install and configure X11&lt;/h1&gt;
 &lt;p&gt;&lt;em&gt;Weight: 2&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;Candidates should be able to install and configure X11.&lt;/p&gt;
 &lt;h3&gt;Key Knowledge Areas&lt;/h3&gt;
@@ -7121,7 +7121,7 @@ $ xeyes &lt;span class="c1"&gt;# the eyes will be shown on 192.168.42.85 machine
 &lt;p&gt;.&lt;/p&gt;
 &lt;p&gt;.&lt;/p&gt;
 &lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:1061-install-and-configure-x11.html</guid></item><item><title>106.2 Setup a display manager</title><link>http://linuxlearner.net/1062-setup-a-display-manager.html</link><description>&lt;h1&gt;106.2 Setup a display manager&lt;/h1&gt;
+&lt;p&gt;.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:lpic102/1061-install-and-configure-x11.html</guid></item><item><title>106.2 Setup a display manager</title><link>http://linuxlearner.net/lpic102/1062-setup-a-display-manager.html</link><description>&lt;h1&gt;106.2 Setup a display manager&lt;/h1&gt;
 &lt;p&gt;&lt;em&gt;Weight: 1&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;Candidates should be able to describe the basic features and configuration of the LightDM display manager. This objective covers awareness of the display managers XDM (X Display Manger), GDM (Gnome Display Manager) and KDM (KDE Display Manager).&lt;/p&gt;
 &lt;h2&gt;Key Knowledge Areas&lt;/h2&gt;
@@ -7170,7 +7170,7 @@ total 24K
 &lt;p&gt;The &lt;code&gt;lightdm&lt;/code&gt; works as a service. You can start, stop &amp;amp; restart it or even use &lt;code&gt;systemctl disable lightdm&lt;/code&gt; to disable it on next boots.&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;You already know how to reboot your computer in text mode from previous lessons (using grub, kernel parameters during the boot or using &lt;code&gt;init&lt;/code&gt; command).&lt;/p&gt;
-&lt;/blockquote&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:1062-setup-a-display-manager.html</guid></item><item><title>106.3 Accessibility</title><link>http://linuxlearner.net/1063-accessibility.html</link><description>&lt;h1&gt;106.3 Accessibility&lt;/h1&gt;
+&lt;/blockquote&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:lpic102/1062-setup-a-display-manager.html</guid></item><item><title>106.3 Accessibility</title><link>http://linuxlearner.net/lpic102/1063-accessibility.html</link><description>&lt;h1&gt;106.3 Accessibility&lt;/h1&gt;
 &lt;p&gt;&lt;em&gt;Weight: 1&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;Demonstrate knowledge and awareness of accessibility technologies.&lt;/p&gt;
 &lt;h2&gt;Key Knowledge Areas&lt;/h2&gt;
@@ -7216,7 +7216,7 @@ total 24K
 &lt;li&gt;Hover click (click by waiting on a button)&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2&gt;TTS&lt;/h2&gt;
-&lt;p&gt;Applications like &lt;strong&gt;Orca&lt;/strong&gt; or &lt;strong&gt;Emacspeak&lt;/strong&gt; can read the dialog boxes to you so you can decide what the answer only by hearing.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:1063-accessibility.html</guid></item><item><title>107.1 Manage user and group accounts and related system files</title><link>http://linuxlearner.net/1071-manage-user-and-group-accounts-and-related-system-files.html</link><description>&lt;h1&gt;107.1 Manage user and group accounts and related system files&lt;/h1&gt;
+&lt;p&gt;Applications like &lt;strong&gt;Orca&lt;/strong&gt; or &lt;strong&gt;Emacspeak&lt;/strong&gt; can read the dialog boxes to you so you can decide what the answer only by hearing.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:lpic102/1063-accessibility.html</guid></item><item><title>107.1 Manage user and group accounts and related system files</title><link>http://linuxlearner.net/lpic102/1071-manage-user-and-group-accounts-and-related-system-files.html</link><description>&lt;h1&gt;107.1 Manage user and group accounts and related system files&lt;/h1&gt;
 &lt;p&gt;&lt;em&gt;Weight: 5&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;Candidates should be able to add, remove, suspend and change user accounts.&lt;/p&gt;
 &lt;h2&gt;Key Knowledge Areas&lt;/h2&gt;
@@ -7527,7 +7527,7 @@ uid=1000(jadi) gid=100(users) groups=1000(input),100(users)
 &lt;p&gt;.&lt;/p&gt;
 &lt;p&gt;.&lt;/p&gt;
 &lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:1071-manage-user-and-group-accounts-and-related-system-files.html</guid></item><item><title>107.2 Automate system administration tasks by scheduling jobs</title><link>http://linuxlearner.net/1072-automate-system-administration-tasks-by-scheduling-jobs.html</link><description>&lt;h1&gt;107.2 Automate system administration tasks by scheduling jobs&lt;/h1&gt;
+&lt;p&gt;.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:lpic102/1071-manage-user-and-group-accounts-and-related-system-files.html</guid></item><item><title>107.2 Automate system administration tasks by scheduling jobs</title><link>http://linuxlearner.net/lpic102/1072-automate-system-administration-tasks-by-scheduling-jobs.html</link><description>&lt;h1&gt;107.2 Automate system administration tasks by scheduling jobs&lt;/h1&gt;
 &lt;p&gt;&lt;em&gt;Weight: 4&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;Candidates should be able to use cron or anacron to run jobs at regular intervals and to use at to run jobs at a specific time.&lt;/p&gt;
 &lt;h2&gt;Key Knowledge Areas&lt;/h2&gt;
@@ -7777,7 +7777,7 @@ root&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;s password:
 &lt;p&gt;.&lt;/p&gt;
 &lt;p&gt;.&lt;/p&gt;
 &lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:1072-automate-system-administration-tasks-by-scheduling-jobs.html</guid></item><item><title>107.3 Localisation and internationalisation</title><link>http://linuxlearner.net/1073-localisation-and-internationalisation.html</link><description>&lt;h1&gt;107.3 Localisation and internationalisation&lt;/h1&gt;
+&lt;p&gt;.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:lpic102/1072-automate-system-administration-tasks-by-scheduling-jobs.html</guid></item><item><title>107.3 Localisation and internationalisation</title><link>http://linuxlearner.net/lpic102/1073-localisation-and-internationalisation.html</link><description>&lt;h1&gt;107.3 Localisation and internationalisation&lt;/h1&gt;
 &lt;p&gt;&lt;em&gt;Weight: 3&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;Candidates should be able to localise a system in a different language than English. As well, an understanding of why LANG=C is useful when scripting.&lt;/p&gt;
 &lt;h2&gt;Key Knowledge Areas&lt;/h2&gt;
@@ -7907,7 +7907,7 @@ Asia/Tehran
 &lt;blockquote&gt;
 &lt;p&gt;Note: -f is for "from" and -t is for "to". Easy to remember&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;In 2016 you will seldom need this command but it is a must to know it, specially if you are living in a non US country!&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:1073-localisation-and-internationalisation.html</guid></item><item><title>108.1 Maintain system time</title><link>http://linuxlearner.net/1081-maintain-system-time.html</link><description>&lt;h1&gt;108.1 Maintain system time&lt;/h1&gt;
+&lt;p&gt;In 2016 you will seldom need this command but it is a must to know it, specially if you are living in a non US country!&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:lpic102/1073-localisation-and-internationalisation.html</guid></item><item><title>108.1 Maintain system time</title><link>http://linuxlearner.net/lpic102/1081-maintain-system-time.html</link><description>&lt;h1&gt;108.1 Maintain system time&lt;/h1&gt;
 &lt;p&gt;&lt;em&gt;Weight: 3&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;Candidates should be able to properly maintain the system time and synchronize the clock via NTP.&lt;/p&gt;
 &lt;h2&gt;Key Knowledge Areas&lt;/h2&gt;
@@ -8071,7 +8071,7 @@ restrict source notrap nomodify noquery
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;In this output a &lt;code&gt;*&lt;/code&gt; means that the ntp is using this server as the main reference, &lt;code&gt;+&lt;/code&gt; means that this is a good server and &lt;code&gt;-&lt;/code&gt; shows an out of range server which will be neglected.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:1081-maintain-system-time.html</guid></item><item><title>108.2 System logging</title><link>http://linuxlearner.net/1082-system-logging.html</link><description>&lt;h1&gt;108.2 System logging&lt;/h1&gt;
+&lt;p&gt;In this output a &lt;code&gt;*&lt;/code&gt; means that the ntp is using this server as the main reference, &lt;code&gt;+&lt;/code&gt; means that this is a good server and &lt;code&gt;-&lt;/code&gt; shows an out of range server which will be neglected.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:lpic102/1081-maintain-system-time.html</guid></item><item><title>108.2 System logging</title><link>http://linuxlearner.net/lpic102/1082-system-logging.html</link><description>&lt;h1&gt;108.2 System logging&lt;/h1&gt;
 &lt;p&gt;&lt;em&gt;Weight: 3&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;Candidates should be able to configure the syslog daemon. This objective also includes configuring the logging daemon to send log output to a central log  server or accept log output as a central log server. Use of the systemd journal subsystem is covered. Also, awareness of rsyslog and syslog-ng as alternative logging systems is included.&lt;/p&gt;
 &lt;h2&gt;Key Knowledge Areas&lt;/h2&gt;
@@ -8299,7 +8299,7 @@ include /etc/logrotate.d
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;This configuration will create a zipped file for each week, keeping only 52 of them instead of a huge log file for this program.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:1082-system-logging.html</guid></item><item><title>108.3 Mail Transfer Agent (MTA) basics</title><link>http://linuxlearner.net/1083-mail-transfer-agent-mta-basics.html</link><description>&lt;h1&gt;108.3 Mail Transfer Agent (MTA) basics&lt;/h1&gt;
+&lt;p&gt;This configuration will create a zipped file for each week, keeping only 52 of them instead of a huge log file for this program.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:lpic102/1082-system-logging.html</guid></item><item><title>108.3 Mail Transfer Agent (MTA) basics</title><link>http://linuxlearner.net/lpic102/1083-mail-transfer-agent-mta-basics.html</link><description>&lt;h1&gt;108.3 Mail Transfer Agent (MTA) basics&lt;/h1&gt;
 &lt;p&gt;&lt;em&gt;Weight: 3&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;Candidates should be aware of the commonly available MTA programs and be able to perform basic forward and alias configuration on a client host. Other configuration files are not covered.&lt;/p&gt;
 &lt;h2&gt;Key Knowledge Areas&lt;/h2&gt;
@@ -8426,7 +8426,7 @@ AA52C228E6B      &lt;span class="m"&gt;468&lt;/span&gt; Thu Jan  &lt;span class=
                                          jadijadi@gmail.com
 
 -- &lt;span class="m"&gt;0&lt;/span&gt; Kbytes in &lt;span class="m"&gt;1&lt;/span&gt; Request.
-&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:1083-mail-transfer-agent-mta-basics.html</guid></item><item><title>108.4 Manage printers and printing</title><link>http://linuxlearner.net/1084-manage-printers-and-printing.html</link><description>&lt;h1&gt;108.4 Manage printers and printing&lt;/h1&gt;
+&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:lpic102/1083-mail-transfer-agent-mta-basics.html</guid></item><item><title>108.4 Manage printers and printing</title><link>http://linuxlearner.net/lpic102/1084-manage-printers-and-printing.html</link><description>&lt;h1&gt;108.4 Manage printers and printing&lt;/h1&gt;
 &lt;p&gt;&lt;em&gt;Weight: 2&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;Candidates should be able to manage print queues and user print jobs using CUPS and the LPD compatibility interface.&lt;/p&gt;
 &lt;h2&gt;Key Knowledge Areas&lt;/h2&gt;
@@ -8627,7 +8627,7 @@ Apple-Dot-Matrix:
     printing is disabled
     &lt;span class="m"&gt;2&lt;/span&gt; entries
     daemon present
-&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:1084-manage-printers-and-printing.html</guid></item><item><title>109.1 Fundamentals of internet protocols</title><link>http://linuxlearner.net/1091-fundamentals-of-internet-protocols.html</link><description>&lt;h1&gt;109.1 Fundamentals of internet protocols&lt;/h1&gt;
+&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:lpic102/1084-manage-printers-and-printing.html</guid></item><item><title>109.1 Fundamentals of internet protocols</title><link>http://linuxlearner.net/lpic102/1091-fundamentals-of-internet-protocols.html</link><description>&lt;h1&gt;109.1 Fundamentals of internet protocols&lt;/h1&gt;
 &lt;p&gt;&lt;em&gt;Weight: 4&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;Candidates should demonstrate a proper understanding of TCP/IP network fundamentals.&lt;/p&gt;
 &lt;h2&gt;Key Knowledge Areas&lt;/h2&gt;
@@ -9039,7 +9039,7 @@ rtt min/avg/max/mdev = 236.707/238.174/239.642/1.546 ms
 &lt;p&gt;.&lt;/p&gt;
 &lt;p&gt;.&lt;/p&gt;
 &lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:1091-fundamentals-of-internet-protocols.html</guid></item><item><title>109.2 Basic network configuration</title><link>http://linuxlearner.net/1092-basic-network-configuration.html</link><description>&lt;h1&gt;109.2 Basic network configuration&lt;/h1&gt;
+&lt;p&gt;.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:lpic102/1091-fundamentals-of-internet-protocols.html</guid></item><item><title>109.2 Basic network configuration</title><link>http://linuxlearner.net/lpic102/1092-basic-network-configuration.html</link><description>&lt;h1&gt;109.2 Basic network configuration&lt;/h1&gt;
 &lt;p&gt;&lt;em&gt;Weight: 4&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;Candidates should be able to view, change and verify configuration settings on client hosts.&lt;/p&gt;
 &lt;h2&gt;Key Knowledge Areas&lt;/h2&gt;
@@ -9296,7 +9296,7 @@ netgroup: files
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;any resolve request will be sent to a DNS server first and the /etc/hosts will be used &lt;em&gt;only&lt;/em&gt; if the DNS servers answeres "I dont know!"&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:1092-basic-network-configuration.html</guid></item><item><title>109.3 Basic network troubleshooting</title><link>http://linuxlearner.net/1093-basic-network-troubleshooting.html</link><description>&lt;h1&gt;109.3 Basic network troubleshooting&lt;/h1&gt;
+&lt;p&gt;any resolve request will be sent to a DNS server first and the /etc/hosts will be used &lt;em&gt;only&lt;/em&gt; if the DNS servers answeres "I dont know!"&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:lpic102/1092-basic-network-configuration.html</guid></item><item><title>109.3 Basic network troubleshooting</title><link>http://linuxlearner.net/lpic102/1093-basic-network-troubleshooting.html</link><description>&lt;h1&gt;109.3 Basic network troubleshooting&lt;/h1&gt;
 &lt;p&gt;&lt;em&gt;Weight: 4&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;Candidates should be able to troubleshoot networking issues on client hosts.&lt;/p&gt;
 &lt;h2&gt;Key Knowledge Areas&lt;/h2&gt;
@@ -9550,7 +9550,7 @@ traceroute to google.com (173.194.32.160), 30 hops max, 60 byte packets
 &lt;p&gt;.&lt;/p&gt;
 &lt;p&gt;.&lt;/p&gt;
 &lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:1093-basic-network-troubleshooting.html</guid></item><item><title>109.4 Configure client side DNS</title><link>http://linuxlearner.net/1094-configure-client-side-dns.html</link><description>&lt;h1&gt;109.4 Configure client side DNS&lt;/h1&gt;
+&lt;p&gt;.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:lpic102/1093-basic-network-troubleshooting.html</guid></item><item><title>109.4 Configure client side DNS</title><link>http://linuxlearner.net/lpic102/1094-configure-client-side-dns.html</link><description>&lt;h1&gt;109.4 Configure client side DNS&lt;/h1&gt;
 &lt;p&gt;&lt;em&gt;Weight: 2&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;Candidates should be able to configure DNS on a client host.&lt;/p&gt;
 &lt;h2&gt;Key Knowledge Areas&lt;/h2&gt;
@@ -9797,7 +9797,7 @@ $ getent hosts
 &lt;p&gt;.&lt;/p&gt;
 &lt;p&gt;.&lt;/p&gt;
 &lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:1094-configure-client-side-dns.html</guid></item><item><title>110.1 Perform security administration tasks</title><link>http://linuxlearner.net/1101-perform-security-administration-tasks.html</link><description>&lt;h1&gt;110.1 Perform security administration tasks&lt;/h1&gt;
+&lt;p&gt;.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:lpic102/1094-configure-client-side-dns.html</guid></item><item><title>110.1 Perform security administration tasks</title><link>http://linuxlearner.net/lpic102/1101-perform-security-administration-tasks.html</link><description>&lt;h1&gt;110.1 Perform security administration tasks&lt;/h1&gt;
 &lt;p&gt;&lt;em&gt;Weight: 3&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;Candidates should know how to review system configuration to ensure host security in accordance with local security policies.&lt;/p&gt;
 &lt;h2&gt;Key Knowledge Areas&lt;/h2&gt;
@@ -10158,7 +10158,7 @@ jadi     pts/21       :0               Fri Jun  3 18:44 - 19:47  (01:03)
 &lt;p&gt;.&lt;/p&gt;
 &lt;p&gt;.&lt;/p&gt;
 &lt;p&gt;.&lt;/p&gt;
-&lt;p&gt;.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:1101-perform-security-administration-tasks.html</guid></item><item><title>110.2 Setup host security</title><link>http://linuxlearner.net/1102-setup-host-security.html</link><description>&lt;h1&gt;110.2 Setup host security&lt;/h1&gt;
+&lt;p&gt;.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:lpic102/1101-perform-security-administration-tasks.html</guid></item><item><title>110.2 Setup host security</title><link>http://linuxlearner.net/lpic102/1102-setup-host-security.html</link><description>&lt;h1&gt;110.2 Setup host security&lt;/h1&gt;
 &lt;p&gt;&lt;em&gt;Weight: 3&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;Candidates should know how to set up a basic level of host security.&lt;/p&gt;
 &lt;h2&gt;Key Knowledge Areas&lt;/h2&gt;
@@ -10277,7 +10277,7 @@ telnet: 10.10.100.
 &lt;blockquote&gt;
 &lt;p&gt;after changing this file, xinetd should be restarted&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;As mentioned, super servers are not being used anymore and most distributions use standalone services running on them.  This is also called tcp wrapping since the tcp connections are being passwd from xinetd and xinetd decides what to do with them.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:1102-setup-host-security.html</guid></item><item><title>110.3 Securing data with encryption</title><link>http://linuxlearner.net/1103-securing-data-with-encryption.html</link><description>&lt;h1&gt;110.3 Securing data with encryption&lt;/h1&gt;
+&lt;p&gt;As mentioned, super servers are not being used anymore and most distributions use standalone services running on them.  This is also called tcp wrapping since the tcp connections are being passwd from xinetd and xinetd decides what to do with them.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:lpic102/1102-setup-host-security.html</guid></item><item><title>110.3 Securing data with encryption</title><link>http://linuxlearner.net/lpic102/1103-securing-data-with-encryption.html</link><description>&lt;h1&gt;110.3 Securing data with encryption&lt;/h1&gt;
 &lt;p&gt;&lt;em&gt;Weight: 3&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;The candidate should be able to use public key techniques to secure data and communication.&lt;/p&gt;
 &lt;h2&gt;Key Knowledge Areas&lt;/h2&gt;
@@ -10409,4 +10409,4 @@ total 8.0K
 &lt;/blockquote&gt;
 &lt;p&gt;and another one to verify that a document is singed correctly:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;gpg --verify recievedfile
-&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:1103-securing-data-with-encryption.html</guid></item></channel></rss>
+&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jadi</dc:creator><pubDate>Fri, 25 Dec 2015 12:20:00 +0000</pubDate><guid isPermaLink="false">tag:linuxlearner.net,2015-12-25:lpic102/1103-securing-data-with-encryption.html</guid></item></channel></rss>

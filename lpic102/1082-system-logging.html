@@ -1,0 +1,667 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="author" content="jadi" />
+        <meta name="description" content="108.2 System logging Weight: 3 Candidates should be able to configure the syslog daemon. This objective also includes configuring the logging daemon to send log output to a central log server or accept log output as a central log server. Use of the systemd journal subsystem is covered. Also ..." />
+
+
+    <title>108.2 System logging - Linux Learner</title>
+
+        <link rel="stylesheet" href="../theme/css/bootstrap.min.css" type="text/css" />
+
+    <link href="../theme/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../theme/css/pygments/native.css" rel="stylesheet" />
+
+    <link href="../theme/css/pelican-twitchy.min.css" rel="stylesheet" />
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Feeds -->
+        <link href="../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Linux Learner ATOM Feed" />
+        <link href="../feeds/all.rss.xml" type="application/rss+xml" rel="alternate"
+              title="Linux Learner RSS Feed" />
+</head>
+<body data-spy="scroll" data-target="#scrollspy">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper-small" class="twitchy-background">
+            <ul id="accordion-small" class="sidebar-nav sidebar-nav-small">
+                <li>
+        <a href=".." title="Linux Learner" class="collapsed">
+            <span class="glyphicon glyphicon-home"></span>
+        </a>
+    </li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="../archives.html" title="Recent Articles" class="collapsed">
+            <span class="glyphicon glyphicon-th-list"></span>
+        </a>
+    </li>
+
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-social-small" title="Social" class="collapsed">
+                        <i class="fa fa-users padding-small"></i>
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-social-small" class="collapse ">
+                    <li>
+                        <a href="#" title="Another social link"><i class="fa fa-another-social-link-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="#" title="You can add links in your config file"><i class="fa fa-you-can-add-links-in-your-config-file-square fa-lg padding-small"></i></a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="#" title="Back to top" class="collapsed">
+            <span class="fa fa-arrow-up"></span>
+        </a>
+    </li>
+            </ul>
+        </div>
+        <div id="sidebar-wrapper" class="twitchy-background">
+            <ul id="accordion" class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="../">
+                            <span class="glyphicon glyphicon-home padding-small"></span>
+                            Linux Learner
+                    </a>
+                </li>
+                <li class="nav-divider"></li>
+                <li>
+                    <a  data-parent="#accordion" href="/pages/donate.html">
+                        <span class="glyphicon glyphicon-heart padding-small"></span>
+                        Support
+                    </a>
+                </li>
+
+                    <li class="nav-divider"></li>
+                    <li>
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-latest">
+                            <span class="glyphicon glyphicon-th-list padding-small"></span>
+                            LPIC1 Chapters
+                        </a>
+                    </li>
+                    <li class="panel anti-panel"><ul id="collapse-latest" class="sidebar_submenu collapse in">
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1011-determine-and-configure-hardware-settings.html" title="101.1 Determine and configure hardware settings">
+                                <i class="fa fa-file-text padding-small"></i>
+                                101.1 Determine and configure hardware settings
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1012-boot-the-system.html" title="101.2. Boot the system">
+                                <i class="fa fa-file-text padding-small"></i>
+                                101.2. Boot the system
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1013-change-runlevels-and-shutdown-or-reboot-system.html" title="101.3. Change runlevels and shutdown or reboot system">
+                                <i class="fa fa-file-text padding-small"></i>
+                                101.3. Change runlevels and shutdown or reboot system
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1021-design-hard-disk-layout.html" title="102.1 Design hard disk layout">
+                                <i class="fa fa-file-text padding-small"></i>
+                                102.1 Design hard disk layout
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1022-install-a-boot-manager.html" title="102.2 Install a boot manager">
+                                <i class="fa fa-file-text padding-small"></i>
+                                102.2 Install a boot manager
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1023-manage-shared-libraries.html" title="102.3. Manage shared libraries">
+                                <i class="fa fa-file-text padding-small"></i>
+                                102.3. Manage shared libraries
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1024-use-debian-package-management.html" title="102.4. Use Debian package management">
+                                <i class="fa fa-file-text padding-small"></i>
+                                102.4. Use Debian package management
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1025-use-rpm-and-yum-package-management.html" title="102.5 Use RPM and YUM package management">
+                                <i class="fa fa-file-text padding-small"></i>
+                                102.5 Use RPM and YUM package management
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1031-work-on-the-command-line.html" title="103.1 Work on the command line">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.1 Work on the command line
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1032-process-text-streams-using-filters.html" title="103.2. Process text streams using filters">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.2. Process text streams using filters
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1033-perform-basic-file-management.html" title="103.3 Perform basic file management">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.3 Perform basic file management
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1034-use-streams-pipes-and-redirects.html" title="103.4. Use streams, pipes and redirects">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.4. Use streams, pipes and redirects
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1035-create-monitor-and-kill-processes.html" title="103.5. Create, monitor and kill processes">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.5. Create, monitor and kill processes
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1036-modify-process-execution-priorities.html" title="103.6. Modify process execution priorities">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.6. Modify process execution priorities
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1037-search-text-files-using-regular-expressions.html" title="103.7 Search text files using regular expressions">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.7 Search text files using regular expressions
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1038-perform-basic-file-editing-operations-using-vi.html" title="103.8 Perform basic file editing operations using vi">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.8 Perform basic file editing operations using vi
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1041-create-partitions-and-filesystems.html" title="104.1. Create partitions and filesystems">
+                                <i class="fa fa-file-text padding-small"></i>
+                                104.1. Create partitions and filesystems
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1042-maintain-the-integrity-of-filesystems.html" title="104.2 Maintain the integrity of filesystems">
+                                <i class="fa fa-file-text padding-small"></i>
+                                104.2 Maintain the integrity of filesystems
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1043-control-mounting-and-unmounting-of-filesystems.html" title="104.3. Control mounting and unmounting of filesystems">
+                                <i class="fa fa-file-text padding-small"></i>
+                                104.3. Control mounting and unmounting of filesystems
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1044-manage-disk-quotas.html" title="104.4 Manage disk quotas">
+                                <i class="fa fa-file-text padding-small"></i>
+                                104.4 Manage disk quotas
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1045-manage-file-permissions-and-ownership.html" title="104.5 Manage file permissions and ownership">
+                                <i class="fa fa-file-text padding-small"></i>
+                                104.5 Manage file permissions and ownership
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1046-create-and-change-hard-symbolic-links.html" title="104.6. Create and change hard & symbolic links">
+                                <i class="fa fa-file-text padding-small"></i>
+                                104.6. Create and change hard & symbolic links
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1047-find-system-files-and-place-files-in-the-correct-location.html" title="104.7 Find system files and place files in the correct location">
+                                <i class="fa fa-file-text padding-small"></i>
+                                104.7 Find system files and place files in the correct location
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1051-customize-and-use-the-shell-environment.html" title="105.1. Customize and use the shell environment">
+                                <i class="fa fa-file-text padding-small"></i>
+                                105.1. Customize and use the shell environment
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1052-customize-or-write-simple-scripts.html" title="105.2 Customize or write simple scripts">
+                                <i class="fa fa-file-text padding-small"></i>
+                                105.2 Customize or write simple scripts
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1053-sql-data-management.html" title="105.3 SQL data management">
+                                <i class="fa fa-file-text padding-small"></i>
+                                105.3 SQL data management
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1061-install-and-configure-x11.html" title="106.1 Install and configure X11">
+                                <i class="fa fa-file-text padding-small"></i>
+                                106.1 Install and configure X11
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1062-setup-a-display-manager.html" title="106.2 Setup a display manager">
+                                <i class="fa fa-file-text padding-small"></i>
+                                106.2 Setup a display manager
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1063-accessibility.html" title="106.3 Accessibility">
+                                <i class="fa fa-file-text padding-small"></i>
+                                106.3 Accessibility
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1071-manage-user-and-group-accounts-and-related-system-files.html" title="107.1 Manage user and group accounts and related system files">
+                                <i class="fa fa-file-text padding-small"></i>
+                                107.1 Manage user and group accounts and related system files
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1072-automate-system-administration-tasks-by-scheduling-jobs.html" title="107.2 Automate system administration tasks by scheduling jobs">
+                                <i class="fa fa-file-text padding-small"></i>
+                                107.2 Automate system administration tasks by scheduling jobs
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1073-localisation-and-internationalisation.html" title="107.3 Localisation and internationalisation">
+                                <i class="fa fa-file-text padding-small"></i>
+                                107.3 Localisation and internationalisation
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1081-maintain-system-time.html" title="108.1 Maintain system time">
+                                <i class="fa fa-file-text padding-small"></i>
+                                108.1 Maintain system time
+                            </a>
+                        </li>
+                        <li class="active">
+                            <a class="hide-overflow" href="../lpic102/1082-system-logging.html" title="108.2 System logging">
+                                <i class="fa fa-file-text padding-small"></i>
+                                108.2 System logging
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1083-mail-transfer-agent-mta-basics.html" title="108.3 Mail Transfer Agent (MTA) basics">
+                                <i class="fa fa-file-text padding-small"></i>
+                                108.3 Mail Transfer Agent (MTA) basics
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1084-manage-printers-and-printing.html" title="108.4 Manage printers and printing">
+                                <i class="fa fa-file-text padding-small"></i>
+                                108.4 Manage printers and printing
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1091-fundamentals-of-internet-protocols.html" title="109.1 Fundamentals of internet protocols">
+                                <i class="fa fa-file-text padding-small"></i>
+                                109.1 Fundamentals of internet protocols
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1092-basic-network-configuration.html" title="109.2 Basic network configuration">
+                                <i class="fa fa-file-text padding-small"></i>
+                                109.2 Basic network configuration
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1093-basic-network-troubleshooting.html" title="109.3 Basic network troubleshooting">
+                                <i class="fa fa-file-text padding-small"></i>
+                                109.3 Basic network troubleshooting
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1094-configure-client-side-dns.html" title="109.4 Configure client side DNS">
+                                <i class="fa fa-file-text padding-small"></i>
+                                109.4 Configure client side DNS
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1101-perform-security-administration-tasks.html" title="110.1 Perform security administration tasks">
+                                <i class="fa fa-file-text padding-small"></i>
+                                110.1 Perform security administration tasks
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1102-setup-host-security.html" title="110.2 Setup host security">
+                                <i class="fa fa-file-text padding-small"></i>
+                                110.2 Setup host security
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1103-securing-data-with-encryption.html" title="110.3 Securing data with encryption">
+                                <i class="fa fa-file-text padding-small"></i>
+                                110.3 Securing data with encryption
+                            </a>
+                        </li>
+                    </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+                    <a  href="/pages/about.html">
+                        <i class="fa fa-users padding-small"></i>
+                        About Jadi
+                    </a>
+                </li>
+
+
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Categories
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
+                    <li >
+                        <a href="../category/lpic101.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            lpic101
+                            <span class="badge pull-right categorybadge">16</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="../category/lpic102.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            lpic102
+                            <span class="badge pull-right categorybadge">27</span>
+                        </a>
+                    </li>
+                </ul></li>
+
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- open/close sidebar -->
+        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+            <span id="right-arrow" class="glyphicon glyphicon-chevron-right"  title="expand sidebar"></span>
+            <span id="left-arrow" class="glyphicon glyphicon-chevron-left" title="minimize sidebar"></span>
+        </a>
+       <!-- /open/close sidebar -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+<section id="content">
+    <article>
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="entry-content">
+                    <h1>108.2 System logging</h1>
+<p><em>Weight: 3</em></p>
+<p>Candidates should be able to configure the syslog daemon. This objective also includes configuring the logging daemon to send log output to a central log  server or accept log output as a central log server. Use of the systemd journal subsystem is covered. Also, awareness of rsyslog and syslog-ng as alternative logging systems is included.</p>
+<h2>Key Knowledge Areas</h2>
+<ul>
+<li>Configuration of the syslog daemon.</li>
+<li>Understanding of standard facilities, priorities and actions.</li>
+<li>Configuration of logrotate.</li>
+<li>Awareness of rsyslog and syslog-ng.</li>
+</ul>
+<h2>Terms and Utilities</h2>
+<ul>
+<li>syslog.conf</li>
+<li>syslogd</li>
+<li>klogd</li>
+<li>/var/log/</li>
+<li>logger</li>
+<li>logrotate</li>
+<li>/etc/logrotate.conf</li>
+<li>/etc/logrotate.d/</li>
+<li>journalctl</li>
+<li>/etc/systemd/journald.conf</li>
+<li>/var/log/journal/</li>
+</ul>
+<h2>History</h2>
+<p>The Linux logging system is under heavy changes. We will cover the <strong>syslog</strong> but most system have replaced it with <strong>rsyslog</strong> and <strong>systemd journal</strong>s. The strange thing is the fact that <strong>systemd journal</strong> uses a binary file format which is not that common in Linux world.</p>
+<p>The logging in linux is orginized based on three concepts: facilities, priorities and actions. When a program generated a log, it tags or labels that log with a facility (like <code>mail</code>) which says what this log is and a priority (like <code>alert</code>). Each tag can have values like the following list:</p>
+<ul>
+<li><strong>facilities</strong>: auth, user, kern, cron, daemon, mail, user, local1, local2, ...</li>
+<li><strong>priorities</strong>: emerg/panic, alert, crit, err/error, warn/warning, notice, info, debug</li>
+</ul>
+<p>As you can guess, the <strong>facilities</strong> work like categories and priorites indicate how importatnt this log is - or in more technical language indicated logs level.</p>
+<p>On the <strong>action</strong> part we can have things like these:</p>
+<table>
+<thead>
+<tr>
+<th>action</th>
+<th>sample</th>
+<th>meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>filename</td>
+<td>/usr/log/logins.log</td>
+<td>will write the log to this file</td>
+</tr>
+<tr>
+<td>username</td>
+<td>jadi</td>
+<td>will notify that person on the screen</td>
+</tr>
+<tr>
+<td>@ip</td>
+<td>@192.168.1.100</td>
+<td>will send this log to this log server and that log server will decide what to do with it based on its configs</td>
+</tr>
+</tbody>
+</table>
+<p>So a line like this will show the kernel panics to a remote log server and also will log everything on every level to a log file:</p>
+<div class="highlight"><pre><span></span><span class="n">kern</span><span class="p">.</span><span class="n">panic</span>      <span class="mf">@192.168.1.100</span>
+<span class="o">*</span><span class="p">.</span><span class="o">*</span>             <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">log</span><span class="o">/</span><span class="n">messages</span>
+</pre></div>
+
+
+<p>If you log some specific priority, all the <strong>more important</strong> things will be logged too! So if you write <code>cron.notice   /var/log/cron/log</code>, you are logging the emerg/panic, alert, critical, error, warning and notice logs of the cron category too.</p>
+<blockquote>
+<p>If you need to log ONLY one specific level, add an equal sign (=) before the priority like this <code>local3.=alert    /var/log/user.alert.log</code>.</p>
+</blockquote>
+<p>It is important to know that the binary which logs the *<em>kern</em> category is a standalone daemon. This daemon is called <code>klogd</code> and uses same configuration files. Why? so even after everything is crashed, klogd can log the kernel crashes ;)</p>
+<h2>syslog and rsyslog</h2>
+<p>Most modern system use <strong>rsyslog</strong> instead of <strong>syslog</strong>. Their functionality is mostly same and here we will only cover the rsyslog.</p>
+<p>The main configuration file in rsyslog, as you should be able to guess is <code>/etc/syslog.conf</code>. It loads some modules on the top and then have lines like this:</p>
+<div class="highlight"><pre><span></span>auth,authpriv.*         /var/log/auth.log
+*.*;auth,authpriv.none      -/var/log/syslog
+#cron.*             /var/log/cron.log
+daemon.*            -/var/log/daemon.log
+kern.*              -/var/log/kern.log
+lpr.*               -/var/log/lpr.log
+mail.*              -/var/log/mail.log
+user.*              -/var/log/user.log
+</pre></div>
+
+
+<blockquote>
+<p>'auth,authpriv.*' means both auth  and authpriv properties</p>
+</blockquote>
+<p>Note that sometimes on the action we have a <code>-</code>. This means the log will go the memory cache to prevent disk from spinning all the time.</p>
+<p>Again there is a <code>/etc/rsyslog.d/</code> and it is better for different softwares and admins to add their specific configs there, instead of editing the main configuration file.</p>
+<h3>creating rsyslog listener</h3>
+<p>If you need to start a rsylog listener and catch other systems log messages, it is enough to add an <code>-r</code> switch to rsyslog options. Just edit the  <code>/etc/default/rsyslog</code> and change options from <code>""</code> to <code>"-r"</code>.</p>
+<div class="highlight"><pre><span></span>cat /etc/default/rsyslog
+# Options for rsyslogd
+# -x disables DNS lookups for remote messages
+# See rsyslogd(8) for more details
+RSYSLOGD_OPTIONS=&quot;-r&quot;
+</pre></div>
+
+
+<p>and restart the daemon:</p>
+<div class="highlight"><pre><span></span># systemctl restart rsyslog
+</pre></div>
+
+
+<h3>journalctl</h3>
+<p>The newer distributions are switching to <strong>systemd</strong> and are using <strong>systemd journal</strong> for their logging. As I mentioned earlier the systemd keeps its logs as binary files and the user should use the <code>journalctl</code> to access them.</p>
+<div class="highlight"><pre><span></span># journalctl
+-- Logs begin at Sun 2016-01-03 10:35:53 IRST, end at Tue 2016-01-05 22:34:06 IRST. --
+Jan 03 10:35:53 funlife systemd-journald[184]: Runtime journal (/run/log/journal/) is currently using 8.0M.
+                                               Maximum allowed usage is set to 238.1M.
+                                               Leaving at least 357.2M free (of currently available 2.3G of space).
+                                               Enforced usage limit is thus 238.1M, of which 230.1M are still available.
+Jan 03 10:35:53 funlife kernel: Initializing cgroup subsys cpuset
+Jan 03 10:35:53 funlife kernel: Initializing cgroup subsys cpu
+Jan 03 10:35:53 funlife kernel: Initializing cgroup subsys cpuacct
+Jan 03 10:35:53 funlife kernel: Linux version 4.3.0-1-amd64 (debian-kernel@lists.debian.org) (gcc version 5.3.1 20151207 (Debian 5.3.1-3) ) #1 SMP Debian 4.3.3-2 (2015-
+Jan 03 10:35:53 funlife kernel: Command line: BOOT_IMAGE=/boot/vmlinuz-4.3.0-1-amd64 root=UUID=e6b1e8e9-dee3-45cd-b147-44801cc680f0 ro quiet
+Jan 03 10:35:53 funlife kernel: Disabled fast string operations
+</pre></div>
+
+
+<blockquote>
+<p>At the moment, most new systems use <code>systemd</code> and <code>journalctl</code> but also have <code>rsyslog</code> installed and are logging information in both systems.</p>
+</blockquote>
+<p>The config file of journalctl is located at <code>/etc/systemd/journald.conf</code>.</p>
+<h2>logger</h2>
+<p>It is possible to use the <code>logger</code> command to generate some logs:</p>
+<div class="highlight"><pre><span></span>logger local1.info jadi was here
+</pre></div>
+
+
+<p>and this will appear at <code>/var/log/syslog</code>.</p>
+<h2>logrotate</h2>
+<p>Now we are generating a lot of logs. What should we do with them? How they should be archived? The <code>logrotate</code> utility assists us in this area. Its main config file is <code>/etc/logrotate.conf</code> and as any modern program, other config files can go into <code>/etc/logrotate.d/</code>.</p>
+<div class="highlight"><pre><span></span># cat /etc/logrotate.conf
+# see &quot;man logrotate&quot; for details
+# rotate log files weekly
+weekly
+
+# keep 4 weeks worth of backlogs
+rotate 4
+
+# create new (empty) log files after rotating old ones
+create
+
+# uncomment this if you want your log files compressed
+#compress
+
+# packages drop log rotation information into this directory
+include /etc/logrotate.d
+
+# no packages own wtmp, or btmp -- we&#39;ll rotate them here
+/var/log/wtmp {
+    missingok
+    monthly
+    create 0664 root utmp
+    rotate 1
+}
+
+/var/log/btmp {
+    missingok
+    monthly
+    create 0660 root utmp
+    rotate 1
+}
+
+# system-specific logs may be configured here
+</pre></div>
+
+
+<p>It is very easy to see how it works. Lets check one of them:</p>
+<div class="highlight"><pre><span></span># cat /etc/logrotate.d/nginx
+/var/log/nginx/*.log {
+    weekly
+    missingok
+    rotate 52
+    compress
+    delaycompress
+    notifempty
+    create 0640 www-data adm
+    sharedscripts
+    prerotate
+        if [ -d /etc/logrotate.d/httpd-prerotate ]; then \
+            run-parts /etc/logrotate.d/httpd-prerotate; \
+        fi \
+    endscript
+    postrotate
+        invoke-rc.d nginx rotate &gt;/dev/null 2&gt;&amp;1
+    endscript
+}
+</pre></div>
+
+
+<p>These are the meaning of some of these parameters:</p>
+<table>
+<thead>
+<tr>
+<th>parameter</th>
+<th>meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>weekly</td>
+<td>rotate logs weekly</td>
+</tr>
+<tr>
+<td>missingok</td>
+<td>it is fine if there is no log for this week</td>
+</tr>
+<tr>
+<td>rotate 52</td>
+<td>keep the latest 52 logs and delete the older ones</td>
+</tr>
+<tr>
+<td>compress</td>
+<td>compress the logs</td>
+</tr>
+<tr>
+<td>create 0640 www-data adm</td>
+<td>create the files with this access and owners</td>
+</tr>
+<tr>
+<td>pre &amp; post rotate</td>
+<td>run these scripts or commands before and after the rotation</td>
+</tr>
+</tbody>
+</table>
+<p>This configuration will create a zipped file for each week, keeping only 52 of them instead of a huge log file for this program.</p>
+                </div>
+                <footer class="text-right">
+                    <p></p>
+                </footer>
+            </div>
+        </div>
+    </article>
+</section>
+<footer>
+    <hr>
+    <div class="row">
+        <div class="col-lg-9 text-center">
+            <p><small>
+                Built by <a href="http://docs.getpelican.com/en/latest">Pelican</a> / <a href="https://github.com/ingwinlu/pelican-twitchy">pelican-twitchy</a>
+                &middot;                    &copy; 2015 jadi
+            </small></p>
+        </div>
+    </div>
+</footer>            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery Version 1.11.2 -->
+    <script src="../theme/js/jquery-1.11.2.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../theme/js/bootstrap.min.js"></script>
+    <!-- twitchy Script -->
+    <script src="../theme/js/pelican_twitchy.min.js"></script>
+
+</body>
+</html>

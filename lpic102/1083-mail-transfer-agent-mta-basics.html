@@ -1,0 +1,566 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="author" content="jadi" />
+        <meta name="description" content="108.3 Mail Transfer Agent (MTA) basics Weight: 3 Candidates should be aware of the commonly available MTA programs and be able to perform basic forward and alias configuration on a client host. Other configuration files are not covered. Key Knowledge Areas Create e-mail aliases. Configure e-mail forwarding. Knowledge of ..." />
+
+
+    <title>108.3 Mail Transfer Agent (MTA) basics - Linux Learner</title>
+
+        <link rel="stylesheet" href="../theme/css/bootstrap.min.css" type="text/css" />
+
+    <link href="../theme/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../theme/css/pygments/native.css" rel="stylesheet" />
+
+    <link href="../theme/css/pelican-twitchy.min.css" rel="stylesheet" />
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Feeds -->
+        <link href="../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Linux Learner ATOM Feed" />
+        <link href="../feeds/all.rss.xml" type="application/rss+xml" rel="alternate"
+              title="Linux Learner RSS Feed" />
+</head>
+<body data-spy="scroll" data-target="#scrollspy">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper-small" class="twitchy-background">
+            <ul id="accordion-small" class="sidebar-nav sidebar-nav-small">
+                <li>
+        <a href=".." title="Linux Learner" class="collapsed">
+            <span class="glyphicon glyphicon-home"></span>
+        </a>
+    </li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="../archives.html" title="Recent Articles" class="collapsed">
+            <span class="glyphicon glyphicon-th-list"></span>
+        </a>
+    </li>
+
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-social-small" title="Social" class="collapsed">
+                        <i class="fa fa-users padding-small"></i>
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-social-small" class="collapse ">
+                    <li>
+                        <a href="#" title="Another social link"><i class="fa fa-another-social-link-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="#" title="You can add links in your config file"><i class="fa fa-you-can-add-links-in-your-config-file-square fa-lg padding-small"></i></a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="#" title="Back to top" class="collapsed">
+            <span class="fa fa-arrow-up"></span>
+        </a>
+    </li>
+            </ul>
+        </div>
+        <div id="sidebar-wrapper" class="twitchy-background">
+            <ul id="accordion" class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="../">
+                            <span class="glyphicon glyphicon-home padding-small"></span>
+                            Linux Learner
+                    </a>
+                </li>
+                <li class="nav-divider"></li>
+                <li>
+                    <a  data-parent="#accordion" href="/pages/donate.html">
+                        <span class="glyphicon glyphicon-heart padding-small"></span>
+                        Support
+                    </a>
+                </li>
+
+                    <li class="nav-divider"></li>
+                    <li>
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-latest">
+                            <span class="glyphicon glyphicon-th-list padding-small"></span>
+                            LPIC1 Chapters
+                        </a>
+                    </li>
+                    <li class="panel anti-panel"><ul id="collapse-latest" class="sidebar_submenu collapse in">
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1011-determine-and-configure-hardware-settings.html" title="101.1 Determine and configure hardware settings">
+                                <i class="fa fa-file-text padding-small"></i>
+                                101.1 Determine and configure hardware settings
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1012-boot-the-system.html" title="101.2. Boot the system">
+                                <i class="fa fa-file-text padding-small"></i>
+                                101.2. Boot the system
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1013-change-runlevels-and-shutdown-or-reboot-system.html" title="101.3. Change runlevels and shutdown or reboot system">
+                                <i class="fa fa-file-text padding-small"></i>
+                                101.3. Change runlevels and shutdown or reboot system
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1021-design-hard-disk-layout.html" title="102.1 Design hard disk layout">
+                                <i class="fa fa-file-text padding-small"></i>
+                                102.1 Design hard disk layout
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1022-install-a-boot-manager.html" title="102.2 Install a boot manager">
+                                <i class="fa fa-file-text padding-small"></i>
+                                102.2 Install a boot manager
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1023-manage-shared-libraries.html" title="102.3. Manage shared libraries">
+                                <i class="fa fa-file-text padding-small"></i>
+                                102.3. Manage shared libraries
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1024-use-debian-package-management.html" title="102.4. Use Debian package management">
+                                <i class="fa fa-file-text padding-small"></i>
+                                102.4. Use Debian package management
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1025-use-rpm-and-yum-package-management.html" title="102.5 Use RPM and YUM package management">
+                                <i class="fa fa-file-text padding-small"></i>
+                                102.5 Use RPM and YUM package management
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1031-work-on-the-command-line.html" title="103.1 Work on the command line">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.1 Work on the command line
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1032-process-text-streams-using-filters.html" title="103.2. Process text streams using filters">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.2. Process text streams using filters
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1033-perform-basic-file-management.html" title="103.3 Perform basic file management">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.3 Perform basic file management
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1034-use-streams-pipes-and-redirects.html" title="103.4. Use streams, pipes and redirects">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.4. Use streams, pipes and redirects
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1035-create-monitor-and-kill-processes.html" title="103.5. Create, monitor and kill processes">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.5. Create, monitor and kill processes
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1036-modify-process-execution-priorities.html" title="103.6. Modify process execution priorities">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.6. Modify process execution priorities
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1037-search-text-files-using-regular-expressions.html" title="103.7 Search text files using regular expressions">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.7 Search text files using regular expressions
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1038-perform-basic-file-editing-operations-using-vi.html" title="103.8 Perform basic file editing operations using vi">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.8 Perform basic file editing operations using vi
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1041-create-partitions-and-filesystems.html" title="104.1. Create partitions and filesystems">
+                                <i class="fa fa-file-text padding-small"></i>
+                                104.1. Create partitions and filesystems
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1042-maintain-the-integrity-of-filesystems.html" title="104.2 Maintain the integrity of filesystems">
+                                <i class="fa fa-file-text padding-small"></i>
+                                104.2 Maintain the integrity of filesystems
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1043-control-mounting-and-unmounting-of-filesystems.html" title="104.3. Control mounting and unmounting of filesystems">
+                                <i class="fa fa-file-text padding-small"></i>
+                                104.3. Control mounting and unmounting of filesystems
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1044-manage-disk-quotas.html" title="104.4 Manage disk quotas">
+                                <i class="fa fa-file-text padding-small"></i>
+                                104.4 Manage disk quotas
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1045-manage-file-permissions-and-ownership.html" title="104.5 Manage file permissions and ownership">
+                                <i class="fa fa-file-text padding-small"></i>
+                                104.5 Manage file permissions and ownership
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1046-create-and-change-hard-symbolic-links.html" title="104.6. Create and change hard & symbolic links">
+                                <i class="fa fa-file-text padding-small"></i>
+                                104.6. Create and change hard & symbolic links
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1047-find-system-files-and-place-files-in-the-correct-location.html" title="104.7 Find system files and place files in the correct location">
+                                <i class="fa fa-file-text padding-small"></i>
+                                104.7 Find system files and place files in the correct location
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1051-customize-and-use-the-shell-environment.html" title="105.1. Customize and use the shell environment">
+                                <i class="fa fa-file-text padding-small"></i>
+                                105.1. Customize and use the shell environment
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1052-customize-or-write-simple-scripts.html" title="105.2 Customize or write simple scripts">
+                                <i class="fa fa-file-text padding-small"></i>
+                                105.2 Customize or write simple scripts
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1053-sql-data-management.html" title="105.3 SQL data management">
+                                <i class="fa fa-file-text padding-small"></i>
+                                105.3 SQL data management
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1061-install-and-configure-x11.html" title="106.1 Install and configure X11">
+                                <i class="fa fa-file-text padding-small"></i>
+                                106.1 Install and configure X11
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1062-setup-a-display-manager.html" title="106.2 Setup a display manager">
+                                <i class="fa fa-file-text padding-small"></i>
+                                106.2 Setup a display manager
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1063-accessibility.html" title="106.3 Accessibility">
+                                <i class="fa fa-file-text padding-small"></i>
+                                106.3 Accessibility
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1071-manage-user-and-group-accounts-and-related-system-files.html" title="107.1 Manage user and group accounts and related system files">
+                                <i class="fa fa-file-text padding-small"></i>
+                                107.1 Manage user and group accounts and related system files
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1072-automate-system-administration-tasks-by-scheduling-jobs.html" title="107.2 Automate system administration tasks by scheduling jobs">
+                                <i class="fa fa-file-text padding-small"></i>
+                                107.2 Automate system administration tasks by scheduling jobs
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1073-localisation-and-internationalisation.html" title="107.3 Localisation and internationalisation">
+                                <i class="fa fa-file-text padding-small"></i>
+                                107.3 Localisation and internationalisation
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1081-maintain-system-time.html" title="108.1 Maintain system time">
+                                <i class="fa fa-file-text padding-small"></i>
+                                108.1 Maintain system time
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1082-system-logging.html" title="108.2 System logging">
+                                <i class="fa fa-file-text padding-small"></i>
+                                108.2 System logging
+                            </a>
+                        </li>
+                        <li class="active">
+                            <a class="hide-overflow" href="../lpic102/1083-mail-transfer-agent-mta-basics.html" title="108.3 Mail Transfer Agent (MTA) basics">
+                                <i class="fa fa-file-text padding-small"></i>
+                                108.3 Mail Transfer Agent (MTA) basics
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1084-manage-printers-and-printing.html" title="108.4 Manage printers and printing">
+                                <i class="fa fa-file-text padding-small"></i>
+                                108.4 Manage printers and printing
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1091-fundamentals-of-internet-protocols.html" title="109.1 Fundamentals of internet protocols">
+                                <i class="fa fa-file-text padding-small"></i>
+                                109.1 Fundamentals of internet protocols
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1092-basic-network-configuration.html" title="109.2 Basic network configuration">
+                                <i class="fa fa-file-text padding-small"></i>
+                                109.2 Basic network configuration
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1093-basic-network-troubleshooting.html" title="109.3 Basic network troubleshooting">
+                                <i class="fa fa-file-text padding-small"></i>
+                                109.3 Basic network troubleshooting
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1094-configure-client-side-dns.html" title="109.4 Configure client side DNS">
+                                <i class="fa fa-file-text padding-small"></i>
+                                109.4 Configure client side DNS
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1101-perform-security-administration-tasks.html" title="110.1 Perform security administration tasks">
+                                <i class="fa fa-file-text padding-small"></i>
+                                110.1 Perform security administration tasks
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1102-setup-host-security.html" title="110.2 Setup host security">
+                                <i class="fa fa-file-text padding-small"></i>
+                                110.2 Setup host security
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1103-securing-data-with-encryption.html" title="110.3 Securing data with encryption">
+                                <i class="fa fa-file-text padding-small"></i>
+                                110.3 Securing data with encryption
+                            </a>
+                        </li>
+                    </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+                    <a  href="/pages/about.html">
+                        <i class="fa fa-users padding-small"></i>
+                        About Jadi
+                    </a>
+                </li>
+
+
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Categories
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
+                    <li >
+                        <a href="../category/lpic101.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            lpic101
+                            <span class="badge pull-right categorybadge">16</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="../category/lpic102.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            lpic102
+                            <span class="badge pull-right categorybadge">27</span>
+                        </a>
+                    </li>
+                </ul></li>
+
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- open/close sidebar -->
+        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+            <span id="right-arrow" class="glyphicon glyphicon-chevron-right"  title="expand sidebar"></span>
+            <span id="left-arrow" class="glyphicon glyphicon-chevron-left" title="minimize sidebar"></span>
+        </a>
+       <!-- /open/close sidebar -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+<section id="content">
+    <article>
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="entry-content">
+                    <h1>108.3 Mail Transfer Agent (MTA) basics</h1>
+<p><em>Weight: 3</em></p>
+<p>Candidates should be aware of the commonly available MTA programs and be able to perform basic forward and alias configuration on a client host. Other configuration files are not covered.</p>
+<h2>Key Knowledge Areas</h2>
+<ul>
+<li>Create e-mail aliases.</li>
+<li>Configure e-mail forwarding.</li>
+<li>Knowledge of commonly available MTA programs (postfix, sendmail, qmail, exim) (no configuration)</li>
+</ul>
+<h2>Terms and Utilities</h2>
+<ul>
+<li>~/.forward</li>
+<li>sendmail emulation layer commands</li>
+<li>newaliases</li>
+<li>mail</li>
+<li>mailq</li>
+<li>postfix</li>
+<li>sendmail</li>
+<li>exim</li>
+<li>qmail</li>
+</ul>
+<h2>MTAs</h2>
+<p>Mai Transfer Agents or MTAs are programs which handle emails in your operating system. There are lot of MTAs available and each distro or sysadmin uses the one she likes more.</p>
+<h3>sendmail</h3>
+<p>Is one of the oldest options available. It is big and difficult to configure and keep safe and secure so very few systems use it as default MTA.</p>
+<h3>qmail</h3>
+<p>qmail is an attempt to provide an ultra secure MTA while keeping the MTA compatible with sendmail ideas. It is modular and claims to be free of any security bug. It also claim to be the 2nd popular mail agent on the Internet.</p>
+<blockquote>
+<p>qmail is not a GPL software. It is Public Domain.</p>
+</blockquote>
+<h3>exim</h3>
+<p>It aims to be a general and flexible mailer with extensive facilities for checking incoming e-mail. It is feature rich with ACLs, authentication, ...</p>
+<h3>postfix</h3>
+<p>This is a new alternative to sendmail and uses easy to understand configuration files. It supports multiple domains, encryption, etc. Postfix is what you may find on most distos as default.</p>
+<h2>sendmail emulation layer</h2>
+<p>As I already said, <code>sendmail</code> is the oldest MTA which is still active. Other MTAs respect his age and provide a <em>sendmail emulation layer</em> to keep themselves backward compatible with it. In other words you can type <code>sendmail</code> or <code>mailq</code> on your command line regardless of what MTA you've installed.</p>
+<h2>aliases</h2>
+<p>There are some mail aliases on the system. Defined in <code>/etc/aliases</code>.</p>
+<div class="highlight"><pre><span></span>$ cat /etc/aliases
+<span class="c1"># /etc/aliases</span>
+mailer-daemon: postmaster
+postmaster: root
+nobody: root
+hostmaster: root
+usenet: root    <span class="c1"># &lt;--- I&#39;m using this sample</span>
+news: root
+webmaster: root
+www: root
+ftp: root
+abuse: root
+noc: root
+security: root
+root: jadi
+</pre></div>
+
+
+<p>This tells the system if there is a message for 'usenet' it will sent to the <code>root</code> user. Note that in the last line, <code>jadi</code> is reading the <code>root</code> emails. This line lets me read emails sent to root without needing
+to login with root.</p>
+<blockquote>
+<p>when this file is update, the <code>newaliases</code> should be run!</p>
+</blockquote>
+<div class="highlight"><pre><span></span>root@funlife:~# newaliases
+root@funlife:~#
+</pre></div>
+
+
+<h2>sending mail</h2>
+<p>It is possible to send an email from the command line using the <code>mail</code> command:</p>
+<div class="highlight"><pre><span></span>[jadi@funlife ~]$ mail news
+Subject: Email to news user
+hahah.. we know where this will go.
+this will go to root and then to jadi!
+
+Hi Jadi!
+
+Cc:
+[jadi@funlife ~]$ mail
+Mail version 8.1.2 01/15/2001.  Type ? for help.
+&quot;/var/mail/jadi&quot;: 12 messages 12 new
+&gt;N  1 root@funlife       Sat Jan 02 08:50   39/1373  apt-listchanges: news for f
+ N  2 root@funlife       Sat Jan 02 09:01  165/7438  apt-listchanges: news for f
+ N  3 jadi@funlife       Sat Jan 02 19:58   18/640   *** SECURITY information fo
+ N  4 jadi@funlife       Sat Jan 02 20:04   18/631   *** SECURITY information fo
+ N  5 jadi@funlife       Sun Jan 03 10:15   18/664   *** SECURITY information fo
+ N  6 root@funlife       Mon Jan 04 12:42   27/941   Cron &lt;jadi@funlife&gt; /home/j
+ N  7 root@funlife       Mon Jan 04 17:11   26/845   apt-listchanges: news for f
+ N  8 root@funlife       Tue Jan 05 18:42   27/945   Cron &lt;jadi@funlife&gt; /home/j
+ N  9 root@funlife       Wed Jan 06 09:17   46/1788  apt-listchanges: news for f
+ N 10 root@funlife       Thu Jan 07 12:42   27/945   Cron &lt;jadi@funlife&gt; /home/j
+ N 11 root@funlife       Thu Jan 07 18:42   27/943   Cron &lt;jadi@funlife&gt; /home/j
+ N 12 jadi@funlife       Thu Jan  7 19:53   17/478   Email to news user
+&amp; 12
+Message 12:
+From jadi@funlife  Thu Jan  7 19:53:08 2016
+X-Original-To: news
+To: news@funlife
+Subject: Email to news user
+Date: Thu,  7 Jan 2016 19:53:08 +0330 (IRST)
+From: jadi@funlife (jadi)
+
+hahah.. we know where this will go.
+this will go to root and then to jadi!
+
+Hi Jadi!
+
+&amp; d
+&amp; q
+Held 11 messages in /var/mail/jadi
+</pre></div>
+
+
+<h2>local forwards</h2>
+<p>We saw that it is possible to forward emails using the <code>/etc/aliases</code>. That file is not writable by normal users so what a normal user like <em>jadi</em> should do?</p>
+<p>Each user can create a <code>.forward</code> file in her own directory and all mail targeted to that user will be forwarded to that address.</p>
+<blockquote>
+<p>You can even put a complete email address like <code>jadijadi@gmail.com</code> in your <code>.forward</code> file.</p>
+<p><code>mail</code> command is not part of LPIC102 but it is good if you play and learn it to some extent. It also can send email from within the scripts like 'echo -e "email content" | mail -s "email subject" "example@example.com"'</p>
+</blockquote>
+<h2>mailq</h2>
+<p>This command lists the mail queue. Each entry shows the queue file ID, message size, arrival time, sender, and the recipients that still need to be delivered. If mail could not be delivered upon the last attempt, the reason for failure is shown. The sysadmin can use this command to check the status of emails still in the queues.</p>
+<div class="highlight"><pre><span></span>$ mailq
+-Queue ID- --Size-- ----Arrival Time---- -Sender/Recipient-------
+AA52C228E6B      <span class="m">468</span> Thu Jan  <span class="m">7</span> 19:59:41  jadi@funlife
+<span class="o">(</span>connect to alt2.gmail-smtp-in.l.google.com<span class="o">[</span>2404:6800:4003:c01::1a<span class="o">]</span>:25: Network is unreachable<span class="o">)</span>
+                                         jadijadi@gmail.com
+
+-- <span class="m">0</span> Kbytes in <span class="m">1</span> Request.
+</pre></div>
+                </div>
+                <footer class="text-right">
+                    <p></p>
+                </footer>
+            </div>
+        </div>
+    </article>
+</section>
+<footer>
+    <hr>
+    <div class="row">
+        <div class="col-lg-9 text-center">
+            <p><small>
+                Built by <a href="http://docs.getpelican.com/en/latest">Pelican</a> / <a href="https://github.com/ingwinlu/pelican-twitchy">pelican-twitchy</a>
+                &middot;                    &copy; 2015 jadi
+            </small></p>
+        </div>
+    </div>
+</footer>            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery Version 1.11.2 -->
+    <script src="../theme/js/jquery-1.11.2.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../theme/js/bootstrap.min.js"></script>
+    <!-- twitchy Script -->
+    <script src="../theme/js/pelican_twitchy.min.js"></script>
+
+</body>
+</html>

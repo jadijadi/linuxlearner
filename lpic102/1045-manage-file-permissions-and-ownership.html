@@ -1,0 +1,739 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="author" content="jadi" />
+        <meta name="description" content="104.5 Manage file permissions and ownership Weight: 3 Candidates should be able to control file access through the proper use of permissions and ownerships. Objectives Manage access permissions on regular and special files as well as directories. Use access modes such as suid, sgid and the sticky bit to ..." />
+
+
+    <title>104.5 Manage file permissions and ownership - Linux Learner</title>
+
+        <link rel="stylesheet" href="../theme/css/bootstrap.min.css" type="text/css" />
+
+    <link href="../theme/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../theme/css/pygments/native.css" rel="stylesheet" />
+
+    <link href="../theme/css/pelican-twitchy.min.css" rel="stylesheet" />
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Feeds -->
+        <link href="../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Linux Learner ATOM Feed" />
+        <link href="../feeds/all.rss.xml" type="application/rss+xml" rel="alternate"
+              title="Linux Learner RSS Feed" />
+</head>
+<body data-spy="scroll" data-target="#scrollspy">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper-small" class="twitchy-background">
+            <ul id="accordion-small" class="sidebar-nav sidebar-nav-small">
+                <li>
+        <a href=".." title="Linux Learner" class="collapsed">
+            <span class="glyphicon glyphicon-home"></span>
+        </a>
+    </li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="../archives.html" title="Recent Articles" class="collapsed">
+            <span class="glyphicon glyphicon-th-list"></span>
+        </a>
+    </li>
+
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-social-small" title="Social" class="collapsed">
+                        <i class="fa fa-users padding-small"></i>
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-social-small" class="collapse ">
+                    <li>
+                        <a href="#" title="Another social link"><i class="fa fa-another-social-link-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="#" title="You can add links in your config file"><i class="fa fa-you-can-add-links-in-your-config-file-square fa-lg padding-small"></i></a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="#" title="Back to top" class="collapsed">
+            <span class="fa fa-arrow-up"></span>
+        </a>
+    </li>
+            </ul>
+        </div>
+        <div id="sidebar-wrapper" class="twitchy-background">
+            <ul id="accordion" class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="../">
+                            <span class="glyphicon glyphicon-home padding-small"></span>
+                            Linux Learner
+                    </a>
+                </li>
+                <li class="nav-divider"></li>
+                <li>
+                    <a  data-parent="#accordion" href="/pages/donate.html">
+                        <span class="glyphicon glyphicon-heart padding-small"></span>
+                        Support
+                    </a>
+                </li>
+
+                    <li class="nav-divider"></li>
+                    <li>
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-latest">
+                            <span class="glyphicon glyphicon-th-list padding-small"></span>
+                            LPIC1 Chapters
+                        </a>
+                    </li>
+                    <li class="panel anti-panel"><ul id="collapse-latest" class="sidebar_submenu collapse in">
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1011-determine-and-configure-hardware-settings.html" title="101.1 Determine and configure hardware settings">
+                                <i class="fa fa-file-text padding-small"></i>
+                                101.1 Determine and configure hardware settings
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1012-boot-the-system.html" title="101.2. Boot the system">
+                                <i class="fa fa-file-text padding-small"></i>
+                                101.2. Boot the system
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1013-change-runlevels-and-shutdown-or-reboot-system.html" title="101.3. Change runlevels and shutdown or reboot system">
+                                <i class="fa fa-file-text padding-small"></i>
+                                101.3. Change runlevels and shutdown or reboot system
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1021-design-hard-disk-layout.html" title="102.1 Design hard disk layout">
+                                <i class="fa fa-file-text padding-small"></i>
+                                102.1 Design hard disk layout
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1022-install-a-boot-manager.html" title="102.2 Install a boot manager">
+                                <i class="fa fa-file-text padding-small"></i>
+                                102.2 Install a boot manager
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1023-manage-shared-libraries.html" title="102.3. Manage shared libraries">
+                                <i class="fa fa-file-text padding-small"></i>
+                                102.3. Manage shared libraries
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1024-use-debian-package-management.html" title="102.4. Use Debian package management">
+                                <i class="fa fa-file-text padding-small"></i>
+                                102.4. Use Debian package management
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1025-use-rpm-and-yum-package-management.html" title="102.5 Use RPM and YUM package management">
+                                <i class="fa fa-file-text padding-small"></i>
+                                102.5 Use RPM and YUM package management
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1031-work-on-the-command-line.html" title="103.1 Work on the command line">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.1 Work on the command line
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1032-process-text-streams-using-filters.html" title="103.2. Process text streams using filters">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.2. Process text streams using filters
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1033-perform-basic-file-management.html" title="103.3 Perform basic file management">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.3 Perform basic file management
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1034-use-streams-pipes-and-redirects.html" title="103.4. Use streams, pipes and redirects">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.4. Use streams, pipes and redirects
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1035-create-monitor-and-kill-processes.html" title="103.5. Create, monitor and kill processes">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.5. Create, monitor and kill processes
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1036-modify-process-execution-priorities.html" title="103.6. Modify process execution priorities">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.6. Modify process execution priorities
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1037-search-text-files-using-regular-expressions.html" title="103.7 Search text files using regular expressions">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.7 Search text files using regular expressions
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1038-perform-basic-file-editing-operations-using-vi.html" title="103.8 Perform basic file editing operations using vi">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.8 Perform basic file editing operations using vi
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1041-create-partitions-and-filesystems.html" title="104.1. Create partitions and filesystems">
+                                <i class="fa fa-file-text padding-small"></i>
+                                104.1. Create partitions and filesystems
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1042-maintain-the-integrity-of-filesystems.html" title="104.2 Maintain the integrity of filesystems">
+                                <i class="fa fa-file-text padding-small"></i>
+                                104.2 Maintain the integrity of filesystems
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1043-control-mounting-and-unmounting-of-filesystems.html" title="104.3. Control mounting and unmounting of filesystems">
+                                <i class="fa fa-file-text padding-small"></i>
+                                104.3. Control mounting and unmounting of filesystems
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1044-manage-disk-quotas.html" title="104.4 Manage disk quotas">
+                                <i class="fa fa-file-text padding-small"></i>
+                                104.4 Manage disk quotas
+                            </a>
+                        </li>
+                        <li class="active">
+                            <a class="hide-overflow" href="../lpic102/1045-manage-file-permissions-and-ownership.html" title="104.5 Manage file permissions and ownership">
+                                <i class="fa fa-file-text padding-small"></i>
+                                104.5 Manage file permissions and ownership
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1046-create-and-change-hard-symbolic-links.html" title="104.6. Create and change hard & symbolic links">
+                                <i class="fa fa-file-text padding-small"></i>
+                                104.6. Create and change hard & symbolic links
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1047-find-system-files-and-place-files-in-the-correct-location.html" title="104.7 Find system files and place files in the correct location">
+                                <i class="fa fa-file-text padding-small"></i>
+                                104.7 Find system files and place files in the correct location
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1051-customize-and-use-the-shell-environment.html" title="105.1. Customize and use the shell environment">
+                                <i class="fa fa-file-text padding-small"></i>
+                                105.1. Customize and use the shell environment
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1052-customize-or-write-simple-scripts.html" title="105.2 Customize or write simple scripts">
+                                <i class="fa fa-file-text padding-small"></i>
+                                105.2 Customize or write simple scripts
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1053-sql-data-management.html" title="105.3 SQL data management">
+                                <i class="fa fa-file-text padding-small"></i>
+                                105.3 SQL data management
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1061-install-and-configure-x11.html" title="106.1 Install and configure X11">
+                                <i class="fa fa-file-text padding-small"></i>
+                                106.1 Install and configure X11
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1062-setup-a-display-manager.html" title="106.2 Setup a display manager">
+                                <i class="fa fa-file-text padding-small"></i>
+                                106.2 Setup a display manager
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1063-accessibility.html" title="106.3 Accessibility">
+                                <i class="fa fa-file-text padding-small"></i>
+                                106.3 Accessibility
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1071-manage-user-and-group-accounts-and-related-system-files.html" title="107.1 Manage user and group accounts and related system files">
+                                <i class="fa fa-file-text padding-small"></i>
+                                107.1 Manage user and group accounts and related system files
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1072-automate-system-administration-tasks-by-scheduling-jobs.html" title="107.2 Automate system administration tasks by scheduling jobs">
+                                <i class="fa fa-file-text padding-small"></i>
+                                107.2 Automate system administration tasks by scheduling jobs
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1073-localisation-and-internationalisation.html" title="107.3 Localisation and internationalisation">
+                                <i class="fa fa-file-text padding-small"></i>
+                                107.3 Localisation and internationalisation
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1081-maintain-system-time.html" title="108.1 Maintain system time">
+                                <i class="fa fa-file-text padding-small"></i>
+                                108.1 Maintain system time
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1082-system-logging.html" title="108.2 System logging">
+                                <i class="fa fa-file-text padding-small"></i>
+                                108.2 System logging
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1083-mail-transfer-agent-mta-basics.html" title="108.3 Mail Transfer Agent (MTA) basics">
+                                <i class="fa fa-file-text padding-small"></i>
+                                108.3 Mail Transfer Agent (MTA) basics
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1084-manage-printers-and-printing.html" title="108.4 Manage printers and printing">
+                                <i class="fa fa-file-text padding-small"></i>
+                                108.4 Manage printers and printing
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1091-fundamentals-of-internet-protocols.html" title="109.1 Fundamentals of internet protocols">
+                                <i class="fa fa-file-text padding-small"></i>
+                                109.1 Fundamentals of internet protocols
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1092-basic-network-configuration.html" title="109.2 Basic network configuration">
+                                <i class="fa fa-file-text padding-small"></i>
+                                109.2 Basic network configuration
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1093-basic-network-troubleshooting.html" title="109.3 Basic network troubleshooting">
+                                <i class="fa fa-file-text padding-small"></i>
+                                109.3 Basic network troubleshooting
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1094-configure-client-side-dns.html" title="109.4 Configure client side DNS">
+                                <i class="fa fa-file-text padding-small"></i>
+                                109.4 Configure client side DNS
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1101-perform-security-administration-tasks.html" title="110.1 Perform security administration tasks">
+                                <i class="fa fa-file-text padding-small"></i>
+                                110.1 Perform security administration tasks
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1102-setup-host-security.html" title="110.2 Setup host security">
+                                <i class="fa fa-file-text padding-small"></i>
+                                110.2 Setup host security
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1103-securing-data-with-encryption.html" title="110.3 Securing data with encryption">
+                                <i class="fa fa-file-text padding-small"></i>
+                                110.3 Securing data with encryption
+                            </a>
+                        </li>
+                    </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+                    <a  href="/pages/about.html">
+                        <i class="fa fa-users padding-small"></i>
+                        About Jadi
+                    </a>
+                </li>
+
+
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Categories
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
+                    <li >
+                        <a href="../category/lpic101.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            lpic101
+                            <span class="badge pull-right categorybadge">16</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="../category/lpic102.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            lpic102
+                            <span class="badge pull-right categorybadge">27</span>
+                        </a>
+                    </li>
+                </ul></li>
+
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- open/close sidebar -->
+        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+            <span id="right-arrow" class="glyphicon glyphicon-chevron-right"  title="expand sidebar"></span>
+            <span id="left-arrow" class="glyphicon glyphicon-chevron-left" title="minimize sidebar"></span>
+        </a>
+       <!-- /open/close sidebar -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+<section id="content">
+    <article>
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="entry-content">
+                    <h1>104.5 Manage file permissions and ownership</h1>
+<p><em>Weight: 3</em></p>
+<p>Candidates should be able to control file access through the proper use of permissions and ownerships.</p>
+<h2>Objectives</h2>
+<ul>
+<li>Manage access permissions on regular and special files as well as directories.</li>
+<li>Use access modes such as suid, sgid and the sticky bit to maintain security.</li>
+<li>Know how to change the file creation mask.</li>
+<li>
+<p>Use the group field to grant file access to group members.</p>
+</li>
+<li>
+<p>chmod</p>
+</li>
+<li>umask</li>
+<li>chown</li>
+<li>chgrp</li>
+</ul>
+<h2>Users and Groups</h2>
+<p>A linux system can have many users and many groups. You can login with one user and use <code>su</code> command to change to another group. Each user belongs to one primary group and can be a member of other groups too.</p>
+<p>There commands like <code>whoami</code>, <code>groups</code> and <code>id</code> to determine who you are.</p>
+<div class="highlight"><pre><span></span>- $ whoami
+jadi
+- $ groups
+jadi adm cdrom sudo dip plugdev netdev lpadmin sambashare debian-tor
+- $ id
+uid=1000(jadi) gid=1000(jadi) groups=1000(jadi),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),102(netdev),108(lpadmin),124(sambashare),125(debian-tor)
+- $ su root -
+Password:
+bash: cannot set terminal process group (-1): Inappropriate ioctl for device
+bash: no job control in this shell
+- # id
+uid=0(root) gid=0(root) groups=0(root)
+- # exit
+exit
+- $ whoami
+jadi
+</pre></div>
+
+
+<blockquote>
+<p><code>id</code> shows both user and group information</p>
+</blockquote>
+<p>There info are stored in <code>/etc/passwd</code> and <code>/etc/group</code></p>
+<div class="highlight"><pre><span></span>$ cat /etc/group <span class="p">|</span> grep adm
+adm:x:4:syslog,jadi
+lpadmin:x:108:jadi
+</pre></div>
+
+
+<h2>File ownership &amp; permissions</h2>
+<p>Files are also belong to one user and one group.</p>
+<div class="highlight"><pre><span></span>$ ls -l /sbin/fdisk ~/w/lpic/notes.txt
+-rw-rw-r-- <span class="m">1</span> jadi users    <span class="m">576</span> Dec  <span class="m">7</span> 22:30 /home/jadi/w/lpic/notes.txt
+-rwxr-xr-x <span class="m">1</span> root root <span class="m">267176</span> Oct <span class="m">15</span> 18:58 /sbin/fdisk
+</pre></div>
+
+
+<p>As you can see, the notes.txt belongs to jadi and a group called <em>users</em>.</p>
+<blockquote>
+<p>In many distros, when you create a user, system creates a group with same name and assign that users files to that group</p>
+</blockquote>
+<p>Another part of the <code>ls -l</code> command shows the permissions on that file. Linux system users a 3 layer permission: permissions for the owner, for the group member and for <em>others</em>. Each layer also has 3 different parts: <strong>r</strong>ead, <strong>w</strong>rite (including deletion and edit) &amp; <strong>e</strong>xecute (reading directory content). These are shown at the first column of <code>ls -</code> command as <code>-rw-rw-r--</code>. The character meanings are as follow:</p>
+<table>
+<thead>
+<tr>
+<th>bit</th>
+<th>meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>What this entry is. Dash (-) is for ordinary files, 'l' is for links &amp; 'd' is for directory</td>
+</tr>
+<tr>
+<td>2,3,4</td>
+<td>read, write and execute access for the owner</td>
+</tr>
+<tr>
+<td>5,6,7</td>
+<td>read, write and execute access for the group members</td>
+</tr>
+<tr>
+<td>8,9,10</td>
+<td>read, write and execute access for other users</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Indicated if any other access methos (such as SELinux) applies to this file - not part of the 101 exam</td>
+</tr>
+</tbody>
+</table>
+<p>As you can see in our example, characters 2 to 10 show the accesses. A <code>-</code> there means "no access on this part" and read, write and execute are shown by r, w &amp; x.</p>
+<p>In the following line:</p>
+<div class="highlight"><pre><span></span>$ ls -l /sbin/fdisk
+-rwxr-xr-x <span class="m">1</span> root root <span class="m">267176</span> Oct <span class="m">15</span> 18:58 /sbin/fdisk
+</pre></div>
+
+
+<p>We can see that the fdisk can be read, written and and be executed by its owner (root), only be read and executed by whoever is part of group root and be read and executed by all other users.</p>
+<blockquote>
+<p>although non-root users can execute the fdisk, this program wont do much if it sees that a non root user is running it.</p>
+</blockquote>
+<p>Lets look at another example:</p>
+<div class="highlight"><pre><span></span>$ ls -l /home/
+total 12
+drwxr-xr-x <span class="m">160</span> jadi jadi <span class="m">12288</span> Feb  <span class="m">7</span> 11:44 jadi
+</pre></div>
+
+
+<p>The first character is a <code>d</code> so this is a directory! The owner (jadi) has read, write and execute access but other members of the <strong>group</strong> jadi and <strong>others</strong> only have read and execute access on this directory (execute means that they can see the files inside it).</p>
+<h2>Chanhging permissions</h2>
+<p>It is possible to change the permissions on files &amp; directories using the <code>chmod</code> command. There are to ways to tell this command what you want to do:</p>
+<ol>
+<li>using octal codes</li>
+<li>using short coeds</li>
+</ol>
+<p>When using octal codes, you have to to create an octal string to tell chmod what you want to do. This way, 0 means no access,  means execute, 2 means write and 4 means read. So if you want to give read+execute, you have to give 4+1 which is 5. This table shows every possible combination:</p>
+<table>
+<thead>
+<tr>
+<th>Symbolic</th>
+<th>Octal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>rwx</td>
+<td>7</td>
+</tr>
+<tr>
+<td>rw-</td>
+<td>6</td>
+</tr>
+<tr>
+<td>r-x</td>
+<td>5</td>
+</tr>
+<tr>
+<td>r--</td>
+<td>4</td>
+</tr>
+<tr>
+<td>-wx</td>
+<td>3</td>
+</tr>
+<tr>
+<td>-w-</td>
+<td>2</td>
+</tr>
+<tr>
+<td>--x</td>
+<td>1</td>
+</tr>
+<tr>
+<td>---</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>So if you want to give rwx to owner, rx to group and only x to others, you have to use 751:</p>
+<div class="highlight"><pre><span></span>$ ls -ltrh myfile
+-rw-rw-r-- <span class="m">1</span> jadi jadi <span class="m">0</span> Feb  <span class="m">8</span> 21:01 myfile
+$ chmod <span class="m">751</span> myfile
+$ ls -ltrh myfile
+-rwxr-x--x <span class="m">1</span> jadi jadi <span class="m">0</span> Feb  <span class="m">8</span> 21:01 myfile
+</pre></div>
+
+
+<p>But there is also an <em>easier</em> method. You can use <code>+x</code> to give execute permission, <code>+r</code> to give read permission and <code>+w</code> to give read permission. Removing these permissions will be like <code>-r</code>.</p>
+<div class="highlight"><pre><span></span>$ ls -ltrh myfile
+-rwxr-x--x <span class="m">1</span> jadi jadi <span class="m">0</span> Feb  <span class="m">8</span> 21:01 myfile
+$ chmod u-x myfile
+$ ls -ltrh myfile
+-rw-r-x--x <span class="m">1</span> jadi jadi <span class="m">0</span> Feb  <span class="m">8</span> 21:01 myfile
+$ chmod +x myfile
+$ chmod uo+xr myfile
+$ ls -ltrh myfile
+-rwxr-xr-x <span class="m">1</span> jadi jadi <span class="m">0</span> Feb  <span class="m">8</span> 21:01 myfile
+</pre></div>
+
+
+<blockquote>
+<p>you can tell <code>chmod</code> whos permission should be granted or removed by doing things like <code>u+r</code> (give read to user), <code>og-w</code> (remove write for other and group).</p>
+</blockquote>
+<p>One very common switch on <code>chmod</code> is <code>-R</code> for recursive chmoding on files. This will give read permission of all files inside /tmp/ to any user:</p>
+<div class="highlight"><pre><span></span># chmod -R o+r /tmp
+</pre></div>
+
+
+<h2>Access modes</h2>
+<p>So you have access only to your files. But how you should change your password? or use programs which needs access to system files? You should be able to access /etc/passwd or /etc/shadow to change your password but you should not be able to access other people files!</p>
+<p>Normally when you run a program, it runs with <em>your</em> access levels but linux has two special bits on each file; <strong>suid</strong> (set user id) and <strong>guid</strong> (set group id). If these are set on a file, that file be will be executed with the access of the <strong>owner</strong> of the file and not the user who is running it.</p>
+<div class="highlight"><pre><span></span>$ ls -ltrh /usr/bin/passwd
+-rwsr-xr-x <span class="m">1</span> root root 50K Jul <span class="m">18</span>  <span class="m">2014</span> /usr/bin/passwd
+</pre></div>
+
+
+<p>Did you note the <code>s</code> in the place of <em>executable bit</em> for the user and for the group? That means when any user runs this program, it will be run be the access of the owner of the file (which is root) instead of that users id.</p>
+<p>It is possible to set / unser the suid and sgid using <code>chmod</code> and <code>+s</code> or <code>-s</code> instead of <code>x</code>.</p>
+<p>The last special option is <code>chmod</code> is the <strong>sticky bit</strong> which lets only the owner of the file to delete it, even if other users have write (delete) access on that directory. This is good for places like /tmp.</p>
+<p>Sticky bit is identified by <code>t</code> and will be shown on the last bit of a directory:</p>
+<div class="highlight"><pre><span></span>$ ls -dl /tmp
+drwxrwxrwt <span class="m">13</span> root root <span class="m">77824</span> Feb  <span class="m">8</span> 21:27 /tmp
+</pre></div>
+
+
+<p>As you can see the sticky bit is set and although all users have write access in this directory, they wont be able to delete each others files.</p>
+<p>Lets review how you can set these access modes:</p>
+<table>
+<thead>
+<tr>
+<th>access mode</th>
+<th>octal</th>
+<th>symbolic</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>suid</td>
+<td>4000</td>
+<td>u+s</td>
+</tr>
+<tr>
+<td>guid</td>
+<td>2000</td>
+<td>g+s</td>
+</tr>
+<tr>
+<td>sticky</td>
+<td>1000</td>
+<td>t</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>guid on a directory will force any new file in that directory to have the guid of the directory itself.</p>
+</blockquote>
+<h2>umask</h2>
+<p>But what will be the access of the new files? What happens when you <code>touch</code> a new file? This is set with <code>umask</code>. This command tells the system what permissions <strong>should not be given to</strong> new files:</p>
+<div class="highlight"><pre><span></span>$ <span class="nb">umask</span>
+0002
+</pre></div>
+
+
+<p>Which removes write (2) permissions from files.</p>
+<p>If we need to change umask, it can be done with the same command:</p>
+<div class="highlight"><pre><span></span>$ <span class="nb">umask</span>
+0002
+$ touch newfile
+$ ls -ltrh newfile
+-rw-rw-r-- <span class="m">1</span> jadi jadi <span class="m">0</span> Feb  <span class="m">8</span> 21:38 newfile
+$ mkdir newdir
+$ ls -ltrhd newdir
+drwxrwxr-x <span class="m">2</span> jadi jadi 4.0K Feb  <span class="m">8</span> 21:38 newdir
+$ <span class="nb">umask</span> <span class="nv">u</span><span class="o">=</span>rw,g<span class="o">=</span>,o<span class="o">=</span>
+$ touch newerfile
+$ ls -l newerfile
+-rw------- <span class="m">1</span> jadi jadi <span class="m">0</span> Feb  <span class="m">8</span> 21:41 newerfile
+$ <span class="nb">umask</span>
+0177
+</pre></div>
+
+
+<blockquote>
+<p>Note how we use <code>u=rw,g=,o=</code> to tell umask or chomd what we exactly need.</p>
+</blockquote>
+<h2>Changing owner and groups</h2>
+<p>If you need to change the ownership or group belonging of a file or directory, use the <code>chown</code> command:</p>
+<div class="highlight"><pre><span></span>$ ls -ltrh newfile
+-rw-rw-r-- <span class="m">1</span> jadi jadi <span class="m">0</span> Feb  <span class="m">8</span> 21:38 newfile
+$ chown root:root newfile
+chown: changing ownership of ‘newfile’: Operation not permitted
+$ sudo chown root:root newfile
+<span class="o">[</span>sudo<span class="o">]</span> password <span class="k">for</span> jadi:
+$ ls -ltrh newfile
+-rw-rw-r-- <span class="m">1</span> root root <span class="m">0</span> Feb  <span class="m">8</span> 21:38 newfile
+</pre></div>
+
+
+<p>A common switch is <code>-R</code> to do the chown recursively and the general style is <code>chown newuser:newgroup file</code>.</p>
+<p>There is also a command specially for changing the group:</p>
+<div class="highlight"><pre><span></span>$ sudo chgrp postgres newfile
+$ ls -ltrh newfile
+-rw-rw-r-- <span class="m">1</span> root postgres <span class="m">0</span> Feb  <span class="m">8</span> 21:38 newfile
+</pre></div>
+
+
+<p>If a user is member of different groups, she can change her <strong>default group</strong> using the <code>newggrp</code> command:</p>
+<div class="highlight"><pre><span></span>$ touch newfile
+$ ls -ltrh newfile
+-rw------- <span class="m">1</span> jadi jadi <span class="m">0</span> Feb  <span class="m">8</span> 21:53 newfile
+$ groups
+jadi adm cdrom sudo dip plugdev netdev lpadmin sambashare debian-tor
+$ newgrp adm
+$ touch newerfile
+$ ls -ltrh new*
+-rw------- <span class="m">1</span> jadi jadi <span class="m">0</span> Feb  <span class="m">8</span> 21:53 newfile
+-rw------- <span class="m">1</span> jadi adm  <span class="m">0</span> Feb  <span class="m">8</span> 21:54 newerfile
+</pre></div>
+                </div>
+                <footer class="text-right">
+                    <p></p>
+                </footer>
+            </div>
+        </div>
+    </article>
+</section>
+<footer>
+    <hr>
+    <div class="row">
+        <div class="col-lg-9 text-center">
+            <p><small>
+                Built by <a href="http://docs.getpelican.com/en/latest">Pelican</a> / <a href="https://github.com/ingwinlu/pelican-twitchy">pelican-twitchy</a>
+                &middot;                    &copy; 2015 jadi
+            </small></p>
+        </div>
+    </div>
+</footer>            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery Version 1.11.2 -->
+    <script src="../theme/js/jquery-1.11.2.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../theme/js/bootstrap.min.js"></script>
+    <!-- twitchy Script -->
+    <script src="../theme/js/pelican_twitchy.min.js"></script>
+
+</body>
+</html>

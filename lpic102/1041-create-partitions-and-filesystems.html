@@ -1,0 +1,845 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="author" content="jadi" />
+        <meta name="description" content="104.1. Create partitions and filesystems Weight: 2 Description: Candidates should be able to configure disk partitions and then create filesystems on media such as hard disks. This includes the handling of swap partitions. Objective Use various mkfs commands to set up partitions and create various filesystems such as: ext2 ..." />
+
+
+    <title>104.1. Create partitions and filesystems - Linux Learner</title>
+
+        <link rel="stylesheet" href="../theme/css/bootstrap.min.css" type="text/css" />
+
+    <link href="../theme/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../theme/css/pygments/native.css" rel="stylesheet" />
+
+    <link href="../theme/css/pelican-twitchy.min.css" rel="stylesheet" />
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Feeds -->
+        <link href="../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Linux Learner ATOM Feed" />
+        <link href="../feeds/all.rss.xml" type="application/rss+xml" rel="alternate"
+              title="Linux Learner RSS Feed" />
+</head>
+<body data-spy="scroll" data-target="#scrollspy">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper-small" class="twitchy-background">
+            <ul id="accordion-small" class="sidebar-nav sidebar-nav-small">
+                <li>
+        <a href=".." title="Linux Learner" class="collapsed">
+            <span class="glyphicon glyphicon-home"></span>
+        </a>
+    </li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="../archives.html" title="Recent Articles" class="collapsed">
+            <span class="glyphicon glyphicon-th-list"></span>
+        </a>
+    </li>
+
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-social-small" title="Social" class="collapsed">
+                        <i class="fa fa-users padding-small"></i>
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-social-small" class="collapse ">
+                    <li>
+                        <a href="#" title="Another social link"><i class="fa fa-another-social-link-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="#" title="You can add links in your config file"><i class="fa fa-you-can-add-links-in-your-config-file-square fa-lg padding-small"></i></a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="#" title="Back to top" class="collapsed">
+            <span class="fa fa-arrow-up"></span>
+        </a>
+    </li>
+            </ul>
+        </div>
+        <div id="sidebar-wrapper" class="twitchy-background">
+            <ul id="accordion" class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="../">
+                            <span class="glyphicon glyphicon-home padding-small"></span>
+                            Linux Learner
+                    </a>
+                </li>
+                <li class="nav-divider"></li>
+                <li>
+                    <a  data-parent="#accordion" href="/pages/donate.html">
+                        <span class="glyphicon glyphicon-heart padding-small"></span>
+                        Support
+                    </a>
+                </li>
+
+                    <li class="nav-divider"></li>
+                    <li>
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-latest">
+                            <span class="glyphicon glyphicon-th-list padding-small"></span>
+                            LPIC1 Chapters
+                        </a>
+                    </li>
+                    <li class="panel anti-panel"><ul id="collapse-latest" class="sidebar_submenu collapse in">
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1011-determine-and-configure-hardware-settings.html" title="101.1 Determine and configure hardware settings">
+                                <i class="fa fa-file-text padding-small"></i>
+                                101.1 Determine and configure hardware settings
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1012-boot-the-system.html" title="101.2. Boot the system">
+                                <i class="fa fa-file-text padding-small"></i>
+                                101.2. Boot the system
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1013-change-runlevels-and-shutdown-or-reboot-system.html" title="101.3. Change runlevels and shutdown or reboot system">
+                                <i class="fa fa-file-text padding-small"></i>
+                                101.3. Change runlevels and shutdown or reboot system
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1021-design-hard-disk-layout.html" title="102.1 Design hard disk layout">
+                                <i class="fa fa-file-text padding-small"></i>
+                                102.1 Design hard disk layout
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1022-install-a-boot-manager.html" title="102.2 Install a boot manager">
+                                <i class="fa fa-file-text padding-small"></i>
+                                102.2 Install a boot manager
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1023-manage-shared-libraries.html" title="102.3. Manage shared libraries">
+                                <i class="fa fa-file-text padding-small"></i>
+                                102.3. Manage shared libraries
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1024-use-debian-package-management.html" title="102.4. Use Debian package management">
+                                <i class="fa fa-file-text padding-small"></i>
+                                102.4. Use Debian package management
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1025-use-rpm-and-yum-package-management.html" title="102.5 Use RPM and YUM package management">
+                                <i class="fa fa-file-text padding-small"></i>
+                                102.5 Use RPM and YUM package management
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1031-work-on-the-command-line.html" title="103.1 Work on the command line">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.1 Work on the command line
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1032-process-text-streams-using-filters.html" title="103.2. Process text streams using filters">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.2. Process text streams using filters
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1033-perform-basic-file-management.html" title="103.3 Perform basic file management">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.3 Perform basic file management
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1034-use-streams-pipes-and-redirects.html" title="103.4. Use streams, pipes and redirects">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.4. Use streams, pipes and redirects
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1035-create-monitor-and-kill-processes.html" title="103.5. Create, monitor and kill processes">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.5. Create, monitor and kill processes
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1036-modify-process-execution-priorities.html" title="103.6. Modify process execution priorities">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.6. Modify process execution priorities
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1037-search-text-files-using-regular-expressions.html" title="103.7 Search text files using regular expressions">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.7 Search text files using regular expressions
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1038-perform-basic-file-editing-operations-using-vi.html" title="103.8 Perform basic file editing operations using vi">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.8 Perform basic file editing operations using vi
+                            </a>
+                        </li>
+                        <li class="active">
+                            <a class="hide-overflow" href="../lpic102/1041-create-partitions-and-filesystems.html" title="104.1. Create partitions and filesystems">
+                                <i class="fa fa-file-text padding-small"></i>
+                                104.1. Create partitions and filesystems
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1042-maintain-the-integrity-of-filesystems.html" title="104.2 Maintain the integrity of filesystems">
+                                <i class="fa fa-file-text padding-small"></i>
+                                104.2 Maintain the integrity of filesystems
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1043-control-mounting-and-unmounting-of-filesystems.html" title="104.3. Control mounting and unmounting of filesystems">
+                                <i class="fa fa-file-text padding-small"></i>
+                                104.3. Control mounting and unmounting of filesystems
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1044-manage-disk-quotas.html" title="104.4 Manage disk quotas">
+                                <i class="fa fa-file-text padding-small"></i>
+                                104.4 Manage disk quotas
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1045-manage-file-permissions-and-ownership.html" title="104.5 Manage file permissions and ownership">
+                                <i class="fa fa-file-text padding-small"></i>
+                                104.5 Manage file permissions and ownership
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1046-create-and-change-hard-symbolic-links.html" title="104.6. Create and change hard & symbolic links">
+                                <i class="fa fa-file-text padding-small"></i>
+                                104.6. Create and change hard & symbolic links
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1047-find-system-files-and-place-files-in-the-correct-location.html" title="104.7 Find system files and place files in the correct location">
+                                <i class="fa fa-file-text padding-small"></i>
+                                104.7 Find system files and place files in the correct location
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1051-customize-and-use-the-shell-environment.html" title="105.1. Customize and use the shell environment">
+                                <i class="fa fa-file-text padding-small"></i>
+                                105.1. Customize and use the shell environment
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1052-customize-or-write-simple-scripts.html" title="105.2 Customize or write simple scripts">
+                                <i class="fa fa-file-text padding-small"></i>
+                                105.2 Customize or write simple scripts
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1053-sql-data-management.html" title="105.3 SQL data management">
+                                <i class="fa fa-file-text padding-small"></i>
+                                105.3 SQL data management
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1061-install-and-configure-x11.html" title="106.1 Install and configure X11">
+                                <i class="fa fa-file-text padding-small"></i>
+                                106.1 Install and configure X11
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1062-setup-a-display-manager.html" title="106.2 Setup a display manager">
+                                <i class="fa fa-file-text padding-small"></i>
+                                106.2 Setup a display manager
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1063-accessibility.html" title="106.3 Accessibility">
+                                <i class="fa fa-file-text padding-small"></i>
+                                106.3 Accessibility
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1071-manage-user-and-group-accounts-and-related-system-files.html" title="107.1 Manage user and group accounts and related system files">
+                                <i class="fa fa-file-text padding-small"></i>
+                                107.1 Manage user and group accounts and related system files
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1072-automate-system-administration-tasks-by-scheduling-jobs.html" title="107.2 Automate system administration tasks by scheduling jobs">
+                                <i class="fa fa-file-text padding-small"></i>
+                                107.2 Automate system administration tasks by scheduling jobs
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1073-localisation-and-internationalisation.html" title="107.3 Localisation and internationalisation">
+                                <i class="fa fa-file-text padding-small"></i>
+                                107.3 Localisation and internationalisation
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1081-maintain-system-time.html" title="108.1 Maintain system time">
+                                <i class="fa fa-file-text padding-small"></i>
+                                108.1 Maintain system time
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1082-system-logging.html" title="108.2 System logging">
+                                <i class="fa fa-file-text padding-small"></i>
+                                108.2 System logging
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1083-mail-transfer-agent-mta-basics.html" title="108.3 Mail Transfer Agent (MTA) basics">
+                                <i class="fa fa-file-text padding-small"></i>
+                                108.3 Mail Transfer Agent (MTA) basics
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1084-manage-printers-and-printing.html" title="108.4 Manage printers and printing">
+                                <i class="fa fa-file-text padding-small"></i>
+                                108.4 Manage printers and printing
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1091-fundamentals-of-internet-protocols.html" title="109.1 Fundamentals of internet protocols">
+                                <i class="fa fa-file-text padding-small"></i>
+                                109.1 Fundamentals of internet protocols
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1092-basic-network-configuration.html" title="109.2 Basic network configuration">
+                                <i class="fa fa-file-text padding-small"></i>
+                                109.2 Basic network configuration
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1093-basic-network-troubleshooting.html" title="109.3 Basic network troubleshooting">
+                                <i class="fa fa-file-text padding-small"></i>
+                                109.3 Basic network troubleshooting
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1094-configure-client-side-dns.html" title="109.4 Configure client side DNS">
+                                <i class="fa fa-file-text padding-small"></i>
+                                109.4 Configure client side DNS
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1101-perform-security-administration-tasks.html" title="110.1 Perform security administration tasks">
+                                <i class="fa fa-file-text padding-small"></i>
+                                110.1 Perform security administration tasks
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1102-setup-host-security.html" title="110.2 Setup host security">
+                                <i class="fa fa-file-text padding-small"></i>
+                                110.2 Setup host security
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1103-securing-data-with-encryption.html" title="110.3 Securing data with encryption">
+                                <i class="fa fa-file-text padding-small"></i>
+                                110.3 Securing data with encryption
+                            </a>
+                        </li>
+                    </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+                    <a  href="/pages/about.html">
+                        <i class="fa fa-users padding-small"></i>
+                        About Jadi
+                    </a>
+                </li>
+
+
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Categories
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
+                    <li >
+                        <a href="../category/lpic101.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            lpic101
+                            <span class="badge pull-right categorybadge">16</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="../category/lpic102.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            lpic102
+                            <span class="badge pull-right categorybadge">27</span>
+                        </a>
+                    </li>
+                </ul></li>
+
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- open/close sidebar -->
+        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+            <span id="right-arrow" class="glyphicon glyphicon-chevron-right"  title="expand sidebar"></span>
+            <span id="left-arrow" class="glyphicon glyphicon-chevron-left" title="minimize sidebar"></span>
+        </a>
+       <!-- /open/close sidebar -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+<section id="content">
+    <article>
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="entry-content">
+                    <h1>104.1. Create partitions and filesystems</h1>
+<p><em>Weight: 2</em></p>
+<p>Description: Candidates should be able to configure disk partitions and then create filesystems on media such as hard disks. This includes the handling of swap partitions.</p>
+<h2>Objective</h2>
+<ul>
+<li>Use various mkfs commands to set up partitions and create various filesystems such as:</li>
+<li>ext2/ext3/ext4</li>
+<li>xfs</li>
+<li>reiserfs v3</li>
+<li>
+<p>vfat</p>
+</li>
+<li>
+<p>fdisk</p>
+</li>
+<li>mkfs</li>
+<li>mkswap</li>
+</ul>
+<h2>Blocked devices</h2>
+<p>Is a technical term for any storage device which can be formatted to fixed sized blocks and blocks should be able to be accessed individually. That is Hard disks, USB Memories, CDs,  ..</p>
+<p>In long ls format, the first <strong>b</strong> indicates Block Device:</p>
+<div class="highlight"><pre><span></span>$ ls -l /dev/loop1  /dev/sd<span class="o">[</span>a-z<span class="o">]</span>
+brw-rw---- <span class="m">1</span> root disk 7, <span class="m">1</span> Jan  <span class="m">8</span> 10:46 /dev/loop1
+brw-rw---- <span class="m">1</span> root disk 8, <span class="m">0</span> Jan  <span class="m">8</span> 10:46 /dev/sda
+</pre></div>
+
+
+<p>Some block devices mostly used as one single filesystem (like CDs &amp; Floppies) and some are divided into <strong>Partitions</strong> (Hard disks).</p>
+<h2>fdisk</h2>
+<p><code>fdisk</code> is the main command for viewing / changing and creating partitions. <code>-l</code> switch is for show:</p>
+<div class="highlight"><pre><span></span>root@funlife:~# fdisk -l /dev/sda
+
+Disk /dev/sda: 298.1 GiB, 320072933376 bytes, 625142448 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0x000beca1
+
+Device     Boot     Start       End   Sectors   Size Id Type
+/dev/sda1  *         2048  43094015  43091968  20.6G 83 Linux
+/dev/sda2        43094016  92078390  48984375  23.4G 83 Linux
+/dev/sda3        92080126 625141759 533061634 254.2G  5 Extended
+/dev/sda5        92080128 107702271  15622144   7.5G 82 Linux swap / Solaris
+/dev/sda6       107704320 625141759 517437440 246.8G 83 Linux
+</pre></div>
+
+
+<ul>
+<li>The <strong>Boot</strong> flag shows which partition starts the boot on DOS PCs and has no importance on LILO &amp; GRUB</li>
+<li>Start and End shows the where this partition is located on the disk</li>
+<li>Size is size!</li>
+<li>ID indicated the partition format (82 is swap, 83 is linux data, ..)</li>
+</ul>
+<p>It is also possible to run fdisk in interactive mode. <code>m</code> will show you the help:</p>
+<div class="highlight"><pre><span></span>root@funlife:~# fdisk /dev/sda
+
+Welcome to fdisk (util-linux 2.25.1).
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+
+Command (m for help): m
+
+Help:
+
+  DOS (MBR)
+   a   toggle a bootable flag
+   b   edit nested BSD disklabel
+   c   toggle the dos compatibility flag
+
+  Generic
+   d   delete a partition
+   l   list known partition types
+   n   add a new partition
+   p   print the partition table
+   t   change a partition type
+   v   verify the partition table
+
+  Misc
+   m   print this menu
+   u   change display/entry units
+   x   extra functionality (experts only)
+
+  Save &amp; Exit
+   w   write table to disk and exit
+   q   quit without saving changes
+
+  Create a new label
+   g   create a new empty GPT partition table
+   G   create a new empty SGI (IRIX) partition table
+   o   create a new empty DOS partition table
+   s   create a new empty Sun partition table
+</pre></div>
+
+
+<p><code>p</code> displays the current partitions:</p>
+<div class="highlight"><pre><span></span>Command (m for help): p
+Disk /dev/sda: 298.1 GiB, 320072933376 bytes, 625142448 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0x000beca1
+
+Device     Boot     Start       End   Sectors   Size Id Type
+/dev/sda1  *         2048  43094015  43091968  20.6G 83 Linux
+/dev/sda2        43094016  92078390  48984375  23.4G 83 Linux
+/dev/sda3        92080126 625141759 533061634 254.2G  5 Extended
+/dev/sda5        92080128 107702271  15622144   7.5G 82 Linux swap / Solaris
+/dev/sda6       107704320 625141759 517437440 246.8G 83 Linux
+</pre></div>
+
+
+<p>You may remember the disk layouts from other chapters. <code>fdisk</code> can create them. Lets first delete my first partition:</p>
+<div class="highlight"><pre><span></span>Command (m for help): p
+Disk /dev/sda: 298.1 GiB, 320072933376 bytes, 625142448 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0x000beca1
+
+Device     Boot     Start       End   Sectors   Size Id Type
+/dev/sda1  *         2048  43094015  43091968  20.6G 83 Linux
+/dev/sda2        43094016  92078390  48984375  23.4G 83 Linux
+/dev/sda3        92080126 625141759 533061634 254.2G  5 Extended
+/dev/sda5        92080128 107702271  15622144   7.5G 82 Linux swap / Solaris
+/dev/sda6       107704320 625141759 517437440 246.8G 83 Linux
+
+
+Command (m for help): d
+Partition number (1-3,5,6, default 6): 1
+
+Partition 1 has been deleted.
+</pre></div>
+
+
+<p>I'm brave! Now lets create a smaller one there:</p>
+<div class="highlight"><pre><span></span>Command (m for help): n
+Partition type
+   p   primary (1 primary, 1 extended, 2 free)
+   l   logical (numbered from 5)
+Select (default p): p
+Partition number (1,4, default 1): 1
+First sector (2048-625142447, default 2048):
+Last sector, +sectors or +size{K,M,G,T,P} (2048-43094015, default 43094015): +15G
+
+Created a new partition 1 of type &#39;Linux&#39; and of size 15 GiB.
+
+Command (m for help): p
+Disk /dev/sda: 298.1 GiB, 320072933376 bytes, 625142448 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0x000beca1
+
+Device     Boot     Start       End   Sectors   Size Id Type
+/dev/sda1            2048  31459327  31457280    15G 83 Linux
+/dev/sda2        43094016  92078390  48984375  23.4G 83 Linux
+/dev/sda3        92080126 625141759 533061634 254.2G  5 Extended
+/dev/sda5        92080128 107702271  15622144   7.5G 82 Linux swap / Solaris
+/dev/sda6       107704320 625141759 517437440 246.8G 83 Linux
+</pre></div>
+
+
+<blockquote>
+<p>This new partitioned is not formatted but still marked 83 for later use. If I needed to use this partition as <strong>swap</strong> I had to set its ID to 82:</p>
+</blockquote>
+<div class="highlight"><pre><span></span>Command (m for help): p
+Disk /dev/sda: 298.1 GiB, 320072933376 bytes, 625142448 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0x000beca1
+
+Device     Boot     Start       End   Sectors   Size Id Type
+/dev/sda1            2048  31459327  31457280    15G 83 Linux
+/dev/sda2        43094016  92078390  48984375  23.4G 83 Linux
+/dev/sda3        92080126 625141759 533061634 254.2G  5 Extended
+/dev/sda5        92080128 107702271  15622144   7.5G 82 Linux swap / Solaris
+/dev/sda6       107704320 625141759 517437440 246.8G 83 Linux
+
+
+Command (m for help): t
+Partition number (1-3,5,6, default 6): 1
+Hex code (type L to list all codes): L
+
+ 0  Empty           24  NEC DOS         81  Minix / old Lin bf  Solaris        
+ 1  FAT12           27  Hidden NTFS Win 82  Linux swap / So c1  DRDOS/sec (FAT-
+ 2  XENIX root      39  Plan 9          83  Linux           c4  DRDOS/sec (FAT-
+ 3  XENIX usr       3c  PartitionMagic  84  OS/2 hidden C:  c6  DRDOS/sec (FAT-
+ 4  FAT16 &lt;32M      40  Venix 80286     85  Linux extended  c7  Syrinx         
+ 5  Extended        41  PPC PReP Boot   86  NTFS volume set da  Non-FS data    
+ 6  FAT16           42  SFS             87  NTFS volume set db  CP/M / CTOS / .
+ 7  HPFS/NTFS/exFAT 4d  QNX4.x          88  Linux plaintext de  Dell Utility   
+ 8  AIX             4e  QNX4.x 2nd part 8e  Linux LVM       df  BootIt         
+ 9  AIX bootable    4f  QNX4.x 3rd part 93  Amoeba          e1  DOS access     
+ a  OS/2 Boot Manag 50  OnTrack DM      94  Amoeba BBT      e3  DOS R/O        
+ b  W95 FAT32       51  OnTrack DM6 Aux 9f  BSD/OS          e4  SpeedStor      
+ c  W95 FAT32 (LBA) 52  CP/M            a0  IBM Thinkpad hi eb  BeOS fs        
+ e  W95 FAT16 (LBA) 53  OnTrack DM6 Aux a5  FreeBSD         ee  GPT            
+ f  W95 Ext&#39;d (LBA) 54  OnTrackDM6      a6  OpenBSD         ef  EFI (FAT-12/16/
+10  OPUS            55  EZ-Drive        a7  NeXTSTEP        f0  Linux/PA-RISC b
+11  Hidden FAT12    56  Golden Bow      a8  Darwin UFS      f1  SpeedStor      
+12  Compaq diagnost 5c  Priam Edisk     a9  NetBSD          f4  SpeedStor      
+14  Hidden FAT16 &lt;3 61  SpeedStor       ab  Darwin boot     f2  DOS secondary  
+16  Hidden FAT16    63  GNU HURD or Sys af  HFS / HFS+      fb  VMware VMFS    
+17  Hidden HPFS/NTF 64  Novell Netware  b7  BSDI fs         fc  VMware VMKCORE
+18  AST SmartSleep  65  Novell Netware  b8  BSDI swap       fd  Linux raid auto
+1b  Hidden W95 FAT3 70  DiskSecure Mult bb  Boot Wizard hid fe  LANstep        
+1c  Hidden W95 FAT3 75  PC/IX           be  Solaris boot    ff  BBT            
+1e  Hidden W95 FAT1 80  Old Minix      
+Hex code (type L to list all codes): 82
+
+Changed type of partition &#39;Linux&#39; to &#39;Linux swap / Solaris&#39;.
+
+Command (m for help): p
+Disk /dev/sda: 298.1 GiB, 320072933376 bytes, 625142448 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0x000beca1
+
+Device     Boot     Start       End   Sectors   Size Id Type
+/dev/sda1            2048  31459327  31457280    15G 82 Linux swap / Solaris
+/dev/sda2        43094016  92078390  48984375  23.4G 83 Linux
+/dev/sda3        92080126 625141759 533061634 254.2G  5 Extended
+/dev/sda5        92080128 107702271  15622144   7.5G 82 Linux swap / Solaris
+/dev/sda6       107704320 625141759 517437440 246.8G 83 Linux
+</pre></div>
+
+
+<blockquote>
+<p>b is code for FAT32 (windows 95).</p>
+</blockquote>
+<p>But all we done was in memory! We need to write it to the partition table. 'v' will verify the setup:</p>
+<div class="highlight"><pre><span></span>Command (m for help): v
+Remaining 11639159 unallocated 512-byte sectors.
+</pre></div>
+
+
+<p>It tells me that I have unallocated space! I'm waisting my hard but I'm fine with it. So lets save it with <code>w</code> command (for write):</p>
+<div class="highlight"><pre><span></span>Command (m for help): w
+
+The partition table has been altered.
+Calling ioctl() to re-read partition table.
+Re-reading the partition table failed.: Device or resource busy
+
+The kernel still uses the old table. The new table will be used at the next reboot or after you run partprobe(8) or kpartx(8).
+</pre></div>
+
+
+<h2>Formatting the partition</h2>
+<p>Linux can handle more than 100 kind of partitions but most commons are:</p>
+<table>
+<thead>
+<tr>
+<th>Format</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ext2</td>
+<td>second extended filesystem was developed to address shortcomings in the Minix filesystem used in early versions of Linux. It has been used extensively on Linux for many years. There is no journaling in ext2, and it has largely been replaced by ext3 and more recently ext4.</td>
+</tr>
+<tr>
+<td>ext3</td>
+<td>ext2 + journaling, total storage can be 1EXAByte and each file can be 16TB, ...</td>
+</tr>
+<tr>
+<td>ReiserFS</td>
+<td>ReiserFS is a B-tree-based filesystem, great for large numbers of small files, journaling, no longer in active development &amp; does not support SELinux, replaced with Reiser4.</td>
+</tr>
+<tr>
+<td>XFS</td>
+<td>journaling, caches to RAM, great for uninterruptible power supplies</td>
+</tr>
+<tr>
+<td>swap</td>
+<td>Swap space must be formatted for use as swap space, but it is not generally considered a filesystem.</td>
+</tr>
+<tr>
+<td>vfat</td>
+<td>FAT32, no journaling, good for data exchange with windows, does not understand permissions and symbolic links</td>
+</tr>
+<tr>
+<td>ext4</td>
+<td>newer than ext3</td>
+</tr>
+</tbody>
+</table>
+<p>You can format your partitions with <code>mkfs</code> command (and <code>mkswap</code> for swap). This is a front end to commands like  mkfs.ext3 for ext3, mkfs.ext4 for ext4 and mkfs.reiserfs for ReiserFS. full list of installed on your system is here:</p>
+<div class="highlight"><pre><span></span>root@funlife:~# ls /sbin/mk*
+/sbin/mkdosfs  /sbin/mkfs      /sbin/mkfs.cramfs  /sbin/mkfs.ext3  /sbin/mkfs.ext4dev  /sbin/mkfs.minix  /sbin/mkfs.ntfs  /sbin/mkhomedir_helper  /sbin/mkswap
+/sbin/mke2fs   /sbin/mkfs.bfs  /sbin/mkfs.ext2    /sbin/mkfs.ext4  /sbin/mkfs.fat      /sbin/mkfs.msdos  /sbin/mkfs.vfat  /sbin/mkntfs
+</pre></div>
+
+
+<p>The main switch is <code>-type</code> (or <code>-t</code>) to specify the format:</p>
+<div class="highlight"><pre><span></span>root@funlife:~# mkfs -t ext3 /dev/sda1
+mke2fs 1.42.10 (18-May-2014)
+/dev/sda1 contains a ext4 file system
+    last mounted on /mnt on Mon Dec 22 12:04:22 2014
+Proceed anyway? (y,n) y
+Creating filesystem with 5386496 4k blocks and 1349040 inodes
+Filesystem UUID: 0b5aad86-b507-41b9-a0ff-cf899cb92785
+Superblock backups stored on blocks:
+    32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208,
+    4096000
+
+Allocating group tables: done                            
+Writing inode tables: done                            
+Creating journal (32768 blocks): done
+Writing superblocks and filesystem accounting information: done   
+
+root@funlife:~#
+</pre></div>
+
+
+<blockquote>
+<p>This will have a same effect: <code>mkfs.ext3 /dev/sda1</code></p>
+</blockquote>
+<p>If you need to assign a lable to the partition, you have to use the <code>-L lable_name</code> option. Please note that in renect system, people use UUIDs instead of labels. UUID of a disk can be viewed with:</p>
+<div class="highlight"><pre><span></span>$ blkid /dev/sda1
+/dev/sda1: <span class="nv">UUID</span><span class="o">=</span><span class="s2">&quot;59d8cbdb-0e78-4605-8aaf-cf02fcb85d2e&quot;</span> <span class="nv">SEC_TYPE</span><span class="o">=</span><span class="s2">&quot;ext2&quot;</span> <span class="nv">TYPE</span><span class="o">=</span><span class="s2">&quot;ext3&quot;</span>
+</pre></div>
+
+
+<h2>GPT</h2>
+<p>Some systems use GUID Partition Table (GPT) instead of older MBR. In this case you have to use the <code>gdisk</code> tool which has more capabilities than <code>fdisk</code>.</p>
+<div class="highlight"><pre><span></span>root@funlife:~# gdisk /dev/sda
+GPT fdisk (gdisk) version 0.8.8
+
+Partition table scan:
+  MBR: MBR only
+  BSD: not present
+  APM: not present
+  GPT: not present
+
+
+***************************************************************
+Found invalid GPT and valid MBR; converting MBR to GPT format
+in memory. THIS OPERATION IS POTENTIALLY DESTRUCTIVE! Exit by
+typing &#39;q&#39; if you don&#39;t want to convert your MBR partitions
+to GPT format!
+***************************************************************
+</pre></div>
+
+
+<h3>creating different partitions</h3>
+<table>
+<thead>
+<tr>
+<th>Partition</th>
+<th>Format type</th>
+<th>Sample Command</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/dev/sda3</td>
+<td>ext4</td>
+<td><code>mkfs -t ext4 -L data</code>/dev/sda3</td>
+<td>Named it <em>dafa</em>. Or use the <code>mkfs.ext4</code> command</td>
+</tr>
+<tr>
+<td>/dev/sdb2</td>
+<td>xfs</td>
+<td><code>mkfs -t xfs -i size=512 /dev/sdb2</code></td>
+<td>telling it to have larger inodes (normal is 256)</td>
+</tr>
+<tr>
+<td>/dev/sda8</td>
+<td>ReiserFS</td>
+<td><code>mkfs -t reiserfs /dev/sda8</code></td>
+<td>Or you can use <code>mkreiserfs</code> command.</td>
+</tr>
+<tr>
+<td>/dev/sdc</td>
+<td>FAT32</td>
+<td><code>mkfs -t vfat /dev/sdc</code></td>
+<td>Or you can use <code>mkfs.vfat</code> command</td>
+</tr>
+<tr>
+<td>/dev/sda2</td>
+<td>swap</td>
+<td><code>mkswap /dev/sda2</code></td>
+<td>will be used as swap space</td>
+</tr>
+</tbody>
+</table>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+                </div>
+                <footer class="text-right">
+                    <p></p>
+                </footer>
+            </div>
+        </div>
+    </article>
+</section>
+<footer>
+    <hr>
+    <div class="row">
+        <div class="col-lg-9 text-center">
+            <p><small>
+                Built by <a href="http://docs.getpelican.com/en/latest">Pelican</a> / <a href="https://github.com/ingwinlu/pelican-twitchy">pelican-twitchy</a>
+                &middot;                    &copy; 2015 jadi
+            </small></p>
+        </div>
+    </div>
+</footer>            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery Version 1.11.2 -->
+    <script src="../theme/js/jquery-1.11.2.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../theme/js/bootstrap.min.js"></script>
+    <!-- twitchy Script -->
+    <script src="../theme/js/pelican_twitchy.min.js"></script>
+
+</body>
+</html>

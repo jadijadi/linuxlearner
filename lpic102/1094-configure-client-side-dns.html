@@ -1,0 +1,686 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="author" content="jadi" />
+        <meta name="description" content="109.4 Configure client side DNS Weight: 2 Candidates should be able to configure DNS on a client host. Key Knowledge Areas Query remote DNS servers. Configure local name resolution and use remote DNS servers. Modify the order in which name resolution is done. Terms and Utilities /etc/hosts /etc ..." />
+
+
+    <title>109.4 Configure client side DNS - Linux Learner</title>
+
+        <link rel="stylesheet" href="../theme/css/bootstrap.min.css" type="text/css" />
+
+    <link href="../theme/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../theme/css/pygments/native.css" rel="stylesheet" />
+
+    <link href="../theme/css/pelican-twitchy.min.css" rel="stylesheet" />
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Feeds -->
+        <link href="../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Linux Learner ATOM Feed" />
+        <link href="../feeds/all.rss.xml" type="application/rss+xml" rel="alternate"
+              title="Linux Learner RSS Feed" />
+</head>
+<body data-spy="scroll" data-target="#scrollspy">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper-small" class="twitchy-background">
+            <ul id="accordion-small" class="sidebar-nav sidebar-nav-small">
+                <li>
+        <a href=".." title="Linux Learner" class="collapsed">
+            <span class="glyphicon glyphicon-home"></span>
+        </a>
+    </li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="../archives.html" title="Recent Articles" class="collapsed">
+            <span class="glyphicon glyphicon-th-list"></span>
+        </a>
+    </li>
+
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion-small" href="#collapse-social-small" title="Social" class="collapsed">
+                        <i class="fa fa-users padding-small"></i>
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-social-small" class="collapse ">
+                    <li>
+                        <a href="#" title="Another social link"><i class="fa fa-another-social-link-square fa-lg padding-small"></i></a>
+                    </li>
+                    <li>
+                        <a href="#" title="You can add links in your config file"><i class="fa fa-you-can-add-links-in-your-config-file-square fa-lg padding-small"></i></a>
+                    </li>
+                </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+        <a href="#" title="Back to top" class="collapsed">
+            <span class="fa fa-arrow-up"></span>
+        </a>
+    </li>
+            </ul>
+        </div>
+        <div id="sidebar-wrapper" class="twitchy-background">
+            <ul id="accordion" class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="../">
+                            <span class="glyphicon glyphicon-home padding-small"></span>
+                            Linux Learner
+                    </a>
+                </li>
+                <li class="nav-divider"></li>
+                <li>
+                    <a  data-parent="#accordion" href="/pages/donate.html">
+                        <span class="glyphicon glyphicon-heart padding-small"></span>
+                        Support
+                    </a>
+                </li>
+
+                    <li class="nav-divider"></li>
+                    <li>
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-latest">
+                            <span class="glyphicon glyphicon-th-list padding-small"></span>
+                            LPIC1 Chapters
+                        </a>
+                    </li>
+                    <li class="panel anti-panel"><ul id="collapse-latest" class="sidebar_submenu collapse in">
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1011-determine-and-configure-hardware-settings.html" title="101.1 Determine and configure hardware settings">
+                                <i class="fa fa-file-text padding-small"></i>
+                                101.1 Determine and configure hardware settings
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1012-boot-the-system.html" title="101.2. Boot the system">
+                                <i class="fa fa-file-text padding-small"></i>
+                                101.2. Boot the system
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1013-change-runlevels-and-shutdown-or-reboot-system.html" title="101.3. Change runlevels and shutdown or reboot system">
+                                <i class="fa fa-file-text padding-small"></i>
+                                101.3. Change runlevels and shutdown or reboot system
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1021-design-hard-disk-layout.html" title="102.1 Design hard disk layout">
+                                <i class="fa fa-file-text padding-small"></i>
+                                102.1 Design hard disk layout
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1022-install-a-boot-manager.html" title="102.2 Install a boot manager">
+                                <i class="fa fa-file-text padding-small"></i>
+                                102.2 Install a boot manager
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1023-manage-shared-libraries.html" title="102.3. Manage shared libraries">
+                                <i class="fa fa-file-text padding-small"></i>
+                                102.3. Manage shared libraries
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1024-use-debian-package-management.html" title="102.4. Use Debian package management">
+                                <i class="fa fa-file-text padding-small"></i>
+                                102.4. Use Debian package management
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1025-use-rpm-and-yum-package-management.html" title="102.5 Use RPM and YUM package management">
+                                <i class="fa fa-file-text padding-small"></i>
+                                102.5 Use RPM and YUM package management
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1031-work-on-the-command-line.html" title="103.1 Work on the command line">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.1 Work on the command line
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1032-process-text-streams-using-filters.html" title="103.2. Process text streams using filters">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.2. Process text streams using filters
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1033-perform-basic-file-management.html" title="103.3 Perform basic file management">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.3 Perform basic file management
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1034-use-streams-pipes-and-redirects.html" title="103.4. Use streams, pipes and redirects">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.4. Use streams, pipes and redirects
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1035-create-monitor-and-kill-processes.html" title="103.5. Create, monitor and kill processes">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.5. Create, monitor and kill processes
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1036-modify-process-execution-priorities.html" title="103.6. Modify process execution priorities">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.6. Modify process execution priorities
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1037-search-text-files-using-regular-expressions.html" title="103.7 Search text files using regular expressions">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.7 Search text files using regular expressions
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic101/1038-perform-basic-file-editing-operations-using-vi.html" title="103.8 Perform basic file editing operations using vi">
+                                <i class="fa fa-file-text padding-small"></i>
+                                103.8 Perform basic file editing operations using vi
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1041-create-partitions-and-filesystems.html" title="104.1. Create partitions and filesystems">
+                                <i class="fa fa-file-text padding-small"></i>
+                                104.1. Create partitions and filesystems
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1042-maintain-the-integrity-of-filesystems.html" title="104.2 Maintain the integrity of filesystems">
+                                <i class="fa fa-file-text padding-small"></i>
+                                104.2 Maintain the integrity of filesystems
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1043-control-mounting-and-unmounting-of-filesystems.html" title="104.3. Control mounting and unmounting of filesystems">
+                                <i class="fa fa-file-text padding-small"></i>
+                                104.3. Control mounting and unmounting of filesystems
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1044-manage-disk-quotas.html" title="104.4 Manage disk quotas">
+                                <i class="fa fa-file-text padding-small"></i>
+                                104.4 Manage disk quotas
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1045-manage-file-permissions-and-ownership.html" title="104.5 Manage file permissions and ownership">
+                                <i class="fa fa-file-text padding-small"></i>
+                                104.5 Manage file permissions and ownership
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1046-create-and-change-hard-symbolic-links.html" title="104.6. Create and change hard & symbolic links">
+                                <i class="fa fa-file-text padding-small"></i>
+                                104.6. Create and change hard & symbolic links
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1047-find-system-files-and-place-files-in-the-correct-location.html" title="104.7 Find system files and place files in the correct location">
+                                <i class="fa fa-file-text padding-small"></i>
+                                104.7 Find system files and place files in the correct location
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1051-customize-and-use-the-shell-environment.html" title="105.1. Customize and use the shell environment">
+                                <i class="fa fa-file-text padding-small"></i>
+                                105.1. Customize and use the shell environment
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1052-customize-or-write-simple-scripts.html" title="105.2 Customize or write simple scripts">
+                                <i class="fa fa-file-text padding-small"></i>
+                                105.2 Customize or write simple scripts
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1053-sql-data-management.html" title="105.3 SQL data management">
+                                <i class="fa fa-file-text padding-small"></i>
+                                105.3 SQL data management
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1061-install-and-configure-x11.html" title="106.1 Install and configure X11">
+                                <i class="fa fa-file-text padding-small"></i>
+                                106.1 Install and configure X11
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1062-setup-a-display-manager.html" title="106.2 Setup a display manager">
+                                <i class="fa fa-file-text padding-small"></i>
+                                106.2 Setup a display manager
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1063-accessibility.html" title="106.3 Accessibility">
+                                <i class="fa fa-file-text padding-small"></i>
+                                106.3 Accessibility
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1071-manage-user-and-group-accounts-and-related-system-files.html" title="107.1 Manage user and group accounts and related system files">
+                                <i class="fa fa-file-text padding-small"></i>
+                                107.1 Manage user and group accounts and related system files
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1072-automate-system-administration-tasks-by-scheduling-jobs.html" title="107.2 Automate system administration tasks by scheduling jobs">
+                                <i class="fa fa-file-text padding-small"></i>
+                                107.2 Automate system administration tasks by scheduling jobs
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1073-localisation-and-internationalisation.html" title="107.3 Localisation and internationalisation">
+                                <i class="fa fa-file-text padding-small"></i>
+                                107.3 Localisation and internationalisation
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1081-maintain-system-time.html" title="108.1 Maintain system time">
+                                <i class="fa fa-file-text padding-small"></i>
+                                108.1 Maintain system time
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1082-system-logging.html" title="108.2 System logging">
+                                <i class="fa fa-file-text padding-small"></i>
+                                108.2 System logging
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1083-mail-transfer-agent-mta-basics.html" title="108.3 Mail Transfer Agent (MTA) basics">
+                                <i class="fa fa-file-text padding-small"></i>
+                                108.3 Mail Transfer Agent (MTA) basics
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1084-manage-printers-and-printing.html" title="108.4 Manage printers and printing">
+                                <i class="fa fa-file-text padding-small"></i>
+                                108.4 Manage printers and printing
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1091-fundamentals-of-internet-protocols.html" title="109.1 Fundamentals of internet protocols">
+                                <i class="fa fa-file-text padding-small"></i>
+                                109.1 Fundamentals of internet protocols
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1092-basic-network-configuration.html" title="109.2 Basic network configuration">
+                                <i class="fa fa-file-text padding-small"></i>
+                                109.2 Basic network configuration
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1093-basic-network-troubleshooting.html" title="109.3 Basic network troubleshooting">
+                                <i class="fa fa-file-text padding-small"></i>
+                                109.3 Basic network troubleshooting
+                            </a>
+                        </li>
+                        <li class="active">
+                            <a class="hide-overflow" href="../lpic102/1094-configure-client-side-dns.html" title="109.4 Configure client side DNS">
+                                <i class="fa fa-file-text padding-small"></i>
+                                109.4 Configure client side DNS
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1101-perform-security-administration-tasks.html" title="110.1 Perform security administration tasks">
+                                <i class="fa fa-file-text padding-small"></i>
+                                110.1 Perform security administration tasks
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1102-setup-host-security.html" title="110.2 Setup host security">
+                                <i class="fa fa-file-text padding-small"></i>
+                                110.2 Setup host security
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="hide-overflow" href="../lpic102/1103-securing-data-with-encryption.html" title="110.3 Securing data with encryption">
+                                <i class="fa fa-file-text padding-small"></i>
+                                110.3 Securing data with encryption
+                            </a>
+                        </li>
+                    </ul></li>
+                <li class="nav-divider"></li>
+                <li>
+                    <a  href="/pages/about.html">
+                        <i class="fa fa-users padding-small"></i>
+                        About Jadi
+                    </a>
+                </li>
+
+
+                <li class="nav-divider"></li>
+                <li>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-categories">
+                        <i class="fa fa-folder-open padding-small"></i>
+                        Categories
+                    </a>
+                </li>
+                <li class="panel anti-panel"><ul id="collapse-categories" class="sidebar_submenu collapse ">
+                    <li >
+                        <a href="../category/lpic101.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            lpic101
+                            <span class="badge pull-right categorybadge">16</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="../category/lpic102.html">
+                            <i class="fa fa-folder-open padding-small"></i>
+                            lpic102
+                            <span class="badge pull-right categorybadge">27</span>
+                        </a>
+                    </li>
+                </ul></li>
+
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- open/close sidebar -->
+        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+            <span id="right-arrow" class="glyphicon glyphicon-chevron-right"  title="expand sidebar"></span>
+            <span id="left-arrow" class="glyphicon glyphicon-chevron-left" title="minimize sidebar"></span>
+        </a>
+       <!-- /open/close sidebar -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+<section id="content">
+    <article>
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="entry-content">
+                    <h1>109.4 Configure client side DNS</h1>
+<p><em>Weight: 2</em></p>
+<p>Candidates should be able to configure DNS on a client host.</p>
+<h2>Key Knowledge Areas</h2>
+<ul>
+<li>Query remote DNS servers.</li>
+<li>Configure local name resolution and use remote DNS servers.</li>
+<li>Modify the order in which name resolution is done.</li>
+</ul>
+<h2>Terms and Utilities</h2>
+<ul>
+<li>/etc/hosts</li>
+<li>/etc/resolv.conf</li>
+<li>/etc/nsswitch.conf</li>
+<li>host</li>
+<li>dig</li>
+<li>getent</li>
+</ul>
+<h2>DNS</h2>
+<p>We already know a lot about Domain Name Server - A service who translates domain names (like yahoo.com) to IP addresses (like 206.190.36.45). A DNS server is used when you try to ping a server using its name. You have seen the config files for DNS and should know that the actual DNS server which is being used by the computer can be checked / changed (temporarily) from <code>/etc/resolv.conf</code>:</p>
+<div class="highlight"><pre><span></span>$ cat /etc/resolv.conf
+<span class="c1"># Generated by NetworkManager</span>
+nameserver 192.168.1.1
+nameserver 4.2.2.4
+
+$ ping x.org
+PING x.org <span class="o">(</span>131.252.210.176<span class="o">)</span> 56<span class="o">(</span>84<span class="o">)</span> bytes of data.
+<span class="m">64</span> bytes from annarchy.freedesktop.org <span class="o">(</span>131.252.210.176<span class="o">)</span>: <span class="nv">icmp_seq</span><span class="o">=</span><span class="m">1</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">45</span> <span class="nv">time</span><span class="o">=</span><span class="m">338</span> ms
+<span class="m">64</span> bytes from  annarchy.freedesktop.org <span class="o">(</span>131.252.210.176<span class="o">)</span>: <span class="nv">icmp_seq</span><span class="o">=</span><span class="m">2</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">45</span> <span class="nv">time</span><span class="o">=</span><span class="m">333</span> ms
+^C
+--- x.org ping statistics ---
+<span class="m">2</span> packets transmitted, <span class="m">2</span> received, 0% packet loss, <span class="nb">time</span> 1000ms
+rtt min/avg/max/mdev <span class="o">=</span> 333.088/335.612/338.136/2.524 ms
+</pre></div>
+
+
+<h2>dig</h2>
+<p>The <code>dig</code> tool is specificly build to query DNS. If you want to find out where x.org points to, you can do:</p>
+<div class="highlight"><pre><span></span>$ dig x.org
+
+<span class="p">;</span> &lt;&lt;&gt;&gt; DiG 9.10.3-P4-RedHat-9.10.3-12.P4.fc23 &lt;&lt;&gt;&gt; x.org
+<span class="p">;;</span> global options: +cmd
+<span class="p">;;</span> Got answer:
+<span class="p">;;</span> -&gt;&gt;HEADER<span class="s">&lt;&lt;- opco</span>de: QUERY, status: NOERROR, id: 7483
+<span class="p">;;</span> flags: qr rd ra<span class="p">;</span> QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+<span class="p">;;</span> OPT PSEUDOSECTION:
+<span class="p">;</span> EDNS: version: 0, flags:<span class="p">;</span> udp: 512
+<span class="p">;;</span> QUESTION SECTION:
+<span class="p">;</span>x.org.             IN  A
+
+<span class="p">;;</span> ANSWER SECTION:
+x.org.          <span class="m">1625</span>    IN  A   131.252.210.176
+
+<span class="p">;;</span> Query time: <span class="m">35</span> msec
+<span class="p">;;</span> SERVER: 192.168.1.1#53<span class="o">(</span>192.168.1.1<span class="o">)</span>
+<span class="p">;;</span> WHEN: Sun Apr <span class="m">17</span> 12:45:02 IRDT 2016
+<span class="p">;;</span> MSG SIZE  rcvd: 50
+</pre></div>
+
+
+<p>As you can see, <code>dig</code> did a <strong>ip lookup</strong> for x.org and told me that the IP is 131.252.210.176. The <code>1625</code> is called the TTL or <em>Time To Live</em> and show how many secconds before this answer expires. This command also tells us which server is used to find the answer (last 4 lines) and when and how long it took.</p>
+<p>There is also a way to tell <code>dig</code> command what server it should use as the DNS:</p>
+<div class="highlight"><pre><span></span><span class="err">$</span> <span class="n">dig</span> <span class="mf">@8.8.8.8</span> <span class="n">google</span><span class="p">.</span><span class="n">com</span>
+
+<span class="p">;</span> <span class="o">&lt;&lt;&gt;&gt;</span> <span class="n">DiG</span> <span class="mf">9.10.3</span><span class="o">-</span><span class="n">P4</span><span class="o">-</span><span class="n">RedHat</span><span class="o">-</span><span class="mf">9.10.3</span><span class="o">-</span><span class="mf">12.</span><span class="n">P4</span><span class="p">.</span><span class="n">fc23</span> <span class="o">&lt;&lt;&gt;&gt;</span> <span class="mf">@8.8.8.8</span> <span class="n">google</span><span class="p">.</span><span class="n">com</span>
+<span class="p">;</span> <span class="p">(</span><span class="mi">1</span> <span class="n">server</span> <span class="n">found</span><span class="p">)</span>
+<span class="p">;;</span> <span class="n">global</span> <span class="nl">options</span><span class="p">:</span> <span class="o">+</span><span class="n">cmd</span>
+<span class="p">;;</span> <span class="n">Got</span> <span class="nl">answer</span><span class="p">:</span>
+<span class="p">;;</span> <span class="o">-&gt;&gt;</span><span class="n">HEADER</span><span class="o">&lt;&lt;-</span> <span class="nl">opcode</span><span class="p">:</span> <span class="n">QUERY</span><span class="p">,</span> <span class="nl">status</span><span class="p">:</span> <span class="n">NOERROR</span><span class="p">,</span> <span class="kt">id</span><span class="o">:</span> <span class="mi">24313</span>
+<span class="p">;;</span> <span class="nl">flags</span><span class="p">:</span> <span class="n">qr</span> <span class="n">rd</span> <span class="n">ra</span><span class="p">;</span> <span class="nl">QUERY</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nl">ANSWER</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span> <span class="nl">AUTHORITY</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nl">ADDITIONAL</span><span class="p">:</span> <span class="mi">1</span>
+
+<span class="p">;;</span> <span class="n">OPT</span> <span class="nl">PSEUDOSECTION</span><span class="p">:</span>
+<span class="p">;</span> <span class="nl">EDNS</span><span class="p">:</span> <span class="nl">version</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nl">flags</span><span class="p">:;</span> <span class="nl">udp</span><span class="p">:</span> <span class="mi">512</span>
+<span class="p">;;</span> <span class="n">QUESTION</span> <span class="nl">SECTION</span><span class="p">:</span>
+<span class="p">;</span><span class="n">google</span><span class="p">.</span><span class="n">com</span><span class="p">.</span>            <span class="n">IN</span>  <span class="n">A</span>
+
+<span class="p">;;</span> <span class="n">ANSWER</span> <span class="nl">SECTION</span><span class="p">:</span>
+<span class="n">google</span><span class="p">.</span><span class="n">com</span><span class="p">.</span>     <span class="mi">112</span> <span class="n">IN</span>  <span class="n">A</span>   <span class="mf">173.194.32.133</span>
+<span class="n">google</span><span class="p">.</span><span class="n">com</span><span class="p">.</span>     <span class="mi">112</span> <span class="n">IN</span>  <span class="n">A</span>   <span class="mf">173.194.32.136</span>
+<span class="n">google</span><span class="p">.</span><span class="n">com</span><span class="p">.</span>     <span class="mi">112</span> <span class="n">IN</span>  <span class="n">A</span>   <span class="mf">173.194.32.132</span>
+<span class="n">google</span><span class="p">.</span><span class="n">com</span><span class="p">.</span>     <span class="mi">112</span> <span class="n">IN</span>  <span class="n">A</span>   <span class="mf">173.194.32.129</span>
+<span class="n">google</span><span class="p">.</span><span class="n">com</span><span class="p">.</span>     <span class="mi">112</span> <span class="n">IN</span>  <span class="n">A</span>   <span class="mf">173.194.32.137</span>
+<span class="n">google</span><span class="p">.</span><span class="n">com</span><span class="p">.</span>     <span class="mi">112</span> <span class="n">IN</span>  <span class="n">A</span>   <span class="mf">173.194.32.130</span>
+<span class="n">google</span><span class="p">.</span><span class="n">com</span><span class="p">.</span>     <span class="mi">112</span> <span class="n">IN</span>  <span class="n">A</span>   <span class="mf">173.194.32.134</span>
+<span class="n">google</span><span class="p">.</span><span class="n">com</span><span class="p">.</span>     <span class="mi">112</span> <span class="n">IN</span>  <span class="n">A</span>   <span class="mf">173.194.32.135</span>
+<span class="n">google</span><span class="p">.</span><span class="n">com</span><span class="p">.</span>     <span class="mi">112</span> <span class="n">IN</span>  <span class="n">A</span>   <span class="mf">173.194.32.128</span>
+<span class="n">google</span><span class="p">.</span><span class="n">com</span><span class="p">.</span>     <span class="mi">112</span> <span class="n">IN</span>  <span class="n">A</span>   <span class="mf">173.194.32.131</span>
+<span class="n">google</span><span class="p">.</span><span class="n">com</span><span class="p">.</span>     <span class="mi">112</span> <span class="n">IN</span>  <span class="n">A</span>   <span class="mf">173.194.32.142</span>
+
+<span class="p">;;</span> <span class="n">Query</span> <span class="nl">time</span><span class="p">:</span> <span class="mi">238</span> <span class="n">msec</span>
+<span class="p">;;</span> <span class="nl">SERVER</span><span class="p">:</span> <span class="mf">8.8.8.8</span><span class="err">#</span><span class="mi">53</span><span class="p">(</span><span class="mf">8.8.8.8</span><span class="p">)</span>
+<span class="p">;;</span> <span class="nl">WHEN</span><span class="p">:</span> <span class="n">Sun</span> <span class="n">Apr</span> <span class="mi">17</span> <span class="mi">13</span><span class="o">:</span><span class="mo">03</span><span class="o">:</span><span class="mi">38</span> <span class="n">IRDT</span> <span class="mi">2016</span>
+<span class="p">;;</span> <span class="n">MSG</span> <span class="n">SIZE</span>  <span class="nl">rcvd</span><span class="p">:</span> <span class="mi">215</span>
+</pre></div>
+
+
+<p>Here I haved asked dig to use 8.8.8.8 as its DNS and query google.com. You can see that I've got more than 1 answer (actually much more than 1 answer). My computer can randomly contact any of those IPs to reach the google.com. In other words, google.com is using more than 1 server/IP and 8.8.8.8 provides all of them when queried for that domain.</p>
+<h2>/etc/hosts</h2>
+<p>This is a file containing IP addresses and their domain names - statically saved! Lets have a look:</p>
+<div class="highlight"><pre><span></span>$ head /etc/hosts
+127.0.0.1   funlife localhost.localdomain   localhost clickadu.com
+::1 funlife localhost6.localdomain6 localhost6
+
+10.159.32.155 nsnproxy
+172.16.12.134 linuxclass wonderland
+193.40.12.135 salma
+
+87.106.233.90 gratis.vps
+
+192.168.59.231 mass1
+</pre></div>
+
+
+<p>This file can be changed by root and will map some domain names (localhost, mass1, gratis.vps, ...) to some IP addresses. If I ping <em>mass1</em> on this computer.. lets see:</p>
+<div class="highlight"><pre><span></span>$ dig mass1
+
+<span class="p">;</span> &lt;&lt;&gt;&gt; DiG 9.10.3-P4-RedHat-9.10.3-12.P4.fc23 &lt;&lt;&gt;&gt; mass1
+<span class="p">;;</span> global options: +cmd
+<span class="p">;;</span> Got answer:
+<span class="p">;;</span> -&gt;&gt;HEADER<span class="s">&lt;&lt;- opco</span>de: QUERY, status: NXDOMAIN, id: 39464
+<span class="p">;;</span> flags: qr rd ra<span class="p">;</span> QUERY: 1, ANSWER: 0, AUTHORITY: 1, ADDITIONAL: 1
+
+<span class="p">;;</span> OPT PSEUDOSECTION:
+<span class="p">;</span> EDNS: version: 0, flags:<span class="p">;</span> udp: 512
+<span class="p">;;</span> QUESTION SECTION:
+<span class="p">;</span>mass1.             IN  A
+
+<span class="p">;;</span> AUTHORITY SECTION:
+.           <span class="m">600</span> IN  SOA a.root-servers.net. nstld.verisign-grs.com. <span class="m">2016041700</span> <span class="m">1800</span> <span class="m">900</span> <span class="m">604800</span> 86400
+
+<span class="p">;;</span> Query time: <span class="m">516</span> msec
+<span class="p">;;</span> SERVER: 192.168.1.1#53<span class="o">(</span>192.168.1.1<span class="o">)</span>
+<span class="p">;;</span> WHEN: Sun Apr <span class="m">17</span> 13:15:07 IRDT 2016
+<span class="p">;;</span> MSG SIZE  rcvd: 109
+
+$ ping mass1
+PING mass1 <span class="o">(</span>192.168.59.231<span class="o">)</span> 56<span class="o">(</span>84<span class="o">)</span> bytes of data.
+From 85-15-16-103.shatel.ir <span class="o">(</span>85.15.16.103<span class="o">)</span> <span class="nv">icmp_seq</span><span class="o">=</span><span class="m">1</span> Packet filtered
+From 85-15-16-103.shatel.ir <span class="o">(</span>85.15.16.103<span class="o">)</span> <span class="nv">icmp_seq</span><span class="o">=</span><span class="m">2</span> Packet filtered
+</pre></div>
+
+
+<p>My computer pings 192.168.59.231 when I go for mass1 even when the DNS can not finds this name because that is defined in <code>/etc/hosts</code>.</p>
+<h2>nsswitch</h2>
+<p>The <code>/etc/nsswitch.conf</code> file tells the system about the priority of lookups, password checks, .... Lets have a look to make it clear:</p>
+<div class="highlight"><pre><span></span>$ cat /etc/nsswitch.conf
+<span class="c1">#</span>
+<span class="c1"># /etc/nsswitch.conf</span>
+<span class="c1">#</span>
+<span class="c1"># An example Name Service Switch config file. This file should be</span>
+<span class="c1"># sorted with the most-used services at the beginning.</span>
+<span class="c1">#</span>
+<span class="c1"># The entry &#39;[NOTFOUND=return]&#39; means that the search for an</span>
+<span class="c1"># entry should stop if the search in the previous entry turned</span>
+<span class="c1"># up nothing. Note that if the search failed due to some other reason</span>
+<span class="c1"># (like no NIS server responding) then the search continues with the</span>
+<span class="c1"># next entry.</span>
+<span class="c1">#</span>
+<span class="c1"># Valid entries include:</span>
+<span class="c1">#</span>
+<span class="c1">#   nisplus         Use NIS+ (NIS version 3)</span>
+<span class="c1">#   nis         Use NIS (NIS version 2), also called YP</span>
+<span class="c1">#   dns         Use DNS (Domain Name Service)</span>
+<span class="c1">#   files           Use the local files</span>
+<span class="c1">#   db          Use the local database (.db) files</span>
+<span class="c1">#   compat          Use NIS on compat mode</span>
+<span class="c1">#   hesiod          Use Hesiod for user lookups</span>
+<span class="c1">#   [NOTFOUND=return]   Stop searching if not found so far</span>
+<span class="c1">#</span>
+
+<span class="c1"># To use db, put the &quot;db&quot; in front of &quot;files&quot; for entries you want to be</span>
+<span class="c1"># looked up first in the databases</span>
+<span class="c1">#</span>
+<span class="c1"># Example:</span>
+<span class="c1">#passwd:    db files nisplus nis</span>
+<span class="c1">#shadow:    db files nisplus nis</span>
+<span class="c1">#group:     db files nisplus nis</span>
+
+passwd:     files sss
+shadow:     files sss
+group:      files sss
+
+<span class="c1">#hosts:     db files nisplus nis dns</span>
+hosts:      files mdns4_minimal <span class="o">[</span><span class="nv">NOTFOUND</span><span class="o">=</span><span class="k">return</span><span class="o">]</span> dns myhostname mymachines
+
+<span class="c1"># Example - obey only what nisplus tells us...</span>
+<span class="c1">#services:   nisplus [NOTFOUND=return] files</span>
+<span class="c1">#networks:   nisplus [NOTFOUND=return] files</span>
+<span class="c1">#protocols:  nisplus [NOTFOUND=return] files</span>
+<span class="c1">#rpc:        nisplus [NOTFOUND=return] files</span>
+<span class="c1">#ethers:     nisplus [NOTFOUND=return] files</span>
+<span class="c1">#netmasks:   nisplus [NOTFOUND=return] files</span>
+
+bootparams: nisplus <span class="o">[</span><span class="nv">NOTFOUND</span><span class="o">=</span><span class="k">return</span><span class="o">]</span> files
+
+ethers:     files
+netmasks:   files
+networks:   files
+protocols:  files
+rpc:        files
+services:   files sss
+
+netgroup:   files sss
+
+publickey:  nisplus
+
+automount:  files sss
+aliases:    files nisplus
+</pre></div>
+
+
+<p>On the DNS line I have <code>hosts:      files mdns4_minimal [NOTFOUND=return] dns myhostname mymachines</code>. This means when the system wants to find the IP address of a name, it first go for the <code>files</code> (/etc/hosts) and then for m<strong>dns</strong>4_minimal and then <strong>dns</strong> and so on. In this case if I add the <code>facebook.com</code> to my <code>/etc/hosts</code> like this:</p>
+<div class="highlight"><pre><span></span>127.0.0.1 facebook.com
+</pre></div>
+
+
+<p>and then point my browser to facebook.com, my computer will try to open a webserver on 127.0.0.1 instead of the real IP of facebook.</p>
+<h2>getent</h2>
+<p>The <code>getent</code> command is a utility to get entries from Name Service Switch libraries (read /etc/nsswitch.conf). If you want to check what is the config of your hosts, you can do as follow.</p>
+<p><code>`
+$ getent hosts
+127.0.0.1       funlife localhost.localdomain localhost clickadu.com
+127.0.0.1       funlife localhost6.localdomain6 localhost6
+10.159.32.155   nsnproxy
+172.16.12.134   linuxclass wonderland
+193.40.12.135   salma
+87.106.233.90   gratisvps
+192.168.59.231  mass1
+192.168.59.232  mass2
+192.168.59.233  mass3
+192.168.59.234  mass4
+192.168.59.235  mass5
+192.168.59.236  mass6
+192.168.59.237  mass7
+192.168.59.238  mass8
+192.168.59.239  mass9
+127.0.0.1       frctlstartupfailure localtodoer localdeliv
+127.0.0.1       frctlmeth</code></p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+                </div>
+                <footer class="text-right">
+                    <p></p>
+                </footer>
+            </div>
+        </div>
+    </article>
+</section>
+<footer>
+    <hr>
+    <div class="row">
+        <div class="col-lg-9 text-center">
+            <p><small>
+                Built by <a href="http://docs.getpelican.com/en/latest">Pelican</a> / <a href="https://github.com/ingwinlu/pelican-twitchy">pelican-twitchy</a>
+                &middot;                    &copy; 2015 jadi
+            </small></p>
+        </div>
+    </div>
+</footer>            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery Version 1.11.2 -->
+    <script src="../theme/js/jquery-1.11.2.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../theme/js/bootstrap.min.js"></script>
+    <!-- twitchy Script -->
+    <script src="../theme/js/pelican_twitchy.min.js"></script>
+
+</body>
+</html>
