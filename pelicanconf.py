@@ -34,6 +34,8 @@ DEFAULT_PAGINATION = 10
 
 # Uncomment following line if you want document-relative URLs when developing
 RELATIVE_URLS = True
+ARTICLE_URL = '{category}/{slug}.html'
+ARTICLE_SAVE_AS = '{category}/{slug}.html'
 
 THEME = "themes/twitchy"
 #DISQUS_SITENAME = 'LinuxLearner'
