@@ -36,7 +36,7 @@ Candidates should be able to determine and configure fundamental system hardware
 **HAL** is Hardware Abstraction Layer. It abstracts your hardware details from you, say any first network card will be *eth0*. This way Linux will see any hardware as an *standard* hardware and you will be able to replace the hardware easily.
 
 ### dbus
-Is really a bus and lets parts of the system communicate with each other. For example, when you install a USB into your computer, dbus lets GNOME know about it. Using dbus, hardware & software can talk with each other.
+A line like a bus that connects all parts of the OS to each other. dbus lets different parts of the system to communicate with each other. For example, when you install a USB into your computer, dbus lets GNOME know about it. Using dbus, hardware & software can talk with each other.
 
 ### udev
 Supplies the software with the events and access info of devices and can handle rules.
@@ -54,7 +54,7 @@ block  bus  class  dev	devices  firmware  fs  hypervisor  kernel  module  power
 All block devices are at the `block` and `bus` directory has all the connected PCI, USB, serial, .. devices. Note that here in `sys` we have the devices based on their technology but `/dev/` is abstracted.
 
 ### proc directory
-This is where kernel keeps its data structure and is created in RAM. You can read and write here (after reboot, the write is gone).
+This is where kernel keeps its settings and properties. This direcgtory is created on ram and files might have write accessible.
 
 ````
 $ ls /proc/

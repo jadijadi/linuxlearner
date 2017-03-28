@@ -190,7 +190,7 @@ privoxy:!:16736::::::
 
 > Note: `!` means **no password**
 
-Wow! Jadi has an encrypted password there. Some numbers are following that encrypted password too: **16737:0:99999:7:::**. What do the mean? The following table tells you.
+Wow! Jadi has an encrypted password there. Some numbers are following that encrypted password too: **16737:0:99999:7:::**. What do they mean? The following table tells you.
 
 |filed|meaning|
 |-|-|

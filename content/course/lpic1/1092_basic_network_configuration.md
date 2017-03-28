@@ -249,7 +249,7 @@ rtt min/avg/max/mdev = 101.465/103.608/108.219/2.263 ms
 
 I issued the command, waited for 6 packets, each of them returned back after 103ms, 101ms, ... and then I used Ctrl+c to break the ping. The stats tell me that 6 packets transmitted, 6 received, 0% packet loss; my network works great!
 
-## nssswitch
+## nsswitch
 The `/etc/nsswitch.conf` file is used to configure which services are to be used to determine information such as hostnames, password files, and group files. Mine is
 
 ````

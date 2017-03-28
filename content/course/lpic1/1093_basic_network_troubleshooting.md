@@ -118,7 +118,7 @@ This is working fine. Bud can I ping google.com too?
 ping: unknown host google.com
 ````
 
-Aha! We found the problem. In this case I have a correct IP address, I can ping 4.2.2.4 but I can not ping google.com with the error message "unknown host". This means my computer can not translate google.com to its IP address; this is an DNS issue:
+Aha! We found the problem. In this case I have a correct IP address, I can ping 4.2.2.4 but I can not ping google.com with the error message "unknown host". This means my computer can not translate google.com to its IP address; this is a DNS issue:
 
 ````
 [jadi@funlife ~]$ cat /etc/resolv.conf

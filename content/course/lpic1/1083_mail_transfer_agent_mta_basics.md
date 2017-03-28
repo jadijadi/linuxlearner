@@ -25,7 +25,7 @@ Candidates should be aware of the commonly available MTA programs and be able to
 - qmail
 
 ## MTAs
-Mai Transfer Agents or MTAs are programs which handle emails in your operating system. There are lot of MTAs available and each distro or sysadmin uses the one she likes more.
+Mai Transfer Agent or MTA is a programs which handle emails in your operating system. There are lot of MTAs available and each distro or sysadmin uses the one she likes more.
 
 ### sendmail
 Is one of the oldest options available. It is big and difficult to configure and keep safe and secure so very few systems use it as default MTA.

@@ -186,7 +186,7 @@ none              tmpfs     100M   28K  100M   1% /run/user
 /dev/sdb1         vfat      3.7G  7.8M  3.6G   1% /media/jadi/BA82-BECD
 ````
 
-Here the `-T` switch make df to show the file system types and `-H` make numbers human readable on the the on the correct scale (1k=1024) while `-h` shows 1k for 1000 bytes.
+Here the `-T` switch make df to show the file system types and `-H` make numbers human readable (in powers of 1000). Please note that `-h` is also human readable but in powres of 1024 (e.g. shows 1k for 1000 bytes.
 
 If you need the inode data, use the `-i` switch:
 
@@ -211,8 +211,8 @@ The DiskUsage command give information about the used space of **directories and
 
 |switch|usage|
 |---|---|
-|-h|human readable (1k = 1000)|
-|-H|human readable (1k= 1024)|
+|-h|print sizes in powers of 1024 (e.g., 1023M)|
+|-H|print sizes in powers of 1000 (e.g., 1.1G)|
 |-c|show the grand total|
 |--max-depth 2|shows only 2 directories furthur|
 |-s|Only shows the summary and not all the directories one by one|

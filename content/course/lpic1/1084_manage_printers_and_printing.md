@@ -78,7 +78,7 @@ ErrorPolicy retry-job
 ````
 
 ### legacy tools
-Just like the MTP programs, CUPS support all the legacy command line programs too.
+Just like the MTA programs, CUPS support all the legacy command line programs too.
 
 |command|usage|
 |-------|-----|
@@ -163,7 +163,7 @@ If you are having problems with your printer or need to prevent it from acceptin
 |cupsenable|enables the actual/physical printing of the jobs|
 |cupsdisable|disables the physical printing of the jobs|
 
-> In all cases you have to provide the printer name of the printer. it is also possible to provide a reason using `-s` switch.
+> In all cases you have to provide the printer name of the printer. it is also possible to provide a reason using `-r` switch.
 
 ````
 $ cupsdisable Apple-Dot-Matrix -r "need more paper"
