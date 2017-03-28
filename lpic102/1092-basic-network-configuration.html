@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="author" content="jadi" />
-        <meta name="description" content="109.2 Basic network configuration Weight: 4 Candidates should be able to view, change and verify configuration settings on client hosts. Key Knowledge Areas Manually and automatically configure network interfaces. Basic TCP/IP host configuration. Setting a default route. Terms and Utilities /etc/hostname /etc/hosts /etc/nsswitch.conf ifconfig ..." />
+        <meta name="description" content="109.2 Basic network configuration Weight: 4 Candidates should be able to view, change and verify configuration settings on client hosts. Key Knowledge Areas Manually and automatically configure network interfaces. Basic TCP/IP host configuration. Setting a default route. Terms and Utilities /etc/hostname /etc/hosts /etc/nsswitch.conf ifconfig …" />
 
 
     <title>109.2 Basic network configuration - Linux Learner</title>
@@ -428,31 +428,31 @@
 <h3>ifconfig, up and down</h3>
 <p>The <code>ifconfig</code> is the main command for configuring the network adapters manually. Running it with no arguments, will show all the network adapters and their configurations.</p>
 <div class="highlight"><pre><span></span>$ ifconfig
-enp0s25: <span class="nv">flags</span><span class="o">=</span>4099&lt;UP,BROADCAST,MULTICAST&gt;  mtu 1500
+enp0s25: <span class="nv">flags</span><span class="o">=</span><span class="m">4099</span>&lt;UP,BROADCAST,MULTICAST&gt;  mtu <span class="m">1500</span>
         ether f0:de:f1:62:c5:73  txqueuelen <span class="m">1000</span>  <span class="o">(</span>Ethernet<span class="o">)</span>
-        RX packets <span class="m">0</span>  bytes <span class="m">0</span> <span class="o">(</span>0.0 B<span class="o">)</span>
-        RX errors <span class="m">0</span>  dropped <span class="m">0</span>  overruns <span class="m">0</span>  frame 0
-        TX packets <span class="m">0</span>  bytes <span class="m">0</span> <span class="o">(</span>0.0 B<span class="o">)</span>
-        TX errors <span class="m">0</span>  dropped <span class="m">0</span> overruns <span class="m">0</span>  carrier <span class="m">0</span>  collisions 0
+        RX packets <span class="m">0</span>  bytes <span class="m">0</span> <span class="o">(</span><span class="m">0</span>.0 B<span class="o">)</span>
+        RX errors <span class="m">0</span>  dropped <span class="m">0</span>  overruns <span class="m">0</span>  frame <span class="m">0</span>
+        TX packets <span class="m">0</span>  bytes <span class="m">0</span> <span class="o">(</span><span class="m">0</span>.0 B<span class="o">)</span>
+        TX errors <span class="m">0</span>  dropped <span class="m">0</span> overruns <span class="m">0</span>  carrier <span class="m">0</span>  collisions <span class="m">0</span>
         device interrupt <span class="m">20</span>  memory 0xd1500000-d1520000  
 
-lo: <span class="nv">flags</span><span class="o">=</span>73&lt;UP,LOOPBACK,RUNNING&gt;  mtu 65536
-        inet 127.0.0.1  netmask 255.0.0.0
+lo: <span class="nv">flags</span><span class="o">=</span><span class="m">73</span>&lt;UP,LOOPBACK,RUNNING&gt;  mtu <span class="m">65536</span>
+        inet <span class="m">127</span>.0.0.1  netmask <span class="m">255</span>.0.0.0
         inet6 ::1  prefixlen <span class="m">128</span>  scopeid 0x10&lt;host&gt;
         loop  txqueuelen <span class="m">1</span>  <span class="o">(</span>Local Loopback<span class="o">)</span>
-        RX packets <span class="m">560719</span>  bytes <span class="m">339937974</span> <span class="o">(</span>324.1 MiB<span class="o">)</span>
-        RX errors <span class="m">0</span>  dropped <span class="m">0</span>  overruns <span class="m">0</span>  frame 0
-        TX packets <span class="m">560719</span>  bytes <span class="m">339937974</span> <span class="o">(</span>324.1 MiB<span class="o">)</span>
-        TX errors <span class="m">0</span>  dropped <span class="m">0</span> overruns <span class="m">0</span>  carrier <span class="m">0</span>  collisions 0
+        RX packets <span class="m">560719</span>  bytes <span class="m">339937974</span> <span class="o">(</span><span class="m">324</span>.1 MiB<span class="o">)</span>
+        RX errors <span class="m">0</span>  dropped <span class="m">0</span>  overruns <span class="m">0</span>  frame <span class="m">0</span>
+        TX packets <span class="m">560719</span>  bytes <span class="m">339937974</span> <span class="o">(</span><span class="m">324</span>.1 MiB<span class="o">)</span>
+        TX errors <span class="m">0</span>  dropped <span class="m">0</span> overruns <span class="m">0</span>  carrier <span class="m">0</span>  collisions <span class="m">0</span>
 
-wlp3s0: <span class="nv">flags</span><span class="o">=</span>4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
-        inet 192.168.1.35  netmask 255.255.255.0  broadcast 192.168.1.255
+wlp3s0: <span class="nv">flags</span><span class="o">=</span><span class="m">4163</span>&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu <span class="m">1500</span>
+        inet <span class="m">192</span>.168.1.35  netmask <span class="m">255</span>.255.255.0  broadcast <span class="m">192</span>.168.1.255
         inet6 fe80::8ea9:82ff:fe7b:8906  prefixlen <span class="m">64</span>  scopeid 0x20&lt;link&gt;
         ether 8c:a9:82:7b:89:06  txqueuelen <span class="m">1000</span>  <span class="o">(</span>Ethernet<span class="o">)</span>
-        RX packets <span class="m">2325385</span>  bytes <span class="m">2629859900</span> <span class="o">(</span>2.4 GiB<span class="o">)</span>
-        RX errors <span class="m">0</span>  dropped <span class="m">0</span>  overruns <span class="m">0</span>  frame 0
-        TX packets <span class="m">2023796</span>  bytes <span class="m">510997240</span> <span class="o">(</span>487.3 MiB<span class="o">)</span>
-        TX errors <span class="m">0</span>  dropped <span class="m">0</span> overruns <span class="m">0</span>  carrier <span class="m">0</span>  collisions 0
+        RX packets <span class="m">2325385</span>  bytes <span class="m">2629859900</span> <span class="o">(</span><span class="m">2</span>.4 GiB<span class="o">)</span>
+        RX errors <span class="m">0</span>  dropped <span class="m">0</span>  overruns <span class="m">0</span>  frame <span class="m">0</span>
+        TX packets <span class="m">2023796</span>  bytes <span class="m">510997240</span> <span class="o">(</span><span class="m">487</span>.3 MiB<span class="o">)</span>
+        TX errors <span class="m">0</span>  dropped <span class="m">0</span> overruns <span class="m">0</span>  carrier <span class="m">0</span>  collisions <span class="m">0</span>
 </pre></div>
 
 
@@ -461,16 +461,16 @@ wlp3s0: <span class="nv">flags</span><span class="o">=</span>4163&lt;UP,BROADCAS
 </blockquote>
 <p>Ethernet networks are called <strong>ethx</strong> or things like <strong>enp0s25</strong>.</p>
 <p>It is possible to use <code>ifconfig</code> to change the network configurations, but you should have root access:</p>
-<div class="highlight"><pre><span></span>$  sudo ifconfig enp0s25 192.168.42.42
+<div class="highlight"><pre><span></span>$  sudo ifconfig enp0s25 <span class="m">192</span>.168.42.42
 password <span class="k">for</span> jadi:
 $ ifconfig enp0s25
-enp0s25: <span class="nv">flags</span><span class="o">=</span>4099&lt;UP,BROADCAST,MULTICAST&gt;  mtu 1500
-        inet 192.168.42.42  netmask 255.255.255.0  broadcast 192.168.42.255
+enp0s25: <span class="nv">flags</span><span class="o">=</span><span class="m">4099</span>&lt;UP,BROADCAST,MULTICAST&gt;  mtu <span class="m">1500</span>
+        inet <span class="m">192</span>.168.42.42  netmask <span class="m">255</span>.255.255.0  broadcast <span class="m">192</span>.168.42.255
         ether f0:de:f1:62:c5:73  txqueuelen <span class="m">1000</span>  <span class="o">(</span>Ethernet<span class="o">)</span>
-        RX packets <span class="m">0</span>  bytes <span class="m">0</span> <span class="o">(</span>0.0 B<span class="o">)</span>
-        RX errors <span class="m">0</span>  dropped <span class="m">0</span>  overruns <span class="m">0</span>  frame 0
-        TX packets <span class="m">0</span>  bytes <span class="m">0</span> <span class="o">(</span>0.0 B<span class="o">)</span>
-        TX errors <span class="m">0</span>  dropped <span class="m">0</span> overruns <span class="m">0</span>  carrier <span class="m">0</span>  collisions 0
+        RX packets <span class="m">0</span>  bytes <span class="m">0</span> <span class="o">(</span><span class="m">0</span>.0 B<span class="o">)</span>
+        RX errors <span class="m">0</span>  dropped <span class="m">0</span>  overruns <span class="m">0</span>  frame <span class="m">0</span>
+        TX packets <span class="m">0</span>  bytes <span class="m">0</span> <span class="o">(</span><span class="m">0</span>.0 B<span class="o">)</span>
+        TX errors <span class="m">0</span>  dropped <span class="m">0</span> overruns <span class="m">0</span>  carrier <span class="m">0</span>  collisions <span class="m">0</span>
         device interrupt <span class="m">20</span>  memory 0xd1500000-d1520000  
 
 $
@@ -486,23 +486,23 @@ $
 <div class="highlight"><pre><span></span>$ sudo ifconfig enp0s25 down
 <span class="o">[</span>sudo<span class="o">]</span> password <span class="k">for</span> jadi:
 $ ifconfig
-lo: <span class="nv">flags</span><span class="o">=</span>73&lt;UP,LOOPBACK,RUNNING&gt;  mtu 65536
-        inet 127.0.0.1  netmask 255.0.0.0
+lo: <span class="nv">flags</span><span class="o">=</span><span class="m">73</span>&lt;UP,LOOPBACK,RUNNING&gt;  mtu <span class="m">65536</span>
+        inet <span class="m">127</span>.0.0.1  netmask <span class="m">255</span>.0.0.0
         inet6 ::1  prefixlen <span class="m">128</span>  scopeid 0x10&lt;host&gt;
         loop  txqueuelen <span class="m">1</span>  <span class="o">(</span>Local Loopback<span class="o">)</span>
-        RX packets <span class="m">562273</span>  bytes <span class="m">340257228</span> <span class="o">(</span>324.4 MiB<span class="o">)</span>
-        RX errors <span class="m">0</span>  dropped <span class="m">0</span>  overruns <span class="m">0</span>  frame 0
-        TX packets <span class="m">562273</span>  bytes <span class="m">340257228</span> <span class="o">(</span>324.4 MiB<span class="o">)</span>
-        TX errors <span class="m">0</span>  dropped <span class="m">0</span> overruns <span class="m">0</span>  carrier <span class="m">0</span>  collisions 0
+        RX packets <span class="m">562273</span>  bytes <span class="m">340257228</span> <span class="o">(</span><span class="m">324</span>.4 MiB<span class="o">)</span>
+        RX errors <span class="m">0</span>  dropped <span class="m">0</span>  overruns <span class="m">0</span>  frame <span class="m">0</span>
+        TX packets <span class="m">562273</span>  bytes <span class="m">340257228</span> <span class="o">(</span><span class="m">324</span>.4 MiB<span class="o">)</span>
+        TX errors <span class="m">0</span>  dropped <span class="m">0</span> overruns <span class="m">0</span>  carrier <span class="m">0</span>  collisions <span class="m">0</span>
 
-wlp3s0: <span class="nv">flags</span><span class="o">=</span>4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
-        inet 192.168.1.35  netmask 255.255.255.0  broadcast 192.168.1.255
+wlp3s0: <span class="nv">flags</span><span class="o">=</span><span class="m">4163</span>&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu <span class="m">1500</span>
+        inet <span class="m">192</span>.168.1.35  netmask <span class="m">255</span>.255.255.0  broadcast <span class="m">192</span>.168.1.255
         inet6 fe80::8ea9:82ff:fe7b:8906  prefixlen <span class="m">64</span>  scopeid 0x20&lt;link&gt;
         ether 8c:a9:82:7b:89:06  txqueuelen <span class="m">1000</span>  <span class="o">(</span>Ethernet<span class="o">)</span>
-        RX packets <span class="m">2330388</span>  bytes <span class="m">2634026235</span> <span class="o">(</span>2.4 GiB<span class="o">)</span>
-        RX errors <span class="m">0</span>  dropped <span class="m">0</span>  overruns <span class="m">0</span>  frame 0
-        TX packets <span class="m">2027352</span>  bytes <span class="m">511549072</span> <span class="o">(</span>487.8 MiB<span class="o">)</span>
-        TX errors <span class="m">0</span>  dropped <span class="m">0</span> overruns <span class="m">0</span>  carrier <span class="m">0</span>  collisions 0
+        RX packets <span class="m">2330388</span>  bytes <span class="m">2634026235</span> <span class="o">(</span><span class="m">2</span>.4 GiB<span class="o">)</span>
+        RX errors <span class="m">0</span>  dropped <span class="m">0</span>  overruns <span class="m">0</span>  frame <span class="m">0</span>
+        TX packets <span class="m">2027352</span>  bytes <span class="m">511549072</span> <span class="o">(</span><span class="m">487</span>.8 MiB<span class="o">)</span>
+        TX errors <span class="m">0</span>  dropped <span class="m">0</span> overruns <span class="m">0</span>  carrier <span class="m">0</span>  collisions <span class="m">0</span>
 </pre></div>
 
 
@@ -518,9 +518,9 @@ wlp3s0: <span class="nv">flags</span><span class="o">=</span>4163&lt;UP,BROADCAS
 <span class="nv">DEVICE</span><span class="o">=</span>eth0
 <span class="nv">ONBOOT</span><span class="o">=</span>yes
 <span class="nv">TYPE</span><span class="o">=</span>Ethernet
-<span class="nv">IPADDR</span><span class="o">=</span>192.168.1.10
-<span class="nv">NETMASK</span><span class="o">=</span>255.255.255.0
-<span class="nv">DNS1</span><span class="o">=</span>4.2.2.4
+<span class="nv">IPADDR</span><span class="o">=</span><span class="m">192</span>.168.1.10
+<span class="nv">NETMASK</span><span class="o">=</span><span class="m">255</span>.255.255.0
+<span class="nv">DNS1</span><span class="o">=</span><span class="m">4</span>.2.2.4
 </pre></div>
 
 
@@ -554,7 +554,7 @@ dns-nameservers 4.2.2.4
 <p>As you saw, we were able to set the DNS configuration in network interface config files. But this is not the only way. There is another file which contains this data: <code>/etc/resolv.conf</code>.</p>
 <div class="highlight"><pre><span></span>$ cat /etc/resolv.conf
 <span class="c1"># Generated by resolvconf</span>
-nameserver 192.168.1.1
+nameserver <span class="m">192</span>.168.1.1
 </pre></div>
 
 
@@ -581,8 +581,8 @@ funlife
 <div class="highlight"><pre><span></span>$ route
 Kernel IP routing table
 Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
-default         gateway         0.0.0.0         UG    <span class="m">600</span>    <span class="m">0</span>        <span class="m">0</span> wlp3s0
-192.168.1.0     *               255.255.255.0   U     <span class="m">600</span>    <span class="m">0</span>        <span class="m">0</span> wlp3s0
+default         gateway         <span class="m">0</span>.0.0.0         UG    <span class="m">600</span>    <span class="m">0</span>        <span class="m">0</span> wlp3s0
+<span class="m">192</span>.168.1.0     *               <span class="m">255</span>.255.255.0   U     <span class="m">600</span>    <span class="m">0</span>        <span class="m">0</span> wlp3s0
 </pre></div>
 
 
@@ -594,44 +594,44 @@ default         gateway         0.0.0.0         UG    <span class="m">600</span>
 <h3>ip</h3>
 <p>The <code>ip</code> command is the new tool for configuring the networking interfaces. You can do many things using it. the <code>addr show</code> will show you the current interfaces and their configurations:</p>
 <div class="highlight"><pre><span></span>$ ip addr show
-1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu <span class="m">65536</span> qdisc noqueue state UNKNOWN group default qlen 1
-    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
-    inet 127.0.0.1/8 scope host lo
+<span class="m">1</span>: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu <span class="m">65536</span> qdisc noqueue state UNKNOWN group default qlen <span class="m">1</span>
+    link/loopback <span class="m">00</span>:00:00:00:00:00 brd <span class="m">00</span>:00:00:00:00:00
+    inet <span class="m">127</span>.0.0.1/8 scope host lo
        valid_lft forever preferred_lft forever
     inet6 ::1/128 scope host
        valid_lft forever preferred_lft forever
-2: wlp3s0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu <span class="m">1500</span> qdisc mq state UP group default qlen 1000
+<span class="m">2</span>: wlp3s0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu <span class="m">1500</span> qdisc mq state UP group default qlen <span class="m">1000</span>
     link/ether 8c:a9:82:7b:89:06 brd ff:ff:ff:ff:ff:ff
-    inet 192.168.1.35/24 brd 192.168.1.255 scope global dynamic wlp3s0
+    inet <span class="m">192</span>.168.1.35/24 brd <span class="m">192</span>.168.1.255 scope global dynamic wlp3s0
        valid_lft 254572sec preferred_lft 254572sec
     inet6 fe80::8ea9:82ff:fe7b:8906/64 scope link
        valid_lft forever preferred_lft forever
-3: enp0s25: &lt;BROADCAST,MULTICAST&gt; mtu <span class="m">1500</span> qdisc fq_codel state DOWN group default qlen 1000
+<span class="m">3</span>: enp0s25: &lt;BROADCAST,MULTICAST&gt; mtu <span class="m">1500</span> qdisc fq_codel state DOWN group default qlen <span class="m">1000</span>
     link/ether f0:de:f1:62:c5:73 brd ff:ff:ff:ff:ff:ff
-    inet 192.168.42.42/24 brd 192.168.42.255 scope global enp0s25
+    inet <span class="m">192</span>.168.42.42/24 brd <span class="m">192</span>.168.42.255 scope global enp0s25
        valid_lft forever preferred_lft forever
 </pre></div>
 
 
 <h3>ping</h3>
 <p><code>ping</code> is the most straight forward network troubleshooting command. You can check your connection with any server using it. Lets see if my computer sees 4.2.2.4:</p>
-<div class="highlight"><pre><span></span>$ ping 4.2.2.4
-PING 4.2.2.4 <span class="o">(</span>4.2.2.4<span class="o">)</span> 56<span class="o">(</span>84<span class="o">)</span> bytes of data.
-<span class="m">64</span> bytes from 4.2.2.4: <span class="nv">icmp_seq</span><span class="o">=</span><span class="m">1</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">52</span> <span class="nv">time</span><span class="o">=</span><span class="m">103</span> ms
-<span class="m">64</span> bytes from 4.2.2.4: <span class="nv">icmp_seq</span><span class="o">=</span><span class="m">2</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">52</span> <span class="nv">time</span><span class="o">=</span><span class="m">101</span> ms
-<span class="m">64</span> bytes from 4.2.2.4: <span class="nv">icmp_seq</span><span class="o">=</span><span class="m">3</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">52</span> <span class="nv">time</span><span class="o">=</span><span class="m">103</span> ms
-<span class="m">64</span> bytes from 4.2.2.4: <span class="nv">icmp_seq</span><span class="o">=</span><span class="m">4</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">52</span> <span class="nv">time</span><span class="o">=</span><span class="m">102</span> ms
-<span class="m">64</span> bytes from 4.2.2.4: <span class="nv">icmp_seq</span><span class="o">=</span><span class="m">5</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">52</span> <span class="nv">time</span><span class="o">=</span><span class="m">101</span> ms
-<span class="m">64</span> bytes from 4.2.2.4: <span class="nv">icmp_seq</span><span class="o">=</span><span class="m">6</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">52</span> <span class="nv">time</span><span class="o">=</span><span class="m">108</span> ms
+<div class="highlight"><pre><span></span>$ ping <span class="m">4</span>.2.2.4
+PING <span class="m">4</span>.2.2.4 <span class="o">(</span><span class="m">4</span>.2.2.4<span class="o">)</span> <span class="m">56</span><span class="o">(</span><span class="m">84</span><span class="o">)</span> bytes of data.
+<span class="m">64</span> bytes from <span class="m">4</span>.2.2.4: <span class="nv">icmp_seq</span><span class="o">=</span><span class="m">1</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">52</span> <span class="nv">time</span><span class="o">=</span><span class="m">103</span> ms
+<span class="m">64</span> bytes from <span class="m">4</span>.2.2.4: <span class="nv">icmp_seq</span><span class="o">=</span><span class="m">2</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">52</span> <span class="nv">time</span><span class="o">=</span><span class="m">101</span> ms
+<span class="m">64</span> bytes from <span class="m">4</span>.2.2.4: <span class="nv">icmp_seq</span><span class="o">=</span><span class="m">3</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">52</span> <span class="nv">time</span><span class="o">=</span><span class="m">103</span> ms
+<span class="m">64</span> bytes from <span class="m">4</span>.2.2.4: <span class="nv">icmp_seq</span><span class="o">=</span><span class="m">4</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">52</span> <span class="nv">time</span><span class="o">=</span><span class="m">102</span> ms
+<span class="m">64</span> bytes from <span class="m">4</span>.2.2.4: <span class="nv">icmp_seq</span><span class="o">=</span><span class="m">5</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">52</span> <span class="nv">time</span><span class="o">=</span><span class="m">101</span> ms
+<span class="m">64</span> bytes from <span class="m">4</span>.2.2.4: <span class="nv">icmp_seq</span><span class="o">=</span><span class="m">6</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">52</span> <span class="nv">time</span><span class="o">=</span><span class="m">108</span> ms
 ^C
---- 4.2.2.4 ping statistics ---
-<span class="m">6</span> packets transmitted, <span class="m">6</span> received, 0% packet loss, <span class="nb">time</span> 5007ms
-rtt min/avg/max/mdev <span class="o">=</span> 101.465/103.608/108.219/2.263 ms
+--- <span class="m">4</span>.2.2.4 ping statistics ---
+<span class="m">6</span> packets transmitted, <span class="m">6</span> received, <span class="m">0</span>% packet loss, <span class="nb">time</span> 5007ms
+rtt min/avg/max/mdev <span class="o">=</span> <span class="m">101</span>.465/103.608/108.219/2.263 ms
 </pre></div>
 
 
 <p>I issued the command, waited for 6 packets, each of them returned back after 103ms, 101ms, ... and then I used Ctrl+c to break the ping. The stats tell me that 6 packets transmitted, 6 received, 0% packet loss; my network works great!</p>
-<h2>nssswitch</h2>
+<h2>nsswitch</h2>
 <p>The <code>/etc/nsswitch.conf</code> file is used to configure which services are to be used to determine information such as hostnames, password files, and group files. Mine is</p>
 <div class="highlight"><pre><span></span># cat /etc/nsswitch.conf
 # Begin /etc/nsswitch.conf

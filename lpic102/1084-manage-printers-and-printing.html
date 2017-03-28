@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="author" content="jadi" />
-        <meta name="description" content="108.4 Manage printers and printing Weight: 2 Candidates should be able to manage print queues and user print jobs using CUPS and the LPD compatibility interface. Key Knowledge Areas Basic CUPS configuration (for local and remote printers). Manage user print queues. Troubleshoot general printing problems. Add and remove jobs ..." />
+        <meta name="description" content="108.4 Manage printers and printing Weight: 2 Candidates should be able to manage print queues and user print jobs using CUPS and the LPD compatibility interface. Key Knowledge Areas Basic CUPS configuration (for local and remote printers). Manage user print queues. Troubleshoot general printing problems. Add and remove jobs …" />
 
 
     <title>108.4 Manage printers and printing - Linux Learner</title>
@@ -424,7 +424,7 @@
 <p>Most Linux distros use CUPS for printing. CUPS stands for Common Unix Printing System.  There are different interfaces for CUPS link command line tools, web based interface and GUIs. CUPS is designed to simplify the printing on various printers from different manufactures.</p>
 <h3>CUPS web interface</h3>
 <p>The general way to access the CUPS configuration and info page is going to the servers IP on port <strong>631</strong> from a browser. That will be <strong>localhost:631</strong> or <strong>127.0.0.1:631</strong> from your browser.</p>
-<p><img alt="" src="cups.png" /></p>
+<p><img alt="" src="cups.png"></p>
 <p>Important parts on this webpage are:</p>
 <p>|Jobs tab|to check the jobs the CUPS is handling|
 |Administration|For adding printers, managing jobs and configuring the CUPS server|
@@ -471,7 +471,7 @@ ErrorPolicy retry-job
 
 
 <h3>legacy tools</h3>
-<p>Just like the MTP programs, CUPS support all the legacy command line programs too.</p>
+<p>Just like the MTA programs, CUPS support all the legacy command line programs too.</p>
 <table>
 <thead>
 <tr>
@@ -534,7 +534,7 @@ Rank    Owner   Job     File<span class="o">(</span>s<span class="o">)</span>   
 active  jadi    <span class="m">1</span>       Untitled Document <span class="m">1</span>             <span class="m">7168</span> bytes
 1st     jadi    <span class="m">2</span>       Untitled1                       <span class="m">2048</span> bytes
 2nd     jadi    <span class="m">3</span>       for_print.txt                   <span class="m">1024</span> bytes
-jadi@funlife:/tmp$ lprm 2
+jadi@funlife:/tmp$ lprm <span class="m">2</span>
 jadi@funlife:/tmp$ lpq
 Apple-Dot-Matrix is ready and printing
 Rank    Owner   Job     File<span class="o">(</span>s<span class="o">)</span>                         Total Size
@@ -595,7 +595,7 @@ Apple-Dot-Matrix:
 </tbody>
 </table>
 <blockquote>
-<p>In all cases you have to provide the printer name of the printer. it is also possible to provide a reason using <code>-s</code> switch.</p>
+<p>In all cases you have to provide the printer name of the printer. it is also possible to provide a reason using <code>-r</code> switch.</p>
 </blockquote>
 <div class="highlight"><pre><span></span>$ cupsdisable Apple-Dot-Matrix -r <span class="s2">&quot;need more paper&quot;</span>
 $ lpc status

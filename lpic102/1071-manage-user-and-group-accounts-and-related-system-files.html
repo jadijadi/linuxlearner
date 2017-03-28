@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="author" content="jadi" />
-        <meta name="description" content="107.1 Manage user and group accounts and related system files Weight: 5 Candidates should be able to add, remove, suspend and change user accounts. Key Knowledge Areas Add, modify and remove users and groups. Manage user/group info in password/group databases. Create and manage special purpose and limited ..." />
+        <meta name="description" content="107.1 Manage user and group accounts and related system files Weight: 5 Candidates should be able to add, remove, suspend and change user accounts. Key Knowledge Areas Add, modify and remove users and groups. Manage user/group info in password/group databases. Create and manage special purpose and limited …" />
 
 
     <title>107.1 Manage user and group accounts and related system files - Linux Learner</title>
@@ -594,23 +594,23 @@ privoxy:x:484:480:Daemon user for privoxy:/var/lib/privoxy:/bin/false
 
 
 <p>But what is in it?</p>
-<div class="highlight"><pre><span></span><span class="err">#</span><span class="x"> tail /etc/shadow</span>
-<span class="x">scard:!:16369::::::</span>
-<span class="x">sshd:!:16369::::::</span>
-<span class="x">statd:!:16369::::::</span>
-<span class="x">tftp:!:16369::::::</span>
-<span class="x">uucp:*:16369::::::</span>
-<span class="x">lightdm:*:16369::::::</span>
-<span class="x">jadi:</span><span class="p">$</span><span class="x">6</span><span class="p">$</span><span class="nv">enk5I3bv</span><span class="p">$</span><span class="nv">uSQrRpen7m9xDapYLgwgh3P</span><span class="x">/71OLZUgj31n8AwzgIM2lA5Hc/BmRVAMC0eswdBGkseuXSvmaz0lsYFtduvuqUo:16737:0:99999:7:::</span>
-<span class="x">svn:!:16736::::::</span>
-<span class="x">privoxy:!:16736::::::</span>
+<div class="highlight"><pre><span></span># tail /etc/shadow
+scard:!:16369::::::
+sshd:!:16369::::::
+statd:!:16369::::::
+tftp:!:16369::::::
+uucp:*:16369::::::
+lightdm:*:16369::::::
+jadi:$6$enk5I3bv$uSQrRpen7m9xDapYLgwgh3P/71OLZUgj31n8AwzgIM2lA5Hc/BmRVAMC0eswdBGkseuXSvmaz0lsYFtduvuqUo:16737:0:99999:7:::
+svn:!:16736::::::
+privoxy:!:16736::::::
 </pre></div>
 
 
 <blockquote>
 <p>Note: <code>!</code> means <strong>no password</strong></p>
 </blockquote>
-<p>Wow! Jadi has an encrypted password there. Some numbers are following that encrypted password too: <strong>16737:0:99999:7:::</strong>. What do the mean? The following table tells you.</p>
+<p>Wow! Jadi has an encrypted password there. Some numbers are following that encrypted password too: <strong>16737:0:99999:7:::</strong>. What do they mean? The following table tells you.</p>
 <table>
 <thead>
 <tr>
@@ -696,12 +696,12 @@ uid=1000(jadi) gid=100(users) groups=1000(input),100(users)
 
 
 <p>Another solution is <code>getent</code> (for <strong>get entry</strong>). It can query important <em>databases</em> for specific entries. These databases include /etc/passwd, /etc/hosts, /etc/shadow, /etc/group, ...</p>
-<div class="highlight"><pre><span></span><span class="x">funlife:~ </span><span class="err">#</span><span class="x"> getent group tor</span>
-<span class="x">tor:x:479:</span>
-<span class="x">funlife:~ </span><span class="err">#</span><span class="x"> getent passwd jadi</span>
-<span class="x">jadi:x:1000:100:jadi:/home/jadi:/bin/bash</span>
-<span class="x">funlife:~ </span><span class="err">#</span><span class="x"> getent shadow jadi</span>
-<span class="x">jadi:</span><span class="p">$</span><span class="x">6</span><span class="p">$</span><span class="nv">enk5I3bv</span><span class="p">$</span><span class="nv">uSQrRpen7m9xDapYLgwgh3P</span><span class="x">/71OLZUgj31n8AwzgIM2lA5Hc/BmRVAMC0eswdBGkseuXSvmaz0lsYFtduvuqUo:16737:0:99999:7:::</span>
+<div class="highlight"><pre><span></span>funlife:~ # getent group tor
+tor:x:479:
+funlife:~ # getent passwd jadi
+jadi:x:1000:100:jadi:/home/jadi:/bin/bash
+funlife:~ # getent shadow jadi
+jadi:$6$enk5I3bv$uSQrRpen7m9xDapYLgwgh3P/71OLZUgj31n8AwzgIM2lA5Hc/BmRVAMC0eswdBGkseuXSvmaz0lsYFtduvuqUo:16737:0:99999:7:::
 </pre></div>
 
 

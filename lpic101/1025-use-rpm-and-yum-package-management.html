@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="author" content="jadi" />
-        <meta name="description" content="102.5 Use RPM and YUM package management Weight: 3 Candidates should be able to perform package management using RPM and YUM tools. Goals Install, re-install, upgrade and remove packages using RPM and YUM. Obtain information on RPM packages such as version, status, dependencies, integrity and signatures. Determine what files ..." />
+        <meta name="description" content="102.5 Use RPM and YUM package management Weight: 3 Candidates should be able to perform package management using RPM and YUM tools. Goals Install, re-install, upgrade and remove packages using RPM and YUM. Obtain information on RPM packages such as version, status, dependencies, integrity and signatures. Determine what files …" />
 
 
     <title>102.5 Use RPM and YUM package management - Linux Learner</title>
@@ -509,8 +509,8 @@ Complete!
 <span class="nv">failovermethod</span><span class="o">=</span>priority
 <span class="c1">#baseurl=http://download.fedoraproject.org/pub/fedora/linux/updates/$releasever/$basearch/</span>
 <span class="nv">metalink</span><span class="o">=</span>https://mirrors.fedoraproject.org/metalink?repo<span class="o">=</span>updates-released-f<span class="nv">$releasever</span><span class="p">&amp;</span><span class="nv">arch</span><span class="o">=</span><span class="nv">$basearch</span>
-<span class="nv">enabled</span><span class="o">=</span>1
-<span class="nv">gpgcheck</span><span class="o">=</span>1
+<span class="nv">enabled</span><span class="o">=</span><span class="m">1</span>
+<span class="nv">gpgcheck</span><span class="o">=</span><span class="m">1</span>
 <span class="nv">gpgkey</span><span class="o">=</span>file:///etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-<span class="nv">$releasever</span>-<span class="nv">$basearch</span>
 <span class="nv">skip_if_unavailable</span><span class="o">=</span>False
 
@@ -519,8 +519,8 @@ Complete!
 <span class="nv">failovermethod</span><span class="o">=</span>priority
 <span class="c1">#baseurl=http://download.fedoraproject.org/pub/fedora/linux/updates/$releasever/$basearch/debug/</span>
 <span class="nv">metalink</span><span class="o">=</span>https://mirrors.fedoraproject.org/metalink?repo<span class="o">=</span>updates-released-debug-f<span class="nv">$releasever</span><span class="p">&amp;</span><span class="nv">arch</span><span class="o">=</span><span class="nv">$basearch</span>
-<span class="nv">enabled</span><span class="o">=</span>0
-<span class="nv">gpgcheck</span><span class="o">=</span>1
+<span class="nv">enabled</span><span class="o">=</span><span class="m">0</span>
+<span class="nv">gpgcheck</span><span class="o">=</span><span class="m">1</span>
 <span class="nv">gpgkey</span><span class="o">=</span>file:///etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-<span class="nv">$releasever</span>-<span class="nv">$basearch</span>
 <span class="nv">skip_if_unavailable</span><span class="o">=</span>False
 
@@ -529,8 +529,8 @@ Complete!
 <span class="nv">failovermethod</span><span class="o">=</span>priority
 <span class="c1">#baseurl=http://download.fedoraproject.org/pub/fedora/linux/updates/$releasever/SRPMS/</span>
 <span class="nv">metalink</span><span class="o">=</span>https://mirrors.fedoraproject.org/metalink?repo<span class="o">=</span>updates-released-source-f<span class="nv">$releasever</span><span class="p">&amp;</span><span class="nv">arch</span><span class="o">=</span><span class="nv">$basearch</span>
-<span class="nv">enabled</span><span class="o">=</span>0
-<span class="nv">gpgcheck</span><span class="o">=</span>1
+<span class="nv">enabled</span><span class="o">=</span><span class="m">0</span>
+<span class="nv">gpgcheck</span><span class="o">=</span><span class="m">1</span>
 <span class="nv">gpgkey</span><span class="o">=</span>file:///etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-<span class="nv">$releasever</span>-<span class="nv">$basearch</span>
 <span class="nv">skip_if_unavailable</span><span class="o">=</span>False
 </pre></div>

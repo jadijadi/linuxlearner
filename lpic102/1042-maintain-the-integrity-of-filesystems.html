@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="author" content="jadi" />
-        <meta name="description" content="104.2 Maintain the integrity of filesystems Weight: 2 Candidates should be able to maintain a standard filesystem, as well as the extra data associated with a journaling filesystem. Objectives Verify the integrity of filesystems. Monitor free space and inodes. Repair simple filesystem problems. du df fsck e2fsck mke2fs debugfs ..." />
+        <meta name="description" content="104.2 Maintain the integrity of filesystems Weight: 2 Candidates should be able to maintain a standard filesystem, as well as the extra data associated with a journaling filesystem. Objectives Verify the integrity of filesystems. Monitor free space and inodes. Repair simple filesystem problems. du df fsck e2fsck mke2fs debugfs …" />
 
 
     <title>104.2 Maintain the integrity of filesystems - Linux Learner</title>
@@ -582,7 +582,7 @@ none              tmpfs     100M   28K  100M   1% /run/user
 </pre></div>
 
 
-<p>Here the <code>-T</code> switch make df to show the file system types and <code>-H</code> make numbers human readable on the the on the correct scale (1k=1024) while <code>-h</code> shows 1k for 1000 bytes.</p>
+<p>Here the <code>-T</code> switch make df to show the file system types and <code>-H</code> make numbers human readable (in powers of 1000). Please note that <code>-h</code> is also human readable but in powres of 1024 (e.g. shows 1k for 1000 bytes.</p>
 <p>If you need the inode data, use the <code>-i</code> switch:</p>
 <div class="highlight"><pre><span></span>jadi@funlife:~$ df -i
 Filesystem          Inodes  IUsed    IFree IUse% Mounted on
@@ -613,11 +613,11 @@ none               1007533     33  1007500    1% /run/user
 <tbody>
 <tr>
 <td>-h</td>
-<td>human readable (1k = 1000)</td>
+<td>print sizes in powers of 1024 (e.g., 1023M)</td>
 </tr>
 <tr>
 <td>-H</td>
-<td>human readable (1k= 1024)</td>
+<td>print sizes in powers of 1000 (e.g., 1.1G)</td>
 </tr>
 <tr>
 <td>-c</td>

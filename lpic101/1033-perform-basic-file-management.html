@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="author" content="jadi" />
-        <meta name="description" content="103.3 Perform basic file management Weight: 4 Candidates should be able to use the basic Linux commands to manage files and directories. Objectives Copy, move and remove files and directories individually. Copy multiple files and directories recursively. Remove files and directories recursively. Use simple and advanced wildcard specifications in ..." />
+        <meta name="description" content="103.3 Perform basic file management Weight: 4 Candidates should be able to use the basic Linux commands to manage files and directories. Objectives Copy, move and remove files and directories individually. Copy multiple files and directories recursively. Remove files and directories recursively. Use simple and advanced wildcard specifications in …" />
 
 
     <title>103.3 Perform basic file management - Linux Learner</title>
@@ -439,16 +439,16 @@
 <h2>ls</h2>
 <p>Is used to <em>list</em> directories &amp; files. It can use absolute and relative paths</p>
 <div class="highlight"><pre><span></span>$ ls -l
-total 52
--rw-rw-r-- <span class="m">1</span> jadi jadi  <span class="m">146</span> Jan  <span class="m">5</span> 08:29 alldata
--rw-rw-r-- <span class="m">1</span> jadi jadi   <span class="m">30</span> Jan  <span class="m">5</span> 09:15 howcool.sort
--rw-rw-r-- <span class="m">1</span> jadi jadi  <span class="m">204</span> Jan  <span class="m">5</span> 08:49 mydata
--rw-rw-r-- <span class="m">1</span> jadi jadi  <span class="m">121</span> Jan  <span class="m">4</span> 22:07 mydata.tab
-drwxrwxr-x <span class="m">2</span> jadi jadi <span class="m">4096</span> Jan  <span class="m">8</span> 16:45 mydir
--rw-rw-r-- <span class="m">1</span> jadi jadi   <span class="m">70</span> Jan  <span class="m">5</span> 08:28 myfiles
-drwxrwxr-x <span class="m">2</span> jadi jadi <span class="m">4096</span> Jan  <span class="m">8</span> 16:46 newdir
--rw-rw-r-- <span class="m">1</span> jadi jadi   <span class="m">23</span> Jan  <span class="m">5</span> 09:06 sorttest.txt
--rw-rw-r-- <span class="m">1</span> jadi jadi   <span class="m">58</span> Jan  <span class="m">5</span> 09:14 uses
+total <span class="m">52</span>
+-rw-rw-r-- <span class="m">1</span> jadi jadi  <span class="m">146</span> Jan  <span class="m">5</span> <span class="m">08</span>:29 alldata
+-rw-rw-r-- <span class="m">1</span> jadi jadi   <span class="m">30</span> Jan  <span class="m">5</span> <span class="m">09</span>:15 howcool.sort
+-rw-rw-r-- <span class="m">1</span> jadi jadi  <span class="m">204</span> Jan  <span class="m">5</span> <span class="m">08</span>:49 mydata
+-rw-rw-r-- <span class="m">1</span> jadi jadi  <span class="m">121</span> Jan  <span class="m">4</span> <span class="m">22</span>:07 mydata.tab
+drwxrwxr-x <span class="m">2</span> jadi jadi <span class="m">4096</span> Jan  <span class="m">8</span> <span class="m">16</span>:45 mydir
+-rw-rw-r-- <span class="m">1</span> jadi jadi   <span class="m">70</span> Jan  <span class="m">5</span> <span class="m">08</span>:28 myfiles
+drwxrwxr-x <span class="m">2</span> jadi jadi <span class="m">4096</span> Jan  <span class="m">8</span> <span class="m">16</span>:46 newdir
+-rw-rw-r-- <span class="m">1</span> jadi jadi   <span class="m">23</span> Jan  <span class="m">5</span> <span class="m">09</span>:06 sorttest.txt
+-rw-rw-r-- <span class="m">1</span> jadi jadi   <span class="m">58</span> Jan  <span class="m">5</span> <span class="m">09</span>:14 uses
 </pre></div>
 
 
@@ -495,10 +495,10 @@ howcool.sort  uses.sort
 $ mkdir dirA dirB
 $ ls -ltrh
 total 16K
--rw-rw-r-- <span class="m">1</span> jadi jadi   <span class="m">30</span> Jan  <span class="m">8</span> 16:45 howcool.sort
--rw-rw-r-- <span class="m">1</span> jadi jadi   <span class="m">58</span> Jan  <span class="m">8</span> 16:45 uses.sort
-drwxrwxr-x <span class="m">2</span> jadi jadi 4.0K Jan  <span class="m">8</span> 17:11 dirB
-drwxrwxr-x <span class="m">2</span> jadi jadi 4.0K Jan  <span class="m">8</span> 17:11 dirA
+-rw-rw-r-- <span class="m">1</span> jadi jadi   <span class="m">30</span> Jan  <span class="m">8</span> <span class="m">16</span>:45 howcool.sort
+-rw-rw-r-- <span class="m">1</span> jadi jadi   <span class="m">58</span> Jan  <span class="m">8</span> <span class="m">16</span>:45 uses.sort
+drwxrwxr-x <span class="m">2</span> jadi jadi <span class="m">4</span>.0K Jan  <span class="m">8</span> <span class="m">17</span>:11 dirB
+drwxrwxr-x <span class="m">2</span> jadi jadi <span class="m">4</span>.0K Jan  <span class="m">8</span> <span class="m">17</span>:11 dirA
 </pre></div>
 
 
@@ -509,8 +509,8 @@ drwxrwxr-x <span class="m">2</span> jadi jadi 4.0K Jan  <span class="m">8</span>
 mkdir: cannot create directory ‘newDir/insideNew/lastDir’: No such file or directory
 $ mkdir -p newDir/insideNew/lastDir
 $ ls newDir/insideNew/ -ltrh
-total 4.0K
-drwxrwxr-x <span class="m">2</span> jadi jadi 4.0K Jan  <span class="m">8</span> 17:13 lastDir
+total <span class="m">4</span>.0K
+drwxrwxr-x <span class="m">2</span> jadi jadi <span class="m">4</span>.0K Jan  <span class="m">8</span> <span class="m">17</span>:13 lastDir
 </pre></div>
 
 
@@ -835,11 +835,11 @@ $ find . -type f -iname <span class="s2">&quot;*my*&quot;</span>
 <div class="highlight"><pre><span></span>$ file mydata.tab
 mydata.tab: ASCII text
 $ file /bin/bash
-/bin/bash: ELF 64-bit LSB executable, x86-64, version <span class="m">1</span> <span class="o">(</span>SYSV<span class="o">)</span>, dynamically linked <span class="o">(</span>uses shared libs<span class="o">)</span>, <span class="k">for</span> GNU/Linux 2.6.32, BuildID<span class="o">[</span>sha1<span class="o">]=</span>cb63ec0718f2022619814c04a5b6cd8a36752a83, stripped
+/bin/bash: ELF <span class="m">64</span>-bit LSB executable, x86-64, version <span class="m">1</span> <span class="o">(</span>SYSV<span class="o">)</span>, dynamically linked <span class="o">(</span>uses shared libs<span class="o">)</span>, <span class="k">for</span> GNU/Linux <span class="m">2</span>.6.32, BuildID<span class="o">[</span>sha1<span class="o">]=</span>cb63ec0718f2022619814c04a5b6cd8a36752a83, stripped
 $ file mydata.tab
 mydata.tab: ASCII text
 $ file /bin/bash
-/bin/bash: ELF 64-bit LSB executable, x86-64, version <span class="m">1</span> <span class="o">(</span>SYSV<span class="o">)</span>, dynamically linked <span class="o">(</span>uses shared libs<span class="o">)</span>, <span class="k">for</span> GNU/Linux 2.6.32, BuildID<span class="o">[</span>sha1<span class="o">]=</span>cb63ec0718f2022619814c04a5b6cd8a36752a83, stripped
+/bin/bash: ELF <span class="m">64</span>-bit LSB executable, x86-64, version <span class="m">1</span> <span class="o">(</span>SYSV<span class="o">)</span>, dynamically linked <span class="o">(</span>uses shared libs<span class="o">)</span>, <span class="k">for</span> GNU/Linux <span class="m">2</span>.6.32, BuildID<span class="o">[</span>sha1<span class="o">]=</span>cb63ec0718f2022619814c04a5b6cd8a36752a83, stripped
 $ file -i mydir
 mydir: inode/directory<span class="p">;</span> <span class="nv">charset</span><span class="o">=</span>binary
 </pre></div>
@@ -853,13 +853,13 @@ mydir: inode/directory<span class="p">;</span> <span class="nv">charset</span><s
 <h4>zip</h4>
 <p>we mostly use <code>gzip</code> and <code>gunzip</code> in linux. It is very easy:</p>
 <div class="highlight"><pre><span></span>$ ls *  -ltrh
--rw-r--r-- <span class="m">1</span> jadi jadi  79K Dec <span class="m">22</span> 11:52 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt
+-rw-r--r-- <span class="m">1</span> jadi jadi  79K Dec <span class="m">22</span> <span class="m">11</span>:52 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt
 $ gzip  The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt
 $ ls *  -ltrh
--rw-r--r-- <span class="m">1</span> jadi jadi  30K Dec <span class="m">22</span> 11:52 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt.gz
+-rw-r--r-- <span class="m">1</span> jadi jadi  30K Dec <span class="m">22</span> <span class="m">11</span>:52 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt.gz
 $ gunzip The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt.gz
 $ ls *  -ltrh
--rw-r--r-- <span class="m">1</span> jadi jadi  79K Dec <span class="m">22</span> 11:52 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt
+-rw-r--r-- <span class="m">1</span> jadi jadi  79K Dec <span class="m">22</span> <span class="m">11</span>:52 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt
 </pre></div>
 
 
@@ -871,13 +871,13 @@ $ ls *  -ltrh
 <h4>bzip2</h4>
 <p>is another compressing tool. Works just the same but with another compression algorithm.</p>
 <div class="highlight"><pre><span></span>$ ls *  -ltrh
--rw-r--r-- <span class="m">1</span> jadi jadi  79K Dec <span class="m">22</span> 11:52 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt
+-rw-r--r-- <span class="m">1</span> jadi jadi  79K Dec <span class="m">22</span> <span class="m">11</span>:52 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt
 $ bzip2 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt
 $ ls *  -ltrh
--rw-r--r-- <span class="m">1</span> jadi jadi  22K Dec <span class="m">22</span> 11:52 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt.bz2
+-rw-r--r-- <span class="m">1</span> jadi jadi  22K Dec <span class="m">22</span> <span class="m">11</span>:52 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt.bz2
 $ bunzip2 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt.bz2
 $ ls *  -ltrh
--rw-r--r-- <span class="m">1</span> jadi jadi  79K Dec <span class="m">22</span> 11:52 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt
+-rw-r--r-- <span class="m">1</span> jadi jadi  79K Dec <span class="m">22</span> <span class="m">11</span>:52 The.Equalizer.2014.1080p.BluRay.x264.anoXmous_eng.srt
 </pre></div>
 
 
@@ -954,19 +954,19 @@ cpio -id &lt; myarchivefind.cpio
 <h2>dd</h2>
 <p>The <code>dd</code> command copies data from one location to another. This data comes from files. You can use it just like copy:</p>
 <div class="highlight"><pre><span></span>$ cat howcool
-jadi    5
-sina    6
-rubic   2
-you     12
+jadi    <span class="m">5</span>
+sina    <span class="m">6</span>
+rubic   <span class="m">2</span>
+you     <span class="m">12</span>
 $ dd <span class="k">if</span><span class="o">=</span>howcool <span class="nv">of</span><span class="o">=</span>newcool
-0+1 records in
-0+1 records out
-<span class="m">30</span> bytes <span class="o">(</span><span class="m">30</span> B<span class="o">)</span> copied, 0.0227904 s, 1.3 kB/s
+<span class="m">0</span>+1 records in
+<span class="m">0</span>+1 records out
+<span class="m">30</span> bytes <span class="o">(</span><span class="m">30</span> B<span class="o">)</span> copied, <span class="m">0</span>.0227904 s, <span class="m">1</span>.3 kB/s
 $ cat newcool
-jadi    5
-sina    6
-rubic   2
-you     12
+jadi    <span class="m">5</span>
+sina    <span class="m">6</span>
+rubic   <span class="m">2</span>
+you     <span class="m">12</span>
 $
 </pre></div>
 
@@ -987,7 +987,7 @@ $
 
 
 <p>Another common usage is creating files of specific size:</p>
-<div class="highlight"><pre><span></span>$ dd <span class="k">if</span><span class="o">=</span>/dev/zero <span class="nv">of</span><span class="o">=</span>1g.bin <span class="nv">bs</span><span class="o">=</span>1G <span class="nv">count</span><span class="o">=</span>1
+<div class="highlight"><pre><span></span>$ dd <span class="k">if</span><span class="o">=</span>/dev/zero <span class="nv">of</span><span class="o">=</span>1g.bin <span class="nv">bs</span><span class="o">=</span>1G <span class="nv">count</span><span class="o">=</span><span class="m">1</span>
 </pre></div>
 
 

@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="author" content="jadi" />
-        <meta name="description" content="101.1 Determine and configure hardware settings Weight: 2 Candidates should be able to determine and configure fundamental system hardware. Objectives Enable and disable integrated peripherals. Configure systems with or without external peripherals such as keyboards. Differentiate between the various types of mass storage devices. Set the correct hardware ID ..." />
+        <meta name="description" content="101.1 Determine and configure hardware settings Weight: 2 Candidates should be able to determine and configure fundamental system hardware. Objectives Enable and disable integrated peripherals. Configure systems with or without external peripherals such as keyboards. Differentiate between the various types of mass storage devices. Set the correct hardware ID …" />
 
 
     <title>101.1 Determine and configure hardware settings - Linux Learner</title>
@@ -434,7 +434,7 @@
 <h3>HAL</h3>
 <p><strong>HAL</strong> is Hardware Abstraction Layer. It abstracts your hardware details from you, say any first network card will be <em>eth0</em>. This way Linux will see any hardware as an <em>standard</em> hardware and you will be able to replace the hardware easily.</p>
 <h3>dbus</h3>
-<p>Is really a bus and lets parts of the system communicate with each other. For example, when you install a USB into your computer, dbus lets GNOME know about it. Using dbus, hardware &amp; software can talk with each other.</p>
+<p>A line like a bus that connects all parts of the OS to each other. dbus lets different parts of the system to communicate with each other. For example, when you install a USB into your computer, dbus lets GNOME know about it. Using dbus, hardware &amp; software can talk with each other.</p>
 <h3>udev</h3>
 <p>Supplies the software with the events and access info of devices and can handle rules.</p>
 <p>There are a lot of devices in /dev/ and if you plugin any device, it will have a file in /dev (say /dev/sdb2). <strong>udev</strong> lets you control what will be what in /dev. For example, you can use a rule to force your 8GB flash drive with one specific vendor to be /dev/mybackup all the time or you can tell it to copy all photos to your home directory as soon as your camera is connected.</p>
@@ -447,7 +447,7 @@ block  bus  class  dev  devices  firmware  fs  hypervisor  kernel  module  power
 
 <p>All block devices are at the <code>block</code> and <code>bus</code> directory has all the connected PCI, USB, serial, .. devices. Note that here in <code>sys</code> we have the devices based on their technology but <code>/dev/</code> is abstracted.</p>
 <h3>proc directory</h3>
-<p>This is where kernel keeps its data structure and is created in RAM. You can read and write here (after reboot, the write is gone).</p>
+<p>This is where kernel keeps its settings and properties. This direcgtory is created on ram and files might have write accessible.</p>
 <div class="highlight"><pre><span></span>$ ls /proc/
 <span class="m">1</span>      <span class="m">1249</span>   <span class="m">1451</span>   <span class="m">1565</span>   <span class="m">18069</span>  <span class="m">20346</span>  <span class="m">2426</span>  <span class="m">2765</span>  <span class="m">2926</span>  <span class="m">3175</span>  <span class="m">3317</span>  <span class="m">3537</span>  <span class="m">39</span>    <span class="m">468</span>   <span class="m">4921</span>  <span class="m">53</span>    <span class="m">689</span>   <span class="m">969</span>      filesystems  misc       sysvipc
 <span class="m">10</span>     <span class="m">13</span>     <span class="m">146</span>    <span class="m">157</span>    <span class="m">18093</span>  <span class="m">20681</span>  <span class="m">2452</span>  <span class="m">2766</span>  <span class="m">2929</span>  <span class="m">3183</span>  <span class="m">3318</span>  <span class="m">354</span>   <span class="m">397</span>   <span class="m">4694</span>  <span class="m">4934</span>  <span class="m">538</span>   <span class="m">7</span>     <span class="m">97</span>       fs       modules        timer_list
@@ -471,55 +471,55 @@ block  bus  class  dev  devices  firmware  fs  hypervisor  kernel  module  power
 
 <p>The numbers are the process IDs! There are also other files like <code>cpuinfo</code>, <code>mounts</code>, <code>meminfo</code>, ...</p>
 <div class="highlight"><pre><span></span>$ cat /proc/cpuinfo
-processor   : 0
+processor   : <span class="m">0</span>
 vendor_id   : GenuineIntel
-cpu family  : 6
-model       : 42
-model name  : Intel<span class="o">(</span>R<span class="o">)</span> Core<span class="o">(</span>TM<span class="o">)</span> i5-2520M CPU @ 2.50GHz
-stepping    : 7
+cpu family  : <span class="m">6</span>
+model       : <span class="m">42</span>
+model name  : Intel<span class="o">(</span>R<span class="o">)</span> Core<span class="o">(</span>TM<span class="o">)</span> i5-2520M CPU @ <span class="m">2</span>.50GHz
+stepping    : <span class="m">7</span>
 microcode   : 0x15
-cpu MHz     : 3195.312
+cpu MHz     : <span class="m">3195</span>.312
 cache size  : <span class="m">3072</span> KB
-physical id : 0
-siblings    : 4
-core id     : 0
-cpu cores   : 2
-apicid      : 0
-initial apicid  : 0
+physical id : <span class="m">0</span>
+siblings    : <span class="m">4</span>
+core id     : <span class="m">0</span>
+cpu cores   : <span class="m">2</span>
+apicid      : <span class="m">0</span>
+initial apicid  : <span class="m">0</span>
 fpu     : yes
 fpu_exception   : yes
-cpuid level : 13
+cpuid level : <span class="m">13</span>
 wp      : yes
 flags       : fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx rdtscp lm constant_tsc arch_perfmon pebs bts nopl xtopology nonstop_tsc aperfmperf eagerfpu pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic popcnt tsc_deadline_timer aes xsave avx lahf_lm ida arat epb xsaveopt pln pts dtherm tpr_shadow vnmi flexpriority ept vpid
-bogomips    : 4983.79
-clflush size    : 64
-cache_alignment : 64
+bogomips    : <span class="m">4983</span>.79
+clflush size    : <span class="m">64</span>
+cache_alignment : <span class="m">64</span>
 address sizes   : <span class="m">36</span> bits physical, <span class="m">48</span> bits virtual
 power management:
 
-processor   : 1
+processor   : <span class="m">1</span>
 vendor_id   : GenuineIntel
-cpu family  : 6
-model       : 42
-model name  : Intel<span class="o">(</span>R<span class="o">)</span> Core<span class="o">(</span>TM<span class="o">)</span> i5-2520M CPU @ 2.50GHz
-stepping    : 7
+cpu family  : <span class="m">6</span>
+model       : <span class="m">42</span>
+model name  : Intel<span class="o">(</span>R<span class="o">)</span> Core<span class="o">(</span>TM<span class="o">)</span> i5-2520M CPU @ <span class="m">2</span>.50GHz
+stepping    : <span class="m">7</span>
 microcode   : 0x15
-cpu MHz     : 3010.839
+cpu MHz     : <span class="m">3010</span>.839
 cache size  : <span class="m">3072</span> KB
-physical id : 0
-siblings    : 4
-core id     : 0
-cpu cores   : 2
-apicid      : 1
-initial apicid  : 1
+physical id : <span class="m">0</span>
+siblings    : <span class="m">4</span>
+core id     : <span class="m">0</span>
+cpu cores   : <span class="m">2</span>
+apicid      : <span class="m">1</span>
+initial apicid  : <span class="m">1</span>
 fpu     : yes
 fpu_exception   : yes
-cpuid level : 13
+cpuid level : <span class="m">13</span>
 wp      : yes
 flags       : fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx rdtscp lm constant_tsc arch_perfmon pebs bts nopl xtopology nonstop_tsc aperfmperf eagerfpu pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic popcnt tsc_deadline_timer aes xsave avx lahf_lm ida arat epb xsaveopt pln pts dtherm tpr_shadow vnmi flexpriority ept vpid
-bogomips    : 4983.79
-clflush size    : 64
-cache_alignment : 64
+bogomips    : <span class="m">4983</span>.79
+clflush size    : <span class="m">64</span>
+cache_alignment : <span class="m">64</span>
 address sizes   : <span class="m">36</span> bits physical, <span class="m">48</span> bits virtual
 power management:
 </pre></div>

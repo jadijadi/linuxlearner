@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="author" content="jadi" />
-        <meta name="description" content="104.7 Find system files and place files in the correct location Weight: 2 Candidates should be thoroughly familiar with the Filesystem Hierarchy Standard (FHS), including typical file locations and directory classifications. Objectives Understand the correct locations of files under the FHS. Find files and commands on a Linux system ..." />
+        <meta name="description" content="104.7 Find system files and place files in the correct location Weight: 2 Candidates should be thoroughly familiar with the Filesystem Hierarchy Standard (FHS), including typical file locations and directory classifications. Objectives Understand the correct locations of files under the FHS. Find files and commands on a Linux system …" />
 
 
     <title>104.7 Find system files and place files in the correct location - Linux Learner</title>
@@ -510,8 +510,8 @@
 
 
 <p>And for root user:</p>
-<div class="highlight"><pre><span></span><span class="err">#</span><span class="x"> echo </span><span class="p">$</span><span class="nv">PATH</span><span class="x"></span>
-<span class="x">/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin</span>
+<div class="highlight"><pre><span></span># echo $PATH
+/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 </pre></div>
 
 
@@ -601,7 +601,7 @@ $ find /tmp/ -maxdepth <span class="m">1</span> -user jadi <span class="p">|</sp
 
 <p>And it is fast:</p>
 <div class="highlight"><pre><span></span>$ <span class="nb">time</span> locate kernel <span class="p">|</span> wc -l
-11235
+<span class="m">11235</span>
 
 real    0m0.341s
 user    0m0.322s

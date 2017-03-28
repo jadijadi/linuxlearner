@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="author" content="jadi" />
-        <meta name="description" content="106.1 Install and configure X11 Weight: 2 Candidates should be able to install and configure X11. Key Knowledge Areas Verify that the video card and monitor are supported by an X server Awareness of the X font server Basic understanding and knowledge of the X Window configuration file Terms ..." />
+        <meta name="description" content="106.1 Install and configure X11 Weight: 2 Candidates should be able to install and configure X11. Key Knowledge Areas Verify that the video card and monitor are supported by an X server Awareness of the X font server Basic understanding and knowledge of the X Window configuration file Terms …" />
 
 
     <title>106.1 Install and configure X11 - Linux Learner</title>
@@ -569,16 +569,16 @@ xwininfo: Please <span class="k">select</span> the window about which you
 
 xwininfo: Window id: 0x5400004 <span class="s2">&quot;jadi@funlife: ~/w/lpic/lpic1book&quot;</span>
 
-  Absolute upper-left X:  629
-  Absolute upper-left Y:  245
-  Relative upper-left X:  10
-  Relative upper-left Y:  36
-  Width: 655
-  Height: 426
-  Depth: 32
+  Absolute upper-left X:  <span class="m">629</span>
+  Absolute upper-left Y:  <span class="m">245</span>
+  Relative upper-left X:  <span class="m">10</span>
+  Relative upper-left Y:  <span class="m">36</span>
+  Width: <span class="m">655</span>
+  Height: <span class="m">426</span>
+  Depth: <span class="m">32</span>
   Visual: 0x71
   Visual Class: TrueColor
-  Border width: 0
+  Border width: <span class="m">0</span>
   Class: InputOutput
   Colormap: 0x5400003 <span class="o">(</span>not installed<span class="o">)</span>
   Bit Gravity State: NorthWestGravity
@@ -594,11 +594,11 @@ xwininfo: Window id: 0x5400004 <span class="s2">&quot;jadi@funlife: ~/w/lpic/lpi
 
 <h2>xdpyinfo</h2>
 <p>This give you information about the running X session. Things like screens, color depth, version, name, ...</p>
-<div class="highlight"><pre><span></span><span class="nt">name</span> <span class="nt">of</span> <span class="nt">display</span><span class="o">:</span>    <span class="nd">:0</span>
-<span class="nt">version</span> <span class="nt">number</span><span class="o">:</span>    <span class="nt">11</span><span class="nc">.0</span>
-<span class="nt">vendor</span> <span class="nt">string</span><span class="o">:</span>    <span class="nt">The</span> <span class="nt">X</span><span class="nc">.Org</span> <span class="nt">Foundation</span>
+<div class="highlight"><pre><span></span><span class="nt">name</span> <span class="nt">of</span> <span class="nt">display</span><span class="o">:</span>    <span class="p">:</span><span class="nd">0</span>
+<span class="nt">version</span> <span class="nt">number</span><span class="o">:</span>    <span class="nt">11</span><span class="p">.</span><span class="nc">0</span>
+<span class="nt">vendor</span> <span class="nt">string</span><span class="o">:</span>    <span class="nt">The</span> <span class="nt">X</span><span class="p">.</span><span class="nc">Org</span> <span class="nt">Foundation</span>
 <span class="nt">vendor</span> <span class="nt">release</span> <span class="nt">number</span><span class="o">:</span>    <span class="nt">11701000</span>
-<span class="nt">X</span><span class="nc">.Org</span> <span class="nt">version</span><span class="o">:</span> <span class="nt">1</span><span class="nc">.17.1</span>
+<span class="nt">X</span><span class="p">.</span><span class="nc">Org</span> <span class="nt">version</span><span class="o">:</span> <span class="nt">1</span><span class="p">.</span><span class="nc">17</span><span class="p">.</span><span class="nc">1</span>
 <span class="nt">maximum</span> <span class="nt">request</span> <span class="nt">size</span><span class="o">:</span>  <span class="nt">16777212</span> <span class="nt">bytes</span>
 <span class="nt">motion</span> <span class="nt">buffer</span> <span class="nt">size</span><span class="o">:</span>  <span class="nt">256</span>
 <span class="nt">bitmap</span> <span class="nt">unit</span><span class="o">,</span> <span class="nt">bit</span> <span class="nt">order</span><span class="o">,</span> <span class="nt">padding</span><span class="o">:</span>    <span class="nt">32</span><span class="o">,</span> <span class="nt">LSBFirst</span><span class="o">,</span> <span class="nt">32</span>
@@ -661,7 +661,7 @@ SI:localuser:jadi
 
 
 <p>but if another X is listening to all IPs (after <code>xhost +</code>) or listening to my machine (after <code>xhost 192.168.42.85</code>) I can change the DISPLAY environment and connect my graphical output to that machine. In this case if I run a graphical program, its output (windows) will be shown on another machine:</p>
-<div class="highlight"><pre><span></span>$ <span class="nb">export</span> <span class="nv">DISPLAY</span><span class="o">=</span>192.168.42.85:0
+<div class="highlight"><pre><span></span>$ <span class="nb">export</span> <span class="nv">DISPLAY</span><span class="o">=</span><span class="m">192</span>.168.42.85:0
 $ xeyes <span class="c1"># the eyes will be shown on 192.168.42.85 machine</span>
 </pre></div>
 

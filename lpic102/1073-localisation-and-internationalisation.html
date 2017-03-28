@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="author" content="jadi" />
-        <meta name="description" content="107.3 Localisation and internationalisation Weight: 3 Candidates should be able to localise a system in a different language than English. As well, an understanding of why LANG=C is useful when scripting. Key Knowledge Areas Configure locale settings and environment variables. Configure timezone settings and environment variables. Terms and ..." />
+        <meta name="description" content="107.3 Localisation and internationalisation Weight: 3 Candidates should be able to localise a system in a different language than English. As well, an understanding of why LANG=C is useful when scripting. Key Knowledge Areas Configure locale settings and environment variables. Configure timezone settings and environment variables. Terms and …" />
 
 
     <title>107.3 Localisation and internationalisation - Linux Learner</title>
@@ -482,22 +482,22 @@ Asia/Tehran
 <p>This file should be replaced by the correct file from <code>/usr/share/zoneinfo/</code>. It is nicer to make a symbolic link rather than copying the actual file. This will prevent the conflicts during next upgrades.</p>
 <h2>Configuring Languages</h2>
 <p>You can check the status of current selected system language by issuing <code>locale</code>:</p>
-<div class="highlight"><pre><span></span><span class="p">$</span><span class="nv">locale</span><span class="x"></span>
-<span class="x">LANG=en_US.UTF-8</span>
-<span class="x">LANGUAGE=</span>
-<span class="x">LC_CTYPE=&quot;en_US.UTF-8&quot;</span>
-<span class="x">LC_NUMERIC=&quot;en_US.UTF-8&quot;</span>
-<span class="x">LC_TIME=&quot;en_US.UTF-8&quot;</span>
-<span class="x">LC_COLLATE=&quot;en_US.UTF-8&quot;</span>
-<span class="x">LC_MONETARY=&quot;en_US.UTF-8&quot;</span>
-<span class="x">LC_MESSAGES=&quot;en_US.UTF-8&quot;</span>
-<span class="x">LC_PAPER=&quot;en_US.UTF-8&quot;</span>
-<span class="x">LC_NAME=&quot;en_US.UTF-8&quot;</span>
-<span class="x">LC_ADDRESS=&quot;en_US.UTF-8&quot;</span>
-<span class="x">LC_TELEPHONE=&quot;en_US.UTF-8&quot;</span>
-<span class="x">LC_MEASUREMENT=&quot;en_US.UTF-8&quot;</span>
-<span class="x">LC_IDENTIFICATION=&quot;en_US.UTF-8&quot;</span>
-<span class="x">LC_ALL=</span>
+<div class="highlight"><pre><span></span>$locale
+LANG=en_US.UTF-8
+LANGUAGE=
+LC_CTYPE=&quot;en_US.UTF-8&quot;
+LC_NUMERIC=&quot;en_US.UTF-8&quot;
+LC_TIME=&quot;en_US.UTF-8&quot;
+LC_COLLATE=&quot;en_US.UTF-8&quot;
+LC_MONETARY=&quot;en_US.UTF-8&quot;
+LC_MESSAGES=&quot;en_US.UTF-8&quot;
+LC_PAPER=&quot;en_US.UTF-8&quot;
+LC_NAME=&quot;en_US.UTF-8&quot;
+LC_ADDRESS=&quot;en_US.UTF-8&quot;
+LC_TELEPHONE=&quot;en_US.UTF-8&quot;
+LC_MEASUREMENT=&quot;en_US.UTF-8&quot;
+LC_IDENTIFICATION=&quot;en_US.UTF-8&quot;
+LC_ALL=
 </pre></div>
 
 
@@ -523,7 +523,7 @@ Asia/Tehran
 <p>It had more characters and a lots of sets for Thai, Arabic and other languages but still had ASCII character sets.</p>
 <h3>UTF-8</h3>
 <p>The <code>Unicode Transformation Format</code> is the newest encoding method. It is  a real universal encoding with characters not only for all written languages but also for fun characters like  ¾, ♠, π and ⚤. It is backward compatible with the ASCII and uses 8 bit code units (<strong>not 8 bit coding!</strong>). In most cases it is a good idea to use UTF-8 and be sure that your system will work in practically all cases.</p>
-<p><img alt="" src="UnicodeGrow.png" /></p>
+<p><img alt="" src="UnicodeGrow.png"></p>
 <p>Above table shows how UTF8 is the leader compared with ASCII and ISO-8859.</p>
 <h2>iconv</h2>
 <p>If you needed to convert coding to each other, the command is <code>iconv</code>. The <code>-l</code> switch will show you all the available codings:</p>

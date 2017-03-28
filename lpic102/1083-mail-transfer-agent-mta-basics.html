@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="author" content="jadi" />
-        <meta name="description" content="108.3 Mail Transfer Agent (MTA) basics Weight: 3 Candidates should be aware of the commonly available MTA programs and be able to perform basic forward and alias configuration on a client host. Other configuration files are not covered. Key Knowledge Areas Create e-mail aliases. Configure e-mail forwarding. Knowledge of ..." />
+        <meta name="description" content="108.3 Mail Transfer Agent (MTA) basics Weight: 3 Candidates should be aware of the commonly available MTA programs and be able to perform basic forward and alias configuration on a client host. Other configuration files are not covered. Key Knowledge Areas Create e-mail aliases. Configure e-mail forwarding. Knowledge of …" />
 
 
     <title>108.3 Mail Transfer Agent (MTA) basics - Linux Learner</title>
@@ -426,7 +426,7 @@
 <li>qmail</li>
 </ul>
 <h2>MTAs</h2>
-<p>Mai Transfer Agents or MTAs are programs which handle emails in your operating system. There are lot of MTAs available and each distro or sysadmin uses the one she likes more.</p>
+<p>Mai Transfer Agent or MTA is a programs which handle emails in your operating system. There are lot of MTAs available and each distro or sysadmin uses the one she likes more.</p>
 <h3>sendmail</h3>
 <p>Is one of the oldest options available. It is big and difficult to configure and keep safe and secure so very few systems use it as default MTA.</p>
 <h3>qmail</h3>
@@ -526,8 +526,8 @@ Held 11 messages in /var/mail/jadi
 <p>This command lists the mail queue. Each entry shows the queue file ID, message size, arrival time, sender, and the recipients that still need to be delivered. If mail could not be delivered upon the last attempt, the reason for failure is shown. The sysadmin can use this command to check the status of emails still in the queues.</p>
 <div class="highlight"><pre><span></span>$ mailq
 -Queue ID- --Size-- ----Arrival Time---- -Sender/Recipient-------
-AA52C228E6B      <span class="m">468</span> Thu Jan  <span class="m">7</span> 19:59:41  jadi@funlife
-<span class="o">(</span>connect to alt2.gmail-smtp-in.l.google.com<span class="o">[</span>2404:6800:4003:c01::1a<span class="o">]</span>:25: Network is unreachable<span class="o">)</span>
+AA52C228E6B      <span class="m">468</span> Thu Jan  <span class="m">7</span> <span class="m">19</span>:59:41  jadi@funlife
+<span class="o">(</span>connect to alt2.gmail-smtp-in.l.google.com<span class="o">[</span><span class="m">2404</span>:6800:4003:c01::1a<span class="o">]</span>:25: Network is unreachable<span class="o">)</span>
                                          jadijadi@gmail.com
 
 -- <span class="m">0</span> Kbytes in <span class="m">1</span> Request.

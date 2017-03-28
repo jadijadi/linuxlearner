@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="author" content="jadi" />
-        <meta name="description" content="107.2 Automate system administration tasks by scheduling jobs Weight: 4 Candidates should be able to use cron or anacron to run jobs at regular intervals and to use at to run jobs at a specific time. Key Knowledge Areas Manage cron and at jobs. Configure user access to cron ..." />
+        <meta name="description" content="107.2 Automate system administration tasks by scheduling jobs Weight: 4 Candidates should be able to use cron or anacron to run jobs at regular intervals and to use at to run jobs at a specific time. Key Knowledge Areas Manage cron and at jobs. Configure user access to cron …" />
 
 
     <title>107.2 Automate system administration tasks by scheduling jobs - Linux Learner</title>
@@ -472,16 +472,16 @@
 </tbody>
 </table>
 <p>Each time field can be a <code>*</code> to indicate <em>ANY</em>. Also if you have <code>@reboot</code> or <code>@daily</code> instead of time fields, the command will be run once after the reboot or daily. Lets see some examples:</p>
-<div class="highlight"><pre><span></span><span class="x">5 0 * * *       </span><span class="p">$</span><span class="nv">HOME</span><span class="x">/bin/daily.job &gt;&gt; </span><span class="p">$</span><span class="nv">HOME</span><span class="x">/tmp/out 2&gt;&amp;1</span>
-<span class="err">#</span><span class="x"> run at 2:15pm on the first of every month -- output mailed to paul</span>
-<span class="x">15 14 1 * *     </span><span class="p">$</span><span class="nv">HOME</span><span class="x">/bin/monthly</span>
-<span class="err">#</span><span class="x"> run at 10 pm on weekdays, annoy Joe</span>
-<span class="x">0 22 * * 1-5    mail -s &quot;It&#39;s 10pm&quot; joe%Joe,%%Where are your kids?%</span>
-<span class="x">23 0-23/2 * * * echo &quot;run 23 minutes after midn, 2am, 4am ..., everyday&quot;</span>
-<span class="x">5 4 * * sun     echo &quot;run at 5 after 4 every sunday&quot;</span>
-<span class="x">*/5 * * * * echo &quot;each 5 mintues&quot;</span>
-<span class="x">42 8,18 * * 1-5 echo &quot;8:42 and 18:42 and only on weekdays (monday till friday)&quot;</span>
-<span class="x">@reboot     echo &quot;runs after the reboot&quot;</span>
+<div class="highlight"><pre><span></span>5 0 * * *       $HOME/bin/daily.job &gt;&gt; $HOME/tmp/out 2&gt;&amp;1
+# run at 2:15pm on the first of every month -- output mailed to paul
+15 14 1 * *     $HOME/bin/monthly
+# run at 10 pm on weekdays, annoy Joe
+0 22 * * 1-5    mail -s &quot;It&#39;s 10pm&quot; joe%Joe,%%Where are your kids?%
+23 0-23/2 * * * echo &quot;run 23 minutes after midn, 2am, 4am ..., everyday&quot;
+5 4 * * sun     echo &quot;run at 5 after 4 every sunday&quot;
+*/5 * * * * echo &quot;each 5 mintues&quot;
+42 8,18 * * 1-5 echo &quot;8:42 and 18:42 and only on weekdays (monday till friday)&quot;
+@reboot     echo &quot;runs after the reboot&quot;
 </pre></div>
 
 
@@ -508,7 +508,7 @@
 warning: commands will be executed using /bin/sh
 at&gt; touch /tmp/at
 at&gt; &lt;EOT&gt;
-job <span class="m">3</span> at Thu Oct <span class="m">29</span> 22:12:00 2015
+job <span class="m">3</span> at Thu Oct <span class="m">29</span> <span class="m">22</span>:12:00 <span class="m">2015</span>
 </pre></div>
 
 
@@ -520,25 +520,25 @@ job <span class="m">3</span> at Thu Oct <span class="m">29</span> 22:12:00 2015
 warning: commands will be executed using /bin/sh
 at&gt; <span class="nb">echo</span> <span class="s2">&quot;tea time is 4pm&quot;</span>
 at&gt; &lt;EOT&gt;
-job <span class="m">4</span> at Fri Oct <span class="m">30</span> 16:00:00 2015
+job <span class="m">4</span> at Fri Oct <span class="m">30</span> <span class="m">16</span>:00:00 <span class="m">2015</span>
 jadi@funlife:~$ at tomorrow
 warning: commands will be executed using /bin/sh
 at&gt; <span class="nb">echo</span> <span class="s2">&quot;tomorrow this time&quot;</span>
 at&gt; &lt;EOT&gt;
-job <span class="m">5</span> at Fri Oct <span class="m">30</span> 22:15:00 2015
-jadi@funlife:~$ at 17:30
+job <span class="m">5</span> at Fri Oct <span class="m">30</span> <span class="m">22</span>:15:00 <span class="m">2015</span>
+jadi@funlife:~$ at <span class="m">17</span>:30
 warning: commands will be executed using /bin/sh
 at&gt; <span class="nb">echo</span> <span class="s2">&quot;this is the first 17:30&quot;</span>
 at&gt; &lt;EOT&gt;
-job <span class="m">6</span> at Fri Oct <span class="m">30</span> 17:30:00 2015
+job <span class="m">6</span> at Fri Oct <span class="m">30</span> <span class="m">17</span>:30:00 <span class="m">2015</span>
 jadi@funlife:~$ atq
-<span class="m">5</span>   Fri Oct <span class="m">30</span> 22:15:00 <span class="m">2015</span> a jadi
-<span class="m">4</span>   Fri Oct <span class="m">30</span> 16:00:00 <span class="m">2015</span> a jadi
-<span class="m">6</span>   Fri Oct <span class="m">30</span> 17:30:00 <span class="m">2015</span> a jadi
-jadi@funlife:~$ atrm 4
+<span class="m">5</span>   Fri Oct <span class="m">30</span> <span class="m">22</span>:15:00 <span class="m">2015</span> a jadi
+<span class="m">4</span>   Fri Oct <span class="m">30</span> <span class="m">16</span>:00:00 <span class="m">2015</span> a jadi
+<span class="m">6</span>   Fri Oct <span class="m">30</span> <span class="m">17</span>:30:00 <span class="m">2015</span> a jadi
+jadi@funlife:~$ atrm <span class="m">4</span>
 jadi@funlife:~$ atq
-<span class="m">5</span>   Fri Oct <span class="m">30</span> 22:15:00 <span class="m">2015</span> a jadi
-<span class="m">6</span>   Fri Oct <span class="m">30</span> 17:30:00 <span class="m">2015</span> a jadi
+<span class="m">5</span>   Fri Oct <span class="m">30</span> <span class="m">22</span>:15:00 <span class="m">2015</span> a jadi
+<span class="m">6</span>   Fri Oct <span class="m">30</span> <span class="m">17</span>:30:00 <span class="m">2015</span> a jadi
 </pre></div>
 
 
@@ -602,7 +602,7 @@ root<span class="err">&#39;</span>s password:
 
 <span class="nv">PATH</span><span class="o">=</span>/sbin:/usr/sbin:/bin:/usr/bin
 <span class="m">0</span> <span class="m">1</span> * * <span class="m">0</span> root <span class="nb">source</span> /etc/sysconfig/mdadm<span class="p">;</span> <span class="o">[</span> -n <span class="s2">&quot;</span><span class="nv">$MDADM_CHECK_DURATION</span><span class="s2">&quot;</span> -a -x /usr/share/mdadm/mdcheck -a <span class="k">$(</span>date +<span class="se">\%</span>d<span class="k">)</span> -le <span class="m">7</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> /usr/share/mdadm/mdcheck --duration <span class="s2">&quot;</span><span class="nv">$MDADM_CHECK_DURATION</span><span class="s2">&quot;</span>
-<span class="m">0</span> <span class="m">1</span> * * 1-6 root <span class="nb">source</span> /etc/sysconfig/mdadm<span class="p">;</span> <span class="o">[</span> -n <span class="s2">&quot;</span><span class="nv">$MDADM_CHECK_DURATION</span><span class="s2">&quot;</span> -a -x /usr/share/mdadm/mdcheck <span class="o">]</span> <span class="o">&amp;&amp;</span> /usr/share/mdadm/mdcheck --continue --duration <span class="s2">&quot;</span><span class="nv">$MDADM_CHECK_DURATION</span><span class="s2">&quot;</span>
+<span class="m">0</span> <span class="m">1</span> * * <span class="m">1</span>-6 root <span class="nb">source</span> /etc/sysconfig/mdadm<span class="p">;</span> <span class="o">[</span> -n <span class="s2">&quot;</span><span class="nv">$MDADM_CHECK_DURATION</span><span class="s2">&quot;</span> -a -x /usr/share/mdadm/mdcheck <span class="o">]</span> <span class="o">&amp;&amp;</span> /usr/share/mdadm/mdcheck --continue --duration <span class="s2">&quot;</span><span class="nv">$MDADM_CHECK_DURATION</span><span class="s2">&quot;</span>
 </pre></div>
 
 

@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="author" content="jadi" />
-        <meta name="description" content="110.2 Setup host security Weight: 3 Candidates should know how to set up a basic level of host security. Key Knowledge Areas Awareness of shadow passwords and how they work. Turn off network services not in use. Understand the role of TCP wrappers. Terms and Utilities /etc/nologin /etc ..." />
+        <meta name="description" content="110.2 Setup host security Weight: 3 Candidates should know how to set up a basic level of host security. Key Knowledge Areas Awareness of shadow passwords and how they work. Turn off network services not in use. Understand the role of TCP wrappers. Terms and Utilities /etc/nologin /etc …" />
 
 
     <title>110.2 Setup host security - Linux Learner</title>
@@ -430,20 +430,20 @@
 <h3>shadow passwords</h3>
 <p>The <code>/dev/passwd</code> is already discussed. It contains the passwords of the users but there is a logical problem: if a user should be able to change her own password, he should have access to this file and if this is the case, he can see other peoples passwords. This is not interesting even when the passwords are hashed (shown as a more complex form using a one way function).</p>
 <div class="highlight"><pre><span></span>$ ls -ltrh /etc/passwd
--rw-r--r-- <span class="m">1</span> root root 2.5K Jun  <span class="m">5</span> 19:14 /etc/passwd
+-rw-r--r-- <span class="m">1</span> root root <span class="m">2</span>.5K Jun  <span class="m">5</span> <span class="m">19</span>:14 /etc/passwd
 </pre></div>
 
 
 <p>To prevent this the <code>/etc/shadow</code> file is introduces. In modern systems, we only show a <code>*</code> at the location of the password in /etc/passwd and store the real password in <code>/etc/shadow</code> which has a very limited file access:</p>
-<div class="highlight"><pre><span></span><span class="x">jadi@funlife ~</span><span class="p">$</span><span class="x"> grep jadi /etc/passwd</span>
-<span class="x">jadi:x:1000:1000:jadi,,,:/home/jadi:/bin/bash</span>
-<span class="x">jadi@funlife ~</span><span class="p">$</span><span class="x"> grep jadi /etc/shadow</span>
-<span class="x">grep: /etc/shadow: Permission denied</span>
-<span class="x">jadi@funlife ~</span><span class="p">$</span><span class="x"> sudo grep jadi /etc/shadow</span>
-<span class="x">[sudo] password for jadi:</span>
-<span class="x">jadi:</span><span class="p">$</span><span class="x">6</span><span class="p">$</span><span class="nv">bp01DBX</span><span class="x">.</span><span class="p">$</span><span class="nv">I6dt4pz8GeXJl6asgPeKhSdepf40bgepTz8zwB3HFmN56SdcsxjTETdZAmRt17biwMYOI7SoGFOXssHqeNFgw</span><span class="x">/:16963:0:99999:7:::</span>
-<span class="x">jadi@funlife ~</span><span class="p">$</span><span class="x"> sudo ls -ltrh /etc/shadow</span>
-<span class="x">-rw-r----- 1 root shadow 1.5K Jun 11 17:36 /etc/shadow</span>
+<div class="highlight"><pre><span></span>jadi@funlife ~$ grep jadi /etc/passwd
+jadi:x:1000:1000:jadi,,,:/home/jadi:/bin/bash
+jadi@funlife ~$ grep jadi /etc/shadow
+grep: /etc/shadow: Permission denied
+jadi@funlife ~$ sudo grep jadi /etc/shadow
+[sudo] password for jadi:
+jadi:$6$bp01DBX.$I6dt4pz8GeXJl6asgPeKhSdepf40bgepTz8zwB3HFmN56SdcsxjTETdZAmRt17biwMYOI7SoGFOXssHqeNFgw/:16963:0:99999:7:::
+jadi@funlife ~$ sudo ls -ltrh /etc/shadow
+-rw-r----- 1 root shadow 1.5K Jun 11 17:36 /etc/shadow
 </pre></div>
 
 
@@ -466,7 +466,7 @@
 <tr>
 <td>older linux systems</td>
 <td>SysV</td>
-<td>chkconfig httpd off<br>ssyv-rc-conf httpd off</td>
+<td>chkconfig httpd off<br>sysv-rc-conf httpd off</td>
 </tr>
 <tr>
 <td>Ubuntu</td>

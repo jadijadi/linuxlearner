@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="author" content="jadi" />
-        <meta name="description" content="108.1 Maintain system time Weight: 3 Candidates should be able to properly maintain the system time and synchronize the clock via NTP. Key Knowledge Areas Set the system date and time. Set the hardware clock to the correct time in UTC. Configure the correct timezone. Basic NTP configuration. Knowledge ..." />
+        <meta name="description" content="108.1 Maintain system time Weight: 3 Candidates should be able to properly maintain the system time and synchronize the clock via NTP. Key Knowledge Areas Set the system date and time. Set the hardware clock to the correct time in UTC. Configure the correct timezone. Basic NTP configuration. Knowledge …" />
 
 
     <title>108.1 Maintain system time - Linux Learner</title>
@@ -432,8 +432,8 @@
 <p>There is a clock in your computer; a hardware clock on your motherboard! It has its own battery and keeps the time even when the computer is off. When the system boots, the OS reads this <strong>hardware time</strong> and it sets its <strong>system time</strong> to the hardware clock and uses it from there on.</p>
 <p>Hardware clock can be the localtime (your computers timezone) or UTC time (standard time). You can check this by /etc/adjtime:</p>
 <div class="highlight"><pre><span></span>$ cat /etc/adjtime
-0.000000 <span class="m">1451741899</span> 0.000000
-1451741899
+<span class="m">0</span>.000000 <span class="m">1451741899</span> <span class="m">0</span>.000000
+<span class="m">1451741899</span>
 UTC
 </pre></div>
 

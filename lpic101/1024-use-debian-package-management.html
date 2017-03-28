@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="author" content="jadi" />
-        <meta name="description" content="102.4. Use Debian package management weight: 3 Candidates should be able to perform package management using the Debian package tools. Install, upgrade and uninstall Debian binary packages. Find packages containing specific files or libraries which may or may not be installed. Obtain package information like version, content, dependencies, package ..." />
+        <meta name="description" content="102.4. Use Debian package management weight: 3 Candidates should be able to perform package management using the Debian package tools. Install, upgrade and uninstall Debian binary packages. Find packages containing specific files or libraries which may or may not be installed. Obtain package information like version, content, dependencies, package …" />
 
 
     <title>102.4. Use Debian package management - Linux Learner</title>
@@ -541,10 +541,10 @@ $ aptitude search grub2
 <h2>package information with dpkg</h2>
 <p>dpkg is a very powerful tool for working with .deb package files. If you want to see what is inside a .deb file:</p>
 <div class="highlight"><pre><span></span>$ dpkg --contents bzr_2.6.0+bzr6595-1ubuntu1_all.deb
-drwxr-xr-x root/root         <span class="m">0</span> 2014-05-02 18:16 ./
-drwxr-xr-x root/root         <span class="m">0</span> 2014-05-02 18:15 ./etc/
-drwxr-xr-x root/root         <span class="m">0</span> 2014-05-02 18:15 ./etc/bash_completion.d/
--rw-r--r-- root/root      <span class="m">1467</span> 2010-04-22 11:31 ./etc/bash_completion.d/bzr
+drwxr-xr-x root/root         <span class="m">0</span> <span class="m">2014</span>-05-02 <span class="m">18</span>:16 ./
+drwxr-xr-x root/root         <span class="m">0</span> <span class="m">2014</span>-05-02 <span class="m">18</span>:15 ./etc/
+drwxr-xr-x root/root         <span class="m">0</span> <span class="m">2014</span>-05-02 <span class="m">18</span>:15 ./etc/bash_completion.d/
+-rw-r--r-- root/root      <span class="m">1467</span> <span class="m">2010</span>-04-22 <span class="m">11</span>:31 ./etc/bash_completion.d/bzr
 ...
 ...
 </pre></div>
@@ -556,15 +556,15 @@ Package: bzr
 Status: deinstall ok config-files
 Priority: optional
 Section: vcs
-Installed-Size: 102
+Installed-Size: <span class="m">102</span>
 Maintainer: Ubuntu Developers &lt;ubuntu-devel-discuss@lists.ubuntu.com&gt;
 Architecture: all
-Version: 2.6.0+bzr6595-1ubuntu1
-Config-Version: 2.6.0+bzr6595-1ubuntu1
-Depends: python-bzrlib <span class="o">(</span>&lt;<span class="o">=</span> 2.6.0+bzr6595-1ubuntu1.1~<span class="o">)</span>, python-bzrlib <span class="o">(</span>&gt;<span class="o">=</span> 2.6.0+bzr6595-1ubuntu1<span class="o">)</span>, python:any
+Version: <span class="m">2</span>.6.0+bzr6595-1ubuntu1
+Config-Version: <span class="m">2</span>.6.0+bzr6595-1ubuntu1
+Depends: python-bzrlib <span class="o">(</span>&lt;<span class="o">=</span> <span class="m">2</span>.6.0+bzr6595-1ubuntu1.1~<span class="o">)</span>, python-bzrlib <span class="o">(</span>&gt;<span class="o">=</span> <span class="m">2</span>.6.0+bzr6595-1ubuntu1<span class="o">)</span>, python:any
 Recommends: python-gpgme
 Suggests: bzr-doc, bzrtools, python-bzrlib.tests
-Breaks: bzr-pqm <span class="o">(</span><span class="s">&lt;&lt; 1.4.0~bzr80), bzr-xmloutput (&lt;&lt; 0.8.8+bzr1</span>60<span class="o">)</span>, python-bzrlib <span class="o">(</span><span class="s">&lt;&lt; 2.4.0~beta3~)</span>
+Breaks: bzr-pqm <span class="o">(</span><span class="s">&lt;&lt; 1.4.0~bzr80), bzr-xmloutput (&lt;&lt; 0.8.8+bzr1</span><span class="m">60</span><span class="o">)</span>, python-bzrlib <span class="o">(</span><span class="s">&lt;&lt; 2.4.0~beta3~)</span>
 <span class="s">Conffiles:</span>
 <span class="s"> /etc/bash_completion.d/bzr b8d9ca9552</span>1a7c5f14860e205a854da2
 Description: easy to use distributed version control system
@@ -636,12 +636,12 @@ $ aptitude show bzr
 
 
 <p>or it can also be used as a standalone program:</p>
-<p><img alt="aptitude sample" src="http://www.ibm.com/developerworks/linux/library/l-lpic1-v3-102-4/fig-102-4-2.gif" /></p>
+<p><img alt="aptitude sample" src="http://www.ibm.com/developerworks/linux/library/l-lpic1-v3-102-4/fig-102-4-2.gif"></p>
 <h2>other tools</h2>
 <p>there is gui tools like "synaptic" and "update manager". These will Search, Update, Upgrade, Install, Remove via a graphical user interface and are present in many distributions. This is ubuntu software center:</p>
-<p><img alt="Ubuntu Software Center" src="http://screenshots.debian.net/screenshots/s/software-center/10674_large.png" /></p>
+<p><img alt="Ubuntu Software Center" src="http://screenshots.debian.net/screenshots/s/software-center/10674_large.png"></p>
 <p>and this is a software updater GUI for gnome:</p>
-<p><img alt="Software Updater" src="http://farm5.static.flickr.com/4100/4897220771_4b27362dbc.jpg" /></p>
+<p><img alt="Software Updater" src="http://farm5.static.flickr.com/4100/4897220771_4b27362dbc.jpg"></p>
 <p>.</p>
 <p>.</p>
 <p>.</p>

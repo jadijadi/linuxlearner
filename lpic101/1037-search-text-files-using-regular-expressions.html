@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="author" content="jadi" />
-        <meta name="description" content="103.7 Search text files using regular expressions Weight: 2 Candidates should be able to manipulate files and text data using regular expressions. This objective includes creating simple regular expressions containing several notational elements. It also includes using regular expression tools to perform searches through a filesystem or file content ..." />
+        <meta name="description" content="103.7 Search text files using regular expressions Weight: 2 Candidates should be able to manipulate files and text data using regular expressions. This objective includes creating simple regular expressions containing several notational elements. It also includes using regular expression tools to perform searches through a filesystem or file content …" />
 
 
     <title>103.7 Search text files using regular expressions - Linux Learner</title>
@@ -485,7 +485,7 @@
 </tr>
 </tbody>
 </table>
-<h4>Alternation (\|)</h4>
+<h4>Alternation (|)</h4>
 <p>If you say <code>a\|b</code> it will match a or b.</p>
 <h4>Character Classes</h4>
 <p>The dot (<strong>.</strong>) means any character. So <strong>..</strong> will match anything with at least two character in it. You can also create your own classes with [abc] which will match a or b or c and [a-z] which match a to z.</p>
@@ -581,15 +581,15 @@ $
 <div class="highlight"><pre><span></span>$ grep p *
 friends:payam
 friends:pedram
-what_I_have.txt:laptop  2
-what_I_have.txt:pillow  5
-what_I_have.txt:apple   2
+what_I_have.txt:laptop  <span class="m">2</span>
+what_I_have.txt:pillow  <span class="m">5</span>
+what_I_have.txt:apple   <span class="m">2</span>
 $ grep p * -n
 friends:12:payam
 friends:15:pedram
-what_I_have.txt:2:laptop    2
-what_I_have.txt:3:pillow    5
-what_I_have.txt:4:apple 2
+what_I_have.txt:2:laptop    <span class="m">2</span>
+what_I_have.txt:3:pillow    <span class="m">5</span>
+what_I_have.txt:4:apple <span class="m">2</span>
 $ grep p * -l
 friends
 what_I_have.txt

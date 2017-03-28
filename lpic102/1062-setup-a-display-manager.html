@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="author" content="jadi" />
-        <meta name="description" content="106.2 Setup a display manager Weight: 1 Candidates should be able to describe the basic features and configuration of the LightDM display manager. This objective covers awareness of the display managers XDM (X Display Manger), GDM (Gnome Display Manager) and KDM (KDE Display Manager). Key Knowledge Areas Basic configuration ..." />
+        <meta name="description" content="106.2 Setup a display manager Weight: 1 Candidates should be able to describe the basic features and configuration of the LightDM display manager. This objective covers awareness of the display managers XDM (X Display Manger), GDM (Gnome Display Manager) and KDM (KDE Display Manager). Key Knowledge Areas Basic configuration …" />
 
 
     <title>106.2 Setup a display manager - Linux Learner</title>
@@ -428,23 +428,23 @@
 <p>All of the lightdm configs are in <code>/etc/lightdm</code>.</p>
 <div class="highlight"><pre><span></span>$ ls -ltrh /etc/lightdm/
 total 24K
--rw-r--r-- <span class="m">1</span> root root   <span class="m">40</span> Sep <span class="m">23</span> 12:56 keys.conf
--rw-r--r-- <span class="m">1</span> root root  <span class="m">801</span> Sep <span class="m">27</span> 13:03 lightdm-webkit2-greeter.conf
--rw-r--r-- <span class="m">1</span> root root  <span class="m">452</span> Sep <span class="m">27</span> 13:08 users.conf
--rwxr-xr-x <span class="m">1</span> root root 1.5K Sep <span class="m">27</span> 13:08 Xsession
--rw-r--r-- <span class="m">1</span> root root 6.5K Sep <span class="m">27</span> 13:08 lightdm.conf
+-rw-r--r-- <span class="m">1</span> root root   <span class="m">40</span> Sep <span class="m">23</span> <span class="m">12</span>:56 keys.conf
+-rw-r--r-- <span class="m">1</span> root root  <span class="m">801</span> Sep <span class="m">27</span> <span class="m">13</span>:03 lightdm-webkit2-greeter.conf
+-rw-r--r-- <span class="m">1</span> root root  <span class="m">452</span> Sep <span class="m">27</span> <span class="m">13</span>:08 users.conf
+-rwxr-xr-x <span class="m">1</span> root root <span class="m">1</span>.5K Sep <span class="m">27</span> <span class="m">13</span>:08 Xsession
+-rw-r--r-- <span class="m">1</span> root root <span class="m">6</span>.5K Sep <span class="m">27</span> <span class="m">13</span>:08 lightdm.conf
 </pre></div>
 
 
 <p>Some distributions like Ubuntu are using a <code>lightdm.conf.d</code> directory instead of a straight forward <code>lightdm.conf</code> and put their configs there.</p>
 <div class="highlight"><pre><span></span><span class="k">[SeatDefaults]</span>
-<span class="err">...</span>
+<span class="na">...</span>
 <span class="na">user-session</span><span class="o">=</span><span class="s">gnome</span>
 <span class="c1">#autologin-user=jadi</span>
 <span class="c1">#allow-user-switching=true</span>
 <span class="na">allow-guest</span><span class="o">=</span><span class="s">true</span>
 <span class="na">greeter-session</span><span class="o">=</span><span class="s">lightdm-webkit2-greeter</span>
-<span class="err">...</span>
+<span class="na">...</span>
 </pre></div>
 
 

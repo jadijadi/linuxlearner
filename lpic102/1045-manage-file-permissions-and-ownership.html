@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="author" content="jadi" />
-        <meta name="description" content="104.5 Manage file permissions and ownership Weight: 3 Candidates should be able to control file access through the proper use of permissions and ownerships. Objectives Manage access permissions on regular and special files as well as directories. Use access modes such as suid, sgid and the sticky bit to ..." />
+        <meta name="description" content="104.5 Manage file permissions and ownership Weight: 3 Candidates should be able to control file access through the proper use of permissions and ownerships. Objectives Manage access permissions on regular and special files as well as directories. Use access modes such as suid, sgid and the sticky bit to …" />
 
 
     <title>104.5 Manage file permissions and ownership - Linux Learner</title>
@@ -457,8 +457,8 @@ lpadmin:x:108:jadi
 <h2>File ownership &amp; permissions</h2>
 <p>Files are also belong to one user and one group.</p>
 <div class="highlight"><pre><span></span>$ ls -l /sbin/fdisk ~/w/lpic/notes.txt
--rw-rw-r-- <span class="m">1</span> jadi users    <span class="m">576</span> Dec  <span class="m">7</span> 22:30 /home/jadi/w/lpic/notes.txt
--rwxr-xr-x <span class="m">1</span> root root <span class="m">267176</span> Oct <span class="m">15</span> 18:58 /sbin/fdisk
+-rw-rw-r-- <span class="m">1</span> jadi users    <span class="m">576</span> Dec  <span class="m">7</span> <span class="m">22</span>:30 /home/jadi/w/lpic/notes.txt
+-rwxr-xr-x <span class="m">1</span> root root <span class="m">267176</span> Oct <span class="m">15</span> <span class="m">18</span>:58 /sbin/fdisk
 </pre></div>
 
 
@@ -500,7 +500,7 @@ lpadmin:x:108:jadi
 <p>As you can see in our example, characters 2 to 10 show the accesses. A <code>-</code> there means "no access on this part" and read, write and execute are shown by r, w &amp; x.</p>
 <p>In the following line:</p>
 <div class="highlight"><pre><span></span>$ ls -l /sbin/fdisk
--rwxr-xr-x <span class="m">1</span> root root <span class="m">267176</span> Oct <span class="m">15</span> 18:58 /sbin/fdisk
+-rwxr-xr-x <span class="m">1</span> root root <span class="m">267176</span> Oct <span class="m">15</span> <span class="m">18</span>:58 /sbin/fdisk
 </pre></div>
 
 
@@ -510,8 +510,8 @@ lpadmin:x:108:jadi
 </blockquote>
 <p>Lets look at another example:</p>
 <div class="highlight"><pre><span></span>$ ls -l /home/
-total 12
-drwxr-xr-x <span class="m">160</span> jadi jadi <span class="m">12288</span> Feb  <span class="m">7</span> 11:44 jadi
+total <span class="m">12</span>
+drwxr-xr-x <span class="m">160</span> jadi jadi <span class="m">12288</span> Feb  <span class="m">7</span> <span class="m">11</span>:44 jadi
 </pre></div>
 
 
@@ -567,23 +567,23 @@ drwxr-xr-x <span class="m">160</span> jadi jadi <span class="m">12288</span> Feb
 </table>
 <p>So if you want to give rwx to owner, rx to group and only x to others, you have to use 751:</p>
 <div class="highlight"><pre><span></span>$ ls -ltrh myfile
--rw-rw-r-- <span class="m">1</span> jadi jadi <span class="m">0</span> Feb  <span class="m">8</span> 21:01 myfile
+-rw-rw-r-- <span class="m">1</span> jadi jadi <span class="m">0</span> Feb  <span class="m">8</span> <span class="m">21</span>:01 myfile
 $ chmod <span class="m">751</span> myfile
 $ ls -ltrh myfile
--rwxr-x--x <span class="m">1</span> jadi jadi <span class="m">0</span> Feb  <span class="m">8</span> 21:01 myfile
+-rwxr-x--x <span class="m">1</span> jadi jadi <span class="m">0</span> Feb  <span class="m">8</span> <span class="m">21</span>:01 myfile
 </pre></div>
 
 
 <p>But there is also an <em>easier</em> method. You can use <code>+x</code> to give execute permission, <code>+r</code> to give read permission and <code>+w</code> to give read permission. Removing these permissions will be like <code>-r</code>.</p>
 <div class="highlight"><pre><span></span>$ ls -ltrh myfile
--rwxr-x--x <span class="m">1</span> jadi jadi <span class="m">0</span> Feb  <span class="m">8</span> 21:01 myfile
+-rwxr-x--x <span class="m">1</span> jadi jadi <span class="m">0</span> Feb  <span class="m">8</span> <span class="m">21</span>:01 myfile
 $ chmod u-x myfile
 $ ls -ltrh myfile
--rw-r-x--x <span class="m">1</span> jadi jadi <span class="m">0</span> Feb  <span class="m">8</span> 21:01 myfile
+-rw-r-x--x <span class="m">1</span> jadi jadi <span class="m">0</span> Feb  <span class="m">8</span> <span class="m">21</span>:01 myfile
 $ chmod +x myfile
 $ chmod uo+xr myfile
 $ ls -ltrh myfile
--rwxr-xr-x <span class="m">1</span> jadi jadi <span class="m">0</span> Feb  <span class="m">8</span> 21:01 myfile
+-rwxr-xr-x <span class="m">1</span> jadi jadi <span class="m">0</span> Feb  <span class="m">8</span> <span class="m">21</span>:01 myfile
 </pre></div>
 
 
@@ -608,7 +608,7 @@ $ ls -ltrh myfile
 <p>The last special option is <code>chmod</code> is the <strong>sticky bit</strong> which lets only the owner of the file to delete it, even if other users have write (delete) access on that directory. This is good for places like /tmp.</p>
 <p>Sticky bit is identified by <code>t</code> and will be shown on the last bit of a directory:</p>
 <div class="highlight"><pre><span></span>$ ls -dl /tmp
-drwxrwxrwt <span class="m">13</span> root root <span class="m">77824</span> Feb  <span class="m">8</span> 21:27 /tmp
+drwxrwxrwt <span class="m">13</span> root root <span class="m">77824</span> Feb  <span class="m">8</span> <span class="m">21</span>:27 /tmp
 </pre></div>
 
 
@@ -646,26 +646,26 @@ drwxrwxrwt <span class="m">13</span> root root <span class="m">77824</span> Feb 
 <h2>umask</h2>
 <p>But what will be the access of the new files? What happens when you <code>touch</code> a new file? This is set with <code>umask</code>. This command tells the system what permissions <strong>should not be given to</strong> new files:</p>
 <div class="highlight"><pre><span></span>$ <span class="nb">umask</span>
-0002
+<span class="m">0002</span>
 </pre></div>
 
 
 <p>Which removes write (2) permissions from files.</p>
 <p>If we need to change umask, it can be done with the same command:</p>
 <div class="highlight"><pre><span></span>$ <span class="nb">umask</span>
-0002
+<span class="m">0002</span>
 $ touch newfile
 $ ls -ltrh newfile
--rw-rw-r-- <span class="m">1</span> jadi jadi <span class="m">0</span> Feb  <span class="m">8</span> 21:38 newfile
+-rw-rw-r-- <span class="m">1</span> jadi jadi <span class="m">0</span> Feb  <span class="m">8</span> <span class="m">21</span>:38 newfile
 $ mkdir newdir
 $ ls -ltrhd newdir
-drwxrwxr-x <span class="m">2</span> jadi jadi 4.0K Feb  <span class="m">8</span> 21:38 newdir
+drwxrwxr-x <span class="m">2</span> jadi jadi <span class="m">4</span>.0K Feb  <span class="m">8</span> <span class="m">21</span>:38 newdir
 $ <span class="nb">umask</span> <span class="nv">u</span><span class="o">=</span>rw,g<span class="o">=</span>,o<span class="o">=</span>
 $ touch newerfile
 $ ls -l newerfile
--rw------- <span class="m">1</span> jadi jadi <span class="m">0</span> Feb  <span class="m">8</span> 21:41 newerfile
+-rw------- <span class="m">1</span> jadi jadi <span class="m">0</span> Feb  <span class="m">8</span> <span class="m">21</span>:41 newerfile
 $ <span class="nb">umask</span>
-0177
+<span class="m">0177</span>
 </pre></div>
 
 
@@ -675,13 +675,13 @@ $ <span class="nb">umask</span>
 <h2>Changing owner and groups</h2>
 <p>If you need to change the ownership or group belonging of a file or directory, use the <code>chown</code> command:</p>
 <div class="highlight"><pre><span></span>$ ls -ltrh newfile
--rw-rw-r-- <span class="m">1</span> jadi jadi <span class="m">0</span> Feb  <span class="m">8</span> 21:38 newfile
+-rw-rw-r-- <span class="m">1</span> jadi jadi <span class="m">0</span> Feb  <span class="m">8</span> <span class="m">21</span>:38 newfile
 $ chown root:root newfile
 chown: changing ownership of ‘newfile’: Operation not permitted
 $ sudo chown root:root newfile
 <span class="o">[</span>sudo<span class="o">]</span> password <span class="k">for</span> jadi:
 $ ls -ltrh newfile
--rw-rw-r-- <span class="m">1</span> root root <span class="m">0</span> Feb  <span class="m">8</span> 21:38 newfile
+-rw-rw-r-- <span class="m">1</span> root root <span class="m">0</span> Feb  <span class="m">8</span> <span class="m">21</span>:38 newfile
 </pre></div>
 
 
@@ -689,21 +689,21 @@ $ ls -ltrh newfile
 <p>There is also a command specially for changing the group:</p>
 <div class="highlight"><pre><span></span>$ sudo chgrp postgres newfile
 $ ls -ltrh newfile
--rw-rw-r-- <span class="m">1</span> root postgres <span class="m">0</span> Feb  <span class="m">8</span> 21:38 newfile
+-rw-rw-r-- <span class="m">1</span> root postgres <span class="m">0</span> Feb  <span class="m">8</span> <span class="m">21</span>:38 newfile
 </pre></div>
 
 
 <p>If a user is member of different groups, she can change her <strong>default group</strong> using the <code>newggrp</code> command:</p>
 <div class="highlight"><pre><span></span>$ touch newfile
 $ ls -ltrh newfile
--rw------- <span class="m">1</span> jadi jadi <span class="m">0</span> Feb  <span class="m">8</span> 21:53 newfile
+-rw------- <span class="m">1</span> jadi jadi <span class="m">0</span> Feb  <span class="m">8</span> <span class="m">21</span>:53 newfile
 $ groups
 jadi adm cdrom sudo dip plugdev netdev lpadmin sambashare debian-tor
 $ newgrp adm
 $ touch newerfile
 $ ls -ltrh new*
--rw------- <span class="m">1</span> jadi jadi <span class="m">0</span> Feb  <span class="m">8</span> 21:53 newfile
--rw------- <span class="m">1</span> jadi adm  <span class="m">0</span> Feb  <span class="m">8</span> 21:54 newerfile
+-rw------- <span class="m">1</span> jadi jadi <span class="m">0</span> Feb  <span class="m">8</span> <span class="m">21</span>:53 newfile
+-rw------- <span class="m">1</span> jadi adm  <span class="m">0</span> Feb  <span class="m">8</span> <span class="m">21</span>:54 newerfile
 </pre></div>
                 </div>
                 <footer class="text-right">

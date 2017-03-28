@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="author" content="jadi" />
-        <meta name="description" content="Work on the command line Weight: 4 Description: Candidates should be able to interact with shells and commands using the command line. The objective assumes the bash shell. Objectives Use single shell commands and one line command sequences to perform basic tasks on command line. Use and modify the shell ..." />
+        <meta name="description" content="Work on the command line Weight: 4 Description: Candidates should be able to interact with shells and commands using the command line. The objective assumes the bash shell. Objectives Use single shell commands and one line command sequences to perform basic tasks on command line. Use and modify the shell …" />
 
 
     <title>103.1 Work on the command line - Linux Learner</title>
@@ -471,44 +471,15 @@ there
 </pre></div>
 
 
-<table>
-<thead>
-<tr>
-<th>Escape sequence   Function</th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>\a</td>
-<td>Alert (bell)</td>
-</tr>
-<tr>
-<td>\b</td>
-<td>Backspace</td>
-</tr>
-<tr>
-<td>\c</td>
-<td>Suppress trailing newline (same function as -n option)</td>
-</tr>
-<tr>
-<td>\f</td>
-<td>Form feed (clear the screen on a video display)</td>
-</tr>
-<tr>
-<td>\n</td>
-<td>New line</td>
-</tr>
-<tr>
-<td>\r</td>
-<td>Carriage return</td>
-</tr>
-<tr>
-<td>\t</td>
-<td>Horizontal tab</td>
-</tr>
-</tbody>
-</table>
+<p>| Escape sequence   Function |
+|---|---|
+| \a |  Alert (bell) |
+| \b |  Backspace |
+| \c |  Suppress trailing newline (same function as -n option) |
+| \f |  Form feed (clear the screen on a video display) |
+| \n |  New line |
+| \r |  Carriage return |
+| \t |  Horizontal tab |</p>
 <blockquote>
 <p>Note: you can use \ to break a command in many lines:</p>
 </blockquote>
@@ -523,19 +494,19 @@ but this is another usage
 <p>Also there are characters with special meaning. You need to escape then if you need them in your commands: <strong>| &amp; ; ( ) &lt; &gt;</strong>*</p>
 <p>There is also control operators. They also have special meanings: <strong> || &amp;&amp; &amp; ; ;; | ( )</strong></p>
 <p>The most important ones are ; (do one by one), &amp;&amp; (logical and) and || (logical or).</p>
-<div class="highlight"><pre><span></span>$ <span class="nb">echo</span> line 1<span class="p">;</span><span class="nb">echo</span> line 2<span class="p">;</span> <span class="nb">echo</span> line 3
-line 1
-line 2
-line 3
+<div class="highlight"><pre><span></span>$ <span class="nb">echo</span> line <span class="m">1</span><span class="p">;</span><span class="nb">echo</span> line <span class="m">2</span><span class="p">;</span> <span class="nb">echo</span> line <span class="m">3</span>
+line <span class="m">1</span>
+line <span class="m">2</span>
+line <span class="m">3</span>
 
-$ <span class="nb">echo</span> line 1<span class="o">&amp;&amp;</span><span class="nb">echo</span> line 2<span class="o">&amp;&amp;</span><span class="nb">echo</span> line 3
-line 1
-line 2
-line 3
+$ <span class="nb">echo</span> line <span class="m">1</span><span class="o">&amp;&amp;</span><span class="nb">echo</span> line <span class="m">2</span><span class="o">&amp;&amp;</span><span class="nb">echo</span> line <span class="m">3</span>
+line <span class="m">1</span>
+line <span class="m">2</span>
+line <span class="m">3</span>
 
-$ <span class="nb">echo</span> line 1<span class="o">||</span><span class="nb">echo</span> line 2<span class="p">;</span> <span class="nb">echo</span> line 3
-line 1
-line 3
+$ <span class="nb">echo</span> line <span class="m">1</span><span class="o">||</span><span class="nb">echo</span> line <span class="m">2</span><span class="p">;</span> <span class="nb">echo</span> line <span class="m">3</span>
+line <span class="m">1</span>
+line <span class="m">3</span>
 </pre></div>
 
 
@@ -590,21 +561,21 @@ line 3
 </tbody>
 </table>
 <div class="highlight"><pre><span></span>$ <span class="nb">echo</span> <span class="nv">$USER</span> <span class="nv">$UID</span>
-jadi 1000
+jadi <span class="m">1000</span>
 <span class="nv">$SHELL</span> <span class="nv">$HOME</span> <span class="nv">$PWD</span>
 /bin/bash /home/jadi /home/jadi/lpic
-$ <span class="o">(</span><span class="nb">exit</span> 0<span class="o">)</span><span class="p">;</span><span class="nb">echo</span> <span class="nv">$?</span><span class="p">;</span><span class="o">(</span><span class="nb">exit</span> 4<span class="o">)</span><span class="p">;</span><span class="nb">echo</span> <span class="nv">$?</span>
-0
-4
+$ <span class="o">(</span><span class="nb">exit</span> <span class="m">0</span><span class="o">)</span><span class="p">;</span><span class="nb">echo</span> <span class="nv">$?</span><span class="p">;</span><span class="o">(</span><span class="nb">exit</span> <span class="m">4</span><span class="o">)</span><span class="p">;</span><span class="nb">echo</span> <span class="nv">$?</span>
+<span class="m">0</span>
+<span class="m">4</span>
 $ <span class="nb">echo</span> <span class="nv">$$</span> <span class="nv">$PPID</span>
-<span class="m">2559</span> 2558
+<span class="m">2559</span> <span class="m">2558</span>
 </pre></div>
 
 
 <p>And this is the way to define a EV:</p>
-<div class="highlight"><pre><span></span><span class="x">jadi@funlife:~</span><span class="p">$</span><span class="x"> MYMOOD=happy</span>
-<span class="x">jadi@funlife:~</span><span class="p">$</span><span class="x"> echo I am </span><span class="p">$</span><span class="nv">MYMOOD</span><span class="x"></span>
-<span class="x">I am happy</span>
+<div class="highlight"><pre><span></span>jadi@funlife:~$ MYMOOD=happy
+jadi@funlife:~$ echo I am $MYMOOD
+I am happy
 </pre></div>
 
 
@@ -684,7 +655,7 @@ $ <span class="nb">unset</span> VAR1<span class="p">;</span><span class="nb">ech
 </tbody>
 </table>
 <div class="highlight"><pre><span></span>$ uname -a
-Linux funlife 3.16.0-28-generic <span class="c1">#38-Ubuntu SMP Fri Dec 12 17:37:40 UTC 2014 x86_64 x86_64 x86_64 GNU/Linux</span>
+Linux funlife <span class="m">3</span>.16.0-28-generic <span class="c1">#38-Ubuntu SMP Fri Dec 12 17:37:40 UTC 2014 x86_64 x86_64 x86_64 GNU/Linux</span>
 </pre></div>
 
 
@@ -698,8 +669,8 @@ Linux funlife 3.16.0-28-generic <span class="c1">#38-Ubuntu SMP Fri Dec 12 17:37
 <p>when you logout, all these are saved in .bash_history</p>
 <h2>Paths</h2>
 <p>External commands are just files on disks. So where does bash knows where to find commands?</p>
-<div class="highlight"><pre><span></span><span class="x">jadi@funlife:~</span><span class="p">$</span><span class="x"> echo </span><span class="p">$</span><span class="nv">PATH</span><span class="x"></span>
-<span class="x">/home/jadi/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games</span>
+<div class="highlight"><pre><span></span>jadi@funlife:~$ echo $PATH
+/home/jadi/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
 </pre></div>
 
 
@@ -724,7 +695,7 @@ tar: /usr/lib/tar /bin/tar /usr/include/tar.h /usr/share/man/man1/tar.1.gz
 <h2>man pages</h2>
 <p>the best linux help you can find.-</p>
 <div class="highlight"><pre><span></span>$ man ping
-PING<span class="o">(</span>8<span class="o">)</span>                                                            System Manager<span class="s1">&#39;s Manual: iputils                                                           PING(8)</span>
+PING<span class="o">(</span><span class="m">8</span><span class="o">)</span>                                                            System Manager<span class="s1">&#39;s Manual: iputils                                                           PING(8)</span>
 
 <span class="s1">NAME</span>
 <span class="s1">       ping, ping6 - send ICMP ECHO_REQUEST to network hosts</span>
@@ -798,16 +769,16 @@ amidi (1)            - read from and write to ALSA RawMIDI ports
 
 <p>Or use the <code>apropos</code> command which searches man pages:</p>
 <div class="highlight"><pre><span></span>$ apropos route
-ip-mroute <span class="o">(</span>8<span class="o">)</span>        - multicast routing cache management
-ip-route <span class="o">(</span>8<span class="o">)</span>         - routing table management
-route <span class="o">(</span>8<span class="o">)</span>            - show / manipulate the IP routing table
-routef <span class="o">(</span>8<span class="o">)</span>           - flush routes
-routel <span class="o">(</span>8<span class="o">)</span>           - list routes with pretty output format
-sensible-mda <span class="o">(</span>8<span class="o">)</span>     - a generic <span class="nb">local</span> MDA router <span class="k">for</span> Debian systems
-tor <span class="o">(</span>1<span class="o">)</span>              - The second-generation onion router
-torrc <span class="o">(</span>5<span class="o">)</span>            - The second-generation onion router
-traceroute6 <span class="o">(</span>8<span class="o">)</span>      - traces path to a network host
-traceroute6.iputils <span class="o">(</span>8<span class="o">)</span> - traces path to a network host
+ip-mroute <span class="o">(</span><span class="m">8</span><span class="o">)</span>        - multicast routing cache management
+ip-route <span class="o">(</span><span class="m">8</span><span class="o">)</span>         - routing table management
+route <span class="o">(</span><span class="m">8</span><span class="o">)</span>            - show / manipulate the IP routing table
+routef <span class="o">(</span><span class="m">8</span><span class="o">)</span>           - flush routes
+routel <span class="o">(</span><span class="m">8</span><span class="o">)</span>           - list routes with pretty output format
+sensible-mda <span class="o">(</span><span class="m">8</span><span class="o">)</span>     - a generic <span class="nb">local</span> MDA router <span class="k">for</span> Debian systems
+tor <span class="o">(</span><span class="m">1</span><span class="o">)</span>              - The second-generation onion router
+torrc <span class="o">(</span><span class="m">5</span><span class="o">)</span>            - The second-generation onion router
+traceroute6 <span class="o">(</span><span class="m">8</span><span class="o">)</span>      - traces path to a network host
+traceroute6.iputils <span class="o">(</span><span class="m">8</span><span class="o">)</span> - traces path to a network host
 </pre></div>
 
 

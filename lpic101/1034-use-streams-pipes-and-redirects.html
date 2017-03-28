@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="author" content="jadi" />
-        <meta name="description" content="103.4. Use streams, pipes and redirects Candidates should be able to redirect streams and connect them in order to efficiently process textual data. Tasks include redirecting standard input, standard output and standard error, piping the output of one command to the input of another command, using the output of ..." />
+        <meta name="description" content="103.4. Use streams, pipes and redirects Candidates should be able to redirect streams and connect them in order to efficiently process textual data. Tasks include redirecting standard input, standard output and standard error, piping the output of one command to the input of another command, using the output of …" />
 
 
     <title>103.4. Use streams, pipes and redirects - Linux Learner</title>
@@ -447,7 +447,7 @@ mahmoodrm  minoo  mojtaba
 $ ls j* m*
 ls: cannot access j*: No such file or directory
 mahmoodrm  minoo  mojtaba
-$ ls j* m* &gt; output 2&gt; errors
+$ ls j* m* &gt; output <span class="m">2</span>&gt; errors
 $ cat output
 mahmoodrm
 minoo
@@ -468,7 +468,7 @@ $
 <p>In linux, <strong>/dev/null</strong> is like a trash-can. You can send anything there and it disappears. So it is normal to say:</p>
 <div class="highlight"><pre><span></span>$ ls j* m* &gt; file1
 ls: cannot access j*: No such file or directory
-$ ls j* m* &gt; file1 2&gt;/dev/null
+$ ls j* m* &gt; file1 <span class="m">2</span>&gt;/dev/null
 $ cat file1
 mahmoodrm
 minoo
