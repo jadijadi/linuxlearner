@@ -5377,7 +5377,7 @@ Superblock backups stored on blocks:
 &lt;li&gt;It is better to mount on empty directories&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h4&gt;Basic commands&lt;/h4&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;cat /et/fstab
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;cat /etc/fstab
 mount /dev/sda1 /media
 umount /media
 &lt;/pre&gt;&lt;/div&gt;
