@@ -15,6 +15,23 @@ Configure the mounting of a filesystem. Tasks include manually mounting and unmo
 - Configure filesystem mounting on bootup
 - Configure user-mountable, removable filesystems
 
+## A note about Device UUIDs
+As you saw, on /dev/ we can see hard disks, usb disks and such. But the there is an problem. When you refer to a disk ask /dev/sda2, you kind of say _the second partition on the firsrt disk_. If you disconnect this device and connect another disk and then connect back the device, it might become /dev/sdc2 or even /dev/sde2. We need a way to point to the exact drive with a persistant name. This is done via UUIDs.
+
+````
+root@funlife:/dev# cat /proc/mounts
+rootfs / rootfs rw 0 0
+sysfs /sys sysfs rw,nosuid,nodev,noexec,relatime 0 0
+proc /proc proc rw,nosuid,nodev,noexec,relatime 0 0
+udev /dev devtmpfs rw,relatime,size=4014804k,nr_inodes=1003701,mode=755 0 0
+devpts /dev/pts devpts rw,nosuid,noexec,relatime,gid=5,mode=620,ptmxmode=000 0 0
+tmpfs /run tmpfs rw,nosuid,noexec,relatime,size=806028k,mode=755 0 0
+/dev/disk/by-uuid/1651a94e-0b4e-47fb-aca0-f77e05714617 / ext4 rw,relatime,errors=remount-ro,data=ordered 0 0
+````
+
+This UUID is uniq among all devices and this makes it much easier to work with it not only on different sessions on a same machine, but even after connecting it to another computer.
+
+
 ### Mounting and Unmounting
 
 - Describe the linux filesystem concept. A huge tree.

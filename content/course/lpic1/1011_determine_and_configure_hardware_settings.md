@@ -3,8 +3,6 @@ Date: 2015-12-25 12:20
 Category: lpic101
 
 
-
-
 # 101.1 Determine and configure hardware settings
 *Weight: 2*
 
@@ -13,10 +11,7 @@ Candidates should be able to determine and configure fundamental system hardware
 ## Objectives
 
 - Enable and disable integrated peripherals.
-- Configure systems with or without external peripherals such as keyboards.
 - Differentiate between the various types of mass storage devices.
-- Set the correct hardware ID for different devices, especially the boot device.
-- Know the differences between coldplug and hotplug devices.
 - Determine hardware resources for devices.
 - Tools and utilities to list various hardware information (e.g. lsusb, lspci, etc.)
 - Tools and utilities to manipulate USB devices
@@ -32,19 +27,28 @@ Candidates should be able to determine and configure fundamental system hardware
 - lsusb
 
 ## Find out about the hardware
-### HAL
-**HAL** is Hardware Abstraction Layer. It abstracts your hardware details from you, say any first network card will be *eth0*. This way Linux will see any hardware as an *standard* hardware and you will be able to replace the hardware easily.
+An operating system (OS) is system software that manages computer hardware, software resources, and provides common services for computer programs. It sits on top of the hardware and manage the resources when another software (sometimes called a userspace programs) asks for it. 
 
-### dbus
-A line like a bus that connects all parts of the OS to each other. dbus lets different parts of the system to communicate with each other. For example, when you install a USB into your computer, dbus lets GNOME know about it. Using dbus, hardware & software can talk with each other.
 
-### udev
-Supplies the software with the events and access info of devices and can handle rules.
+#### PCI
+- internal HDD. SATA or SCSI 
+- external HDD. Fiber. 
+- network cards. RJ 45 
+- wireless cards. IEEE 802.11
+- Bluetooth 
+- video
+- audio
 
-There are a lot of devices in /dev/ and if you plugin any device, it will have a file in /dev (say /dev/sdb2). **udev** lets you control what will be what in /dev. For example, you can use a rule to force your 8GB flash drive with one specific vendor to be /dev/mybackup all the time or you can tell it to copy all photos to your home directory as soon as your camera is connected.
+#### usb
+- 2, 3 
+
+#### Gpio
+- to control other devices
 
 ### sysfs
-The `/sys` directory is where **HAL** keeps its database of everything connected to the system.
+sysfs is a pseudo file system provided by the Linux kernel that exports information about various kernel subsystems, hardware devices, and associated device drivers from the kernel's device model to user space through virtual files.[1] In addition to providing information about various devices and kernel subsystems, exported virtual files are also used for their configuration.
+
+sysfs is mounted under the /sys mount point.
 
 ````
 jadi@funlife:~$ ls /sys
@@ -53,8 +57,27 @@ block  bus  class  dev	devices  firmware  fs  hypervisor  kernel  module  power
 
 All block devices are at the `block` and `bus` directory has all the connected PCI, USB, serial, .. devices. Note that here in `sys` we have the devices based on their technology but `/dev/` is abstracted.
 
+### udev
+udev (userspace /dev) is a device manager for the Linux kernel. As the successor of devfsd and hotplug, udev primarily manages device nodes in the /dev directory. At the same time, udev also handles all user space events raised when hardware devices are added into the system or removed from it, including firmware loading as required by certain devices.
+
+There are a lot of devices in /dev/ and if you plugin any device, it will have a file in /dev (say /dev/sdb2). **udev** lets you control what will be what in /dev. For example, you can use a rule to force your 8GB flash drive with one specific vendor to be /dev/mybackup all the time or you can tell it to copy all photos to your home directory as soon as your camera is connected.
+
+**udev** controls `/dev/` directory. There are abstracted devices like a hard, is /dev/sda or /dev/hd0 regardless of its brand, model or technology:
+
+````
+root@funlife:/dev# ls /dev/sda*
+/dev/sda  /dev/sda1  /dev/sda2  /dev/sda3  /dev/sda5  /dev/sda6
+````
+
+
+
+### dbus
+D-Bus is a message bus system, a simple way for applications to talk to one another. In addition to interprocess communication, D-Bus helps coordinate process lifecycle; it makes it simple and reliable to code a "single instance" application or daemon, and to launch applications and daemons on demand when their services are needed.
+
+
+
 ### proc directory
-This is where kernel keeps its settings and properties. This direcgtory is created on ram and files might have write accessible.
+This is where kernel keeps its settings and properties. This directory is created on ram and files might have write accessible.
 
 ````
 $ ls /proc/
@@ -154,20 +177,59 @@ Another very useful directory here, is `/proc/sys/net/ipv4` which controls real 
 
 > All these changes will be reverted after a boot. You have to write into config files in `/etc/` to make these changes permanent
 
-### dev
-**udev** controls `/dev/` directory. There are abstracted devices like a hard, is /dev/sda or /dev/hd0 regardless of its brand, model or technology:
+
+### lsusb, lspci
+
+Just liek `ls` but for pci, usb, ... 
+
+#### lspci
+Shows PCI devices that are connected to the computer.
 
 ````
-root@funlife:/dev# ls /dev/sda*
-/dev/sda  /dev/sda1  /dev/sda2  /dev/sda3  /dev/sda5  /dev/sda6
+# lspci
+00:00.0 Host bridge: Intel Corporation 2nd Generation Core Processor Family DRAM Controller (rev 09)
+00:02.0 VGA compatible controller: Intel Corporation 2nd Generation Core Processor Family Integrated Graphics Controller (rev 09)
+00:16.0 Communication controller: Intel Corporation 6 Series/C200 Series Chipset Family MEI Controller #1 (rev 04)
+00:19.0 Ethernet controller: Intel Corporation 82579LM Gigabit Network Connection (rev 04)
+00:1a.0 USB controller: Intel Corporation 6 Series/C200 Series Chipset Family USB Enhanced Host Controller #2 (rev 04)
+00:1b.0 Audio device: Intel Corporation 6 Series/C200 Series Chipset Family High Definition Audio Controller (rev 04)
+00:1c.0 PCI bridge: Intel Corporation 6 Series/C200 Series Chipset Family PCI Express Root Port 1 (rev b4)
+00:1c.1 PCI bridge: Intel Corporation 6 Series/C200 Series Chipset Family PCI Express Root Port 2 (rev b4)
+00:1c.4 PCI bridge: Intel Corporation 6 Series/C200 Series Chipset Family PCI Express Root Port 5 (rev b4)
+00:1d.0 USB controller: Intel Corporation 6 Series/C200 Series Chipset Family USB Enhanced Host Controller #1 (rev 04)
+00:1f.0 ISA bridge: Intel Corporation QM67 Express Chipset Family LPC Controller (rev 04)
+00:1f.2 SATA controller: Intel Corporation 6 Series/C200 Series Chipset Family 6 port SATA AHCI Controller (rev 04)
+00:1f.3 SMBus: Intel Corporation 6 Series/C200 Series Chipset Family SMBus Controller (rev 04)
+03:00.0 Network controller: Intel Corporation Centrino Wireless-N 1000 [Condor Peak]
+0d:00.0 System peripheral: Ricoh Co Ltd MMC/SD Host Controller (rev 07)
 ````
 
 
-### lsmod, lsusb, lspci
-These commands, list the modules and hardwares on the system.
+#### lsusb
+Shows all the USB devices connected to the system.
+
+````
+# lsusb
+Bus 002 Device 003: ID 1c4f:0026 SiGma Micro Keyboard
+Bus 002 Device 002: ID 8087:0024 Intel Corp. Integrated Rate Matching Hub
+Bus 002 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Bus 001 Device 005: ID 04f2:b217 Chicony Electronics Co., Ltd Lenovo Integrated Camera (0.3MP)
+Bus 001 Device 004: ID 0a5c:217f Broadcom Corp. BCM2045B (BDC-2.1)
+Bus 001 Device 003: ID 192f:0916 Avago Technologies, Pte.
+Bus 001 Device 002: ID 8087:0024 Intel Corp. Integrated Rate Matching Hub
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+````
+
+#### lshw
+Shows hardware. Test it!
+
+### Loadable Kernel Modules
+Linux as any other OS needs drivers to work with hardware. In windows you need to install the drivers separately but in Linux, the system has most of the drivers build-in. But to prevent the kernel from loading all of them at the same time and to decrease the Kernel size, the linux uses Kernel Modules. Loadable kernel modules (. ko files) are object files that are used to extend the kernel of the Linux Distribution. They are used to provide drivers for new hardware like IoT expansion cards that have not been included in the Linux Distribution.
+
+You can inspect the modules using the `lsmod` or manage them via `modprob` commands.
 
 #### lsmod
-Shows kernel modules.
+Shows kernel modules. They are located at `/lib/modules`. 
 
 ````
 root@funlife:/dev# lsmod
@@ -242,68 +304,4 @@ If you need to load some modules every time your system boots do one of the foll
 1. add their name to this file `/etc/modules`
 2. add their config files to the `/etc/modprobe.d/`
 
-#### lspci
-Shows PCI devices that are connected to the computer.
 
-````
-# lspci
-00:00.0 Host bridge: Intel Corporation 2nd Generation Core Processor Family DRAM Controller (rev 09)
-00:02.0 VGA compatible controller: Intel Corporation 2nd Generation Core Processor Family Integrated Graphics Controller (rev 09)
-00:16.0 Communication controller: Intel Corporation 6 Series/C200 Series Chipset Family MEI Controller #1 (rev 04)
-00:19.0 Ethernet controller: Intel Corporation 82579LM Gigabit Network Connection (rev 04)
-00:1a.0 USB controller: Intel Corporation 6 Series/C200 Series Chipset Family USB Enhanced Host Controller #2 (rev 04)
-00:1b.0 Audio device: Intel Corporation 6 Series/C200 Series Chipset Family High Definition Audio Controller (rev 04)
-00:1c.0 PCI bridge: Intel Corporation 6 Series/C200 Series Chipset Family PCI Express Root Port 1 (rev b4)
-00:1c.1 PCI bridge: Intel Corporation 6 Series/C200 Series Chipset Family PCI Express Root Port 2 (rev b4)
-00:1c.4 PCI bridge: Intel Corporation 6 Series/C200 Series Chipset Family PCI Express Root Port 5 (rev b4)
-00:1d.0 USB controller: Intel Corporation 6 Series/C200 Series Chipset Family USB Enhanced Host Controller #1 (rev 04)
-00:1f.0 ISA bridge: Intel Corporation QM67 Express Chipset Family LPC Controller (rev 04)
-00:1f.2 SATA controller: Intel Corporation 6 Series/C200 Series Chipset Family 6 port SATA AHCI Controller (rev 04)
-00:1f.3 SMBus: Intel Corporation 6 Series/C200 Series Chipset Family SMBus Controller (rev 04)
-03:00.0 Network controller: Intel Corporation Centrino Wireless-N 1000 [Condor Peak]
-0d:00.0 System peripheral: Ricoh Co Ltd MMC/SD Host Controller (rev 07)
-````
-
-
-#### lsusb
-Shows all the USB devices connected to the system.
-
-````
-# lsusb
-Bus 002 Device 003: ID 1c4f:0026 SiGma Micro Keyboard
-Bus 002 Device 002: ID 8087:0024 Intel Corp. Integrated Rate Matching Hub
-Bus 002 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
-Bus 001 Device 005: ID 04f2:b217 Chicony Electronics Co., Ltd Lenovo Integrated Camera (0.3MP)
-Bus 001 Device 004: ID 0a5c:217f Broadcom Corp. BCM2045B (BDC-2.1)
-Bus 001 Device 003: ID 192f:0916 Avago Technologies, Pte.
-Bus 001 Device 002: ID 8087:0024 Intel Corp. Integrated Rate Matching Hub
-Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
-````
-
-#### lspcmcia
-Shows available PCMCIA cards on this computer.
-
-#### lshal
-Shows HAL data.
-
-#### lshw
-Shows hardware. Test it!
-
-## Device UUIDs
-Each device has an ID. If you speak about /dev/sda, you are speaking about the "first hard" but if you want a specific drive to be your /home, you have to use UUID.
-
-````
-root@funlife:/dev# cat /proc/mounts
-rootfs / rootfs rw 0 0
-sysfs /sys sysfs rw,nosuid,nodev,noexec,relatime 0 0
-proc /proc proc rw,nosuid,nodev,noexec,relatime 0 0
-udev /dev devtmpfs rw,relatime,size=4014804k,nr_inodes=1003701,mode=755 0 0
-devpts /dev/pts devpts rw,nosuid,noexec,relatime,gid=5,mode=620,ptmxmode=000 0 0
-tmpfs /run tmpfs rw,nosuid,noexec,relatime,size=806028k,mode=755 0 0
-/dev/disk/by-uuid/1651a94e-0b4e-47fb-aca0-f77e05714617 / ext4 rw,relatime,errors=remount-ro,data=ordered 0 0
-````
-
-Every other device has its own ID which can be used to *identify* it.
-
-## hotplug
-Hotplug is when you insert a hardware into a running computer and coldplug is when you have to turn your computer off to install a hardware. USB devices are hot pluggable while PCI cards should be cold-plugged.
